@@ -434,7 +434,9 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   const LIVRES = new Set(Object.values(LIVRE_TEMA));
   const temaDe = cat => cat==='outro' ? 'liberdade' : cat;
   const FUNDOS = [];
-  CATEGORIAS.forEach(([cat])=>{ if(cat==='outro') return; for(let i=1;i<=3;i++) FUNDOS.push({id:`${cat}-${i}`, cat, n:i, sexo:SEXO_FUNDO[`${cat}-${i}`]||'neutro'}); });
+  // Quantas imagens existem por tema (as 3 originais + as novas do Premium, enviadas em 30/10/2026).
+  const QTD_FUNDOS = {carro:6, moto:6, casa:6, celular:5, notebook:4, neve:5, praia:4, liberdade:5, negocio:4, estudos:4};
+  CATEGORIAS.forEach(([cat])=>{ if(cat==='outro') return; for(let i=1;i<=(QTD_FUNDOS[cat]||3);i++) FUNDOS.push({id:`${cat}-${i}`, cat, n:i, sexo:SEXO_FUNDO[`${cat}-${i}`]||'neutro'}); });
   const NO_SITE = LIVRES; // as únicas imagens publicadas no site
   const sexoUsuario = () => { const s=S.perfil&&S.perfil.sexo; return s==='homem'||s==='mulher' ? s : 'neutro'; };
   const fundoLivre = cat => LIVRE_TEMA[cat] || 'praia-1';
