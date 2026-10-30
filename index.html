@@ -482,11 +482,12 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   }
 
   /* ===================== ESTADO ===================== */
-  const lembretesPadrao = () => ({ reserva:true, diaReserva:5, desafio:true, diaDesafio:0, motivacao:3, horaMotivacao:8, progresso:true, alertasGasto:true, pushEventos:true });
+  const lembretesPadrao = () => ({ reserva:true, diaReserva:5, desafio:true, diaDesafio:0, motivacao:7, motDiaria:true, horaMotivacao:8, progresso:true, alertasGasto:true, pushEventos:true });
   const vazio = () => ({ versao:2, onboarding:false, cofres:[], movs:[], d30:[], desafio30:{inicio:null}, d52:{base:5,feitas:[]}, dividas:[], marcos:{}, lembretes:lembretesPadrao(), perfil:null });
   let S = vazio();
   // Desafio de 30 dias: começa no dia em que a pessoa decide entrar.
   function normalizar(){
+    if(S.lembretes && !S.lembretes.motDiaria){ if(S.lembretes.motivacao) S.lembretes.motivacao=7; S.lembretes.motDiaria=true; } // Premium: motivação todo dia
     if(!S.desafio30){ S.desafio30={inicio:null}; S.d30=[]; } // dados antigos (calendário corrido) são descartados
     S.d30 = (S.d30||[]).filter(d=>S.desafio30.inicio && d>=S.desafio30.inicio);
   }
@@ -847,7 +848,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       <div class="cartao" style="gap:0">
         <div class="interruptor"><span><b>Dia da reserva mensal</b><br><span class="nota">Às 9h, no dia que você escolher</span></span><span class="juntos"><select id="lDia" aria-label="Dia do mês">${Array.from({length:28},(_,i)=>`<option value="${i+1}" ${L.diaReserva===i+1?'selected':''}>Dia ${i+1}</option>`).join('')}</select><input type="checkbox" id="lRes" aria-label="Lembrete da reserva" ${L.reserva?'checked':''}></span></div>
         <div class="interruptor"><span><b>Desafio da semana</b><br><span class="nota">Às 19h</span></span><span class="juntos"><select id="lSem" aria-label="Dia da semana">${SEM.map((s,i)=>`<option value="${i}" ${L.diaDesafio===i?'selected':''}>${s}</option>`).join('')}</select><input type="checkbox" id="lDes" aria-label="Lembrete do desafio" ${L.desafio?'checked':''}></span></div>
-        <div class="interruptor"><span><b>Motivação</b><br><span class="nota">Frase para começar o dia</span></span><span class="juntos"><select id="lMot" aria-label="Frequência">${[[0,'Desligado'],[2,'2x por semana'],[3,'3x por semana'],[5,'Dias úteis']].map(([v,t])=>`<option value="${v}" ${L.motivacao===v?'selected':''}>${t}</option>`).join('')}</select><select id="lHora" aria-label="Horário">${[7,8,9,12,18,20].map(h=>`<option value="${h}" ${L.horaMotivacao===h?'selected':''}>${h}h</option>`).join('')}</select></span></div>
+        <div class="interruptor"><span><b>Motivação</b><br><span class="nota">Frase para começar o dia</span></span><span class="juntos"><select id="lMot" aria-label="Frequência">${[[0,'Desligado'],[2,'2x por semana'],[3,'3x por semana'],[5,'Dias úteis'],[7,'Todo dia']].map(([v,t])=>`<option value="${v}" ${L.motivacao===v?'selected':''}>${t}</option>`).join('')}</select><select id="lHora" aria-label="Horário">${[7,8,9,12,18,20].map(h=>`<option value="${h}" ${L.horaMotivacao===h?'selected':''}>${h}h</option>`).join('')}</select></span></div>
         <div class="interruptor"><span><b>Como você está indo</b><br><span class="nota">Aos domingos: parabéns quando estiver bem, um toque quando parar</span></span><input type="checkbox" id="lPro" aria-label="Resumo do progresso" ${L.progresso?'checked':''}></div>
         <div class="interruptor"><span><b>Depósitos e metas no celular</b><br><span class="nota">A mensagem chega na tela de bloqueio uns segundos depois. Bloqueie a tela e veja chegar.</span></span><input type="checkbox" id="lEve" aria-label="Notificar depósitos e metas no celular" ${L.pushEventos?'checked':''}></div>
         <div class="interruptor"><span><b>Alertas de gasto por impulso</b><br><span class="nota">Quando lançar delivery, lazer ou compras</span></span><input type="checkbox" id="lGas" aria-label="Alertas de gasto" ${L.alertasGasto?'checked':''}></div>
