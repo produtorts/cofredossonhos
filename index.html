@@ -430,14 +430,14 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   const CENA_DA_CAT = {carro:'estrada',moto:'estrada',casa:'neve',celular:'cidade',notebook:'cidade',neve:'neve',praia:'mar',liberdade:'aurora',negocio:'cidade',estudos:'cidade',outro:'aurora'};
   const SEXO_FUNDO = {"carro-1": "homem", "carro-2": "neutro", "carro-3": "neutro", "moto-1": "homem", "moto-2": "homem", "moto-3": "neutro", "casa-1": "neutro", "casa-2": "neutro", "casa-3": "homem", "celular-1": "neutro", "celular-2": "homem", "celular-3": "neutro", "notebook-1": "neutro", "notebook-2": "neutro", "notebook-3": "homem", "neve-1": "mulher", "neve-2": "homem", "neve-3": "homem", "praia-1": "neutro", "praia-2": "mulher", "praia-3": "homem", "liberdade-1": "homem", "liberdade-2": "neutro", "liberdade-3": "mulher", "negocio-1": "homem", "negocio-2": "homem", "negocio-3": "mulher", "estudos-1": "homem", "estudos-2": "homem", "estudos-3": "neutro"};
   // Plano básico: estas 7 imagens, iguais para todo mundo. Temas sem imagem própria usam a mais próxima.
-  const LIVRE_TEMA = {carro:'carro-1', moto:'moto-1', celular:'celular-3', notebook:'notebook-3', neve:'neve-2', praia:'praia-3', estudos:'estudos-1', casa:'neve-2', liberdade:'praia-3', negocio:'notebook-3', outro:'praia-3'};
+  const LIVRE_TEMA = {carro:'carro-3', moto:'moto-1', casa:'casa-2', celular:'celular-3', notebook:'notebook-3', neve:'neve-3', praia:'praia-1', liberdade:'praia-1', negocio:'notebook-3', estudos:'notebook-3', outro:'praia-1'};
   const LIVRES = new Set(Object.values(LIVRE_TEMA));
   const temaDe = cat => cat==='outro' ? 'liberdade' : cat;
   const FUNDOS = [];
   CATEGORIAS.forEach(([cat])=>{ if(cat==='outro') return; for(let i=1;i<=3;i++) FUNDOS.push({id:`${cat}-${i}`, cat, n:i, sexo:SEXO_FUNDO[`${cat}-${i}`]||'neutro'}); });
   const NO_SITE = LIVRES; // as únicas imagens publicadas no site
   const sexoUsuario = () => { const s=S.perfil&&S.perfil.sexo; return s==='homem'||s==='mulher' ? s : 'neutro'; };
-  const fundoLivre = cat => LIVRE_TEMA[cat] || 'praia-3';
+  const fundoLivre = cat => LIVRE_TEMA[cat] || 'praia-1';
   const fundoPorId = id => FUNDOS.find(f=>f.id===id);
   const fundosDaCat = cat => { const l=fundoPorId(fundoLivre(cat)); return [l].concat(FUNDOS.filter(f=>f.cat===temaDe(cat) && f!==l)); };
   const fundoPodeUsar = f => !!f && (P().todosFundos || LIVRES.has(f.id));
