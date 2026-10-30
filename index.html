@@ -871,30 +871,68 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
         <div class="casas">${Array.from({length:52},(_,i)=>i+1).map(w=>`<button data-acao="d52" data-w="${w}" aria-pressed="${S.d52.feitas.includes(w)}">${brl(w*b)}</button>`).join('')}</div>`:`<button class="ouro" data-acao="planos">Destravar no Premium</button>`}</div>`;
     const inp=$('#d52Base'); if(inp) inp.onchange=e=>{ S.d52.base=Math.max(1,Math.round(+e.target.value||1)); Dados.salvar(); renderDesafios(corpo,voltar); };
   }
+  // Taxas reais do Banco Central (CDI e Selic), com valor de reserva se a internet falhar.
+  const TAXAS_RESERVA = { cdi:13.65, selic:13.75, data:'out/2026', reserva:true };
+  let taxas = (()=>{ try{ const t=JSON.parse(lsLer('cofre2-taxas')||'null'); if(t && Date.now()-t.salvo<12*3600e3) return t; }catch(e){} return null; })();
+  async function buscarTaxas(){
+    if(taxas && !taxas.reserva) return taxas;
+    if(CFG.supabaseUrl){ try{ const r=await fetch(CFG.supabaseUrl+'/functions/v1/taxas'); const j=await r.json(); if(j && j.cdi>0){ taxas={...j, salvo:Date.now()}; lsGravar('cofre2-taxas', JSON.stringify(taxas)); return taxas; } }catch(e){} }
+    return taxas || TAXAS_RESERVA;
+  }
+  // IR regressivo da renda fixa (CDB) pelo prazo; poupança é isenta.
+  const aliquotaIR = anos => anos*365<=180 ? .225 : anos*365<=360 ? .20 : anos*365<=720 ? .175 : .15;
+  const fmtPct = v => (Math.round(v*100)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
   function renderSimulador(corpo,voltar){
+    const tx0 = taxas || TAXAS_RESERVA;
     corpo.innerHTML=`${voltar}<h2>Seu dinheiro trabalhando</h2><div class="cartao">
       <div class="duas"><label for="sI">Já tenho (R$)<input id="sI" type="number" min="0" step="10" value="1000"></label><label for="sM">Guardo por mês (R$)<input id="sM" type="number" min="0" step="10" value="300"></label></div>
-      <div class="duas"><label for="sA">Por quantos anos<input id="sA" type="number" min="1" max="40" value="5"></label><label for="sT">Rendimento ao ano (%)<input id="sT" type="number" min="0" max="40" step="0.1" value="10"></label></div>
-      <div class="duas"><div><span class="nota">Você terá</span><b class="num" id="sF" style="display:block;font-family:var(--display);font-weight:400;font-size:26px"></b></div><div><span class="nota">Só de rendimento</span><b class="num" id="sJ" style="display:block;font-family:var(--display);font-weight:400;font-size:26px;color:var(--ouro)"></b></div></div>
+      <div class="duas"><label for="sA">Por quantos anos<input id="sA" type="number" min="1" max="40" value="5"></label>
+        <label for="sOnde">Onde vai render<select id="sOnde"><option value="cdb">CDB 100% do CDI (liquidez diária)</option><option value="poup">Poupança</option><option value="outro">Outra taxa (eu escolho)</option></select></label></div>
+      <label for="sT" id="sTWrap" hidden>Rendimento ao ano (%)<input id="sT" type="number" min="0" max="40" step="0.1" value="${(Math.round(tx0.cdi*10)/10)}"></label>
+      <p class="nota" id="sTaxa"></p>
+      <div class="duas"><div><span class="nota" id="sFRot">Você terá</span><b class="num" id="sF" style="display:block;font-family:var(--display);font-weight:400;font-size:26px"></b></div><div><span class="nota">Só de rendimento</span><b class="num" id="sJ" style="display:block;font-family:var(--display);font-weight:400;font-size:26px;color:var(--ouro)"></b></div></div>
+      <p class="nota" id="sComp" style="color:var(--gelo)"></p>
       <canvas class="grafico" id="sG" role="img" aria-label="Crescimento do dinheiro ao longo dos anos"></canvas>
       <div class="juntos nota"><span><b style="color:var(--nevoa)">■</b> o que você guardou</span><span><b style="color:var(--ouro)">■</b> total com rendimento</span></div>
-      <p class="nota">Simulação educativa com taxa fixa escolhida por você. Rendimentos reais variam; confira as taxas atuais antes de decidir. Não é recomendação de investimento.</p></div>
+      <p class="nota">Simulação educativa com a taxa atual mantida pelo período todo. Na vida real a taxa muda com a Selic, e cada banco paga um percentual do CDI. A maioria dos bancos digitais paga 100% do CDI em CDB com liquidez diária. Não é recomendação de investimento.</p></div>
       <div class="cartao"><h3>Antes de investir</h3><ul class="lista">
-        <li><span><b>Reserva de emergência primeiro:</b> de 3 a 6 meses do seu custo de vida, num lugar em que você saca rápido.</span></li>
+        <li><span><b>Reserva de emergência primeiro:</b> de 3 a 6 meses do seu custo de vida, num lugar em que você saca rápido, como um CDB com liquidez diária.</span></li>
         <li><span><b>Juros compostos:</b> o rendimento também passa a render. Tempo pesa mais que valor.</span></li>
+        <li><span><b>Garantia do FGC:</b> CDB de banco é protegido pelo Fundo Garantidor até R$ 250 mil por pessoa, por instituição.</span></li>
         <li><span><b>Desconfie:</b> promessa de ganho alto e garantido costuma ser golpe.</span></li></ul></div>`;
-    const calc=()=>{ const ini=+$('#sI').value||0, men=+$('#sM').value||0, anos=Math.min(40,Math.max(1,+$('#sA').value||1)), tx=+$('#sT').value||0, im=Math.pow(1+tx/100,1/12)-1;
-      let v=ini; const pts=[{i:ini,t:ini}]; for(let m=1;m<=anos*12;m++){ v=v*(1+im)+men; if(m%12===0) pts.push({i:ini+men*m,t:v}); }
-      const fim=pts.at(-1); $('#sF').textContent=brl(Math.round(fim.t)); $('#sJ').textContent=brl(Math.round(fim.t-fim.i));
+    let tx = tx0;
+    const simular=(ini,men,anos,taxaAno)=>{ const im=Math.pow(1+taxaAno/100,1/12)-1; let v=ini; const pts=[{i:ini,t:ini}]; for(let m=1;m<=anos*12;m++){ v=v*(1+im)+men; if(m%12===0) pts.push({i:ini+men*m,t:v}); } return pts; };
+    const calc=()=>{
+      const ini=+$('#sI').value||0, men=+$('#sM').value||0, anos=Math.min(40,Math.max(1,+$('#sA').value||1)), onde=$('#sOnde').value;
+      const poupAno=(Math.pow(1.005,12)-1)*100; // 0,5% ao mês (regra com Selic acima de 8,5%), sem TR
+      $('#sTWrap').hidden = onde!=='outro';
+      let taxaAno, ir=0;
+      if(onde==='cdb'){ taxaAno=tx.cdi; ir=aliquotaIR(anos); }
+      else if(onde==='poup'){ taxaAno=poupAno; }
+      else { taxaAno=+$('#sT').value||0; ir=aliquotaIR(anos); }
+      const fonte = tx.reserva ? `referência de ${tx.data}` : `Banco Central, ${tx.data}`;
+      $('#sTaxa').innerHTML = onde==='cdb' ? `CDI hoje: <b style="color:var(--gelo)">${fmtPct(tx.cdi)} ao ano</b> (${fonte}). Selic: ${fmtPct(tx.selic)}. Imposto de Renda de ${fmtPct(ir*100)} sobre o rendimento já descontado.`
+        : onde==='poup' ? `Poupança: 0,5% ao mês (cerca de ${fmtPct(poupAno)} ao ano) + TR, isenta de Imposto de Renda.`
+        : `Imposto de Renda de ${fmtPct(ir*100)} sobre o rendimento já descontado (regra do CDB para esse prazo).`;
+      const pts=simular(ini,men,anos,taxaAno); const fim=pts.at(-1);
+      const liquido = t => { const ganho=t-fim.i; return fim.i + ganho*(1-ir); };
+      const pl = pts.map(p=>({i:p.i, t:p.i+(p.t-p.i)*(1-ir)}));
+      const total=liquido(fim.t);
+      $('#sFRot').textContent = ir ? 'Você terá (já sem o IR)' : 'Você terá';
+      $('#sF').textContent=brl(Math.round(total)); $('#sJ').textContent=brl(Math.round(total-fim.i));
+      if(onde!=='poup'){ const pp=simular(ini,men,anos,poupAno).at(-1); const dif=total-pp.t; $('#sComp').innerHTML = dif>0 ? `Na poupança você teria ${brl(Math.round(pp.t))}: <b style="color:var(--ouro)">${brl(Math.round(dif))} a menos</b>.` : ''; }
+      else { const cdbFim=simular(ini,men,anos,tx.cdi).at(-1); const cdbLiq=cdbFim.i+(cdbFim.t-cdbFim.i)*(1-aliquotaIR(anos)); $('#sComp').innerHTML = cdbLiq>total ? `Num CDB 100% do CDI você teria ${brl(Math.round(cdbLiq))}: <b style="color:var(--ouro)">${brl(Math.round(cdbLiq-total))} a mais</b>, mesmo pagando IR.` : ''; }
       const cv=$('#sG'), dpr=devicePixelRatio||1, W=cv.clientWidth||320, H=170; cv.width=W*dpr; cv.height=H*dpr; const ctx=cv.getContext('2d'); ctx.scale(dpr,dpr);
-      const L=6,R=W-6,T=12,B=H-20, mx=Math.max(1,...pts.map(p=>p.t)), X=i=>L+(R-L)*i/(pts.length-1||1), Y=v=>B-(B-T)*v/mx;
+      const L=6,R=W-6,T=12,B=H-20, mx=Math.max(1,...pl.map(p=>p.t)), X=i=>L+(R-L)*i/(pl.length-1||1), Y=v=>B-(B-T)*v/mx;
       ctx.strokeStyle='#27324f'; [0,.5,1].forEach(f=>{ ctx.beginPath(); ctx.moveTo(L,Y(mx*f)); ctx.lineTo(R,Y(mx*f)); ctx.stroke(); });
-      const area=(k,cor,fill)=>{ ctx.beginPath(); pts.forEach((p,i)=>i?ctx.lineTo(X(i),Y(p[k])):ctx.moveTo(X(i),Y(p[k]))); ctx.strokeStyle=cor; ctx.lineWidth=2; ctx.stroke(); ctx.lineTo(X(pts.length-1),B); ctx.lineTo(X(0),B); ctx.closePath(); ctx.fillStyle=fill; ctx.fill(); };
+      const area=(k,cor,fill)=>{ ctx.beginPath(); pl.forEach((p,i)=>i?ctx.lineTo(X(i),Y(p[k])):ctx.moveTo(X(i),Y(p[k]))); ctx.strokeStyle=cor; ctx.lineWidth=2; ctx.stroke(); ctx.lineTo(X(pl.length-1),B); ctx.lineTo(X(0),B); ctx.closePath(); ctx.fillStyle=fill; ctx.fill(); };
       area('t','#e2c48a','rgba(226,196,138,.16)'); area('i','#9aa6be','rgba(154,166,190,.1)');
-      ctx.fillStyle='#e2c48a'; ctx.beginPath(); ctx.arc(X(pts.length-1),Y(fim.t),4,0,7); ctx.fill();
+      ctx.fillStyle='#e2c48a'; ctx.beginPath(); ctx.arc(X(pl.length-1),Y(total),4,0,7); ctx.fill();
       ctx.fillStyle='#9aa6be'; ctx.font='11px Manrope, sans-serif'; ctx.textAlign='left'; ctx.fillText('hoje',L,H-5); ctx.textAlign='right'; ctx.fillText(anos+(anos>1?' anos':' ano'),R,H-5); };
-    ['#sI','#sM','#sA','#sT'].forEach(s=>$(s).addEventListener('input',calc)); calc();
+    ['#sI','#sM','#sA','#sT','#sOnde'].forEach(s=>$(s).addEventListener('input',calc)); calc();
+    buscarTaxas().then(t=>{ if(t && t!==tx && document.body.contains($('#sF'))){ tx=t; calc(); } });
   }
+
   function renderLembretes(corpo,voltar){
     const L=S.lembretes=Object.assign(lembretesPadrao(), S.lembretes||{});
     const SEM=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
