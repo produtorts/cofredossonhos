@@ -112,6 +112,9 @@ input,select{font:inherit;font-size:16px;color:var(--gelo);background:var(--noit
 .layouts button{flex-direction:column;gap:2px;border-radius:12px;padding:10px 4px;font-size:12.5px}
 .layouts button[aria-pressed="true"]{border-color:var(--ouro);color:var(--ouro)}
 @media (max-width:420px){.estudio{grid-template-columns:120px 1fr}}
+.so-pc{display:none}
+.estudio.pc{grid-template-columns:1fr}
+.estudio.pc canvas{aspect-ratio:16/9}
 
 /* mais */
 .menu{display:flex;flex-direction:column}
@@ -194,6 +197,35 @@ canvas.confete{position:fixed;inset:0;width:100%;height:100%;pointer-events:none
 .interruptor input[type=checkbox]:checked::after{left:21px;background:var(--ouro-tinta)}
 .interruptor select{width:auto;padding:8px 10px;font-size:14px}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+/* Computador: menu na lateral, duas colunas, janelas no centro */
+@media (min-width:1000px){
+  body{padding:0 32px 40px 292px}
+  .app{max-width:1120px}
+  nav.abas{top:0;bottom:0;right:auto;width:260px;border-top:0;border-right:1px solid var(--linha);padding:96px 18px 24px;background:var(--ardosia)}
+  nav.abas .dentro{display:flex;flex-direction:column;align-items:stretch;gap:6px;max-width:none}
+  nav.abas button{flex-direction:row;justify-content:flex-start;gap:12px;font-size:15px;padding:12px 14px;border-radius:14px}
+  nav.abas button:hover{background:rgba(255,255,255,.04);color:var(--gelo)}
+  nav.abas button[aria-current="page"]{background:rgba(226,196,138,.1)}
+  nav.abas .guardar{order:-1;width:auto;height:auto;margin:0 0 14px;border-radius:14px;padding:14px;justify-content:center;font-size:15px;box-shadow:none}
+  nav.abas .guardar:hover{background:#ecd3a1;color:var(--ouro-tinta)}
+  .so-pc{display:inline}
+  .topo{padding-block:26px 10px}
+  section.tela{gap:22px}
+  #t-inicio{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:start;column-gap:24px}
+  #t-inicio > #ola, #t-inicio > #avisoEntrar, #t-inicio > #faixaSituacao{grid-column:1 / -1}
+  #t-inicio > #heroi{grid-column:1;grid-row:span 3}
+  #t-inicio > :not(#ola):not(#avisoEntrar):not(#faixaSituacao):not(#heroi){grid-column:2}
+  #faixaSituacao:empty, #avisoEntrar[hidden], #ola[hidden]{display:none}
+  .heroi{min-height:520px}
+  #listaCofres{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .estudio{grid-template-columns:300px 1fr;gap:28px}
+  .estudio.pc{grid-template-columns:minmax(0,1fr) 260px}
+  #maisCorpo{max-width:760px}
+  .fundo-folha{align-items:center;padding:24px}
+  .folha{border-radius:22px;max-height:86vh;padding-bottom:22px}
+  .folha .alca{display:none}
+  .aviso{bottom:32px}
+}
 </style>
 
 <div class="app" id="app">
@@ -245,7 +277,7 @@ canvas.confete{position:fixed;inset:0;width:100%;height:100%;pointer-events:none
   <div class="dentro">
     <button data-aba="inicio" aria-current="page"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg>Início</button>
     <button data-aba="cofres"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2"/><circle cx="12" cy="11" r="1.8"/><path d="M11.2 12.6h1.6l.5 3.2h-2.6z"/></svg>Cofres</button>
-    <button class="guardar" data-acao="guardar" aria-label="Guardar dinheiro"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button class="guardar" data-acao="guardar" aria-label="Guardar dinheiro"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="so-pc">Guardar dinheiro</span></button>
     <button data-aba="estudio"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9 15l2-2 2 2 2-3"/><path d="M10.5 18.5h3"/></svg>Estúdio</button>
     <button data-aba="mais"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg>Mais</button>
   </div>
@@ -653,7 +685,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   const cadeadoSvg = () => '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 
   /* ---------- estúdio ---------- */
-  let est = { cofreId:null, fundo:null, layout:'minimal' };
+  let est = { cofreId:null, fundo:null, layout:'minimal', formato:(matchMedia('(min-width: 1000px)').matches?'pc':'celular') };
   function renderEstudio(){
     const corpo=$('#estudioCorpo');
     if(!S.cofres.length){ corpo.innerHTML=`<div class="vazio"><p>Crie uma conquista para gerar o seu wallpaper.</p><button class="ouro" data-acao="novo-cofre">Criar conquista</button></div>`; return; }
@@ -662,11 +694,16 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     if(!fundoPodeUsar(fundoPorId(est.fundo))) est.fundo = fundoDoCofre(c).id;
     if(!P().layouts.includes(est.layout)) est.layout='minimal';
     const fs0 = fundosDaCat(c.cat), fs = fs0.concat(P().todosFundos ? FUNDOS.filter(f=>!fs0.includes(f)) : []);
-    corpo.innerHTML=`<div class="estudio"><canvas id="telaWp" aria-label="Prévia do wallpaper" role="img"></canvas>
+    if(est.formato==='pc' && !P().todosFundos) est.formato='celular';
+    corpo.innerHTML=`<div class="estudio ${est.formato==='pc'?'pc':''}"><canvas id="telaWp" aria-label="Prévia do wallpaper" role="img"></canvas>
       <div class="lado">
+        <div><span class="sobre">Formato</span><div class="layouts" style="margin-top:6px">
+          <button data-acao="wp-formato" data-f="celular" aria-pressed="${est.formato==='celular'}">Celular</button>
+          <button data-acao="wp-formato" data-f="pc" aria-pressed="${est.formato==='pc'}">Computador${P().todosFundos?'':`<span class="cadeado">${cadeadoSvg()}</span>`}</button>
+        </div></div>
         ${S.cofres.length>1?`<label for="wpCofre">Conquista<select id="wpCofre">${S.cofres.map(x=>`<option value="${x.id}" ${x.id===c.id?'selected':''}>${esc(x.nome)}</option>`).join('')}</select></label>`:`<div><span class="sobre">Conquista</span><p style="font-weight:700">${esc(c.nome)}</p></div>`}
         <div><span class="sobre">Estilo</span><div class="layouts" style="margin-top:6px">
-          ${[['minimal','Minimal'],['disco','Disco'],['frase','Frase']].map(([id,n])=>{ const ok=P().layouts.includes(id); return `<button data-acao="wp-layout" data-l="${id}" aria-pressed="${est.layout===id}">${n}${ok?'':`<span class="cadeado">${cadeadoSvg()}</span>`}</button>`; }).join('')}
+          ${(est.formato==='pc'?[['minimal','Minimal']]:[['minimal','Minimal'],['disco','Disco'],['frase','Frase']]).map(([id,n])=>{ const ok=P().layouts.includes(id); return `<button data-acao="wp-layout" data-l="${id}" aria-pressed="${est.layout===id}">${n}${ok?'':`<span class="cadeado">${cadeadoSvg()}</span>`}</button>`; }).join('')}
         </div></div>
         <button class="ouro" id="wpSalvar">Salvar em 4K</button>
         <p class="nota" id="wpMsg"></p>
@@ -675,12 +712,34 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
         <div class="grade-fundos" style="margin-top:8px">${fs.map(f=>`<button data-acao="wp-fundo" data-f="${f.id}" aria-pressed="${est.fundo===f.id}" aria-label="Fundo ${f.n} ${nomeCat(f.cat)}${fundoPodeUsar(f)?'':' (Premium)'}"><img alt="" src="${miniFundo(f,120,214)}">${fundoPodeUsar(f)?'':`<span class="tranca"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>`}</button>`).join('')}</div>
         ${P().foto?`<p class="nota" style="margin-top:8px">Quer usar a foto do seu modelo exato? Edite a conquista e envie a foto.</p>`:`<p class="nota" style="margin-top:8px">No Premium: todos os fundos, os estilos Disco e Frase e a foto do seu modelo exato.</p>`}
       </div>`;
-    desenharWallpaper($('#telaWp'), c, est.fundo, est.layout, 0.25);
+    desenharWallpaper($('#telaWp'), c, est.fundo, est.layout, 0.25, est.formato);
     const sel=$('#wpCofre'); if(sel) sel.onchange=e=>{ est.cofreId=e.target.value; est.fundo=null; renderEstudio(); };
     $('#wpSalvar').onclick=()=>salvarWallpaper(c);
   }
   function quebrar(ctx, t, max){ const ps=t.split(' '), ls=[]; let l=''; ps.forEach(p=>{ const x=l?l+' '+p:p; if(ctx.measureText(x).width>max&&l){ ls.push(l); l=p; } else l=x; }); if(l) ls.push(l); return ls; }
-  async function desenharWallpaper(cv, c, fundoId, layout, escala){
+  // Wallpaper para computador: 16:9, 4K (3840x2160 ao salvar).
+  async function desenharWallpaperPC(cv, c, fundoId, escala){
+    const W=1920,H=1080, k=escala*2; cv.width=Math.round(W*k); cv.height=Math.round(H*k); const ctx=cv.getContext('2d'); ctx.scale(k,k);
+    try{ await Promise.all([document.fonts.load('400 100px "DM Serif Display"'),document.fonts.load('italic 400 60px "DM Serif Display"'),document.fonts.load('800 40px Manrope'),document.fonts.load('600 30px Manrope')]); }catch(e){}
+    const usarFoto = P().foto && fotos[c.id] && fundoId===fundoDoCofre(c).id && c.usarFoto;
+    let im=null;
+    if(usarFoto){ im=new Image(); await new Promise(r=>{ im.onload=r; im.onerror=r; im.src=fotos[c.id]; }); }
+    else { const f=fundoPodeUsar(fundoPorId(fundoId)) ? fundoPorId(fundoId) : fundoDoCofre(c); im=await imagemFundo(f); if(!im){ const {cena,v}=fundoCena(f); desenharCena(ctx,W,H,cena,v); } }
+    if(im && im.width){ const s=Math.max(W/im.width,H/im.height), dw=im.width*s, dh=im.height*s; ctx.drawImage(im,(W-dw)/2,Math.min(0,Math.max(H-dh,(H-dh)*0.55)),dw,dh); }
+    const esq=ctx.createLinearGradient(0,0,W*.62,0); esq.addColorStop(0,'rgba(6,9,20,.92)'); esq.addColorStop(.55,'rgba(6,9,20,.6)'); esq.addColorStop(1,'rgba(6,9,20,0)'); ctx.fillStyle=esq; ctx.fillRect(0,0,W,H);
+    const base=ctx.createLinearGradient(0,H*.7,0,H); base.addColorStop(0,'rgba(6,9,20,0)'); base.addColorStop(1,'rgba(6,9,20,.6)'); ctx.fillStyle=base; ctx.fillRect(0,0,W,H);
+    const p=pct(c), x=128, larg=700, ouro='#e2c48a';
+    let y=H*.36; ctx.textAlign='left'; ctx.fillStyle=ouro; ctx.font='800 24px Manrope, sans-serif'; ctx.fillText('MINHA PRÓXIMA CONQUISTA', x, y);
+    y+=96; ctx.fillStyle='#fff'; ctx.font='400 92px "DM Serif Display", Georgia, serif'; quebrar(ctx,c.nome,larg).slice(0,2).forEach(l=>{ ctx.fillText(l,x,y); y+=98; });
+    y+=4; ctx.fillStyle='rgba(255,255,255,.18)'; ctx.beginPath(); ctx.roundRect(x,y,larg,16,8); ctx.fill();
+    const g=ctx.createLinearGradient(x,0,x+larg,0); g.addColorStop(0,'#c9a45f'); g.addColorStop(1,'#f3e2b9'); ctx.fillStyle=p>=100?'#7fe0c9':g; ctx.beginPath(); ctx.roundRect(x,y,Math.max(16,larg*p/100),16,8); ctx.fill();
+    y+=62; ctx.fillStyle='#fff'; ctx.font='800 38px Manrope, sans-serif'; ctx.fillText(p+'%', x, y);
+    ctx.fillStyle='rgba(255,255,255,.8)'; ctx.font='600 30px Manrope, sans-serif'; ctx.textAlign='right'; ctx.fillText(`${brl(c.guardado)} de ${brl(c.meta)}`, x+larg, y); ctx.textAlign='left';
+    y+=84; ctx.fillStyle='rgba(255,255,255,.9)'; ctx.font='italic 400 40px "DM Serif Display", Georgia, serif'; quebrar(ctx,'“'+fraseDoDia()+'”',larg).slice(0,3).forEach(l=>{ ctx.fillText(l,x,y); y+=52; });
+    ctx.fillStyle='rgba(255,255,255,.55)'; ctx.font='600 20px Manrope, sans-serif'; ctx.fillText('COFRE DOS SONHOS  ·  @inspiradiariooficial', x, H-64);
+  }
+  async function desenharWallpaper(cv, c, fundoId, layout, escala, formato){
+    if(formato==='pc') return desenharWallpaperPC(cv, c, fundoId, escala);
     const W=1080,H=1920, k=escala*2; cv.width=Math.round(W*k); cv.height=Math.round(H*k); const ctx=cv.getContext('2d'); ctx.scale(k,k);
     try{ await Promise.all([document.fonts.load('400 100px "DM Serif Display"'),document.fonts.load('italic 400 60px "DM Serif Display"'),document.fonts.load('800 40px Manrope'),document.fonts.load('600 30px Manrope')]); }catch(e){}
     const usarFoto = P().foto && fotos[c.id] && fundoId===fundoDoCofre(c).id && c.usarFoto;
@@ -721,8 +780,8 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   async function salvarWallpaper(c){
     if(exigirAcesso()) return;
     const btn=$('#wpSalvar'), msg=$('#wpMsg'); btn.disabled=true; msg.textContent='Gerando em 4K…';
-    const cv=document.createElement('canvas'); await desenharWallpaper(cv, c, est.fundo, est.layout, 1);
-    const nome='conquista-'+c.nome.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.png';
+    const cv=document.createElement('canvas'); await desenharWallpaper(cv, c, est.fundo, est.layout, 1, est.formato);
+    const nome='conquista-'+c.nome.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+(est.formato==='pc'?'-computador':'')+'.png';
     cv.toBlob(async blob=>{
       try{
         const dl = window.claude ? await window.claude.use?.('downloads').catch(()=>null) : null;
@@ -1152,6 +1211,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       case 'editar-cofre': fecharFolhas(); formConquista(c); break;
       case 'wallpaper': fecharFolhas(); document.querySelectorAll('.celebra,.confete').forEach(x=>x.remove()); est.cofreId=c.id; est.fundo=null; renderEstudio(); irAba('estudio'); break;
       case 'wp-fundo': { const f=fundoPorId(b.dataset.f); if(!fundoPodeUsar(f)){ abrirPlanos('Este fundo é do Premium'); break; } est.fundo=f.id; const cf=S.cofres.find(x=>x.id===est.cofreId); if(cf){ cf.fundo=f.id; Dados.salvar(); } renderEstudio(); renderInicio(); renderCofres(); break; }
+      case 'wp-formato': if(b.dataset.f==='pc' && !P().todosFundos){ abrirPlanos('Wallpaper para computador é do Premium'); break; } est.formato=b.dataset.f; renderEstudio(); break;
       case 'wp-layout': if(!P().layouts.includes(b.dataset.l)){ abrirPlanos('Este estilo é do Premium'); break; } est.layout=b.dataset.l; renderEstudio(); break;
       case 'planos': abrirPlanos(); break;
       case 'perfil': pedirPerfil(); break;
