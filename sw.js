@@ -7,8 +7,8 @@ self.addEventListener('push', (e) => {
   try { d = e.data ? e.data.json() : {}; } catch (_) { d = { titulo: 'Cofre dos Sonhos', texto: e.data ? e.data.text() : '' }; }
   e.waitUntil(self.registration.showNotification(d.titulo || 'Cofre dos Sonhos', {
     body: d.texto || '',
-    icon: 'icone-192.png',
-    badge: 'icone-badge.png',
+    icon: 'icone-192-v2.png',
+    badge: 'icone-badge-v2.png',
     tag: d.tag || 'cofre',
     data: { url: d.url || './' }
   }));
