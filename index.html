@@ -1,0 +1,1100 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c1222"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="Cofre dos Sonhos"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" href="icone-192.png"><script>window.COFRE_CONFIG={supabaseUrl:"https://rvkziyvihxweyrqnhuuh.supabase.co",supabaseAnonKey:"sb_publishable_LHIUAPcrjo-5A62OVVAe6w_qfPlIAjv",linkCompraEntrada:"",linkComunidade:"",vapidPublica:"BKEmqj4nWni1jQ4seN10uUrrIQnGPRISNZyZhGWbTgGY_niFoL6Q3_0ahCUdxRGCKDS6opYH8UzBrkaMJ-J9Nhc",pastaFundos:"fundos/",loginSenha:true,vendasAbertas:false};</script><meta name="robots" content="noindex,nofollow"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Cofre dos Sonhos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Identidade Cofre dos Sonhos: noite polar + ouro champanhe + aurora. Elemento-assinatura: o "disco do cofre" (anel com marcações de segredo) que enche conforme a conquista.
+   Layout: app de uma coluna para celular, 4 abas + botão central "Guardar". Visual escuro único, por escolha de marca. */
+:root{
+  --noite:#0c1222; --ardosia:#141c31; --cartao:#19223b; --linha:#27324f;
+  --gelo:#edf1f8; --nevoa:#9aa6be; --ouro:#e2c48a; --ouro-forte:#c9a45f; --ouro-tinta:#1d1608;
+  --aurora:#7fe0c9; --alerta:#f2a07b; --perigo:#ef8d8d;
+  --display:"DM Serif Display", Georgia, "Times New Roman", serif;
+  --texto:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --raio:18px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--noite);color:var(--gelo)}
+body{font-family:var(--texto);font-size:15px;line-height:1.5;margin:0;
+  padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px));
+  padding-block:0 calc(104px + env(safe-area-inset-bottom,0px))}
+.app{max-width:560px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance}
+h1{font-size:32px;line-height:1.08} h2{font-size:25px;line-height:1.15} h3{font-size:19px;line-height:1.2}
+p{margin:0}
+.sobre{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);font-weight:700}
+.fraco{color:var(--nevoa)} .num{font-variant-numeric:tabular-nums}
+.pilha{display:flex;flex-direction:column;gap:14px}
+.linha{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.juntos{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+/* topo */
+.topo{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:18px 6px}
+.marca{display:flex;align-items:center;gap:10px}
+.marca svg{width:34px;height:34px}
+.marca b{font-family:var(--display);font-weight:400;font-size:21px;line-height:1;white-space:nowrap}
+.marca{min-width:0}
+.marca small{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--nevoa);margin-top:3px}
+.selo-plano{white-space:nowrap;flex:none;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--linha);color:var(--nevoa);background:transparent;cursor:pointer}
+.selo-plano.premium{color:var(--ouro);border-color:var(--ouro-forte)}
+.selo-plano.elite{color:var(--ouro-tinta);background:var(--ouro);border-color:var(--ouro)}
+.faixa-demo{font-size:12.5px;color:var(--nevoa);border:1px dashed var(--linha);border-radius:12px;padding:8px 12px;margin-block:6px}
+
+section.tela{display:flex;flex-direction:column;gap:18px;padding-block:10px 8px}
+.cartao{background:var(--cartao);border:1px solid var(--linha);border-radius:var(--raio);padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+
+/* herói da conquista */
+.heroi{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--linha);min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;background:var(--ardosia)}
+.heroi .fundo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.heroi::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,18,34,.1) 0%,rgba(12,18,34,.35) 40%,rgba(12,18,34,.94) 100%)}
+.heroi .conteudo{position:relative;z-index:1;padding:18px;display:flex;gap:16px;align-items:flex-end}
+.heroi .conteudo .info{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.disco{flex:none}
+.disco text{font-family:var(--texto)}
+.acoes-rapidas{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.acoes-rapidas button{padding:10px 0}
+
+/* botões */
+button,.btn{font:inherit;font-weight:700;font-size:14px;border-radius:999px;padding:11px 18px;border:1px solid var(--linha);background:var(--ardosia);color:var(--gelo);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+button.ouro,.btn.ouro{background:var(--ouro);border-color:var(--ouro);color:var(--ouro-tinta)}
+button.vazado{background:transparent}
+button.mini{padding:7px 13px;font-size:13px}
+button.bloco{width:100%}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--aurora);outline-offset:2px}
+.cadeado{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ouro)}
+
+/* formulários */
+form{display:flex;flex-direction:column;gap:12px}
+label{font-size:12.5px;color:var(--nevoa);display:flex;flex-direction:column;gap:5px;font-weight:600}
+input,select{font:inherit;font-size:16px;color:var(--gelo);background:var(--noite);border:1px solid var(--linha);border-radius:12px;padding:12px 13px;width:100%}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.valor-grande{font-family:var(--display);font-size:34px;text-align:center;background:transparent;border:0;border-bottom:1px solid var(--linha);border-radius:0;padding:8px 0}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{padding:8px 14px;font-size:13.5px}
+.chips button[aria-pressed="true"]{background:var(--ouro);color:var(--ouro-tinta);border-color:var(--ouro)}
+
+/* categorias */
+.categorias{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.categorias button{flex-direction:column;border-radius:16px;padding:14px 6px;font-size:12.5px;font-weight:700;gap:8px;background:var(--cartao)}
+.categorias button svg{width:28px;height:28px;stroke:var(--ouro);fill:none;stroke-width:1.5}
+.categorias button[aria-pressed="true"]{border-color:var(--ouro);background:rgba(226,196,138,.1)}
+
+/* lista de cofres */
+.cofre-item{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;background:var(--cartao);border:1px solid var(--linha);border-radius:var(--raio);padding:10px;cursor:pointer;text-align:left;color:inherit;font:inherit;width:100%}
+.cofre-item img{width:72px;height:72px;border-radius:12px;object-fit:cover;display:block}
+.cofre-item .meio{min-width:0;display:flex;flex-direction:column;gap:5px}
+.cofre-item .meio b{font-family:var(--display);font-weight:400;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.barra{height:7px;background:var(--noite);border-radius:999px;overflow:hidden;border:1px solid var(--linha)}
+.barra i{display:block;height:100%;background:linear-gradient(90deg,var(--ouro-forte),var(--ouro));border-radius:999px;transition:width .6s ease}
+.barra.feito i{background:var(--aurora)}
+.cofre-novo{border:1px dashed var(--linha);border-radius:var(--raio);padding:16px;color:var(--nevoa);background:transparent;width:100%}
+
+/* estúdio */
+.estudio{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:start}
+.estudio canvas{width:100%;aspect-ratio:9/16;border-radius:16px;border:1px solid var(--linha);background:var(--ardosia);display:block}
+.estudio .lado{display:flex;flex-direction:column;gap:12px;min-width:0}
+.grade-fundos{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px}
+.grade-fundos button{padding:0;border-radius:10px;overflow:hidden;aspect-ratio:9/16;position:relative;border:2px solid transparent;background:var(--ardosia)}
+.grade-fundos button img{width:100%;height:100%;object-fit:cover;display:block}
+.grade-fundos button[aria-pressed="true"]{border-color:var(--ouro)}
+.grade-fundos button .tranca{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(12,18,34,.55)}
+.grade-fundos button .tranca svg{width:20px;height:20px;stroke:var(--ouro);fill:none;stroke-width:1.8}
+.layouts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.layouts button{flex-direction:column;gap:2px;border-radius:12px;padding:10px 4px;font-size:12.5px}
+.layouts button[aria-pressed="true"]{border-color:var(--ouro);color:var(--ouro)}
+@media (max-width:420px){.estudio{grid-template-columns:120px 1fr}}
+
+/* mais */
+.menu{display:flex;flex-direction:column}
+.menu button{justify-content:space-between;border-radius:0;border:0;border-bottom:1px solid var(--linha);background:transparent;padding:15px 4px;font-weight:600}
+.menu button:last-child{border-bottom:0}
+.menu button svg{width:18px;height:18px;stroke:var(--nevoa);fill:none;stroke-width:1.8}
+ul.lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+ul.lista li{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--linha);font-size:14px;align-items:center}
+ul.lista li:last-child{border-bottom:0}
+.entra{color:var(--aurora)} .sai{color:var(--perigo)}
+.dica{background:var(--ardosia);border-left:3px solid var(--ouro);border-radius:10px;padding:10px 12px;font-size:13.5px}
+.nota{font-size:12.5px;color:var(--nevoa);line-height:1.45}
+.casas{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:6px}
+.casas button{padding:8px 0;border-radius:10px;font-size:12px;background:var(--noite);color:var(--nevoa)}
+.casas button[aria-pressed="true"]{background:var(--ouro);color:var(--ouro-tinta);border-color:var(--ouro)}
+canvas.grafico{width:100%;height:170px;display:block}
+
+/* planos */
+.planos{display:flex;flex-direction:column;gap:12px}
+.plano{border:1px solid var(--linha);border-radius:var(--raio);padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--cartao)}
+.plano.destaque{border-color:var(--ouro-forte);background:linear-gradient(170deg,rgba(226,196,138,.12),var(--cartao) 55%)}
+.plano .preco{font-family:var(--display);font-size:30px;line-height:1}
+.plano ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.alternar{display:inline-flex;background:var(--noite);border:1px solid var(--linha);border-radius:999px;padding:3px}
+.alternar button{border:0;padding:7px 14px;font-size:13px;background:transparent;color:var(--nevoa)}
+.alternar button[aria-pressed="true"]{background:var(--ardosia);color:var(--gelo)}
+
+/* navegação */
+nav.abas{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(12,18,34,.95);backdrop-filter:blur(12px);border-top:1px solid var(--linha);
+  padding:8px max(8px, env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(8px, env(safe-area-inset-right,0px))}
+nav.abas .dentro{max-width:560px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1.1fr 1fr 1fr;align-items:end;gap:2px}
+nav.abas button{background:transparent;border:0;border-radius:12px;padding:6px 2px;font-size:11.5px;font-weight:700;color:var(--nevoa);flex-direction:column;gap:3px}
+nav.abas button svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.6}
+nav.abas button[aria-current="page"]{color:var(--ouro)}
+nav.abas .guardar{justify-self:center;width:62px;height:62px;border-radius:50%;background:var(--ouro);color:var(--ouro-tinta);margin-top:-26px;box-shadow:0 6px 24px rgba(226,196,138,.28);padding:0;font-size:10.5px}
+nav.abas .guardar svg{stroke:var(--ouro-tinta);width:24px;height:24px;stroke-width:2}
+
+/* folhas e avisos */
+.fundo-folha{position:fixed;inset:0;background:rgba(3,6,14,.62);z-index:30;display:flex;align-items:flex-end;justify-content:center}
+.folha{background:var(--ardosia);border:1px solid var(--linha);border-radius:22px 22px 0 0;width:100%;max-width:560px;max-height:90vh;overflow:auto;
+  padding:20px max(16px, env(safe-area-inset-left,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(16px, env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:14px}
+.fechar-folha{position:sticky;top:0;align-self:flex-end;margin:-8px -4px -46px 0;width:38px;height:38px;padding:0;border-radius:50%;background:var(--noite);z-index:2;flex:none}
+.folha > h2:first-of-type{padding-right:44px}
+.ola{display:flex;flex-direction:column;gap:2px;padding:2px 2px 0}
+.ola h1{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.1;margin:0}
+.sexos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sexos button[aria-pressed="true"]{border-color:var(--ouro);color:var(--ouro);background:rgba(226,196,138,.08)}
+.sexos button:last-child{grid-column:1/-1}
+.folha .alca{width:40px;height:4px;border-radius:4px;background:var(--linha);align-self:center;margin-top:-6px}
+.aviso{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));background:var(--gelo);color:var(--noite);padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:700;z-index:50;max-width:90vw;text-align:center}
+.vazio{padding:22px;text-align:center;color:var(--nevoa);border:1px dashed var(--linha);border-radius:var(--raio);display:flex;flex-direction:column;gap:12px;align-items:center}
+
+/* boas-vindas */
+.boas-vindas{position:fixed;inset:0;z-index:60;background:var(--noite);overflow:auto;
+  padding:max(24px, env(safe-area-inset-top,0px)) max(20px, env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(20px, env(safe-area-inset-left,0px))}
+.boas-vindas .dentro{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;gap:20px}
+.passos{display:flex;gap:6px}
+.passos i{flex:1;height:4px;border-radius:4px;background:var(--linha)}
+.passos i.ok{background:var(--ouro)}
+.capa-bv{border-radius:22px;overflow:hidden;position:relative;aspect-ratio:4/5;max-width:100%;border:1px solid var(--linha)}
+.capa-bv canvas{width:100%;height:100%;display:block}
+.celebra{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;background:rgba(3,6,14,.7);padding:24px}
+.celebra .caixa{background:var(--ardosia);border:1px solid var(--ouro-forte);border-radius:24px;padding:24px;max-width:380px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+canvas.confete{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:71}
+/* notificação no estilo push (feita para print) */
+.notif{position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top,0px));transform:translate(-50%,-140%);width:min(92vw,420px);z-index:80;
+  background:rgba(28,34,52,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:12px 14px;
+  display:grid;grid-template-columns:38px 1fr;gap:4px 10px;box-shadow:0 10px 40px rgba(0,0,0,.45);transition:transform .45s cubic-bezier(.2,.9,.3,1.2);cursor:pointer;color:var(--gelo)}
+.notif.ver{transform:translate(-50%,0)}
+.notif .ic{grid-row:span 3;width:38px;height:38px;border-radius:10px;background:var(--noite);display:flex;align-items:center;justify-content:center;border:1px solid var(--linha)}
+.notif .ic svg{width:28px;height:28px}
+.notif .quem{font-size:11.5px;color:var(--nevoa);display:flex;justify-content:space-between;letter-spacing:.02em}
+.notif b{font-size:14.5px;font-weight:800;line-height:1.25}
+.notif p{font-size:14px;line-height:1.35;color:#dfe5f0}
+.interruptor{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--linha)}
+.interruptor:last-child{border-bottom:0}
+.interruptor input[type=checkbox]{appearance:none;-webkit-appearance:none;width:46px;height:28px;border-radius:999px;background:var(--linha);position:relative;cursor:pointer;flex:none;padding:0;border:0}
+.interruptor input[type=checkbox]::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--gelo);transition:left .2s}
+.interruptor input[type=checkbox]:checked{background:var(--ouro)}
+.interruptor input[type=checkbox]:checked::after{left:21px;background:var(--ouro-tinta)}
+.interruptor select{width:auto;padding:8px 10px;font-size:14px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="app" id="app">
+  <header class="topo">
+    <div class="marca" aria-label="Cofre dos Sonhos">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="#e2c48a" stroke-width="1.6"/><g stroke="#e2c48a" stroke-width="1.4" stroke-linecap="round"><path d="M20 4.5v3M20 32.5v3M4.5 20h3M32.5 20h3M9 9l2 2M29 29l2 2M31 9l-2 2M11 29l-2 2"/></g><circle cx="20" cy="17.5" r="3.4" fill="#e2c48a"/><path d="M18.3 19.5h3.4l1 7h-5.4z" fill="#e2c48a"/></svg>
+      <div><b>Cofre dos Sonhos</b><small>por Inspira Diário</small></div>
+    </div>
+    <button class="selo-plano" id="seloPlano" data-acao="planos">Entrada</button>
+  </header>
+  <div class="faixa-demo" id="faixaDemo" hidden>Modo demonstração: seus dados ficam só neste aparelho. Em Mais › Simular plano você testa Premium e Elite.</div>
+
+  <!-- INÍCIO -->
+  <section class="tela" id="t-inicio">
+    <div class="ola" id="ola" hidden><span class="sobre" id="olaHora"></span><h1 id="olaNome"></h1></div>
+    <div class="cartao" id="avisoEntrar" hidden style="border-color:var(--ouro-forte);flex-direction:row;align-items:center;gap:12px"><p style="flex:1;margin:0;font-size:14px"><b>Você não está conectado.</b><br><span class="nota">Entre na sua conta para salvar seus cofres e liberar o seu plano.</span></p><button class="ouro mini" data-acao="entrar">Entrar</button></div>
+    <div id="heroi"></div>
+    <div class="cartao">
+      <span class="sobre">Frase do dia</span>
+      <p id="frase" style="font-family:var(--display);font-style:italic;font-size:21px;line-height:1.3"></p>
+    </div>
+    <div class="duas">
+      <div class="cartao" style="gap:2px"><span class="nota">Total nos cofres</span><b class="num" id="kTotal" style="font-family:var(--display);font-weight:400;font-size:24px">R$ 0</b></div>
+      <div class="cartao" style="gap:2px"><span class="nota">Sequência guardando</span><b class="num" id="kSeq" style="font-family:var(--display);font-weight:400;font-size:24px">0 semanas</b></div>
+    </div>
+    <div class="cartao" id="cartaoDesafio"></div>
+  </section>
+
+  <!-- COFRES -->
+  <section class="tela" id="t-cofres" hidden>
+    <div class="linha"><h2>Minhas conquistas</h2><span class="fraco num" id="contCofres"></span></div>
+    <div class="pilha" id="listaCofres"></div>
+  </section>
+
+  <!-- ESTÚDIO -->
+  <section class="tela" id="t-estudio" hidden>
+    <div><h2>Estúdio de wallpaper</h2><p class="fraco" style="margin-top:4px">Sua conquista na tela de bloqueio, em 4K. Toda vez que pegar o celular, você lembra por que está guardando.</p></div>
+    <div class="cartao" id="estudioCorpo"></div>
+  </section>
+
+  <!-- MAIS -->
+  <section class="tela" id="t-mais" hidden>
+    <div id="maisCorpo" class="pilha"></div>
+  </section>
+</div>
+
+<nav class="abas" aria-label="Navegação">
+  <div class="dentro">
+    <button data-aba="inicio" aria-current="page"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg>Início</button>
+    <button data-aba="cofres"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2"/><circle cx="12" cy="11" r="1.8"/><path d="M11.2 12.6h1.6l.5 3.2h-2.6z"/></svg>Cofres</button>
+    <button class="guardar" data-acao="guardar" aria-label="Guardar dinheiro"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button data-aba="estudio"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9 15l2-2 2 2 2-3"/><path d="M10.5 18.5h3"/></svg>Estúdio</button>
+    <button data-aba="mais"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg>Mais</button>
+  </div>
+</nav>
+<div id="camadas"></div>
+
+<script>
+/* ===================== CONFIGURAÇÃO =====================
+   Preencha para o app de produção. Vazio = modo demonstração (dados no aparelho). */
+window.COFRE_CONFIG = window.COFRE_CONFIG || {
+  supabaseUrl: "",          // ex.: https://xxxx.supabase.co
+  supabaseAnonKey: "",      // chave pública "anon"
+  linkCompraEntrada: "",    // link do checkout da Kiwify/Hotmart (R$ 19,90)
+  linkComunidade: "",       // link do grupo/canal Elite
+  vapidPublica: "",         // chave pública das notificações push
+  pastaFundos: "fundos/"    // onde ficam as imagens dos fundos
+};
+
+(() => {
+  const CFG = window.COFRE_CONFIG;
+  const MODO_REAL = !!(CFG.supabaseUrl && CFG.supabaseAnonKey);
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const brl = v => (Number(v)||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:(Math.abs(v)%1?2:0)});
+  const novoId = () => Math.random().toString(36).slice(2,10);
+  const dataLocal = d => new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+  const hoje = () => dataLocal(new Date());
+  const lsLer = k => { try{ return localStorage.getItem(k); }catch(e){ return null; } };
+  const lsGravar = (k,v) => { try{ localStorage.setItem(k,v); }catch(e){} };
+  function aviso(t){ const d=document.createElement('div'); d.className='aviso'; d.textContent=t; document.body.append(d); setTimeout(()=>d.remove(),2400); }
+
+  /* ===================== PLANOS ===================== */
+  const PLANOS = {
+    entrada: { nome:'Entrada', maxCofres:1, todosFundos:false, layouts:['minimal'], foto:false, d52:false, dividas:false, relatorio:false },
+    premium: { nome:'Premium', maxCofres:Infinity, todosFundos:true, layouts:['minimal','disco','frase'], foto:true, d52:true, dividas:true, relatorio:true },
+    elite:   { nome:'Elite',   maxCofres:Infinity, todosFundos:true, layouts:['minimal','disco','frase'], foto:true, d52:true, dividas:true, relatorio:true, comunidade:true }
+  };
+  const PRECOS = { premium_mensal:9.90, premium_anual:89.90, elite_fundador:29.90 };
+  let planoAtual = 'entrada';
+  const P = () => PLANOS[planoAtual];
+
+  /* ===================== CONTEÚDO ===================== */
+  const FRASES = [
+    'Rico não é quem ganha muito. É quem não abandona o próprio cofre.',
+    'A conquista não chega de uma vez. Ela chega em depósitos.',
+    'Cada real que você não gasta à toa é um passo dentro da sua conquista.',
+    'Disciplina é lembrar do que você quer de verdade na hora em que dá vontade de gastar.',
+    'Você não está se privando. Está escolhendo o que importa.',
+    'Quem guarda pouco todo mês vence quem guarda muito uma vez.',
+    'Seu futuro está sendo pago hoje. Escolha bem o que você compra.',
+    'Não espere sobrar para guardar. Guarde para que sobre.',
+    'Liberdade financeira é silêncio: ninguém vê, mas você sente.',
+    'O impulso passa. A conquista fica.',
+    'Pequenos valores, grande constância, resultado inevitável.',
+    'Você não precisa de sorte. Precisa de um plano e de não desistir dele.',
+    'Quem controla o dinheiro controla as próprias escolhas.',
+    'O caminho da conquista é feito de "nãos" para as coisas pequenas.',
+    'Todo grande patrimônio começou com alguém que decidiu guardar o primeiro real.',
+    'Ambição sem plano é só vontade. Com plano, vira data marcada.',
+    'Hoje você economiza. Amanhã você escolhe.',
+    'Ninguém vai sonhar o seu sonho por você. Nem pagar por ele.',
+    'O que você repete todo dia vale mais do que o que você faz de vez em quando.',
+    'Sua conquista já tem nome, valor e data. Agora ela só precisa de você.'
+  ];
+  const fraseDoDia = () => { const d=new Date(); const n=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5); return FRASES[n%FRASES.length]; };
+
+  /* ===================== MENSAGENS (mesmo banco usado pelo servidor) ===================== */
+  const MENSAGENS = /*MENSAGENS_INICIO*/{"reservaMensal": [{"t": "Dia de alimentar o cofre", "m": "{C} mandou dizer que está com saudade de você. Faltam {f}."}, {"t": "Hoje é dia de reserva", "m": "Antes do boleto, antes do delivery: primeiro {o_c}. Faltam {f}."}, {"t": "Lembrete combinado", "m": "Foi você que marcou: hoje é dia de guardar para {c}. Eu só estou cobrando."}, {"t": "Dia do depósito", "m": "Primeiro você se paga. Depois paga o resto. {C} está em {p}%."}, {"t": "Sua conquista te chamou", "m": "{C} está em {p}%. Um depósito hoje e esse número sobe."}, {"t": "Salário caiu?", "m": "Então separa a parte {do_c} antes que o mês decida por você."}], "desafioSemanal": [{"t": "Domingo do desafio", "m": "Quantos dias sem gasto por impulso nessa semana? Marca aí. Você está em {n}/30."}, {"t": "Check-in da semana", "m": "Desafio dos 30 dias: {n} conquistados. Bora fechar a semana no controle?"}, {"t": "Hora da verdade", "m": "Essa semana você mandou no dinheiro ou o dinheiro mandou em você? Marca seus dias."}, {"t": "Desafio te esperando", "m": "{n}/30 dias sem impulso. Quem chega no 30 vira outra pessoa com dinheiro."}, {"t": "Semana nova, placar novo", "m": "Cada dia sem impulso é um tijolo {do_c}. Marca os de hoje."}], "deposito": [{"t": "Reserva feita", "m": "+{v} {no_c}. Agora são {p}%. Isso é disciplina, não sorte."}, {"t": "Caiu no cofre", "m": "+{v}. {O_c} ficou um pouco mais real hoje."}, {"t": "Mais perto", "m": "+{v} guardados. {p}% {do_c}. O você do futuro agradece."}, {"t": "Depósito confirmado", "m": "Enquanto muita gente gastou, você guardou {v}. {C} está em {p}%."}, {"t": "Assim que se faz", "m": "+{v}. Pequeno ou grande, depósito feito é depósito que conta."}, {"t": "Cofre alimentado", "m": "{C} está em {p}%. Faltam {f}. Cada vez falta menos."}], "marco25": [{"t": "25% {do_c}", "m": "Um quarto do caminho. A parte mais difícil era começar, e você começou."}, {"t": "Primeiro quarto", "m": "25% {do_c}. Atualiza o wallpaper: você merece ver isso toda vez que pega o celular."}], "marco50": [{"t": "Metade {do_c}", "m": "50%. Metade do caminho, e o caminho é seu."}, {"t": "Virou a chave", "m": "Daqui para frente falta menos do que você já guardou. {C} está em 50%."}], "marco75": [{"t": "75% {do_c}", "m": "Já dá para sentir o cheiro de conquista. Faltam {f}."}, {"t": "Reta final", "m": "75%. Agora não é hora de tirar o pé. {O_c} está logo ali."}], "marco100": [{"t": "CONQUISTADO", "m": "100% {do_c}. Você disse que ia conseguir, e conseguiu. Qual é a próxima?"}, {"t": "É seu", "m": "Meta batida: {c}. Tira print disso. Você vai querer lembrar desse dia."}], "resgate": [{"t": "Saiu do cofre", "m": "Tirou {v} {do_c}. Tudo bem usar quando precisa. Só lembra: isso atrasa sua conquista em {d} dias."}, {"t": "Resgate registrado", "m": "{v} a menos {no_c}. A meta continua lá, esperando você voltar."}, {"t": "Opa", "m": "Tirou {v} do cofre. Era emergência ou era vontade? Só você sabe. E {o_c} também."}, {"t": "Sem julgamento", "m": "Resgate de {v}. Imprevisto acontece. O importante é voltar a guardar logo."}, {"t": "{O_c} sentiu", "m": "Saíram {v}. Sem pressão. (Um pouco de pressão.)"}], "impulso": [{"t": "Vi esse gasto", "m": "{v} de {cat}. Isso equivale a {d} dias {do_c}. Valeu a pena? Se sim, tudo certo."}, {"t": "{O_c} viu isso", "m": "{v} em {cat}. Só passando para lembrar quem está esperando você."}, {"t": "Rapidinho", "m": "{v} foram embora em {cat}. São {d} dias {do_c}. Da próxima, respira antes."}, {"t": "Impulso detectado", "m": "{cat}: {v}. O impulso passa. A conquista fica."}, {"t": "Só uma pergunta", "m": "Esses {v} de {cat} te deixaram mais perto ou mais longe {do_c}?"}], "entrada": [{"t": "Entrou dinheiro", "m": "Antes de gastar, manda uma parte para {c}. Quem guarda primeiro, gasta sem culpa."}, {"t": "Dinheiro novo", "m": "Entrou {v}. Que tal 10% para {c}? Ninguém vai sentir falta. Só a conquista vai agradecer."}], "indoBem": [{"t": "Você está voando", "m": "Adiantado {no_c}. Quem é você e o que fez com quem gastava tudo no dia 10?"}, {"t": "Acima do plano", "m": "Você guardou mais do que o combinado este mês. Nesse ritmo, {o_c} chega antes."}, {"t": "Constância detectada", "m": "Semanas seguidas guardando. É assim que gente comum vira gente que conquista."}, {"t": "Recado da sua conquista", "m": "{C} pediu para avisar: está chegando mais rápido do que esperava."}], "sumiu": [{"t": "Tudo bem por aí?", "m": "{s} semanas sem guardar nada. {C} não desistiu de você. Vai desistir?"}, {"t": "Saudade", "m": "Faz {s} semanas que o cofre não vê um centavo. Até R$ 10 já reacende."}, {"t": "Volta pra cá", "m": "{C} continua em {p}%. Um depósito pequeno hoje vale mais que um grande que nunca chega."}, {"t": "Recomeço vale", "m": "Parou? Acontece. Recomeçar hoje é a decisão mais rica que você pode tomar."}], "motivacao": [{"t": "Frase do dia", "m": "Rico não é quem ganha muito. É quem não abandona o próprio cofre."}, {"t": "Frase do dia", "m": "Não espere sobrar para guardar. Guarde para que sobre."}, {"t": "Frase do dia", "m": "Quem guarda pouco todo mês vence quem guarda muito uma vez."}, {"t": "Frase do dia", "m": "O impulso passa. A conquista fica."}, {"t": "Frase do dia", "m": "Seu futuro está sendo pago hoje. Escolha bem o que você compra."}, {"t": "Frase do dia", "m": "Ambição sem plano é só vontade. Com plano, vira data marcada."}, {"t": "Frase do dia", "m": "Ninguém vai sonhar o seu sonho por você. Nem pagar por ele."}, {"t": "Bom dia", "m": "Hoje é mais um dia para provar que você leva {o_c} a sério."}, {"t": "Lembra por quê", "m": "Olha o seu wallpaper. É por aquilo ali que você está fazendo tudo isso."}, {"t": "Frase do dia", "m": "Liberdade financeira é silêncio: ninguém vê, mas você sente."}, {"t": "Frase do dia", "m": "Todo grande patrimônio começou com alguém que decidiu guardar o primeiro real."}, {"t": "Frase do dia", "m": "O caminho da conquista é feito de \"nãos\" para as coisas pequenas."}]}/*MENSAGENS_FIM*/;
+  // "Minha CB 500" -> "sua CB 500" (feminino); "Meu primeiro carro" -> "seu primeiro carro"
+  function formasNome(nome, cat){
+    const FEM=['viagem','casa','moto','reserva','faculdade','loja','empresa','minha','primeira','nova'], MASC=['carro','celular','notebook','setup','negócio','negocio','apartamento','curso','intercâmbio','sonho','meu','primeiro','novo','iphone'];
+    const COMUNS=['viagem','casa','carro','moto','reserva','celular','notebook','setup','faculdade','negócio','negocio','loja','apartamento','curso','primeiro','primeira','novo','nova','empresa'];
+    let t=String(nome||'conquista').trim(), fem;
+    const m=t.match(/^(minha|meu|minhas|meus)\s+(.+)$/i);
+    if(m){ fem=/^minha/i.test(m[1]); t=m[2]; }
+    else { const p=t.split(/\s+/)[0].toLowerCase(); fem = FEM.includes(p) ? true : MASC.includes(p) ? false : ['casa','moto','neve','praia','liberdade','estudos'].includes(cat); }
+    const p0=t.split(/\s+/)[0]; if(COMUNS.includes(p0.toLowerCase())) t=p0.toLowerCase()+t.slice(p0.length);
+    const pos=fem?'sua':'seu', art=fem?'a':'o';
+    const c=`${pos} ${t}`;
+    return { c, C:c[0].toUpperCase()+c.slice(1), o_c:`${art} ${c}`, O_c:`${art.toUpperCase()} ${c}`, do_c:`${fem?'da':'do'} ${c}`, no_c:`${fem?'na':'no'} ${c}` };
+  }
+  function montarMensagem(tipo, vars){
+    const lista=MENSAGENS[tipo]; if(!lista||!lista.length) return null;
+    const k='cofre2-ult-'+tipo; let i=Math.floor(Math.random()*lista.length); const ult=+lsLer(k);
+    if(lista.length>1 && i===ult) i=(i+1)%lista.length; lsGravar(k,String(i));
+    const troca=s=>s.replace(/\{(\w+)\}/g,(_,n)=>vars[n]!==undefined?vars[n]:'');
+    return { titulo:troca(lista[i].t), texto:troca(lista[i].m) };
+  }
+  function varsCofre(c, extra={}){ return Object.assign({}, c?formasNome(c.nome,c.cat):formasNome('conquista','outro'), c?{p:pct(c), f:brl(Math.max(0,c.meta-c.guardado))}:{}, {n:Math.min(30,S.d30.length)}, extra); }
+  const LOGO_MINI='<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="none" stroke="#e2c48a" stroke-width="2"/><g stroke="#e2c48a" stroke-width="1.8" stroke-linecap="round"><path d="M20 5.5v3M20 31.5v3M5.5 20h3M31.5 20h3"/></g><circle cx="20" cy="17.5" r="3.6" fill="#e2c48a"/><path d="M18.2 19.6h3.6l1 7h-5.6z" fill="#e2c48a"/></svg>';
+  function notificar(tipo, vars){
+    const msg=montarMensagem(tipo, vars); if(!msg) return;
+    // Mesma mensagem como notificação real no celular, alguns segundos depois (para o print na tela de bloqueio).
+    if(MODO_REAL && Dados.pushAtivo && S.lembretes.pushEventos!==false && tipo!=='reservaMensal' && tipo!=='motivacao') Dados.pushEvento(tipo, msg);
+    document.querySelectorAll('.notif').forEach(n=>n.remove());
+    const n=document.createElement('div'); n.className='notif'; n.setAttribute('role','status');
+    n.innerHTML=`<span class="ic">${LOGO_MINI}</span><span class="quem"><span>COFRE DOS SONHOS</span><span>agora</span></span><b></b><p></p>`;
+    n.querySelector('b').textContent=msg.titulo; n.querySelector('p').textContent=msg.texto;
+    document.body.append(n); requestAnimationFrame(()=>requestAnimationFrame(()=>n.classList.add('ver')));
+    const fechar=()=>{ n.classList.remove('ver'); setTimeout(()=>n.remove(),500); };
+    n.onclick=fechar; setTimeout(fechar,7000);
+  }
+
+  const ICONES = {
+    carro:'<path d="M3 15l2-5a2 2 0 0 1 1.9-1.4h10.2A2 2 0 0 1 19 10l2 5v3h-2.5M5.5 18H3v-3M7 18h10"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/><path d="M5 13h14"/>',
+    moto:'<circle cx="5.5" cy="16.5" r="3"/><circle cx="18.5" cy="16.5" r="3"/><path d="M5.5 16.5l4-6h4l2 3h3M13.5 10.5l-1-3h-2M15.5 13.5l-3 3h-7"/>',
+    casa:'<path d="M3.5 11L12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/>',
+    celular:'<rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M10.5 18.5h3"/>',
+    notebook:'<rect x="4.5" y="5" width="15" height="10" rx="1.4"/><path d="M2.5 18.5h19l-1.5-3.5H4z"/>',
+    neve:'<path d="M12 2.5v19M3.8 7.2l16.4 9.6M3.8 16.8l16.4-9.6"/><path d="M9.5 4l2.5 2 2.5-2M9.5 20l2.5-2 2.5 2"/>',
+    praia:'<circle cx="16" cy="7" r="3"/><path d="M2.5 16c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 3-1.5M2.5 20c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 3-1.5"/>',
+    liberdade:'<path d="M3 20l6.5-10 4 6 2.5-3.5L21 20z"/><path d="M9.5 10V4l4 1.5-4 1.5"/>',
+    negocio:'<path d="M3.5 9.5l1.5-5h14l1.5 5"/><path d="M3.5 9.5a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 2 0"/><path d="M5 11.5V20h14v-8.5M10 20v-5h4v5"/>',
+    estudos:'<path d="M2.5 9L12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v4.5c1.5 1.5 3.5 2 5.5 2s4-.5 5.5-2V11M21.5 9v5"/>',
+    outro:'<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>'
+  };
+  const CATEGORIAS = [
+    ['carro','Carro'],['moto','Moto'],['casa','Casa própria'],['celular','Celular'],['notebook','Notebook'],
+    ['neve','Viagem neve'],['praia','Viagem praia'],['liberdade','Reserva'],['negocio','Negócio'],['estudos','Estudos'],['outro','Outra conquista']
+  ];
+  const nomeCat = id => (CATEGORIAS.find(c=>c[0]===id)||['','Conquista'])[1];
+  const icone = (id, extra='') => `<svg viewBox="0 0 24 24" aria-hidden="true" ${extra}>${ICONES[id]||ICONES.outro}</svg>`;
+
+  // Biblioteca de fundos: 3 imagens por tema. Cada pessoa vê 1 liberada por tema (escolhida pelo sexo); o resto é Premium.
+  const CENA_DA_CAT = {carro:'estrada',moto:'estrada',casa:'neve',celular:'cidade',notebook:'cidade',neve:'neve',praia:'mar',liberdade:'aurora',negocio:'cidade',estudos:'cidade',outro:'aurora'};
+  const SEXO_FUNDO = {"carro-1": "homem", "carro-2": "neutro", "carro-3": "neutro", "moto-1": "homem", "moto-2": "homem", "moto-3": "neutro", "casa-1": "neutro", "casa-2": "neutro", "casa-3": "homem", "celular-1": "neutro", "celular-2": "homem", "celular-3": "neutro", "notebook-1": "neutro", "notebook-2": "neutro", "notebook-3": "homem", "neve-1": "mulher", "neve-2": "homem", "neve-3": "homem", "praia-1": "neutro", "praia-2": "mulher", "praia-3": "homem", "liberdade-1": "homem", "liberdade-2": "neutro", "liberdade-3": "mulher", "negocio-1": "homem", "negocio-2": "homem", "negocio-3": "mulher", "estudos-1": "homem", "estudos-2": "homem", "estudos-3": "neutro"};
+  // Plano básico: estas 7 imagens, iguais para todo mundo. Temas sem imagem própria usam a mais próxima.
+  const LIVRE_TEMA = {carro:'carro-1', moto:'moto-1', celular:'celular-3', notebook:'notebook-3', neve:'neve-2', praia:'praia-3', estudos:'estudos-1', casa:'neve-2', liberdade:'praia-3', negocio:'notebook-3', outro:'praia-3'};
+  const LIVRES = new Set(Object.values(LIVRE_TEMA));
+  const temaDe = cat => cat==='outro' ? 'liberdade' : cat;
+  const FUNDOS = [];
+  CATEGORIAS.forEach(([cat])=>{ if(cat==='outro') return; for(let i=1;i<=3;i++) FUNDOS.push({id:`${cat}-${i}`, cat, n:i, sexo:SEXO_FUNDO[`${cat}-${i}`]||'neutro'}); });
+  const NO_SITE = LIVRES; // as únicas imagens publicadas no site
+  const sexoUsuario = () => { const s=S.perfil&&S.perfil.sexo; return s==='homem'||s==='mulher' ? s : 'neutro'; };
+  const fundoLivre = cat => LIVRE_TEMA[cat] || 'praia-3';
+  const fundoPorId = id => FUNDOS.find(f=>f.id===id);
+  const fundosDaCat = cat => { const l=fundoPorId(fundoLivre(cat)); return [l].concat(FUNDOS.filter(f=>f.cat===temaDe(cat) && f!==l)); };
+  const fundoPodeUsar = f => !!f && (P().todosFundos || LIVRES.has(f.id));
+
+  /* ===================== CENAS PROVISÓRIAS (até chegarem as imagens reais) ===================== */
+  function rng(seed){ let s=seed>>>0||1; return ()=> (s=(s*1664525+1013904223)>>>0)/4294967296; }
+  function desenharCena(ctx,w,h,cena,variante){
+    const r=rng(({neve:7,mar:13,cidade:21,estrada:34,aurora:55}[cena]||5)+variante*101);
+    const g=ctx.createLinearGradient(0,0,0,h);
+    const tons = {
+      neve:[['#070b1c','#22305a','#6b7fae'],['#0a0f22','#2b2a55','#7a6fa8'],['#060a16','#1b3350','#5d8cae']],
+      mar:[['#1d1b3f','#c4627a','#f2b36b'],['#14213d','#3a6d8c','#f0c27b'],['#2a1840','#d0707a','#ffd29a']],
+      cidade:[['#05070f','#1a2140','#2b2346'],['#070a14','#16243f','#3a2b3f'],['#04060c','#121c33','#26304d']],
+      estrada:[['#1a1430','#c5734f','#e9b27a'],['#101a33','#5b5a8a','#d9a172'],['#0f1426','#2c3c66','#c08a68']],
+      aurora:[['#050a14','#0f2a3a','#1d4a52'],['#070b18','#1a2550','#3f6d7a'],['#060914','#13304a','#2f6a66']]
+    }[cena][(variante-1)%3];
+    g.addColorStop(0,tons[0]); g.addColorStop(.58,tons[1]); g.addColorStop(1,tons[2]); ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+    if(cena!=='mar'){ ctx.fillStyle='#fff'; for(let i=0;i<Math.round(w*h/8000);i++){ ctx.globalAlpha=.25+r()*.7; const s=(r()*1.5+.4)*(w/600); ctx.fillRect(r()*w,r()*h*.5,s,s);} ctx.globalAlpha=1; }
+    if(cena==='aurora'){ for(let k=0;k<3;k++){ ctx.beginPath(); const y0=h*(.18+k*.07); ctx.moveTo(0,y0); for(let x=0;x<=w;x+=w/20) ctx.lineTo(x,y0+Math.sin(x/w*6+k+variante)*h*.04); ctx.lineTo(w,y0+h*.2); ctx.lineTo(0,y0+h*.2); ctx.closePath(); const ag=ctx.createLinearGradient(0,y0,0,y0+h*.2); ag.addColorStop(0,'rgba(127,224,201,.35)'); ag.addColorStop(1,'rgba(127,224,201,0)'); ctx.fillStyle=ag; ctx.fill(); } }
+    if(cena==='neve'||cena==='aurora'){
+      if(cena==='neve'){ const mx=w*.72,my=h*.2,mr=w*.06; const mg=ctx.createRadialGradient(mx,my,0,mx,my,mr*5); mg.addColorStop(0,'rgba(240,244,255,.85)'); mg.addColorStop(.2,'rgba(200,215,255,.2)'); mg.addColorStop(1,'rgba(200,215,255,0)'); ctx.fillStyle=mg; ctx.fillRect(0,0,w,h); ctx.fillStyle='#eef2ff'; ctx.beginPath(); ctx.arc(mx,my,mr*.6,0,Math.PI*2); ctx.fill(); }
+      [['#2d3a63',.56,.42,'#dfe7fb'],['#1d2747',.68,.3,'#9fb0d6'],['#121a33',.82,.22,null]].forEach(([c,base,amp,topo])=>{ const tp=h*(base-amp*.6), lg=ctx.createLinearGradient(0,tp,0,h*base); lg.addColorStop(0,topo||c); lg.addColorStop(topo?.35:0,c); lg.addColorStop(1,c); ctx.fillStyle=lg; ctx.beginPath(); ctx.moveTo(0,h); let x=0; while(x<=w){ ctx.lineTo(x,h*base-r()*h*amp*.6); x+=w*(.12+r()*.14);} ctx.lineTo(w,h*base); ctx.lineTo(w,h); ctx.closePath(); ctx.fill(); });
+      if(cena==='neve'){ ctx.fillStyle='rgba(255,255,255,.75)'; for(let i=0;i<Math.round(w*h/6000);i++){ const s=(r()*2+.5)*(w/600); ctx.beginPath(); ctx.arc(r()*w,r()*h,s,0,Math.PI*2); ctx.fill(); } }
+    } else if(cena==='mar'){
+      const sx=w*.5,sy=h*.6; const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,w*.45); sg.addColorStop(0,'rgba(255,220,150,.85)'); sg.addColorStop(1,'rgba(255,180,120,0)'); ctx.fillStyle=sg; ctx.fillRect(0,0,w,h);
+      ctx.fillStyle='#ffd99a'; ctx.beginPath(); ctx.arc(sx,sy,w*.07,Math.PI,0); ctx.fill();
+      const mg=ctx.createLinearGradient(0,sy,0,h); mg.addColorStop(0,'#244a6b'); mg.addColorStop(1,'#0a1626'); ctx.fillStyle=mg; ctx.fillRect(0,sy,w,h-sy);
+      ctx.strokeStyle='rgba(255,210,150,.5)'; ctx.lineWidth=Math.max(1,w/500); for(let i=0;i<26;i++){ const y=sy+h*.01+i*h*.013, half=w*(.1+r()*.12)*(1-i/40); ctx.beginPath(); ctx.moveTo(sx-half,y); ctx.lineTo(sx+half,y); ctx.stroke(); }
+    } else if(cena==='cidade'){
+      let x=0; while(x<w){ const bw=w*(.05+r()*.07), bh=h*(.2+r()*.45), y=h-bh; ctx.fillStyle=['#0d1226','#111832','#151d3a'][Math.floor(r()*3)]; ctx.fillRect(x,y,bw,bh);
+        for(let wy=y+h*.02; wy<h-h*.02; wy+=h*.028){ for(let wx=x+bw*.15; wx<x+bw*.85; wx+=bw*.22){ if(r()<.42){ ctx.fillStyle=r()<.8?'rgba(255,214,140,.85)':'rgba(170,210,255,.8)'; ctx.fillRect(wx,wy,bw*.1,h*.011);} } } x+=bw+w*.004; }
+    } else {
+      ctx.fillStyle='#4a2c3a'; ctx.beginPath(); ctx.moveTo(0,h*.62); for(let x=0;x<=w;x+=w*.1) ctx.lineTo(x,h*.62-r()*h*.12); ctx.lineTo(w,h*.62); ctx.closePath(); ctx.fill();
+      ctx.fillStyle='#22171b'; ctx.fillRect(0,h*.62,w,h*.38);
+      ctx.fillStyle='#120d15'; ctx.beginPath(); ctx.moveTo(w*.49,h*.62); ctx.lineTo(w*.51,h*.62); ctx.lineTo(w*.86,h); ctx.lineTo(w*.14,h); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle='#f0d29a'; ctx.lineWidth=Math.max(1.5,w/260); ctx.setLineDash([h*.03,h*.03]); ctx.beginPath(); ctx.moveTo(w*.5,h*.63); ctx.lineTo(w*.5,h); ctx.stroke(); ctx.setLineDash([]);
+    }
+  }
+  // Carrega a imagem real do fundo (pasta de fundos); se não existir, usa a cena provisória.
+  // Liberadas: arquivo do site. Premium: link temporário do banco (só para quem tem o plano). Trancadas: nunca baixam.
+  const cacheImg={}, cacheMini={}, falhas={}, carregando={};
+  async function urlFundo(f){
+    if(NO_SITE.has(f.id)) return (CFG.pastaFundos||'fundos/')+f.id+'.jpg';
+    if(MODO_REAL && Dados.usuario && P().todosFundos) return await Dados.urlFundoPremium(f.id);
+    return null;
+  }
+  async function imagemFundo(f){
+    if(!f || !fundoPodeUsar(f)) return null;
+    if(cacheImg[f.id]) return cacheImg[f.id];
+    if(carregando[f.id]) return carregando[f.id];
+    return carregando[f.id] = (async()=>{
+      const url = await urlFundo(f).catch(()=>null);
+      if(!url || falhas[url]) return null;
+      const im = await new Promise(res=>{ const i=new Image(); i.crossOrigin='anonymous'; i.onload=()=>res(i); i.onerror=()=>res(null); i.src=url; });
+      if(im) cacheImg[f.id]=im; else falhas[url]=1;
+      return im;
+    })().finally(()=>{ delete carregando[f.id]; });
+  }
+  function fundoCena(f){ return {cena:CENA_DA_CAT[f.cat], v:f.n}; }
+  function miniFundo(f, w=360, h=640){
+    const im = fundoPodeUsar(f) ? cacheImg[f.id] : null;
+    const k=f.id+w+(im?'i':'c'); if(cacheMini[k]) return cacheMini[k];
+    const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d');
+    if(im){ const s=Math.max(w/im.width,h/im.height); ctx.drawImage(im,(w-im.width*s)/2,(h-im.height*s)/2,im.width*s,im.height*s); }
+    else { const {cena,v}=fundoCena(f); desenharCena(ctx,w,h,cena,v); }
+    return cacheMini[k]=c.toDataURL('image/jpeg',.8);
+  }
+  async function preCarregarFundos(){
+    if(!(S.perfil&&S.perfil.nome) && !S.cofres.length) return;
+    const faltam = FUNDOS.filter(f=>fundoPodeUsar(f) && !cacheImg[f.id]);
+    if(!faltam.length) return;
+    const novas = (await Promise.all(faltam.map(imagemFundo))).filter(Boolean);
+    if(novas.length) renderTudo();
+  }
+
+  /* ===================== ESTADO ===================== */
+  const lembretesPadrao = () => ({ reserva:true, diaReserva:5, desafio:true, diaDesafio:0, motivacao:3, horaMotivacao:8, progresso:true, alertasGasto:true, pushEventos:true });
+  const vazio = () => ({ versao:2, onboarding:false, cofres:[], movs:[], d30:[], desafio30:{inicio:null}, d52:{base:5,feitas:[]}, dividas:[], marcos:{}, lembretes:lembretesPadrao(), perfil:null });
+  let S = vazio();
+  // Desafio de 30 dias: começa no dia em que a pessoa decide entrar.
+  function normalizar(){
+    if(!S.desafio30){ S.desafio30={inicio:null}; S.d30=[]; } // dados antigos (calendário corrido) são descartados
+    S.d30 = (S.d30||[]).filter(d=>S.desafio30.inicio && d>=S.desafio30.inicio);
+  }
+  function diasDesafio(){ if(!S.desafio30.inicio) return []; const b=new Date(S.desafio30.inicio+'T12:00:00'); return Array.from({length:30},(_,i)=>{ const d=new Date(b); d.setDate(b.getDate()+i); return dataLocal(d); }); }
+  function diaDoDesafio(){ if(!S.desafio30.inicio) return 0; return Math.floor((Date.parse(hoje()+'T12:00:00')-Date.parse(S.desafio30.inicio+'T12:00:00'))/864e5)+1; }
+  const fotos = {}; // cofreId -> dataURL (Premium)
+
+  const pct = c => Math.min(100, Math.floor(c.guardado/c.meta*100)||0);
+  const mesesAte = d => { const a=new Date(), b=new Date(d+'T12:00:00'); return Math.max(1,(b.getFullYear()-a.getFullYear())*12+(b.getMonth()-a.getMonth())); };
+  const porMes = c => Math.max(0,(c.meta-c.guardado)/mesesAte(c.data));
+  const fundoDoCofre = c => { const f=fundoPorId(c.fundo); return fundoPodeUsar(f) ? f : fundoPorId(fundoLivre(c.cat)); };
+  const imagemCofre = (c,w,h) => (P().foto && fotos[c.id]) ? fotos[c.id] : miniFundo(fundoDoCofre(c),w,h);
+  function sequenciaSemanas(){
+    const semanas=new Set(); S.cofres.forEach(c=>(c.depositos||[]).forEach(d=>{ const dt=new Date(d.data+'T12:00:00'); const seg=new Date(dt); seg.setDate(dt.getDate()-((dt.getDay()+6)%7)); semanas.add(seg.toISOString().slice(0,10)); }));
+    let n=0; const d=new Date(); d.setDate(d.getDate()-((d.getDay()+6)%7));
+    if(!semanas.has(d.toISOString().slice(0,10))) d.setDate(d.getDate()-7);
+    while(semanas.has(d.toISOString().slice(0,10))){ n++; d.setDate(d.getDate()-7); }
+    return n;
+  }
+
+  /* ===================== DADOS: demonstração ou Supabase ===================== */
+  const Dados = {
+    sb:null, usuario:null, timer:null,
+    async iniciar(){
+      if(!MODO_REAL){ const l=lsLer('cofre2-estado'); if(l){ try{ S=Object.assign(vazio(),JSON.parse(l)); }catch(e){} } planoAtual=lsLer('cofre2-plano-demo')||'entrada'; return; }
+      await carregarScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js');
+      this.sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey, {auth:{persistSession:true, detectSessionInUrl:true}});
+      const { data:{ session } } = await this.sb.auth.getSession();
+      this.usuario = session?.user || null;
+      const l=lsLer('cofre2-estado'); if(l){ try{ S=Object.assign(vazio(),JSON.parse(l)); }catch(e){} }
+      if(this.usuario && !(await this.temAcesso())){ await this.sb.auth.signOut(); this.usuario=null; }
+      if(this.usuario) await this.carregarNuvem();
+    },
+    urlsFundos:null,
+    urlFundoPremium(id){
+      if(!this.urlsFundos || Date.now()>this.urlsFundos.ate){
+        const ate=Date.now()+50*60e3;
+        this.urlsFundos={ate, mapa:this.sb.storage.from('fundos').createSignedUrls(FUNDOS.filter(f=>!NO_SITE.has(f.id)).map(f=>f.id+'.jpg'), 3600)
+          .then(({data})=>{ const m={}; (data||[]).forEach(d=>{ if(d.signedUrl && !d.error) m[d.path]=d.signedUrl; }); return m; }).catch(()=>({}))};
+      }
+      return this.urlsFundos.mapa.then(m=>m[id+'.jpg']||null);
+    },
+    async carregarNuvem(){
+      const sb=this.sb, uid=this.usuario.id;
+      const { data:perfil } = await sb.from('perfis').select('plano,plano_ate').eq('id',uid).maybeSingle();
+      planoAtual = (perfil && perfil.plano!=='entrada' && perfil.plano_ate && new Date(perfil.plano_ate)>new Date()) ? perfil.plano : 'entrada';
+      const { data:est } = await sb.from('estados').select('dados').eq('user_id',uid).maybeSingle();
+      const perfilLocal=S.perfil;
+      if(est && est.dados && est.dados.cofres){ S=Object.assign(vazio(),est.dados); if(!S.perfil && perfilLocal){ S.perfil=perfilLocal; this.salvar(); } }
+      else if(S.cofres.length) await this.salvarAgora(); // leva a conquista criada antes do login para a conta
+      const { data:fs } = await sb.from('fotos').select('cofre_id,src').eq('user_id',uid);
+      (fs||[]).forEach(f=>fotos[f.cofre_id]=f.src);
+    },
+    salvar(){ lsGravar('cofre2-estado', JSON.stringify(S)); if(!MODO_REAL||!this.usuario) return; clearTimeout(this.timer); this.timer=setTimeout(()=>this.salvarAgora(),600); },
+    async salvarAgora(){ try{ const { error } = await this.sb.from('estados').upsert({user_id:this.usuario.id, dados:S, atualizado:new Date().toISOString()}); if(error) throw error; }catch(e){ aviso('Sem conexão: salvo neste aparelho e sincroniza depois'); } },
+    async salvarFoto(id,src){ fotos[id]=src; if(MODO_REAL&&this.usuario){ await this.sb.from('fotos').upsert({user_id:this.usuario.id, cofre_id:id, src}); } else lsGravar('cofre2-foto-'+id,src); },
+    async apagarFoto(id){ delete fotos[id]; if(MODO_REAL&&this.usuario){ await this.sb.from('fotos').delete().eq('user_id',this.usuario.id).eq('cofre_id',id); } },
+    async enviarCodigo(email){ const { error } = await this.sb.auth.signInWithOtp({ email, options:{ shouldCreateUser:true } }); if(error) throw error; },
+    async confirmarCodigo(email, token){ const { data, error } = await this.sb.auth.verifyOtp({ email, token, type:'email' }); if(error) throw error; this.usuario=data.user; },
+    async temAcesso(){ const { data, error } = await this.sb.rpc('meu_acesso'); return !error && !!data; },
+    async sair(){ if(this.sb) await this.sb.auth.signOut(); this.usuario=null; lsGravar('cofre2-estado',''); location.reload(); },
+    pushAtivo:false,
+    estadoPush(){
+      if(!MODO_REAL) return {texto:'No modo demonstração, as notificações aparecem no topo da tela do app. No app publicado, elas chegam na tela de bloqueio do celular, por cima do seu wallpaper.'};
+      const ios=/iphone|ipad|ipod/i.test(navigator.userAgent), instalado=matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+      if(!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window))
+        return {texto: ios&&!instalado ? 'No iPhone: toque em Compartilhar e depois em "Adicionar à Tela de Início". Abra o Cofre pelo ícone novo e volte aqui para ativar.' : 'Este navegador não aceita notificações. Tente pelo Chrome (Android) ou instalando o app na tela de início (iPhone).'};
+      if(!this.usuario) return {texto:'Entre na sua conta para ativar as notificações.'};
+      if(Notification.permission==='denied') return {texto:'As notificações estão bloqueadas. Libere nas configurações do celular, em Notificações, para o Cofre dos Sonhos.'};
+      if(Notification.permission==='granted' && this.pushAtivo) return {texto:'Ativadas neste celular. Os lembretes chegam na tela de bloqueio.'};
+      return {texto:'Receba o lembrete da reserva, o desafio da semana e a motivação na tela de bloqueio.', botao:'Ativar notificações'};
+    },
+    async verificarPush(){ try{ if(!MODO_REAL||!('serviceWorker' in navigator)) return; const reg=await navigator.serviceWorker.getRegistration(); const sub=reg && await reg.pushManager.getSubscription(); this.pushAtivo=!!sub; }catch(e){} },
+    async ativarPush(){
+      const reg=await navigator.serviceWorker.register('sw.js');
+      const perm=await Notification.requestPermission(); if(perm!=='granted') throw new Error('permissao');
+      const chave=Uint8Array.from(atob(CFG.vapidPublica.replace(/-/g,'+').replace(/_/g,'/').padEnd(Math.ceil(CFG.vapidPublica.length/4)*4,'=')),c=>c.charCodeAt(0));
+      const sub=await reg.pushManager.subscribe({userVisibleOnly:true, applicationServerKey:chave});
+      const j=sub.toJSON();
+      const { error } = await this.sb.from('push_inscricoes').upsert({user_id:this.usuario.id, endpoint:j.endpoint, p256dh:j.keys.p256dh, auth:j.keys.auth});
+      if(error) throw error; this.pushAtivo=true;
+    },
+    pushEvento(tipo, msg){ this.sb.functions.invoke('notificar-evento', { body:{ tipo, titulo:msg.titulo, texto:msg.texto } }).catch(()=>{}); },
+    async notificacaoLocal(titulo, texto){ const reg=await navigator.serviceWorker.getRegistration(); if(reg) await reg.showNotification(titulo,{body:texto, icon:'icone-192.png', badge:'icone-badge.png', tag:'teste'}); },
+    async assinar(plano, nome, cpf){
+      const { data, error } = await this.sb.functions.invoke('criar-assinatura', { body:{ plano, nome, cpf } });
+      if(error || !data?.url) throw new Error(data?.erro || 'Não foi possível abrir o pagamento');
+      return data.url;
+    }
+  };
+  function carregarScript(src){ return new Promise((ok,erro)=>{ const s=document.createElement('script'); s.src=src; s.onload=ok; s.onerror=erro; document.head.append(s); }); }
+  function carregarFotosDemo(){ if(MODO_REAL) return; S.cofres.forEach(c=>{ const v=lsLer('cofre2-foto-'+c.id); if(v) fotos[c.id]=v; }); }
+
+  /* ===================== DISCO DO COFRE (assinatura visual) ===================== */
+  function disco(p, tam=96){
+    const r=tam/2, raio=r-8, marcas=40; let ticks='';
+    for(let i=0;i<marcas;i++){ const a=(i/marcas)*Math.PI*2-Math.PI/2, cheio=i/marcas<p/100, l=i%5===0?7:4;
+      const x1=r+Math.cos(a)*(raio-1), y1=r+Math.sin(a)*(raio-1), x2=r+Math.cos(a)*(raio-l), y2=r+Math.sin(a)*(raio-l);
+      ticks+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${cheio?(p>=100?'var(--aurora)':'var(--ouro)'):'rgba(237,241,248,.22)'}" stroke-width="${i%5===0?2:1.4}" stroke-linecap="round"/>`; }
+    const circ=2*Math.PI*(raio+3), feito=circ*Math.min(p,100)/100;
+    return `<svg class="disco" width="${tam}" height="${tam}" viewBox="0 0 ${tam} ${tam}" role="img" aria-label="${p}% conquistado">
+      <circle cx="${r}" cy="${r}" r="${raio+3}" fill="none" stroke="rgba(237,241,248,.12)" stroke-width="2.5"/>
+      <circle cx="${r}" cy="${r}" r="${raio+3}" fill="none" stroke="${p>=100?'var(--aurora)':'var(--ouro)'}" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="${feito.toFixed(1)} ${circ.toFixed(1)}" transform="rotate(-90 ${r} ${r})"/>
+      ${ticks}
+      <text x="${r}" y="${r+tam*.07}" text-anchor="middle" fill="var(--gelo)" font-size="${tam*.22}" font-weight="800">${p}%</text></svg>`;
+  }
+
+  /* ===================== RENDER ===================== */
+  function renderTopo(){
+    const s=$('#seloPlano'); s.textContent = planoAtual==='entrada' ? 'Seja Premium' : P().nome; s.className='selo-plano '+planoAtual;
+    $('#faixaDemo').hidden = MODO_REAL;
+  }
+  const primeiroNome = () => { const n=(S.perfil&&S.perfil.nome||'').trim().split(/\s+/)[0]||''; return n ? n.charAt(0).toLocaleUpperCase('pt-BR')+n.slice(1) : ''; };
+  function renderInicio(){
+    const nm=primeiroNome(), hr=new Date().getHours();
+    $('#ola').hidden=!nm; $('#olaNome').textContent='Olá, '+nm; $('#olaHora').textContent = hr<5?'Boa noite':hr<12?'Bom dia':hr<18?'Boa tarde':'Boa noite';
+    $('#avisoEntrar').hidden = !(MODO_REAL && !Dados.usuario);
+    $('#frase').textContent=fraseDoDia();
+    $('#kTotal').textContent=brl(S.cofres.reduce((a,c)=>a+c.guardado,0));
+    const sq=sequenciaSemanas(); $('#kSeq').textContent = sq+(sq===1?' semana':' semanas');
+    const ativo=[...S.cofres].filter(c=>c.guardado<c.meta).sort((a,b)=>pct(b)-pct(a))[0] || S.cofres[0];
+    if(!ativo){ $('#heroi').innerHTML=`<div class="vazio"><p>Sua primeira conquista começa aqui.</p><button class="ouro" data-acao="novo-cofre">Criar minha conquista</button></div>`; }
+    else{
+      const p=pct(ativo), falta=Math.max(0,ativo.meta-ativo.guardado);
+      $('#heroi').innerHTML=`<article class="heroi"><img class="fundo" alt="" src="${imagemCofre(ativo,720,900)}">
+        <div class="conteudo">${disco(p,104)}<div class="info"><span class="sobre">${esc(nomeCat(ativo.cat))}</span><h2>${esc(ativo.nome)}</h2>
+        <p class="num" style="font-size:14px">${brl(ativo.guardado)} <span class="fraco">de ${brl(ativo.meta)}</span></p>
+        <p class="nota">${falta>0?`Faltam ${brl(falta)}. Guardando <b style="color:var(--gelo)">${brl(Math.ceil(porMes(ativo)))}/mês</b> você chega em ${new Date(ativo.data+'T12:00:00').toLocaleDateString('pt-BR',{month:'short',year:'numeric'})}.`:'Conquista realizada. Agora é viver.'}</p></div></div></article>
+        <div class="acoes-rapidas">${[10,20,50,100].map(v=>`<button data-acao="guardar-rapido" data-id="${ativo.id}" data-valor="${v}">+${brl(v)}</button>`).join('')}</div>
+        <div class="juntos"><button class="vazado mini" data-acao="wallpaper" data-id="${ativo.id}">Criar wallpaper desta conquista</button></div>`;
+    }
+    const n30=S.d30.length, dia=diaDoDesafio();
+    if(!S.desafio30.inicio){
+      $('#cartaoDesafio').innerHTML=`<h3>Desafio dos 30 dias sem gasto por impulso</h3><p class="nota">Durante 30 dias, você marca cada dia em que não gastou por impulso. Começa hoje, se você topar.</p><button class="ouro" data-acao="d30-comecar">Começar hoje</button>`;
+    } else if(dia>30){
+      $('#cartaoDesafio').innerHTML=`<div class="linha"><h3>Desafio concluído</h3><span class="num fraco">${n30}/30</span></div><p class="nota">${n30>=25?'Disciplina de quem conquista. ':''}Você ficou ${n30} de 30 dias sem gasto por impulso.</p><button class="vazado" data-acao="d30-comecar">Começar um novo desafio</button>`;
+    } else {
+      $('#cartaoDesafio').innerHTML=`<div class="linha"><h3>Desafio: dia ${dia} de 30</h3><span class="num fraco">${n30}/30</span></div>
+      <div class="barra"><i style="width:${n30/30*100}%"></i></div>
+      <div class="linha"><span class="nota">Hoje você resistiu a um gasto por impulso?</span><button class="mini ${S.d30.includes(hoje())?'':'ouro'}" data-acao="d30-hoje">${S.d30.includes(hoje())?'Marcado hoje':'Sim, marcar hoje'}</button></div>`;
+    }
+  }
+  function renderCofres(){
+    const max=P().maxCofres;
+    $('#contCofres').textContent = max===Infinity ? `${S.cofres.length} ${S.cofres.length===1?'cofre':'cofres'}` : `${S.cofres.length} de ${max}`;
+    const itens=S.cofres.map(c=>{ const p=pct(c); return `<button class="cofre-item" data-acao="abrir-cofre" data-id="${c.id}">
+      <img alt="" src="${imagemCofre(c,144,144)}"><span class="meio"><b>${esc(c.nome)}</b><span class="barra ${p>=100?'feito':''}"><i style="width:${p}%"></i></span>
+      <span class="nota num">${brl(c.guardado)} de ${brl(c.meta)}</span></span><span class="num" style="font-weight:800;color:${p>=100?'var(--aurora)':'var(--ouro)'}">${p}%</span></button>`; }).join('');
+    const podeCriar = S.cofres.length < max;
+    $('#listaCofres').innerHTML = itens + `<button class="cofre-novo" data-acao="novo-cofre">${podeCriar?'+ Nova conquista':'<span class="cadeado">'+cadeadoSvg()+' Premium</span> Criar mais conquistas'}</button>`;
+  }
+  const cadeadoSvg = () => '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+
+  /* ---------- estúdio ---------- */
+  let est = { cofreId:null, fundo:null, layout:'minimal' };
+  function renderEstudio(){
+    const corpo=$('#estudioCorpo');
+    if(!S.cofres.length){ corpo.innerHTML=`<div class="vazio"><p>Crie uma conquista para gerar o seu wallpaper.</p><button class="ouro" data-acao="novo-cofre">Criar conquista</button></div>`; return; }
+    if(!S.cofres.find(c=>c.id===est.cofreId)) est.cofreId=S.cofres[0].id;
+    const c=S.cofres.find(x=>x.id===est.cofreId);
+    if(!fundoPodeUsar(fundoPorId(est.fundo))) est.fundo = fundoDoCofre(c).id;
+    if(!P().layouts.includes(est.layout)) est.layout='minimal';
+    const fs0 = fundosDaCat(c.cat), fs = fs0.concat(P().todosFundos ? FUNDOS.filter(f=>!fs0.includes(f)) : []);
+    corpo.innerHTML=`<div class="estudio"><canvas id="telaWp" aria-label="Prévia do wallpaper" role="img"></canvas>
+      <div class="lado">
+        ${S.cofres.length>1?`<label for="wpCofre">Conquista<select id="wpCofre">${S.cofres.map(x=>`<option value="${x.id}" ${x.id===c.id?'selected':''}>${esc(x.nome)}</option>`).join('')}</select></label>`:`<div><span class="sobre">Conquista</span><p style="font-weight:700">${esc(c.nome)}</p></div>`}
+        <div><span class="sobre">Estilo</span><div class="layouts" style="margin-top:6px">
+          ${[['minimal','Minimal'],['disco','Disco'],['frase','Frase']].map(([id,n])=>{ const ok=P().layouts.includes(id); return `<button data-acao="wp-layout" data-l="${id}" aria-pressed="${est.layout===id}">${n}${ok?'':`<span class="cadeado">${cadeadoSvg()}</span>`}</button>`; }).join('')}
+        </div></div>
+        <button class="ouro" id="wpSalvar">Salvar em 4K</button>
+        <p class="nota" id="wpMsg"></p>
+      </div></div>
+      <div><span class="sobre">Fundos de ${esc(nomeCat(c.cat))}${P().todosFundos?' e outros':''}</span>
+        <div class="grade-fundos" style="margin-top:8px">${fs.map(f=>`<button data-acao="wp-fundo" data-f="${f.id}" aria-pressed="${est.fundo===f.id}" aria-label="Fundo ${f.n} ${nomeCat(f.cat)}${fundoPodeUsar(f)?'':' (Premium)'}"><img alt="" src="${miniFundo(f,120,214)}">${fundoPodeUsar(f)?'':`<span class="tranca"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>`}</button>`).join('')}</div>
+        ${P().foto?`<p class="nota" style="margin-top:8px">Quer usar a foto do seu modelo exato? Edite a conquista e envie a foto.</p>`:`<p class="nota" style="margin-top:8px">No Premium: todos os fundos, os estilos Disco e Frase e a foto do seu modelo exato.</p>`}
+      </div>`;
+    desenharWallpaper($('#telaWp'), c, est.fundo, est.layout, 0.25);
+    const sel=$('#wpCofre'); if(sel) sel.onchange=e=>{ est.cofreId=e.target.value; est.fundo=null; renderEstudio(); };
+    $('#wpSalvar').onclick=()=>salvarWallpaper(c);
+  }
+  function quebrar(ctx, t, max){ const ps=t.split(' '), ls=[]; let l=''; ps.forEach(p=>{ const x=l?l+' '+p:p; if(ctx.measureText(x).width>max&&l){ ls.push(l); l=p; } else l=x; }); if(l) ls.push(l); return ls; }
+  async function desenharWallpaper(cv, c, fundoId, layout, escala){
+    const W=1080,H=1920, k=escala*2; cv.width=Math.round(W*k); cv.height=Math.round(H*k); const ctx=cv.getContext('2d'); ctx.scale(k,k);
+    try{ await Promise.all([document.fonts.load('400 100px "DM Serif Display"'),document.fonts.load('italic 400 60px "DM Serif Display"'),document.fonts.load('800 40px Manrope'),document.fonts.load('600 30px Manrope')]); }catch(e){}
+    const usarFoto = P().foto && fotos[c.id] && fundoId===fundoDoCofre(c).id && c.usarFoto;
+    let im=null;
+    if(usarFoto){ im=new Image(); await new Promise(r=>{ im.onload=r; im.onerror=r; im.src=fotos[c.id]; }); }
+    else { const f=fundoPodeUsar(fundoPorId(fundoId)) ? fundoPorId(fundoId) : fundoDoCofre(c); im=await imagemFundo(f); if(!im){ const {cena,v}=fundoCena(f); desenharCena(ctx,W,H,cena,v); } }
+    if(im && im.width){ const s=Math.max(W/im.width,H/im.height); ctx.drawImage(im,(W-im.width*s)/2,(H-im.height*s)/2,im.width*s,im.height*s); }
+    const p=pct(c), x=96, larg=W-192;
+    const sombra=ctx.createLinearGradient(0,H*.38,0,H); sombra.addColorStop(0,'rgba(6,9,20,0)'); sombra.addColorStop(.5,'rgba(6,9,20,.7)'); sombra.addColorStop(1,'rgba(6,9,20,.94)'); ctx.fillStyle=sombra; ctx.fillRect(0,0,W,H);
+    const topo=ctx.createLinearGradient(0,0,0,H*.22); topo.addColorStop(0,'rgba(6,9,20,.5)'); topo.addColorStop(1,'rgba(6,9,20,0)'); ctx.fillStyle=topo; ctx.fillRect(0,0,W,H*.22);
+    const ouro='#e2c48a';
+    const barra=(y)=>{ ctx.fillStyle='rgba(255,255,255,.18)'; ctx.beginPath(); ctx.roundRect(x,y,larg,20,10); ctx.fill(); const g=ctx.createLinearGradient(x,0,x+larg,0); g.addColorStop(0,'#c9a45f'); g.addColorStop(1,'#f3e2b9'); ctx.fillStyle=p>=100?'#7fe0c9':g; ctx.beginPath(); ctx.roundRect(x,y,Math.max(20,larg*p/100),20,10); ctx.fill(); };
+    const rodape=()=>{ ctx.fillStyle='rgba(255,255,255,.55)'; ctx.font='600 26px Manrope, sans-serif'; ctx.textAlign='center'; ctx.fillText('COFRE DOS SONHOS  ·  @inspiradiariooficial', W/2, H-86); ctx.textAlign='left'; };
+    ctx.textAlign='left';
+    if(layout==='disco'){
+      const cx=W/2, cy=H*.64, R=190;
+      ctx.lineWidth=6; ctx.strokeStyle='rgba(255,255,255,.16)'; ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke();
+      ctx.strokeStyle=p>=100?'#7fe0c9':ouro; ctx.lineCap='round'; ctx.beginPath(); ctx.arc(cx,cy,R,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.min(p,100)/100); ctx.stroke();
+      for(let i=0;i<60;i++){ const a=i/60*Math.PI*2-Math.PI/2, l=i%5===0?26:14; ctx.strokeStyle=i/60<p/100?ouro:'rgba(255,255,255,.25)'; ctx.lineWidth=i%5===0?5:3; ctx.beginPath(); ctx.moveTo(cx+Math.cos(a)*(R-16),cy+Math.sin(a)*(R-16)); ctx.lineTo(cx+Math.cos(a)*(R-16-l),cy+Math.sin(a)*(R-16-l)); ctx.stroke(); }
+      ctx.lineCap='butt'; ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.font='800 92px Manrope, sans-serif'; ctx.fillText(p+'%', cx, cy+32);
+      ctx.fillStyle=ouro; ctx.font='800 28px Manrope, sans-serif'; ctx.fillText('VAI SER MEU', cx, cy-R-60);
+      ctx.fillStyle='#fff'; ctx.font='400 88px "DM Serif Display", Georgia, serif'; let y=cy+R+120; quebrar(ctx,c.nome,larg).slice(0,2).forEach(l=>{ ctx.fillText(l,cx,y); y+=96; });
+      ctx.fillStyle='rgba(255,255,255,.8)'; ctx.font='600 36px Manrope, sans-serif'; ctx.fillText(`${brl(c.guardado)} de ${brl(c.meta)}`, cx, y+10); ctx.textAlign='left';
+    } else if(layout==='frase'){
+      let y=H*.5; ctx.fillStyle='#fff'; ctx.font='italic 400 76px "DM Serif Display", Georgia, serif';
+      quebrar(ctx,'“'+fraseDoDia()+'”',larg).slice(0,5).forEach(l=>{ ctx.fillText(l,x,y); y+=92; });
+      y+=50; ctx.fillStyle=ouro; ctx.font='800 28px Manrope, sans-serif'; ctx.fillText(('RUMO A: '+c.nome).toUpperCase().slice(0,44), x, y);
+      y+=40; barra(y); y+=70; ctx.fillStyle='rgba(255,255,255,.85)'; ctx.font='700 34px Manrope, sans-serif'; ctx.fillText(p+'%', x, y); ctx.textAlign='right'; ctx.fillText(`${brl(c.guardado)} de ${brl(c.meta)}`, x+larg, y); ctx.textAlign='left';
+    } else {
+      let y=H*.58; ctx.fillStyle=ouro; ctx.font='800 30px Manrope, sans-serif'; ctx.fillText('MINHA PRÓXIMA CONQUISTA', x, y);
+      y+=112; ctx.fillStyle='#fff'; ctx.font='400 104px "DM Serif Display", Georgia, serif'; quebrar(ctx,c.nome,larg).slice(0,3).forEach(l=>{ ctx.fillText(l,x,y); y+=110; });
+      y+=6; barra(y); y+=78; ctx.fillStyle='#fff'; ctx.font='800 44px Manrope, sans-serif'; ctx.fillText(p+'%', x, y);
+      ctx.fillStyle='rgba(255,255,255,.8)'; ctx.font='600 36px Manrope, sans-serif'; ctx.textAlign='right'; ctx.fillText(`${brl(c.guardado)} de ${brl(c.meta)}`, x+larg, y); ctx.textAlign='left';
+      y+=104; ctx.fillStyle='rgba(255,255,255,.9)'; ctx.font='italic 400 50px "DM Serif Display", Georgia, serif'; quebrar(ctx,'“'+fraseDoDia()+'”',larg).slice(0,4).forEach(l=>{ ctx.fillText(l,x,y); y+=64; });
+    }
+    rodape();
+  }
+  async function salvarWallpaper(c){
+    const btn=$('#wpSalvar'), msg=$('#wpMsg'); btn.disabled=true; msg.textContent='Gerando em 4K…';
+    const cv=document.createElement('canvas'); await desenharWallpaper(cv, c, est.fundo, est.layout, 1);
+    const nome='conquista-'+c.nome.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.png';
+    cv.toBlob(async blob=>{
+      try{
+        const dl = window.claude ? await window.claude.use?.('downloads').catch(()=>null) : null;
+        if(dl){ await dl.save({filename:nome, data:blob}); msg.textContent='Wallpaper salvo. Coloque como tela de bloqueio.'; }
+        else if(window.claude){ msg.textContent='Aqui não dá para baixar. No app publicado, o download é direto.'; }
+        else { const u=URL.createObjectURL(blob), a=document.createElement('a'); a.href=u; a.download=nome; document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(u),4000); msg.textContent='Baixado. Se não apareceu, segure o dedo na prévia e salve a imagem.'; }
+      }catch(e){ msg.textContent = e&&e.code==='declined' ? 'Download cancelado.' : 'Não deu para salvar. Tente de novo.'; }
+      btn.disabled=false;
+    },'image/png');
+  }
+
+  /* ---------- mais ---------- */
+  let telaMais='menu';
+  function renderMais(){
+    const corpo=$('#maisCorpo');
+    const voltar=`<button class="vazado mini" data-acao="mais-menu" style="align-self:flex-start">‹ Voltar</button>`;
+    if(telaMais==='menu'){
+      const it=(id,t,sub,trava)=>`<button data-acao="mais-ir" data-t="${id}"><span style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left"><span>${t}</span><span class="nota" style="font-weight:500">${sub}</span></span>${trava?`<span class="cadeado">${cadeadoSvg()} Premium</span>`:'<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>'}</button>`;
+      corpo.innerHTML=`<h2>Mais</h2><div class="cartao menu">
+        ${it('gastos','Entradas e saídas','Veja para onde vai o dinheiro do mês',false)}
+        ${it('desafios','Desafios','30 dias sem impulso e 52 semanas',false)}
+        ${it('simulador','Simulador de juros','Veja seu dinheiro trabalhando por você',false)}
+        ${it('lembretes','Lembretes','Dia da reserva, desafio e motivação',false)}
+        ${it('dividas','Plano para sair das dívidas','Qual dívida pagar primeiro',!P().dividas)}
+        ${planoAtual==='elite'?it('comunidade','Comunidade Elite','Canal diário, grupo e desafio do mês',false):''}
+        <button data-acao="perfil"><span style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left"><span>Meu perfil</span><span class="nota" style="font-weight:500">${esc(primeiroNome()||'Seu nome e suas capas')}</span></span></button>
+        ${it('planos','Meu plano',P().nome+(planoAtual==='entrada'?' · conheça o Premium':''),false)}
+        ${it('conta','Conta',MODO_REAL?(Dados.usuario?.email||'Entrar'):'Modo demonstração',false)}
+      </div>`;
+      return;
+    }
+    if(telaMais==='gastos') return renderGastos(corpo,voltar);
+    if(telaMais==='desafios') return renderDesafios(corpo,voltar);
+    if(telaMais==='simulador') return renderSimulador(corpo,voltar);
+    if(telaMais==='dividas') return renderDividas(corpo,voltar);
+    if(telaMais==='lembretes') return renderLembretes(corpo,voltar);
+    if(telaMais==='comunidade'){ corpo.innerHTML=`${voltar}<h2>Comunidade Elite</h2><div class="cartao"><p>Canal com frase, desafio e dica todos os dias, grupo para comemorar conquistas e o desafio mensal com ranking.</p>${CFG.linkComunidade?`<a class="btn ouro" href="${esc(CFG.linkComunidade)}" target="_blank" rel="noopener">Entrar na comunidade</a>`:'<p class="nota">O link da comunidade será liberado aqui.</p>'}<p class="nota">Wallpaper com IA personalizado: chega em breve, e os fundadores recebem primeiro.</p></div>`; return; }
+    if(telaMais==='planos'){ corpo.innerHTML=`${voltar}<h2>Meu plano</h2>`; corpo.append(blocoPlanos()); return; }
+    if(telaMais==='conta'){
+      corpo.innerHTML=`${voltar}<h2>Conta</h2><div class="cartao">${MODO_REAL?`<p>${esc(Dados.usuario?.email||'')}</p><button class="vazado" data-acao="sair">Sair da conta</button>`:`<p class="fraco">Modo demonstração. No app publicado, o login é por código enviado ao e-mail.</p>
+        <span class="sobre">Simular plano</span><div class="chips">${['entrada','premium','elite'].map(p=>`<button data-acao="demo-plano" data-p="${p}" aria-pressed="${planoAtual===p}">${PLANOS[p].nome}</button>`).join('')}</div>
+        <button class="vazado mini" data-acao="demo-zerar" id="btnZerar">Apagar dados de teste</button>`}</div>`;
+    }
+  }
+  function renderGastos(corpo,voltar){
+    const ym=hoje().slice(0,7); let ent=0,sai=0; const cats={};
+    S.movs.filter(m=>m.data.startsWith(ym)).forEach(m=>{ if(m.tipo==='entrada') ent+=m.valor; else { sai+=m.valor; cats[m.cat]=(cats[m.cat]||0)+m.valor; } });
+    const CAT={saida:['Mercado','Moradia','Transporte','Delivery e lazer','Compras','Contas','Outros'],entrada:['Salário','Renda extra','Presente','Outros']};
+    const max=Math.max(1,...Object.values(cats));
+    corpo.innerHTML=`${voltar}<h2>Entradas e saídas</h2>
+      <div class="cartao"><form id="fMov"><div class="chips" id="movTipo"><button type="button" data-tipo="saida" aria-pressed="true">Saída</button><button type="button" data-tipo="entrada" aria-pressed="false">Entrada</button></div>
+        <div class="duas"><label for="movValor">Valor (R$)<input id="movValor" type="number" inputmode="decimal" min="0.01" step="0.01" required placeholder="0,00"></label>
+        <label for="movCat">Categoria<select id="movCat">${CAT.saida.map(c=>`<option>${c}</option>`).join('')}</select></label></div>
+        <label for="movDesc">Descrição (opcional)<input id="movDesc" maxlength="40" placeholder="Ex.: delivery de sexta"></label>
+        <button class="ouro" type="submit">Registrar</button></form><div class="dica" id="movDica" hidden></div></div>
+      <div class="cartao"><div class="linha"><h3>${new Date().toLocaleDateString('pt-BR',{month:'long'}).replace(/^./,m=>m.toUpperCase())}</h3><span class="num"><span class="entra">+${brl(ent)}</span> · <span class="sai">−${brl(sai)}</span></span></div>
+        <p class="nota">Sobrou ${brl(ent-sai)} este mês.</p>
+        ${P().relatorio ? (Object.keys(cats).length?Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div><div class="linha num" style="font-size:13.5px"><span>${esc(k)}</span><span>${brl(v)}</span></div><div class="barra"><i style="width:${v/max*100}%;background:var(--aurora)"></i></div></div>`).join(''):'<p class="nota">Nenhuma saída registrada este mês.</p>') : `<p class="nota"><span class="cadeado">${cadeadoSvg()} Premium</span> Relatório por categoria: veja exatamente onde o dinheiro escapa.</p>`}
+      </div>
+      <div class="cartao"><h3>Últimos lançamentos</h3><ul class="lista">${[...S.movs].sort((a,b)=>b.data.localeCompare(a.data)).slice(0,15).map(m=>`<li><span>${esc(m.desc||m.cat)}<br><small class="fraco">${esc(m.cat)} · ${new Date(m.data+'T12:00:00').toLocaleDateString('pt-BR')}</small></span><span class="num ${m.tipo==='entrada'?'entra':'sai'}" style="display:flex;gap:8px;align-items:center">${m.tipo==='entrada'?'+':'−'}${brl(m.valor)}<button class="vazado mini" aria-label="Apagar" data-acao="apagar-mov" data-id="${m.id}">×</button></span></li>`).join('')||'<li class="fraco">Nada lançado ainda.</li>'}</ul></div>`;
+    let tipo='saida';
+    corpo.querySelectorAll('#movTipo button').forEach(b=>b.onclick=()=>{ tipo=b.dataset.tipo; corpo.querySelectorAll('#movTipo button').forEach(x=>x.setAttribute('aria-pressed',x===b)); $('#movCat').innerHTML=CAT[tipo].map(c=>`<option>${c}</option>`).join(''); });
+    $('#fMov').onsubmit=e=>{ e.preventDefault(); const valor=+$('#movValor').value; if(!(valor>0)) return;
+      S.movs.push({id:novoId(), tipo, valor, cat:$('#movCat').value, desc:$('#movDesc').value.trim(), data:hoje()}); Dados.salvar();
+      const alvo=S.cofres.find(c=>c.guardado<c.meta); let dica='';
+      const cat=$('#movCat').value, impulso=['Delivery e lazer','Compras'].includes(cat);
+      if(tipo==='saida'&&alvo){ const dias=Math.max(1,Math.round(valor/(Math.max(1,porMes(alvo))/30)));
+        dica = `Esse gasto equivale a <b>${dias} ${dias>1?'dias':'dia'}</b> de economia para "${esc(alvo.nome)}". Valeu a pena? Se sim, tudo certo.`;
+        if(impulso && S.lembretes.alertasGasto!==false) notificar('impulso', varsCofre(alvo,{v:brl(valor), d:dias, cat:cat.toLowerCase()})); }
+      else if(tipo==='entrada'&&alvo){ dica=`Entrou dinheiro. Que tal mandar uma parte para "${esc(alvo.nome)}" antes de gastar? <button class="ouro mini" data-acao="guardar" style="margin-top:8px">Guardar agora</button>`; notificar('entrada', varsCofre(alvo,{v:brl(valor)})); }
+      renderGastos(corpo,voltar); if(dica){ const d=$('#movDica'); d.hidden=false; d.innerHTML=dica; } };
+  }
+  function renderDesafios(corpo,voltar){
+    const b=S.d52.base, total=1378*b, feito=S.d52.feitas.reduce((a,w)=>a+w*b,0);
+    const dias=diasDesafio(), h=hoje();
+    corpo.innerHTML=`${voltar}<h2>Desafios</h2>
+      <div class="cartao"><div class="linha"><h3>30 dias sem gasto por impulso</h3><span class="num fraco">${S.d30.length}/30</span></div>
+        <p class="nota">Marque os dias em que você não gastou por impulso: delivery por preguiça, compra fora do plano, assinatura esquecida.</p>
+        ${!dias.length?`<button class="ouro" data-acao="d30-comecar">Começar hoje</button>`:`<p class="nota">Começou em ${new Date(S.desafio30.inicio+'T12:00:00').toLocaleDateString('pt-BR')}. Dá para marcar hoje e os dias que passaram; os próximos liberam no dia.</p>
+        <div class="casas">${dias.map((d,i)=>`<button data-acao="d30" data-d="${d}" aria-pressed="${S.d30.includes(d)}" ${d>h?'disabled':''} style="${d===h?'outline:2px solid var(--aurora);outline-offset:1px;':''}line-height:1.2;flex-direction:column;gap:1px;padding:7px 0"><span style="display:block;font-weight:800">Dia ${i+1}</span><span style="font-size:10.5px;opacity:.75">${d.slice(8)}/${d.slice(5,7)}</span></button>`).join('')}</div>
+        ${diaDoDesafio()>30?`<button class="vazado mini" data-acao="d30-comecar" style="align-self:flex-start">Começar um novo desafio</button>`:''}`}</div>
+      <div class="cartao"><div class="linha"><h3>52 semanas</h3>${P().d52?`<span class="num fraco">${brl(feito)} de ${brl(total)}</span>`:`<span class="cadeado">${cadeadoSvg()} Premium</span>`}</div>
+        <p class="nota">Na semana 1 você guarda 1× o valor base; na semana 52, 52×. Com base de ${brl(b)}, são ${brl(total)} em um ano.</p>
+        ${P().d52?`<label for="d52Base" style="max-width:180px">Valor base (R$)<input id="d52Base" type="number" min="1" step="1" value="${b}"></label>
+        <div class="barra"><i style="width:${feito/total*100}%"></i></div>
+        <div class="casas">${Array.from({length:52},(_,i)=>i+1).map(w=>`<button data-acao="d52" data-w="${w}" aria-pressed="${S.d52.feitas.includes(w)}">${brl(w*b)}</button>`).join('')}</div>`:`<button class="ouro" data-acao="planos">Destravar no Premium</button>`}</div>`;
+    const inp=$('#d52Base'); if(inp) inp.onchange=e=>{ S.d52.base=Math.max(1,Math.round(+e.target.value||1)); Dados.salvar(); renderDesafios(corpo,voltar); };
+  }
+  function renderSimulador(corpo,voltar){
+    corpo.innerHTML=`${voltar}<h2>Seu dinheiro trabalhando</h2><div class="cartao">
+      <div class="duas"><label for="sI">Já tenho (R$)<input id="sI" type="number" min="0" step="10" value="1000"></label><label for="sM">Guardo por mês (R$)<input id="sM" type="number" min="0" step="10" value="300"></label></div>
+      <div class="duas"><label for="sA">Por quantos anos<input id="sA" type="number" min="1" max="40" value="5"></label><label for="sT">Rendimento ao ano (%)<input id="sT" type="number" min="0" max="40" step="0.1" value="10"></label></div>
+      <div class="duas"><div><span class="nota">Você terá</span><b class="num" id="sF" style="display:block;font-family:var(--display);font-weight:400;font-size:26px"></b></div><div><span class="nota">Só de rendimento</span><b class="num" id="sJ" style="display:block;font-family:var(--display);font-weight:400;font-size:26px;color:var(--ouro)"></b></div></div>
+      <canvas class="grafico" id="sG" role="img" aria-label="Crescimento do dinheiro ao longo dos anos"></canvas>
+      <div class="juntos nota"><span><b style="color:var(--nevoa)">■</b> o que você guardou</span><span><b style="color:var(--ouro)">■</b> total com rendimento</span></div>
+      <p class="nota">Simulação educativa com taxa fixa escolhida por você. Rendimentos reais variam; confira as taxas atuais antes de decidir. Não é recomendação de investimento.</p></div>
+      <div class="cartao"><h3>Antes de investir</h3><ul class="lista">
+        <li><span><b>Reserva de emergência primeiro:</b> de 3 a 6 meses do seu custo de vida, num lugar em que você saca rápido.</span></li>
+        <li><span><b>Juros compostos:</b> o rendimento também passa a render. Tempo pesa mais que valor.</span></li>
+        <li><span><b>Desconfie:</b> promessa de ganho alto e garantido costuma ser golpe.</span></li></ul></div>`;
+    const calc=()=>{ const ini=+$('#sI').value||0, men=+$('#sM').value||0, anos=Math.min(40,Math.max(1,+$('#sA').value||1)), tx=+$('#sT').value||0, im=Math.pow(1+tx/100,1/12)-1;
+      let v=ini; const pts=[{i:ini,t:ini}]; for(let m=1;m<=anos*12;m++){ v=v*(1+im)+men; if(m%12===0) pts.push({i:ini+men*m,t:v}); }
+      const fim=pts.at(-1); $('#sF').textContent=brl(Math.round(fim.t)); $('#sJ').textContent=brl(Math.round(fim.t-fim.i));
+      const cv=$('#sG'), dpr=devicePixelRatio||1, W=cv.clientWidth||320, H=170; cv.width=W*dpr; cv.height=H*dpr; const ctx=cv.getContext('2d'); ctx.scale(dpr,dpr);
+      const L=6,R=W-6,T=12,B=H-20, mx=Math.max(1,...pts.map(p=>p.t)), X=i=>L+(R-L)*i/(pts.length-1||1), Y=v=>B-(B-T)*v/mx;
+      ctx.strokeStyle='#27324f'; [0,.5,1].forEach(f=>{ ctx.beginPath(); ctx.moveTo(L,Y(mx*f)); ctx.lineTo(R,Y(mx*f)); ctx.stroke(); });
+      const area=(k,cor,fill)=>{ ctx.beginPath(); pts.forEach((p,i)=>i?ctx.lineTo(X(i),Y(p[k])):ctx.moveTo(X(i),Y(p[k]))); ctx.strokeStyle=cor; ctx.lineWidth=2; ctx.stroke(); ctx.lineTo(X(pts.length-1),B); ctx.lineTo(X(0),B); ctx.closePath(); ctx.fillStyle=fill; ctx.fill(); };
+      area('t','#e2c48a','rgba(226,196,138,.16)'); area('i','#9aa6be','rgba(154,166,190,.1)');
+      ctx.fillStyle='#e2c48a'; ctx.beginPath(); ctx.arc(X(pts.length-1),Y(fim.t),4,0,7); ctx.fill();
+      ctx.fillStyle='#9aa6be'; ctx.font='11px Manrope, sans-serif'; ctx.textAlign='left'; ctx.fillText('hoje',L,H-5); ctx.textAlign='right'; ctx.fillText(anos+(anos>1?' anos':' ano'),R,H-5); };
+    ['#sI','#sM','#sA','#sT'].forEach(s=>$(s).addEventListener('input',calc)); calc();
+  }
+  function renderLembretes(corpo,voltar){
+    const L=S.lembretes=Object.assign(lembretesPadrao(), S.lembretes||{});
+    const SEM=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+    const estadoPush = Dados.estadoPush();
+    corpo.innerHTML=`${voltar}<h2>Lembretes</h2>
+      <div class="cartao"><div class="linha"><h3>Notificações no celular</h3></div>
+        <p class="nota" id="pushInfo">${estadoPush.texto}</p>
+        ${estadoPush.botao?`<button class="ouro" data-acao="ativar-push">${estadoPush.botao}</button>`:''}
+        <button class="vazado mini" data-acao="testar-notif" style="align-self:flex-start">Testar uma notificação</button></div>
+      <div class="cartao" style="gap:0">
+        <div class="interruptor"><span><b>Dia da reserva mensal</b><br><span class="nota">Às 9h, no dia que você escolher</span></span><span class="juntos"><select id="lDia" aria-label="Dia do mês">${Array.from({length:28},(_,i)=>`<option value="${i+1}" ${L.diaReserva===i+1?'selected':''}>Dia ${i+1}</option>`).join('')}</select><input type="checkbox" id="lRes" aria-label="Lembrete da reserva" ${L.reserva?'checked':''}></span></div>
+        <div class="interruptor"><span><b>Desafio da semana</b><br><span class="nota">Às 19h</span></span><span class="juntos"><select id="lSem" aria-label="Dia da semana">${SEM.map((s,i)=>`<option value="${i}" ${L.diaDesafio===i?'selected':''}>${s}</option>`).join('')}</select><input type="checkbox" id="lDes" aria-label="Lembrete do desafio" ${L.desafio?'checked':''}></span></div>
+        <div class="interruptor"><span><b>Motivação</b><br><span class="nota">Frase para começar o dia</span></span><span class="juntos"><select id="lMot" aria-label="Frequência">${[[0,'Desligado'],[2,'2x por semana'],[3,'3x por semana'],[5,'Dias úteis']].map(([v,t])=>`<option value="${v}" ${L.motivacao===v?'selected':''}>${t}</option>`).join('')}</select><select id="lHora" aria-label="Horário">${[7,8,9,12,18,20].map(h=>`<option value="${h}" ${L.horaMotivacao===h?'selected':''}>${h}h</option>`).join('')}</select></span></div>
+        <div class="interruptor"><span><b>Como você está indo</b><br><span class="nota">Aos domingos: parabéns quando estiver bem, um toque quando parar</span></span><input type="checkbox" id="lPro" aria-label="Resumo do progresso" ${L.progresso?'checked':''}></div>
+        <div class="interruptor"><span><b>Depósitos e metas no celular</b><br><span class="nota">A mensagem chega na tela de bloqueio uns segundos depois. Bloqueie a tela e veja chegar.</span></span><input type="checkbox" id="lEve" aria-label="Notificar depósitos e metas no celular" ${L.pushEventos?'checked':''}></div>
+        <div class="interruptor"><span><b>Alertas de gasto por impulso</b><br><span class="nota">Quando lançar delivery, lazer ou compras</span></span><input type="checkbox" id="lGas" aria-label="Alertas de gasto" ${L.alertasGasto?'checked':''}></div>
+      </div>
+      <p class="nota">Lembretes agendados: no máximo 1 por dia, sempre entre 7h e 21h. Depósitos, resgates, gastos e metas: aparecem na hora dentro do app e, se ativado acima, chegam também no celular.</p>`;
+    const salvar=()=>{ L.diaReserva=+$('#lDia').value; L.reserva=$('#lRes').checked; L.diaDesafio=+$('#lSem').value; L.desafio=$('#lDes').checked; L.motivacao=+$('#lMot').value; L.horaMotivacao=+$('#lHora').value; L.progresso=$('#lPro').checked; L.alertasGasto=$('#lGas').checked; L.pushEventos=$('#lEve').checked; Dados.salvar(); aviso('Lembretes salvos'); };
+    ['#lDia','#lRes','#lSem','#lDes','#lMot','#lHora','#lPro','#lGas','#lEve'].forEach(s=>$(s).addEventListener('change',salvar));
+  }
+  function renderDividas(corpo,voltar){
+    if(!P().dividas){ corpo.innerHTML=`${voltar}<h2>Plano para sair das dívidas</h2><div class="cartao"><p>Liste suas dívidas e descubra qual pagar primeiro: pelo método bola de neve (a menor primeiro, para ganhar motivação) ou avalanche (os juros mais altos primeiro, para pagar menos).</p><button class="ouro" data-acao="planos">Destravar no Premium</button></div>`; return; }
+    const metodo=S.metodoDivida||'avalanche';
+    const ord=[...S.dividas].sort((a,b)=>metodo==='avalanche'?b.juros-a.juros:a.saldo-b.saldo);
+    corpo.innerHTML=`${voltar}<h2>Plano para sair das dívidas</h2>
+      <div class="cartao"><form id="fDiv"><label for="dvNome">Dívida<input id="dvNome" required maxlength="30" placeholder="Ex.: cartão de crédito"></label>
+        <div class="duas"><label for="dvSaldo">Quanto deve (R$)<input id="dvSaldo" type="number" min="1" step="0.01" required></label><label for="dvJuros">Juros ao mês (%)<input id="dvJuros" type="number" min="0" step="0.1" required></label></div>
+        <button class="ouro" type="submit">Adicionar</button></form></div>
+      <div class="cartao"><div class="linha"><h3>Ordem de pagamento</h3><div class="alternar"><button data-acao="metodo" data-m="avalanche" aria-pressed="${metodo==='avalanche'}">Avalanche</button><button data-acao="metodo" data-m="bola" aria-pressed="${metodo==='bola'}">Bola de neve</button></div></div>
+        <p class="nota">${metodo==='avalanche'?'Paga primeiro a dívida com juros mais altos: no total, você paga menos.':'Paga primeiro a menor dívida: você vê resultado rápido e ganha motivação.'} Pague o mínimo de todas e coloque todo o extra na primeira da lista.</p>
+        <ul class="lista">${ord.map((d,i)=>`<li><span><b style="color:${i===0?'var(--ouro)':'var(--gelo)'}">${i+1}. ${esc(d.nome)}</b><br><small class="fraco">${d.juros}% ao mês</small></span><span class="num" style="display:flex;gap:8px;align-items:center">${brl(d.saldo)}<button class="vazado mini" aria-label="Remover" data-acao="apagar-divida" data-id="${d.id}">×</button></span></li>`).join('')||'<li class="fraco">Nenhuma dívida cadastrada. Ótimo sinal.</li>'}</ul>
+        <p class="nota">Total: ${brl(S.dividas.reduce((a,d)=>a+d.saldo,0))}</p></div>`;
+    $('#fDiv').onsubmit=e=>{ e.preventDefault(); S.dividas.push({id:novoId(), nome:$('#dvNome').value.trim(), saldo:+$('#dvSaldo').value, juros:+$('#dvJuros').value}); Dados.salvar(); renderDividas(corpo,voltar); };
+  }
+
+  /* ---------- planos ---------- */
+  let ciclo='mensal';
+  function blocoPlanos(){
+    const div=document.createElement('div'); div.className='planos';
+    const premiumPreco = ciclo==='mensal' ? `${brl(PRECOS.premium_mensal)}<span class="nota"> /mês</span>` : `${brl(PRECOS.premium_anual)}<span class="nota"> /ano</span>`;
+    div.innerHTML=`<div class="alternar" style="align-self:center"><button data-acao="ciclo" data-c="mensal" aria-pressed="${ciclo==='mensal'}">Mensal</button><button data-acao="ciclo" data-c="anual" aria-pressed="${ciclo==='anual'}">Anual · 2 meses grátis</button></div>
+      <div class="plano"><div class="linha"><h3>Entrada</h3>${planoAtual==='entrada'?'<span class="cadeado" style="color:var(--aurora)">Seu plano</span>':''}</div>
+        <ul><li>1 conquista</li><li>Wallpaper estilo Minimal com 1 fundo por categoria</li><li>Gastos do mês, 30 dias sem impulso e simulador</li></ul></div>
+      <div class="plano destaque"><div class="linha"><h3>Premium</h3><span class="preco">${premiumPreco}</span></div>
+        <ul><li>Conquistas ilimitadas</li><li>Todos os fundos 4K + coleção nova todo mês</li><li>Estilos Disco e Frase + foto do seu modelo exato</li><li>Relatório por categoria, 52 semanas e plano para sair das dívidas</li></ul>
+        ${planoAtual==='premium'?'<span class="cadeado" style="color:var(--aurora)">Seu plano</span>':`<button class="ouro bloco" data-acao="assinar" data-p="${ciclo==='mensal'?'premium_mensal':'premium_anual'}">${vendasFechadas()?'Em breve':'Assinar Premium'}</button>`}</div>
+      <div class="plano"><div class="linha"><h3>Elite Fundador</h3><span class="preco">${brl(PRECOS.elite_fundador)}<span class="nota"> /mês</span></span></div>
+        <ul><li>Tudo do Premium</li><li>Comunidade: canal diário, grupo e desafio mensal com ranking</li><li>Coleções de fundos antes de todo mundo</li><li>Wallpaper com IA personalizado (em breve, fundadores primeiro)</li></ul>
+        <p class="nota">Preço de fundador para sempre. Só 100 vagas.</p>
+        ${planoAtual==='elite'?'<span class="cadeado" style="color:var(--aurora)">Seu plano</span>':`<button class="bloco" data-acao="assinar" data-p="elite_fundador">${vendasFechadas()?'Em breve':'Quero ser fundador'}</button>`}</div>
+      <p class="nota" style="text-align:center">Cancele quando quiser. Se cancelar, suas conquistas continuam salvas.</p>`;
+    return div;
+  }
+  function abrirPlanos(motivo){
+    folha(`<h2>${motivo||'Destrave o Cofre completo'}</h2><p class="fraco">Mais conquistas, todos os fundos e as ferramentas para chegar lá mais rápido.</p><div id="planosAqui"></div>`, (el)=>{ el.querySelector('#planosAqui').append(blocoPlanos()); });
+  }
+  // Durante o teste as vendas ficam fechadas: ninguém sobe de plano pelo app (só o dono, direto no banco).
+  const vendasFechadas = () => MODO_REAL && CFG.vendasAbertas!==true;
+  async function assinar(plano){
+    if(vendasFechadas()){ folha(`<h2>O Premium abre em breve</h2><p class="fraco">Estamos em fase de testes. Por enquanto o Cofre funciona no plano Entrada, e você vai ser avisado quando o Premium e o Elite Fundador abrirem.</p><button class="ouro bloco" type="button" data-fechar>Entendi</button>`, (el,fechar)=>{ el.querySelector('[data-fechar]').onclick=fechar; }); return; }
+    if(!MODO_REAL){ planoAtual = plano.startsWith('elite')?'elite':'premium'; lsGravar('cofre2-plano-demo',planoAtual); fecharFolhas(); renderTudo(); celebrar('Plano '+P().nome+' ativado','No app publicado, aqui abre o pagamento por Pix ou cartão.'); return; }
+    if(!Dados.usuario){ abrirLogin(); return; }
+    folha(`<h2>Quase lá</h2><p class="fraco">Para emitir a cobrança, precisamos do seu nome e CPF. O pagamento é feito em ambiente seguro, por Pix ou cartão.</p>
+      <form id="fAss"><label for="aNome">Nome completo<input id="aNome" required autocomplete="name"></label><label for="aCpf">CPF<input id="aCpf" required inputmode="numeric" maxlength="14" placeholder="000.000.000-00"></label>
+      <button class="ouro" type="submit" id="aBtn">Ir para o pagamento</button><p class="nota" id="aMsg"></p></form>`, el=>{
+      el.querySelector('#fAss').onsubmit=async e=>{ e.preventDefault(); const b=el.querySelector('#aBtn'), m=el.querySelector('#aMsg'); b.disabled=true; m.textContent='Abrindo pagamento…';
+        try{ const url=await Dados.assinar(plano, el.querySelector('#aNome').value.trim(), el.querySelector('#aCpf').value.replace(/\D/g,'')); m.innerHTML=`Pronto. <a href="${esc(url)}" target="_blank" rel="noopener" style="color:var(--ouro)">Abrir pagamento</a>. Assim que o pagamento for confirmado, o plano é liberado sozinho.`; window.open(url,'_blank'); }
+        catch(err){ m.textContent=err.message||'Não deu certo. Tente de novo.'; } b.disabled=false; };
+    });
+  }
+
+  /* ---------- folhas ---------- */
+  function folha(html, aoMontar){ const bg=document.createElement('div'); bg.className='fundo-folha'; bg.innerHTML=`<div class="folha" role="dialog" aria-modal="true"><button type="button" class="fechar-folha" aria-label="Fechar">${xSvg()}</button><span class="alca"></span>${html}</div>`;
+    bg.addEventListener('click',e=>{ if(e.target===bg || e.target.closest('.fechar-folha')) bg.remove(); }); $('#camadas').append(bg); aoMontar&&aoMontar(bg.firstElementChild,()=>bg.remove()); const f=bg.querySelector('input,select'); if(f) f.focus(); }
+  function xSvg(){ return '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'; }
+  const fecharFolhas = () => document.querySelectorAll('.fundo-folha').forEach(x=>x.remove());
+
+  function formConquista(c, depois){
+    const editar=!!c;
+    if(!editar && S.cofres.length>=P().maxCofres){ abrirPlanos('Sua próxima conquista está no Premium'); return; }
+    c = c || {nome:'', cat:'carro', meta:'', data:new Date(Date.now()+365*864e5).toISOString().slice(0,10)};
+    let cat=c.cat, foto=fotos[c.id]||null, usarFoto=!!c.usarFoto;
+    folha(`<h2>${editar?'Editar conquista':'Nova conquista'}</h2>
+      <div><span class="sobre">O que você vai conquistar?</span><div class="categorias" style="margin-top:8px" id="fcCats">${CATEGORIAS.map(([id,n])=>`<button type="button" data-cat="${id}" aria-pressed="${cat===id}">${icone(id)}${n}</button>`).join('')}</div></div>
+      <form id="fConq">
+        <label for="fcNome">Dê um nome<input id="fcNome" required maxlength="40" value="${esc(c.nome)}" placeholder="Ex.: Minha CB 500"></label>
+        <div class="duas"><label for="fcMeta">Quanto custa (R$)<input id="fcMeta" type="number" inputmode="decimal" min="1" step="1" required value="${c.meta}"></label>
+        <label for="fcData">Até quando<input id="fcData" type="date" required value="${c.data}"></label></div>
+        ${editar?'':`<label for="fcJa">Já tenho guardado (R$)<input id="fcJa" type="number" inputmode="decimal" min="0" step="1" value="0"></label>`}
+        <div class="cartao" style="padding:12px;gap:8px"><div class="linha"><span class="sobre">Foto do seu modelo exato</span>${P().foto?'':`<span class="cadeado">${cadeadoSvg()} Premium</span>`}</div>
+          ${P().foto?`<input id="fcFoto" type="file" accept="image/*"><label style="flex-direction:row;align-items:center;gap:8px;color:var(--gelo)"><input type="checkbox" id="fcUsarFoto" ${usarFoto?'checked':''} style="width:auto"> Usar minha foto no lugar do fundo</label><p class="nota" id="fcFotoInfo">${foto?'Foto escolhida.':''}</p>`:`<p class="nota">No Premium você usa a foto da moto, do carro ou do celular que quer, em vez de um fundo da biblioteca.</p>`}</div>
+        <div class="juntos"><button class="ouro" type="submit">${editar?'Salvar':'Criar conquista'}</button>${editar?'<button type="button" class="vazado" id="fcApagar">Excluir</button>':''}</div>
+        <p class="nota" id="fcConfirma" hidden></p>
+      </form>`, (el,fechar)=>{
+      el.querySelectorAll('#fcCats button').forEach(b=>b.onclick=()=>{ cat=b.dataset.cat; el.querySelectorAll('#fcCats button').forEach(x=>x.setAttribute('aria-pressed',x===b)); });
+      const ff=el.querySelector('#fcFoto'); if(ff) ff.onchange=e=>{ const arq=e.target.files[0]; if(!arq) return; const rd=new FileReader(); rd.onload=()=>{ const im=new Image(); im.onload=()=>{ const k=Math.min(1,1400/Math.max(im.width,im.height)); const cv=document.createElement('canvas'); cv.width=Math.round(im.width*k); cv.height=Math.round(im.height*k); cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height); foto=cv.toDataURL('image/jpeg',.78); el.querySelector('#fcUsarFoto').checked=true; el.querySelector('#fcFotoInfo').textContent='Foto escolhida.'; }; im.onerror=()=>{ el.querySelector('#fcFotoInfo').textContent='Não consegui abrir essa imagem. Tente outra.'; }; im.src=rd.result; }; rd.readAsDataURL(arq); };
+      const ap=el.querySelector('#fcApagar'); let armado=false;
+      if(ap) ap.onclick=async()=>{ if(!armado){ armado=true; ap.textContent='Toque de novo para excluir'; const cf=el.querySelector('#fcConfirma'); cf.hidden=false; cf.textContent='A conquista e o histórico de depósitos serão apagados.'; return; }
+        S.cofres=S.cofres.filter(x=>x.id!==c.id); await Dados.apagarFoto(c.id); Dados.salvar(); fechar(); renderTudo(); aviso('Conquista excluída'); };
+      el.querySelector('#fConq').onsubmit=async e=>{ e.preventDefault();
+        const dados={nome:el.querySelector('#fcNome').value.trim(), cat, meta:+el.querySelector('#fcMeta').value, data:el.querySelector('#fcData').value};
+        const uf=el.querySelector('#fcUsarFoto'); dados.usarFoto = !!(uf&&uf.checked&&foto);
+        let alvo;
+        if(editar){ alvo=S.cofres.find(x=>x.id===c.id); if(alvo.cat!==cat) alvo.fundo=null; Object.assign(alvo,dados); }
+        else { const ja=+(el.querySelector('#fcJa').value||0); alvo={id:novoId(), guardado:ja, depositos: ja>0?[{v:ja,data:hoje()}]:[], criado:hoje(), fundo:null, ...dados}; S.cofres.push(alvo); }
+        if(foto && P().foto) await Dados.salvarFoto(alvo.id, foto);
+        Dados.salvar(); fechar(); renderTudo(); aviso(editar?'Conquista atualizada':'Conquista criada'); depois&&depois(alvo); };
+    });
+  }
+  function abrirCofre(c){
+    const p=pct(c);
+    folha(`<div style="display:flex;gap:14px;align-items:center">${disco(p,88)}<div style="min-width:0"><span class="sobre">${esc(nomeCat(c.cat))}</span><h2>${esc(c.nome)}</h2><p class="num fraco">${brl(c.guardado)} de ${brl(c.meta)}</p></div></div>
+      <p class="nota">${c.guardado<c.meta?`Guardando ${brl(Math.ceil(porMes(c)))} por mês, você chega em ${new Date(c.data+'T12:00:00').toLocaleDateString('pt-BR',{month:'long',year:'numeric'})}.`:'Conquista realizada.'}</p>
+      <div class="duas"><button class="ouro" data-acao="guardar" data-id="${c.id}">Guardar</button><button data-acao="retirar" data-id="${c.id}">Retirar</button></div>
+      <div class="duas"><button class="vazado" data-acao="wallpaper" data-id="${c.id}">Wallpaper</button><button class="vazado" data-acao="editar-cofre" data-id="${c.id}">Editar</button></div>
+      <div><span class="sobre">Últimos depósitos</span><ul class="lista">${(c.depositos||[]).slice(-6).reverse().map(d=>`<li><span>${new Date(d.data+'T12:00:00').toLocaleDateString('pt-BR')}</span><span class="num ${d.v>=0?'entra':'sai'}">${d.v>=0?'+':'−'}${brl(Math.abs(d.v))}</span></li>`).join('')||'<li class="fraco">Nenhum depósito ainda.</li>'}</ul></div>`);
+  }
+  function formValor(c, modo, valorInicial){
+    c = c || S.cofres.find(x=>x.guardado<x.meta) || S.cofres[0];
+    if(!c){ formConquista(null); return; }
+    let alvoId=c.id;
+    folha(`<h2>${modo==='guardar'?'Guardar':'Retirar'}</h2>
+      ${S.cofres.length>1?`<label for="vCofre">Em qual conquista<select id="vCofre">${S.cofres.map(x=>`<option value="${x.id}" ${x.id===c.id?'selected':''}>${esc(x.nome)}</option>`).join('')}</select></label>`:`<p class="fraco">${esc(c.nome)}</p>`}
+      <form id="fValor"><input class="valor-grande num" id="vValor" type="number" inputmode="decimal" min="0.01" step="0.01" required placeholder="R$ 0" value="${valorInicial||''}" aria-label="Valor em reais">
+        <div class="chips">${[10,20,50,100,200].map(v=>`<button type="button" data-v="${v}">+${brl(v)}</button>`).join('')}</div>
+        <button class="ouro" type="submit">${modo==='guardar'?'Guardar na conquista':'Retirar'}</button></form>`, (el,fechar)=>{
+      const sel=el.querySelector('#vCofre'); if(sel) sel.onchange=e=>alvoId=e.target.value;
+      const inp=el.querySelector('#vValor');
+      el.querySelectorAll('.chips button').forEach(b=>b.onclick=()=>{ inp.value=(+inp.value||0)+(+b.dataset.v); });
+      el.querySelector('#fValor').onsubmit=e=>{ e.preventDefault(); const v=+inp.value; if(!(v>0)) return; fechar(); mover(S.cofres.find(x=>x.id===alvoId), modo==='guardar'?v:-v); };
+    });
+  }
+  function mover(c, v){
+    const antes=pct(c);
+    c.guardado=Math.max(0,c.guardado+v); c.depositos=(c.depositos||[]).concat({v,data:hoje()}).slice(-300);
+    Dados.salvar(); renderTudo();
+    const depois=pct(c); const marco=[100,75,50,25].find(m=>antes<m&&depois>=m);
+    if(v>0 && marco && !(S.marcos[c.id]||[]).includes(marco)){ S.marcos[c.id]=(S.marcos[c.id]||[]).concat(marco); Dados.salvar();
+      celebrar(marco===100?'Conquista realizada!':`${marco}% de ${c.nome}`, marco===100?'Você fez. Agora é viver essa conquista.':'Atualize seu wallpaper para ver o progresso toda vez que pegar o celular.', c);
+      setTimeout(()=>notificar('marco'+marco, varsCofre(c)), 900); }
+    else if(v>0) notificar('deposito', varsCofre(c,{v:brl(v)}));
+    else notificar('resgate', varsCofre(c,{v:brl(-v), d:Math.max(1,Math.round(-v/(Math.max(1,porMes(c))/30)))}));
+  }
+  function celebrar(titulo, texto, c){
+    const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const d=document.createElement('div'); d.className='celebra'; d.innerHTML=`<div class="caixa">${c?disco(pct(c),120):''}<h2>${esc(titulo)}</h2><p class="fraco">${esc(texto)}</p><div class="juntos" style="justify-content:center">${c?`<button class="ouro" data-acao="wallpaper" data-id="${c.id}">Atualizar wallpaper</button>`:''}<button class="vazado" data-acao="fechar-celebra">Continuar</button></div></div>`;
+    document.body.append(d);
+    if(!reduz){ const cv=document.createElement('canvas'); cv.className='confete'; document.body.append(cv); const W=cv.width=innerWidth, H=cv.height=innerHeight, ctx=cv.getContext('2d');
+      const ps=Array.from({length:110},()=>({x:Math.random()*W,y:-20-Math.random()*H*.4,vy:2+Math.random()*3,vx:-1+Math.random()*2,r:3+Math.random()*4,c:['#e2c48a','#7fe0c9','#edf1f8','#c9a45f'][Math.floor(Math.random()*4)],a:Math.random()*6}));
+      let t=0; const passo=()=>{ ctx.clearRect(0,0,W,H); ps.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.a+=.1; ctx.fillStyle=p.c; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a); ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r); ctx.restore(); }); if(++t<160) requestAnimationFrame(passo); else cv.remove(); }; passo(); }
+  }
+
+  /* ---------- login (produção) ---------- */
+  function abrirLogin(){
+    if(CFG.loginSenha) return abrirLoginSenha();
+    folha(`<h2>Salve sua conquista</h2><p class="fraco">Entre com seu e-mail para guardar tudo na sua conta e acessar de qualquer celular. Use o mesmo e-mail da compra.</p>
+      <form id="fLogin"><label for="lEmail">E-mail<input id="lEmail" type="email" required autocomplete="email"></label><button class="ouro" type="submit" id="lBtn">Receber código</button></form>
+      <form id="fCodigo" hidden><label for="lCod">Código de 6 dígitos enviado ao seu e-mail<input id="lCod" inputmode="numeric" maxlength="8" required autocomplete="one-time-code"></label><button class="ouro" type="submit">Entrar</button></form>
+      <p class="nota" id="lMsg"></p>`, (el,fechar)=>{
+      let email='';
+      el.querySelector('#fLogin').onsubmit=async e=>{ e.preventDefault(); email=el.querySelector('#lEmail').value.trim().toLowerCase(); const m=el.querySelector('#lMsg');
+        try{ await Dados.enviarCodigo(email); el.querySelector('#fLogin').hidden=true; el.querySelector('#fCodigo').hidden=false; el.querySelector('#lCod').focus(); m.textContent='Enviamos um código para '+email+'. Confira também o spam.'; }catch(err){ m.textContent='Não deu para enviar o código. Confira o e-mail e tente de novo.'; } };
+      el.querySelector('#fCodigo').onsubmit=async e=>{ e.preventDefault(); const m=el.querySelector('#lMsg');
+        try{ await Dados.confirmarCodigo(email, el.querySelector('#lCod').value.trim());
+          if(!(await Dados.temAcesso())){ m.innerHTML=`Não encontramos uma compra com este e-mail. ${CFG.linkCompraEntrada?`<a href="${esc(CFG.linkCompraEntrada)}" target="_blank" rel="noopener" style="color:var(--ouro)">Garantir meu acesso por R$ 19,90</a>`:''}`; return; }
+          await Dados.carregarNuvem(); fechar(); renderTudo(); aviso('Conta conectada'); }
+        catch(err){ m.textContent='Código inválido ou expirado. Peça um novo.'; } };
+    });
+  }
+
+  // Login com e-mail e senha (usado enquanto o e-mail com código não está configurado).
+  function abrirLoginSenha(){
+    folha(`<h2>Salve sua conquista</h2><p class="fraco">Crie sua conta com o mesmo e-mail da compra. Assim tudo fica guardado e você acessa de qualquer celular.</p>
+      <form id="fSenha"><label for="sEmail">E-mail<input id="sEmail" type="email" required autocomplete="email"></label>
+        <label for="sSenha">Senha (mínimo 6 caracteres)<input id="sSenha" type="password" required minlength="6" autocomplete="current-password"></label>
+        <div class="duas"><button class="ouro" type="submit" data-modo="entrar">Entrar</button><button type="submit" data-modo="criar">Criar conta</button></div></form>
+      <p class="nota" id="sMsg"></p>`, (el,fechar)=>{
+      let modo='entrar'; el.querySelectorAll('#fSenha button').forEach(b=>b.addEventListener('click',()=>modo=b.dataset.modo));
+      el.querySelector('#fSenha').onsubmit=async e=>{ e.preventDefault(); const m=el.querySelector('#sMsg'); const email=el.querySelector('#sEmail').value.trim().toLowerCase(), senha=el.querySelector('#sSenha').value;
+        el.querySelectorAll('#fSenha button').forEach(b=>b.disabled=true); m.textContent= modo==='criar'?'Criando sua conta…':'Entrando…';
+        try{
+          const r = modo==='criar' ? await Dados.sb.auth.signUp({email, password:senha}) : await Dados.sb.auth.signInWithPassword({email, password:senha});
+          if(r.error) throw r.error;
+          Dados.usuario = r.data.user || r.data.session?.user;
+          if(!r.data.session){ m.textContent='Conta criada. Confirme pelo e-mail que enviamos e depois toque em Entrar.'; return; }
+          if(!(await Dados.temAcesso())){ await Dados.sb.auth.signOut(); Dados.usuario=null; m.innerHTML=`Não encontramos uma compra com este e-mail. ${CFG.linkCompraEntrada?`<a href="${esc(CFG.linkCompraEntrada)}" target="_blank" rel="noopener" style="color:var(--ouro)">Garantir meu acesso por R$ 19,90</a>`:''}`; return; }
+          await Dados.carregarNuvem(); await Dados.verificarPush(); fechar(); renderTudo(); aviso('Conta conectada');
+          if(!Dados.pushAtivo){ telaMais='lembretes'; renderMais(); irAba('mais'); }
+        }catch(err){
+          const t=String(err?.message||'');
+          m.textContent = /invalid login/i.test(t) ? 'E-mail ou senha incorretos. Se ainda não tem conta, toque em Criar conta.' : /already registered|already been registered/i.test(t) ? 'Este e-mail já tem conta. Toque em Entrar.' : /password/i.test(t) ? 'A senha precisa ter pelo menos 6 caracteres.' : 'Não deu certo agora. Confira a internet e tente de novo.';
+        } finally { el.querySelectorAll('#fSenha button').forEach(b=>b.disabled=false); } };
+    });
+  }
+
+  /* ---------- boas-vindas (mostra o valor antes do login) ---------- */
+  function boasVindas(){
+    const bv=document.createElement('div'); bv.className='boas-vindas'; document.body.append(bv);
+    const rascunho={nome:'', cat:'moto', meta:'', data:new Date(Date.now()+365*864e5).toISOString().slice(0,10)};
+    const passos=(n)=>`<div class="passos">${[0,1,2,3].map(i=>`<i class="${i<=n?'ok':''}"></i>`).join('')}</div>`;
+    const tela0=()=>{ bv.innerHTML=`<div class="dentro">${passos(0)}<span class="sobre">Boas-vindas ao Cofre dos Sonhos</span><h1>Antes de tudo, como você se chama?</h1>
+        <div id="bvPerfil"></div>${MODO_REAL?'<button class="vazado bloco" id="bvJa">Já tenho conta</button>':''}</div>`;
+      bv.querySelector('#bvPerfil').append(formPerfil(()=>tela1(), 'Continuar'));
+      const ja=bv.querySelector('#bvJa'); if(ja) ja.onclick=()=>{ bv.remove(); abrirLogin(); }; };
+    const tela1=()=>{ const nm=primeiroNome(); bv.innerHTML=`<div class="dentro">${passos(1)}<button class="vazado mini" id="bvV0" style="align-self:flex-start">‹ Voltar</button><span class="sobre">${nm?'Prazer, '+esc(nm):'Vamos lá'}</span><h1>O que você vai conquistar?</h1>
+        <div class="categorias">${CATEGORIAS.map(([id,n])=>`<button data-cat="${id}" aria-pressed="${rascunho.cat===id}">${icone(id)}${n}</button>`).join('')}</div>
+        <button class="ouro bloco" id="bv1">Continuar</button></div>`;
+      bv.querySelectorAll('.categorias button').forEach(b=>b.onclick=()=>{ rascunho.cat=b.dataset.cat; bv.querySelectorAll('.categorias button').forEach(x=>x.setAttribute('aria-pressed',x===b)); });
+      bv.querySelector('#bvV0').onclick=tela0; bv.querySelector('#bv1').onclick=tela2; };
+    const tela2=()=>{ bv.innerHTML=`<div class="dentro">${passos(2)}<button class="vazado mini" id="bvV" style="align-self:flex-start">‹ Voltar</button><h1>Conte sobre ela</h1>
+        <form id="bvF"><label for="bvNome">Nome da conquista<input id="bvNome" required maxlength="40" value="${esc(rascunho.nome)}" placeholder="${{carro:'Ex.: Meu primeiro carro',moto:'Ex.: Minha CB 500',casa:'Ex.: Minha casa própria',celular:'Ex.: Celular novo',notebook:'Ex.: Meu setup',neve:'Ex.: Viagem para a neve',praia:'Ex.: Férias na praia',liberdade:'Ex.: Reserva de liberdade',negocio:'Ex.: Meu negócio',estudos:'Ex.: Minha faculdade'}[rascunho.cat]||'Ex.: Minha conquista'}"></label>
+        <label for="bvMeta">Quanto custa (R$)<input id="bvMeta" type="number" inputmode="decimal" min="1" step="1" required value="${rascunho.meta}"></label>
+        <label for="bvData">Quando você quer conquistar<input id="bvData" type="date" required value="${rascunho.data}"></label>
+        <button class="ouro bloco" type="submit">Ver minha conquista</button></form></div>`;
+      bv.querySelector('#bvV').onclick=tela1;
+      bv.querySelector('#bvF').onsubmit=e=>{ e.preventDefault(); rascunho.nome=bv.querySelector('#bvNome').value.trim(); rascunho.meta=+bv.querySelector('#bvMeta').value; rascunho.data=bv.querySelector('#bvData').value; tela3(); }; };
+    const tela3=()=>{ const c={id:'previa', guardado:0, ...rascunho, fundo:fundoLivre(rascunho.cat)};
+      bv.innerHTML=`<div class="dentro">${passos(3)}<button class="vazado mini" id="bvV2" style="align-self:flex-start">‹ Voltar</button><span class="sobre">${primeiroNome()?esc(primeiroNome())+', sua':'Sua'} conquista já tem plano</span><h1>${esc(c.nome)}</h1>
+        <p class="fraco">Guardando <b style="color:var(--gelo)">${brl(Math.ceil(porMes(c)))} por mês</b>, ela é sua em ${new Date(c.data+'T12:00:00').toLocaleDateString('pt-BR',{month:'long',year:'numeric'})}.</p>
+        <div class="capa-bv" style="aspect-ratio:9/16;max-width:260px;align-self:center;width:70%"><canvas id="bvWp"></canvas></div>
+        <p class="nota" style="text-align:center">Este é o seu wallpaper. Ele atualiza a cada depósito.</p>
+        <button class="ouro bloco" id="bvOk">${MODO_REAL?'Salvar minha conquista':'Começar'}</button></div>`;
+      desenharWallpaper(bv.querySelector('#bvWp'), c, c.fundo, 'minimal', 0.3); bv.querySelector('#bvV2').onclick=tela2;
+      bv.querySelector('#bvOk').onclick=()=>{ c.fundo=fundoLivre(c.cat); c.id=novoId(); c.criado=hoje(); c.depositos=[]; S.cofres.push(c); S.onboarding=true; Dados.salvar(); bv.remove(); renderTudo(); if(MODO_REAL && !Dados.usuario) abrirLogin(); }; };
+    if(S.perfil && S.perfil.nome) tela1(); else tela0();
+  }
+  // Formulário de nome e sexo (boas-vindas e quem já usava o app).
+  function formPerfil(aoSalvar, rotulo){
+    const f=document.createElement('form'); f.id='fPerfil'; f.style.cssText='display:flex;flex-direction:column;gap:14px';
+    let sx=(S.perfil&&S.perfil.sexo)||'';
+    f.innerHTML=`<label for="pNome">Seu nome<input id="pNome" required maxlength="30" autocomplete="given-name" placeholder="Ex.: Lucas" value="${esc(S.perfil&&S.perfil.nome||'')}"></label>
+      <div><span class="sobre">Você é</span><div class="sexos" style="margin-top:8px">${[['homem','Homem'],['mulher','Mulher'],['outro','Prefiro não dizer']].map(([id,n])=>`<button type="button" data-sx="${id}" aria-pressed="${sx===id}">${n}</button>`).join('')}</div>
+      <p class="nota" style="margin-top:6px">Usamos para deixar o Cofre com a sua cara.</p></div>
+      <button class="ouro bloco" type="submit">${rotulo||'Salvar'}</button><p class="nota" id="pMsg" role="status"></p>`;
+    f.querySelectorAll('[data-sx]').forEach(b=>b.onclick=()=>{ sx=b.dataset.sx; f.querySelectorAll('[data-sx]').forEach(x=>x.setAttribute('aria-pressed',x===b)); f.querySelector('#pMsg').textContent=''; });
+    f.onsubmit=e=>{ e.preventDefault(); const nome=f.querySelector('#pNome').value.trim().replace(/\s+/g,' ');
+      if(!nome){ f.querySelector('#pMsg').textContent='Digite seu nome.'; return; }
+      if(!sx){ f.querySelector('#pMsg').textContent='Escolha uma opção acima.'; return; }
+      S.perfil={nome, sexo:sx}; Object.keys(cacheMini).forEach(k=>delete cacheMini[k]); Dados.salvar(); aoSalvar&&aoSalvar(); };
+    return f;
+  }
+  function pedirPerfil(){
+    folha(`<h2>Vamos deixar o Cofre com a sua cara</h2><p class="fraco">Como você quer ser chamado e quais capas combinam com você?</p><div id="perfilAqui"></div>`, (el,fechar)=>{
+      el.querySelector('#perfilAqui').append(formPerfil(()=>{ fechar(); renderTudo(); aviso('Prontinho, '+primeiroNome()+'!'); }, 'Salvar'));
+    });
+  }
+
+  /* ===================== NAVEGAÇÃO E EVENTOS ===================== */
+  function irAba(a){ document.querySelectorAll('section.tela').forEach(s=>s.hidden=s.id!=='t-'+a);
+    document.querySelectorAll('nav.abas [data-aba]').forEach(b=>{ if(b.dataset.aba===a) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
+    if(a==='mais' && telaMais!=='menu'){ /* mantém subtela */ } scrollTo(0,0); try{ sessionStorage.setItem('cofre2-aba',a); }catch(e){} }
+  function renderTudo(){ normalizar(); renderTopo(); renderInicio(); renderCofres(); renderEstudio(); renderMais(); preCarregarFundos(); }
+
+  document.addEventListener('click', e=>{
+    const b=e.target.closest('[data-aba],[data-acao]'); if(!b) return;
+    if(b.dataset.aba){ if(b.dataset.aba==='mais') { telaMais='menu'; renderMais(); } irAba(b.dataset.aba); return; }
+    const a=b.dataset.acao, c=S.cofres.find(x=>x.id===b.dataset.id);
+    switch(a){
+      case 'guardar': fecharFolhas(); formValor(c,'guardar'); break;
+      case 'guardar-rapido': mover(c, +b.dataset.valor); break;
+      case 'retirar': fecharFolhas(); formValor(c,'retirar'); break;
+      case 'novo-cofre': formConquista(null); break;
+      case 'abrir-cofre': abrirCofre(c); break;
+      case 'editar-cofre': fecharFolhas(); formConquista(c); break;
+      case 'wallpaper': fecharFolhas(); document.querySelectorAll('.celebra,.confete').forEach(x=>x.remove()); est.cofreId=c.id; est.fundo=null; renderEstudio(); irAba('estudio'); break;
+      case 'wp-fundo': { const f=fundoPorId(b.dataset.f); if(!fundoPodeUsar(f)){ abrirPlanos('Este fundo é do Premium'); break; } est.fundo=f.id; const cf=S.cofres.find(x=>x.id===est.cofreId); if(cf){ cf.fundo=f.id; Dados.salvar(); } renderEstudio(); renderInicio(); renderCofres(); break; }
+      case 'wp-layout': if(!P().layouts.includes(b.dataset.l)){ abrirPlanos('Este estilo é do Premium'); break; } est.layout=b.dataset.l; renderEstudio(); break;
+      case 'planos': abrirPlanos(); break;
+      case 'perfil': pedirPerfil(); break;
+      case 'entrar': abrirLogin(); break;
+      case 'ciclo': ciclo=b.dataset.c; { const alvo=b.closest('#planosAqui')||b.closest('#maisCorpo'); if(alvo&&alvo.id==='planosAqui'){ alvo.innerHTML=''; alvo.append(blocoPlanos()); } else renderMais(); } break;
+      case 'assinar': assinar(b.dataset.p); break;
+      case 'mais-ir': telaMais=b.dataset.t; renderMais(); scrollTo(0,0); break;
+      case 'mais-menu': telaMais='menu'; renderMais(); break;
+      case 'apagar-mov': S.movs=S.movs.filter(m=>m.id!==b.dataset.id); Dados.salvar(); renderMais(); break;
+      case 'd30-comecar': S.desafio30={inicio:hoje()}; S.d30=[]; Dados.salvar(); renderInicio(); renderMais(); aviso('Desafio começou. Dia 1 de 30!'); break;
+      case 'd30-hoje': { const h=hoje(); if(!S.desafio30.inicio||diaDoDesafio()>30) break; S.d30 = S.d30.includes(h)?S.d30.filter(x=>x!==h):S.d30.concat(h); Dados.salvar(); renderInicio(); if(S.d30.length===30) celebrar('30 dias de disciplina','Você provou que manda no seu dinheiro.'); break; }
+      case 'd30': { const d=b.dataset.d; if(d>hoje()||!diasDesafio().includes(d)) break; S.d30 = S.d30.includes(d)?S.d30.filter(x=>x!==d):S.d30.concat(d); Dados.salvar(); renderMais(); renderInicio(); if(S.d30.length===30) celebrar('30 dias de disciplina','Você provou que manda no seu dinheiro.'); break; }
+      case 'd52': { const w=+b.dataset.w; S.d52.feitas = S.d52.feitas.includes(w)?S.d52.feitas.filter(x=>x!==w):S.d52.feitas.concat(w); Dados.salvar(); renderMais(); break; }
+      case 'metodo': S.metodoDivida=b.dataset.m; Dados.salvar(); renderMais(); break;
+      case 'apagar-divida': S.dividas=S.dividas.filter(d=>d.id!==b.dataset.id); Dados.salvar(); renderMais(); break;
+      case 'demo-plano': if(MODO_REAL) break; planoAtual=b.dataset.p; lsGravar('cofre2-plano-demo',planoAtual); renderTudo(); aviso('Simulando plano '+P().nome); break;
+      case 'demo-zerar': if(b.dataset.armado){ S=vazio(); Object.keys(fotos).forEach(k=>delete fotos[k]); Dados.salvar(); location.reload(); } else { b.dataset.armado='1'; b.textContent='Toque de novo para apagar tudo'; } break;
+      case 'sair': Dados.sair(); break;
+      case 'ativar-push': (async()=>{ b.disabled=true; try{ await Dados.ativarPush(); aviso('Notificações ativadas'); }catch(err){ aviso(err.message==='permissao'?'Você não permitiu as notificações':'Não deu para ativar agora. Tente de novo.'); } renderMais(); })(); break;
+      case 'testar-notif': { const c=S.cofres.find(x=>x.guardado<x.meta)||S.cofres[0]; const tipo=c?'reservaMensal':'motivacao';
+        if(MODO_REAL && Dados.pushAtivo){ const m=montarMensagem(tipo,varsCofre(c)); Dados.pushEvento('teste', m); aviso('Bloqueie a tela: a notificação chega em uns 6 segundos'); }
+        else notificar(tipo, varsCofre(c)); break; }
+      case 'fechar-celebra': document.querySelectorAll('.celebra,.confete').forEach(x=>x.remove()); break;
+    }
+  });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ fecharFolhas(); document.querySelectorAll('.celebra').forEach(x=>x.remove()); } });
+
+  /* ===================== INÍCIO ===================== */
+  (async()=>{
+    try{ await Dados.iniciar(); }catch(e){ aviso('Sem conexão. Usando os dados deste aparelho.'); }
+    carregarFotosDemo();
+    await Dados.verificarPush();
+    renderTudo();
+    try{ const a=sessionStorage.getItem('cofre2-aba'); if(a) irAba(a); }catch(e){}
+    if(!S.onboarding && !S.cofres.length) boasVindas();
+    else if(!(S.perfil&&S.perfil.nome)) pedirPerfil();
+  })();
+})();
+</script>
+
+</body></html>
