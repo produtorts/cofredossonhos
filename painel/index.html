@@ -213,7 +213,7 @@ function visiveis(){
 function lista(){
   const vs=visiveis(); if(filtro==='pix') vs.sort((a,b)=>Date.parse(b.pix_gerado_em)-Date.parse(a.pix_gerado_em));
   $('#lista').innerHTML = vs.length ? `<table><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Situação</th><th>Cadastro</th><th></th></tr></thead><tbody>
-    ${vs.map(c=>`<tr><td><b>${esc(c.nome||'(sem nome)')}</b><small>${esc(c.email)}${c.instagram?' · @'+esc(c.instagram):''}</small></td>
+    ${vs.map(c=>`<tr><td><b>${esc(c.nome||'(sem nome)')}</b><small>${esc(c.email)}${c.instagram?' · @'+esc(c.instagram):''}${c.campanha?' · veio de <b style="color:var(--ouro)">'+esc(c.campanha)+'</b>':''}</small></td>
       <td>${c.whatsapp?esc(fmtZap(c.whatsapp)):'<span class="nota">sem número</span>'}</td>
       <td><span class="tag ${SIT[c.sit].c}">${SIT[c.sit].n}</span><small>${detalhe(c)}</small>${pixAberto(c)?`<small class="quente">🛒 Gerou Pix ${nomeCiclo(c)} (${brl(PRECO_PIX(c))}) ${haQuanto(c.pix_gerado_em)} e não pagou</small>`:''}</td>
       <td>${fmtData(Date.parse(c.criado))}<small>${c.ultimo_uso?'usou em '+fmtData(Date.parse(c.ultimo_uso)):''}</small></td>
@@ -239,8 +239,8 @@ function editarMsgs(){
   $('#ok').onclick=()=>{ const o={}; d.querySelectorAll('textarea').forEach(t=>o[t.dataset.k]=t.value); try{ localStorage.setItem('painel-msgs',JSON.stringify(o)); }catch(e){} d.close(); };
 }
 function baixarCsv(){
-  const linhas=[['Nome','WhatsApp','Aceitou WhatsApp','E-mail','Situação','Detalhe','Cadastro','Instagram']]
-    .concat(visiveis().map(c=>[c.nome||'',c.whatsapp||'',c.whatsapp_aceite?'sim':'não',c.email,SIT[c.sit].n,detalhe(c).replace(/<[^>]+>/g,''),fmtData(Date.parse(c.criado)),c.instagram||'']));
+  const linhas=[['Nome','WhatsApp','Aceitou WhatsApp','E-mail','Situação','Detalhe','Cadastro','Instagram','Campanha']]
+    .concat(visiveis().map(c=>[c.nome||'',c.whatsapp||'',c.whatsapp_aceite?'sim':'não',c.email,SIT[c.sit].n,detalhe(c).replace(/<[^>]+>/g,''),fmtData(Date.parse(c.criado)),c.instagram||'',c.campanha||'']));
   const csv='﻿'+linhas.map(l=>l.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(';')).join('\n');
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})); a.download='clientes-cofre-dos-sonhos.csv'; a.click();
 }
