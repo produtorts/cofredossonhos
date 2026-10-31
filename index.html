@@ -1238,7 +1238,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   // WhatsApp obrigatório: campo, validação e janela para quem ainda não informou.
   function camposWhats(px){
     return `<label for="${px}Whats">WhatsApp com DDD<input id="${px}Whats" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="16" placeholder="(11) 91234-5678"></label>
-      <label class="aceite" style="display:flex;gap:10px;align-items:flex-start;font-size:13px;font-weight:400;line-height:1.4"><input id="${px}Aceite" type="checkbox" style="width:20px;height:20px;flex:none;margin-top:1px"> Aceito receber mensagens do Cofre dos Sonhos no WhatsApp (avisos, dicas e ofertas). Posso cancelar quando quiser.</label>`;
+      <label class="aceite" style="display:flex;flex-direction:row;gap:10px;align-items:flex-start;font-size:13px;font-weight:400;line-height:1.4"><input id="${px}Aceite" type="checkbox" style="width:20px;height:20px;flex:none;margin-top:1px"> Aceito receber mensagens do Cofre dos Sonhos no WhatsApp (avisos, dicas e ofertas). Posso cancelar quando quiser.</label>`;
   }
   function mascaraWhats(v){ const d=v.replace(/\D/g,'').replace(/^55(?=\d{10,11}$)/,'').slice(0,11);
     if(d.length<=2) return d.length?'('+d:''; if(d.length<=6) return `(${d.slice(0,2)}) ${d.slice(2)}`;
