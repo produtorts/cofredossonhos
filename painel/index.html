@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel · Cofre dos Sonhos</title>
+<link rel="icon" href="../icone-192-v2.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
+<style>
+  :root{--noite:#0c1222;--ardosia:#141c31;--cartao:#19223b;--linha:#27324f;--gelo:#edf1f8;--nevoa:#9aa6be;--ouro:#e2c48a;--ouro-forte:#c9a45f;--tinta:#1d1608;--aurora:#7fe0c9;--alerta:#f2a07b;--perigo:#ef8d8d;--zap:#25d366}
+  *{box-sizing:border-box} html,body{margin:0;background:var(--noite);color:var(--gelo);font:15px/1.45 "DM Sans",system-ui,sans-serif}
+  button,input,select,textarea{font:inherit;color:inherit}
+  .topo{position:sticky;top:0;z-index:5;background:rgba(12,18,34,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--linha);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .marca{font-family:Lora,serif;font-size:19px;font-weight:500;margin-right:auto} .marca em{color:var(--ouro);font-style:italic;font-weight:400} .marca small{display:block;font:500 11px "DM Sans";letter-spacing:.14em;color:var(--nevoa);text-transform:uppercase}
+  main{max-width:1180px;margin:0 auto;padding:16px}
+  .b{border:1px solid var(--linha);background:var(--cartao);border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:500}
+  .b:hover{border-color:var(--ouro-forte)} .b.ouro{background:var(--ouro);color:var(--tinta);border-color:var(--ouro)}
+  .b.zap{background:var(--zap);border-color:var(--zap);color:#062b14;font-weight:700;white-space:nowrap}
+  .b:disabled{opacity:.45;cursor:not-allowed}
+  .contadores{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+  .cont{text-align:left;border:1px solid var(--linha);background:var(--ardosia);border-radius:12px;padding:12px;cursor:pointer}
+  .cont b{display:block;font-size:26px;font-variant-numeric:tabular-nums;line-height:1.1} .cont span{color:var(--nevoa);font-size:13px}
+  .cont[aria-pressed=true]{border-color:var(--ouro);box-shadow:0 0 0 1px var(--ouro) inset}
+  .filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+  .filtros input[type=search]{flex:1;min-width:200px;background:var(--ardosia);border:1px solid var(--linha);border-radius:10px;padding:9px 12px}
+  .chip{border:1px solid var(--linha);background:transparent;border-radius:999px;padding:6px 12px;cursor:pointer;font-size:13px;color:var(--nevoa)}
+  .chip[aria-pressed=true]{border-color:var(--ouro);color:var(--ouro)}
+  table{width:100%;border-collapse:collapse} th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--nevoa);font-weight:500;padding:8px 10px;border-bottom:1px solid var(--linha)}
+  td{padding:11px 10px;border-bottom:1px solid var(--linha);vertical-align:middle}
+  td small{color:var(--nevoa);display:block;font-size:12px}
+  .tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;white-space:nowrap}
+  .t-tri{background:#1d3a33;color:var(--aurora)} .t-men{background:#2a3350;color:#a9c1ff} .t-lib{background:#33301f;color:var(--ouro)}
+  .t-teste{background:#22324a;color:#8fd0ff} .t-venc{background:#3d2420;color:var(--alerta)} .t-bas{background:#2c2c3a;color:#d4cfe8} .t-sem{background:#232a3c;color:var(--nevoa)}
+  .quente{color:var(--alerta);font-weight:700}
+  .vazio{color:var(--nevoa);text-align:center;padding:40px 0}
+  .caixa{max-width:380px;margin:12vh auto;background:var(--ardosia);border:1px solid var(--linha);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px}
+  .caixa input{background:var(--noite);border:1px solid var(--linha);border-radius:10px;padding:11px 12px;width:100%}
+  .nota{color:var(--nevoa);font-size:13px}
+  dialog{background:var(--ardosia);color:var(--gelo);border:1px solid var(--linha);border-radius:16px;padding:20px;width:min(640px,calc(100vw - 32px))}
+  dialog::backdrop{background:rgba(0,0,0,.6)}
+  dialog textarea{width:100%;min-height:110px;background:var(--noite);border:1px solid var(--linha);border-radius:10px;padding:10px;resize:vertical}
+  dialog h3{margin:14px 0 6px;font-size:14px}
+  @media (max-width:760px){
+    thead{display:none} table,tbody,tr,td{display:block;width:100%} tr{border:1px solid var(--linha);border-radius:12px;margin-bottom:10px;padding:6px 4px;background:var(--ardosia)}
+    td{border:0;padding:6px 10px} td.acao{padding-top:8px}
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<dialog id="dlgMsg"></dialog>
+<script>
+(()=>{
+const URL_SB="https://rvkziyvihxweyrqnhuuh.supabase.co", CHAVE="sb_publishable_LHIUAPcrjo-5A62OVVAe6w_qfPlIAjv", DONO="produtorts@gmail.com";
+const sb=supabase.createClient(URL_SB, CHAVE, {auth:{persistSession:true}});
+const $=s=>document.querySelector(s), app=$('#app');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const H=36e5, D=24*H;
+let clientes=[], filtro='todos', extra='', busca='';
+
+// Situações (mesma regra do app) e a mensagem pronta de cada uma.
+const SIT={
+  tri:{n:'Premium trimestral', c:'t-tri'}, men:{n:'Premium mensal', c:'t-men'}, lib:{n:'Premium liberado', c:'t-lib'},
+  teste:{n:'Teste 7 dias', c:'t-teste'}, venc:{n:'Teste vencido', c:'t-venc'}, bas:{n:'Básico vitalício', c:'t-bas'}, sem:{n:'Só cadastro', c:'t-sem'}
+};
+const MSG_PADRAO={
+  bas:`Oi, {nome}! Aqui é do Cofre dos Sonhos 🔐
+
+Vi que você já está guardando para a sua conquista no plano Básico. Que tal liberar tudo?
+
+✨ Todos os wallpapers Premium (carros, motos, casas, viagens)
+✨ Conquistas ilimitadas
+✨ Wallpaper para computador em 4K
+✨ Frase motivacional todo dia
+
+O trimestral sai por R$ 29,90, menos de R$ 10 por mês. Quer que eu te mande o link?`,
+  venc_promo:`Oi, {nome}! Seu teste Premium de 7 dias no Cofre dos Sonhos terminou e seus cofres estão pausados ⏸️
+
+Mas separei uma condição pra você: até {prazo} o plano trimestral sai por R$ 24,90 (em vez de R$ 29,90). Você continua exatamente de onde parou, com todos os wallpapers.
+
+Quer que eu te mande o link?`,
+  venc:`Oi, {nome}! Seus cofres no Cofre dos Sonhos estão pausados desde o fim do teste ⏸️
+
+Tudo que você guardou continua salvo. Para voltar, o trimestral sai por R$ 29,90 (menos de R$ 10 por mês) ou o mensal por R$ 12,90.
+
+Quer que eu te mande o link?`,
+  teste:`Oi, {nome}! Tudo certo com o seu teste Premium do Cofre dos Sonhos? 🔐
+
+Faltam {dias} para acabar. Se quiser já garantir e não pausar nada, o trimestral sai por R$ 29,90.
+
+Ficou alguma dúvida? Estou por aqui.`,
+  men:`Oi, {nome}! Obrigado por ser Premium no Cofre dos Sonhos 💛
+
+Uma dica para economizar: no plano trimestral você paga R$ 29,90 a cada 3 meses, em vez de R$ 38,70 no mensal. São R$ 8,80 a menos, com tudo igual.
+
+Quer que eu faça a troca pra você?`,
+  tri:`Oi, {nome}! Aqui é do Cofre dos Sonhos 💛 Passando para saber como está indo a sua conquista. Precisa de alguma ajuda com o app?`,
+  lib:`Oi, {nome}! Aqui é do Cofre dos Sonhos 💛 Passando para saber como está indo a sua conquista. Precisa de alguma ajuda com o app?`,
+  sem:`Oi, {nome}! Vi que você criou sua conta no Cofre dos Sonhos 🔐 mas ainda não começou. Quer que eu te ajude a montar o seu primeiro cofre?`
+};
+const ROT_MSG={bas:'Básico vitalício',venc_promo:'Teste vencido (até 48h, com desconto)',venc:'Teste vencido (depois de 48h)',teste:'Teste 7 dias em andamento',men:'Premium mensal',tri:'Premium trimestral',lib:'Premium liberado',sem:'Só cadastro'};
+const lerMsgs=()=>{ try{ return Object.assign({},MSG_PADRAO,JSON.parse(localStorage.getItem('painel-msgs')||'{}')); }catch(e){ return {...MSG_PADRAO}; } };
+
+function situacao(c){
+  const agora=Date.now(), ativo=(pl,ate)=>!!pl && !!ate && pl!=='entrada' && Date.parse(ate)>agora;
+  const fimTeste=c.teste_ate?Date.parse(c.teste_ate):0;
+  if(ativo(c.plano,c.plano_ate) && (!fimTeste || Date.parse(c.plano_ate)>fimTeste+60e3) || ativo(c.kiwify_plano,c.kiwify_plano_ate)){
+    if(c.assinatura_status==='ativa') return c.assinatura_ciclo==='QUARTERLY'?'tri':'men';
+    return 'lib';
+  }
+  if(fimTeste>agora) return 'teste';
+  if(c.kiwify_basico) return 'bas';
+  if(fimTeste) return 'venc';
+  return 'sem';
+}
+function detalhe(c){
+  const agora=Date.now(), fim=c.teste_ate?Date.parse(c.teste_ate):0;
+  switch(c.sit){
+    case 'teste': { const d=Math.ceil((fim-agora)/D); return `faltam ${d} dia${d>1?'s':''}`; }
+    case 'venc': { const h=Math.floor((agora-fim)/H); return h<48 ? `<span class="quente">venceu há ${h}h · desconto até ${fmtData(fim+48*H,true)}</span>` : `venceu há ${Math.floor(h/24)} dias`; }
+    case 'bas': { const d=Math.floor((agora-Date.parse(c.criado))/D); return `há ${d} dia${d===1?'':'s'}`; }
+    case 'lib': case 'men': case 'tri': return c.plano_ate||c.kiwify_plano_ate ? 'até '+fmtData(Date.parse(c.plano_ate||c.kiwify_plano_ate)) : '';
+    default: return '';
+  }
+}
+const fmtData=(t,hora)=>{ const s=new Date(t).toLocaleString('pt-BR',hora?{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}:{day:'2-digit',month:'2-digit',year:'numeric'}); return hora?s.replace(', ',' às '):s; };
+const fmtZap=n=>{ if(!n) return ''; const d=n.replace(/^55/,''); return d.length===11?`(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`:`(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`; };
+const primeiro=n=>{ const p=String(n||'').trim().split(/\s+/)[0]||''; return p? p.charAt(0).toLocaleUpperCase('pt-BR')+p.slice(1).toLocaleLowerCase('pt-BR') : ''; };
+
+function chaveMsg(c){ if(c.sit==='venc') return (Date.now()-Date.parse(c.teste_ate))<48*H?'venc_promo':'venc'; return c.sit; }
+function montarMsg(c){
+  const fim=c.teste_ate?Date.parse(c.teste_ate):0, dias=Math.max(1,Math.ceil((fim-Date.now())/D));
+  return lerMsgs()[chaveMsg(c)].replaceAll('{nome}',primeiro(c.nome)||'tudo bem').replaceAll('{prazo}',fmtData(fim+48*H,true)).replaceAll('{dias}',`${dias} dia${dias>1?'s':''}`)
+    .replace('Oi, tudo bem!','Oi, tudo bem?');
+}
+
+/* ---------- telas ---------- */
+function telaLogin(msg){
+  app.innerHTML=`<form class="caixa" id="fl"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel do dono</small></div>
+    <input id="le" type="email" placeholder="E-mail" required autocomplete="email" value="${DONO}">
+    <input id="ls" type="password" placeholder="Senha" required autocomplete="current-password">
+    <button class="b ouro" type="submit">Entrar</button><p class="nota" id="lm">${esc(msg||'Use a mesma conta do app.')}</p></form>`;
+  $('#fl').onsubmit=async e=>{ e.preventDefault(); $('#lm').textContent='Entrando…';
+    const {error}=await sb.auth.signInWithPassword({email:$('#le').value.trim().toLowerCase(), password:$('#ls').value});
+    if(error){ $('#lm').textContent='E-mail ou senha incorretos.'; return; } iniciar(); };
+}
+async function iniciar(){
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session) return telaLogin();
+  if((session.user.email||'').toLowerCase()!==DONO) return telaLogin('Esta conta não tem acesso ao painel. Entre com '+DONO+'.');
+  app.innerHTML=`<p class="vazio">Carregando clientes…</p>`;
+  const {data,error}=await sb.rpc('painel_clientes');
+  if(error){ app.innerHTML=`<p class="vazio">Não deu para carregar: ${esc(error.message)}</p>`; return; }
+  clientes=(data||[]).map(c=>({...c, sit:situacao(c)}));
+  desenhar();
+}
+function desenhar(){
+  const cont={}; Object.keys(SIT).forEach(k=>cont[k]=0); clientes.forEach(c=>cont[c.sit]++);
+  const semZap=clientes.filter(c=>!c.whatsapp).length;
+  app.innerHTML=`<header class="topo"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel de clientes</small></div>
+      <button class="b" id="bMsgs">Mensagens prontas</button><button class="b" id="bCsv">Baixar planilha</button><button class="b" id="bAtual">Atualizar</button><button class="b" id="bSair">Sair</button></header>
+    <main>
+      <div class="contadores">
+        <button class="cont" data-f="todos" aria-pressed="${filtro==='todos'}"><b>${clientes.length}</b><span>Todos os clientes</span></button>
+        ${Object.entries(SIT).map(([k,s])=>`<button class="cont" data-f="${k}" aria-pressed="${filtro===k}"><b>${cont[k]}</b><span>${s.n}</span></button>`).join('')}
+      </div>
+      <div class="filtros"><input type="search" id="busca" placeholder="Buscar nome, e-mail ou WhatsApp" value="${esc(busca)}">
+        <button class="chip" data-x="venc48" aria-pressed="${extra==='venc48'}">🔥 Teste venceu há menos de 48h</button>
+        <button class="chip" data-x="bas7" aria-pressed="${extra==='bas7'}">Básico há 7+ dias</button>
+        <button class="chip" data-x="teste2" aria-pressed="${extra==='teste2'}">Teste acabando (2 dias)</button>
+        <button class="chip" data-x="semzap" aria-pressed="${extra==='semzap'}">Sem WhatsApp (${semZap})</button>
+      </div>
+      <div id="lista"></div>
+      <p class="nota" style="margin-top:14px">Quem criou conta antes do campo de WhatsApp aparece "sem número" até abrir o app de novo, quando o número é pedido.</p>
+    </main>`;
+  app.querySelectorAll('.cont').forEach(b=>b.onclick=()=>{ filtro=b.dataset.f; desenhar(); });
+  app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ extra= extra===b.dataset.x?'':b.dataset.x; desenhar(); });
+  const bi=$('#busca'); bi.oninput=()=>{ busca=bi.value; lista(); };
+  $('#bAtual').onclick=iniciar; $('#bSair').onclick=async()=>{ await sb.auth.signOut(); telaLogin(); };
+  $('#bCsv').onclick=baixarCsv; $('#bMsgs').onclick=editarMsgs;
+  lista();
+}
+function visiveis(){
+  const agora=Date.now(), q=busca.trim().toLowerCase(), qd=q.replace(/\D/g,'');
+  return clientes.filter(c=>{
+    if(filtro!=='todos' && c.sit!==filtro) return false;
+    if(extra==='venc48' && !(c.sit==='venc' && agora-Date.parse(c.teste_ate)<48*H)) return false;
+    if(extra==='bas7' && !(c.sit==='bas' && agora-Date.parse(c.criado)>=7*D)) return false;
+    if(extra==='teste2' && !(c.sit==='teste' && Date.parse(c.teste_ate)-agora<=2*D)) return false;
+    if(extra==='semzap' && c.whatsapp) return false;
+    if(q && !((c.nome||'').toLowerCase().includes(q) || (c.email||'').includes(q) || (qd && (c.whatsapp||'').includes(qd)))) return false;
+    return true;
+  });
+}
+function lista(){
+  const vs=visiveis();
+  $('#lista').innerHTML = vs.length ? `<table><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Situação</th><th>Cadastro</th><th></th></tr></thead><tbody>
+    ${vs.map(c=>`<tr><td><b>${esc(c.nome||'(sem nome)')}</b><small>${esc(c.email)}${c.instagram?' · @'+esc(c.instagram):''}</small></td>
+      <td>${c.whatsapp?esc(fmtZap(c.whatsapp)):'<span class="nota">sem número</span>'}</td>
+      <td><span class="tag ${SIT[c.sit].c}">${SIT[c.sit].n}</span><small>${detalhe(c)}</small></td>
+      <td>${fmtData(Date.parse(c.criado))}<small>${c.ultimo_uso?'usou em '+fmtData(Date.parse(c.ultimo_uso)):''}</small></td>
+      <td class="acao">${c.whatsapp&&c.whatsapp_aceite?`<button class="b zap" data-id="${c.id}">Chamar no WhatsApp</button>`:''}</td></tr>`).join('')}
+    </tbody></table>` : `<p class="vazio">Nenhum cliente neste filtro.</p>`;
+  $('#lista').querySelectorAll('.zap').forEach(b=>b.onclick=()=>abrirConversa(clientes.find(c=>c.id===b.dataset.id)));
+}
+function abrirConversa(c){
+  const d=$('#dlgMsg');
+  d.innerHTML=`<b>${esc(c.nome||c.email)}</b> · ${esc(fmtZap(c.whatsapp))} <span class="tag ${SIT[c.sit].c}">${SIT[c.sit].n}</span>
+    <h3>Mensagem (pode ajustar antes de enviar)</h3><textarea id="txt">${esc(montarMsg(c))}</textarea>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px"><button class="b" id="cx">Cancelar</button><button class="b zap" id="ok">Abrir no WhatsApp</button></div>`;
+  d.showModal(); $('#cx').onclick=()=>d.close();
+  $('#ok').onclick=()=>{ window.open(`https://wa.me/${c.whatsapp}?text=${encodeURIComponent($('#txt').value)}`,'_blank','noopener'); d.close(); };
+}
+function editarMsgs(){
+  const d=$('#dlgMsg'), m=lerMsgs();
+  d.innerHTML=`<b>Mensagens prontas</b><p class="nota">Use {nome} para o primeiro nome, {prazo} para o fim do desconto e {dias} para os dias que faltam do teste. Fica salvo neste navegador.</p>
+    ${Object.keys(ROT_MSG).map(k=>`<h3>${ROT_MSG[k]}</h3><textarea data-k="${k}">${esc(m[k])}</textarea>`).join('')}
+    <div style="display:flex;gap:8px;justify-content:space-between;margin-top:12px;position:sticky;bottom:0;background:var(--ardosia);padding-top:8px"><button class="b" id="pad">Voltar ao original</button><span><button class="b" id="cx">Cancelar</button> <button class="b ouro" id="ok">Salvar</button></span></div>`;
+  d.showModal(); $('#cx').onclick=()=>d.close();
+  $('#pad').onclick=()=>{ try{ localStorage.removeItem('painel-msgs'); }catch(e){} d.close(); };
+  $('#ok').onclick=()=>{ const o={}; d.querySelectorAll('textarea').forEach(t=>o[t.dataset.k]=t.value); try{ localStorage.setItem('painel-msgs',JSON.stringify(o)); }catch(e){} d.close(); };
+}
+function baixarCsv(){
+  const linhas=[['Nome','WhatsApp','Aceitou WhatsApp','E-mail','Situação','Detalhe','Cadastro','Instagram']]
+    .concat(visiveis().map(c=>[c.nome||'',c.whatsapp||'',c.whatsapp_aceite?'sim':'não',c.email,SIT[c.sit].n,detalhe(c).replace(/<[^>]+>/g,''),fmtData(Date.parse(c.criado)),c.instagram||'']));
+  const csv='﻿'+linhas.map(l=>l.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(';')).join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})); a.download='clientes-cofre-dos-sonhos.csv'; a.click();
+}
+iniciar();
+})();
+</script>
+</body>
+</html>

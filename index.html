@@ -317,7 +317,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   };
   const PRECOS = { premium_mensal:12.90, premium_trimestral:29.90, promo_trimestral:24.90, elite_fundador:29.90 };
   // Situação do acesso: premium (pago ou cortesia) · teste (cupom, 7 dias) · basico (Kiwify) · pausado (teste acabou) · sem (sem cupom nem compra)
-  let ST = { modo:'premium', teste_ate:null };
+  let ST = { modo:'premium', teste_ate:null, whats:true };
   const PROMO_HORAS = 48;
   const promoAte = () => ST.teste_ate ? Date.parse(ST.teste_ate) + PROMO_HORAS*3600e3 : 0;
   const promoAtiva = () => ST.modo==='pausado' && Date.now() < promoAte();
@@ -333,6 +333,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     const agora=Date.now(), ativo=(pl,ate)=>!!pl && !!ate && pl!=='entrada' && Date.parse(ate)>agora;
     const fimTeste=s.teste_ate?Date.parse(s.teste_ate)||0:0;
     ST.teste_ate=s.teste_ate||null;
+    ST.whats = s.whatsapp!==false;
     if(ativo(s.plano,s.plano_ate) && (!fimTeste || Date.parse(s.plano_ate)>fimTeste+60e3)){ planoAtual=s.plano; ST.modo='premium'; }
     else if(ativo(s.kiwify_plano,s.kiwify_plano_ate)){ planoAtual=s.kiwify_plano; ST.modo='premium'; }
     else if(fimTeste>agora){ planoAtual='premium'; ST.modo='teste'; }
@@ -564,10 +565,17 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       }
       return this.urlsFundos.mapa.then(m=>m[id+'.jpg']||null);
     },
+    async whatsPendente(){
+      if(ST.whats) return;
+      let w=null; try{ w=JSON.parse(lsLer('cofre2-whats')||'null'); }catch(e){}
+      if(!w) return;
+      const { data } = await this.sb.rpc('salvar_contato', { p_nome:(S.perfil&&S.perfil.nome)||'', p_whatsapp:w.numero, p_aceite:true }).catch(()=>({}));
+      if(data && data.ok){ ST.whats=true; try{ localStorage.removeItem('cofre2-whats'); }catch(e){} }
+    },
     async carregarNuvem(){
       const sb=this.sb, uid=this.usuario.id;
       const { data:st, error:erroSt } = await sb.rpc('meu_status');
-      if(!erroSt && st) aplicarStatus(st);
+      if(!erroSt && st){ aplicarStatus(st); await this.whatsPendente(); }
       else { const { data:perfil } = await sb.from('perfis').select('plano,plano_ate').eq('id',uid).maybeSingle(); aplicarStatus({ plano:perfil?.plano, plano_ate:perfil?.plano_ate, kiwify_basico:true }); }
       const { data:est } = await sb.from('estados').select('dados').eq('user_id',uid).maybeSingle();
       const perfilLocal=S.perfil;
@@ -1051,10 +1059,10 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   }
 
   /* ---------- folhas ---------- */
-  function folha(html, aoMontar){ const bg=document.createElement('div'); bg.className='fundo-folha'; bg.innerHTML=`<div class="folha" role="dialog" aria-modal="true"><button type="button" class="fechar-folha" aria-label="Fechar">${xSvg()}</button><span class="alca"></span>${html}</div>`;
-    bg.addEventListener('click',e=>{ if(e.target===bg || e.target.closest('.fechar-folha')) bg.remove(); }); $('#camadas').append(bg); aoMontar&&aoMontar(bg.firstElementChild,()=>bg.remove()); const f=bg.querySelector('input,select'); if(f) f.focus(); }
+  function folha(html, aoMontar, fixa){ const bg=document.createElement('div'); bg.className='fundo-folha'+(fixa?' fixa':''); bg.innerHTML=`<div class="folha" role="dialog" aria-modal="true">${fixa?'':`<button type="button" class="fechar-folha" aria-label="Fechar">${xSvg()}</button>`}<span class="alca"></span>${html}</div>`;
+    if(!fixa) bg.addEventListener('click',e=>{ if(e.target===bg || e.target.closest('.fechar-folha')) bg.remove(); }); $('#camadas').append(bg); aoMontar&&aoMontar(bg.firstElementChild,()=>bg.remove()); const f=bg.querySelector('input,select'); if(f) f.focus(); }
   function xSvg(){ return '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'; }
-  const fecharFolhas = () => document.querySelectorAll('.fundo-folha').forEach(x=>x.remove());
+  const fecharFolhas = () => document.querySelectorAll('.fundo-folha:not(.fixa)').forEach(x=>x.remove());
 
   function formConquista(c, depois){
     const editar=!!c;
@@ -1147,7 +1155,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       el.querySelector('#fCodigo').onsubmit=async e=>{ e.preventDefault(); const m=el.querySelector('#lMsg');
         try{ await Dados.confirmarCodigo(email, el.querySelector('#lCod').value.trim());
           if(!(await Dados.temAcesso())){ m.innerHTML=`Não encontramos uma compra com este e-mail. ${CFG.linkCompraEntrada?`<a href="${esc(CFG.linkCompraEntrada)}" target="_blank" rel="noopener" style="color:var(--ouro)">Garantir meu acesso por R$ 19,90</a>`:''}`; return; }
-          await Dados.carregarNuvem(); fechar(); renderTudo(); aviso('Conta conectada'); cupomPendente(); }
+          await Dados.carregarNuvem(); fechar(); renderTudo(); aviso('Conta conectada'); cupomPendente(); pedirWhats(); }
         catch(err){ m.textContent='Código inválido ou expirado. Peça um novo.'; } };
     });
   }
@@ -1157,10 +1165,13 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     folha(`<h2>Salve sua conquista</h2><p class="fraco">Crie sua conta com o mesmo e-mail da compra. Assim tudo fica guardado e você acessa de qualquer celular.</p>
       <form id="fSenha"><label for="sEmail">E-mail<input id="sEmail" type="email" required autocomplete="email"></label>
         <label for="sSenha">Senha (mínimo 6 caracteres)<input id="sSenha" type="password" required minlength="6" autocomplete="current-password"></label>
+        ${camposWhats('s')}
         <div class="duas"><button class="ouro" type="submit" data-modo="entrar">Entrar</button><button type="submit" data-modo="criar">Criar conta</button></div></form>
       <p class="nota" id="sMsg"></p>`, (el,fechar)=>{
       let modo='entrar'; el.querySelectorAll('#fSenha button').forEach(b=>b.addEventListener('click',()=>modo=b.dataset.modo));
+      ligarCamposWhats(el,'s');
       el.querySelector('#fSenha').onsubmit=async e=>{ e.preventDefault(); const m=el.querySelector('#sMsg'); const email=el.querySelector('#sEmail').value.trim().toLowerCase(), senha=el.querySelector('#sSenha').value;
+        if(modo==='criar'){ const w=lerCamposWhats(el,'s'); if(w.erro){ m.textContent=w.erro; return; } lsGravar('cofre2-whats', JSON.stringify(w)); }
         el.querySelectorAll('#fSenha button').forEach(b=>b.disabled=true); m.textContent= modo==='criar'?'Criando sua conta…':'Entrando…';
         try{
           const r = modo==='criar' ? await Dados.sb.auth.signUp({email, password:senha}) : await Dados.sb.auth.signInWithPassword({email, password:senha});
@@ -1168,7 +1179,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
           Dados.usuario = r.data.user || r.data.session?.user;
           if(!r.data.session){ m.textContent='Conta criada. Confirme pelo e-mail que enviamos e depois toque em Entrar.'; return; }
           if(!(await Dados.temAcesso())){ await Dados.sb.auth.signOut(); Dados.usuario=null; m.innerHTML=`Não encontramos uma compra com este e-mail. ${CFG.linkCompraEntrada?`<a href="${esc(CFG.linkCompraEntrada)}" target="_blank" rel="noopener" style="color:var(--ouro)">Garantir meu acesso por R$ 19,90</a>`:''}`; return; }
-          await Dados.carregarNuvem(); await Dados.verificarPush(); fechar(); renderTudo(); aviso('Conta conectada'); cupomPendente();
+          await Dados.carregarNuvem(); await Dados.verificarPush(); fechar(); renderTudo(); aviso('Conta conectada'); cupomPendente(); pedirWhats();
           if(!Dados.pushAtivo){ telaMais='lembretes'; renderMais(); irAba('mais'); }
         }catch(err){
           const t=String(err?.message||'');
@@ -1223,6 +1234,34 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       if(!sx){ f.querySelector('#pMsg').textContent='Escolha uma opção acima.'; return; }
       S.perfil={nome, sexo:sx}; Object.keys(cacheMini).forEach(k=>delete cacheMini[k]); Dados.salvar(); aoSalvar&&aoSalvar(); };
     return f;
+  }
+  // WhatsApp obrigatório: campo, validação e janela para quem ainda não informou.
+  function camposWhats(px){
+    return `<label for="${px}Whats">WhatsApp com DDD<input id="${px}Whats" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="16" placeholder="(11) 91234-5678"></label>
+      <label class="aceite" style="display:flex;gap:10px;align-items:flex-start;font-size:13px;font-weight:400;line-height:1.4"><input id="${px}Aceite" type="checkbox" style="width:20px;height:20px;flex:none;margin-top:1px"> Aceito receber mensagens do Cofre dos Sonhos no WhatsApp (avisos, dicas e ofertas). Posso cancelar quando quiser.</label>`;
+  }
+  function mascaraWhats(v){ const d=v.replace(/\D/g,'').replace(/^55(?=\d{10,11}$)/,'').slice(0,11);
+    if(d.length<=2) return d.length?'('+d:''; if(d.length<=6) return `(${d.slice(0,2)}) ${d.slice(2)}`;
+    if(d.length<=10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`; return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`; }
+  function ligarCamposWhats(el,px){ const i=el.querySelector('#'+px+'Whats'); if(i) i.addEventListener('input',()=>{ i.value=mascaraWhats(i.value); }); }
+  function lerCamposWhats(el,px){
+    const d=el.querySelector('#'+px+'Whats').value.replace(/\D/g,'').replace(/^55(?=\d{10,11}$)/,'');
+    if(!/^[1-9]\d9?\d{8}$/.test(d)) return {erro:'Digite seu WhatsApp com DDD. Ex.: (11) 91234-5678'};
+    if(!el.querySelector('#'+px+'Aceite').checked) return {erro:'Para continuar, marque a caixa de autorização do WhatsApp.'};
+    return {numero:'55'+d};
+  }
+  function pedirWhats(){
+    if(!MODO_REAL || !Dados.usuario || ST.whats || document.querySelector('#fWhats')) return;
+    folha(`<h2>Falta só o seu WhatsApp</h2><p class="fraco">É por lá que avisamos sobre o seu plano e mandamos novidades do Cofre. Leva 10 segundos.</p>
+      <form id="fWhats" style="display:flex;flex-direction:column;gap:14px">${camposWhats('w')}<button class="ouro bloco" type="submit">Salvar e continuar</button><p class="nota" id="wMsg" role="status"></p></form>`, (el,fechar)=>{
+      ligarCamposWhats(el,'w');
+      el.querySelector('#fWhats').onsubmit=async e=>{ e.preventDefault(); const m=el.querySelector('#wMsg'); const w=lerCamposWhats(el,'w'); if(w.erro){ m.textContent=w.erro; return; }
+        const b=el.querySelector('button[type=submit]'); b.disabled=true; m.textContent='Salvando…';
+        try{ const { data, error } = await Dados.sb.rpc('salvar_contato', { p_nome:(S.perfil&&S.perfil.nome)||'', p_whatsapp:w.numero, p_aceite:true });
+          if(error || !data || !data.ok) throw new Error(data&&data.erro||'erro');
+          ST.whats=true; try{ localStorage.removeItem('cofre2-whats'); }catch(e){} fechar(); aviso('WhatsApp salvo. Obrigado!');
+        }catch(err){ m.textContent = err.message && err.message!=='erro' ? err.message : 'Não deu certo agora. Confira a internet e tente de novo.'; b.disabled=false; } };
+    }, true);
   }
   function pedirPerfil(){
     folha(`<h2>Vamos deixar o Cofre com a sua cara</h2><p class="fraco">Como você quer ser chamado e quais capas combinam com você?</p><div id="perfilAqui"></div>`, (el,fechar)=>{
@@ -1290,6 +1329,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     await cupomPendente();
     if(!S.onboarding && !S.cofres.length) boasVindas();
     else if(!(S.perfil&&S.perfil.nome)) pedirPerfil();
+    pedirWhats();
   })();
 })();
 </script>
