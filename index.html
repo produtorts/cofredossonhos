@@ -481,39 +481,56 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   }
   // Carrega a imagem real do fundo (pasta de fundos); se não existir, usa a cena provisória.
   // Liberadas: arquivo do site. Premium: link temporário do banco (só para quem tem o plano). Trancadas: nunca baixam.
-  const cacheImg={}, cacheMini={}, falhas={}, carregando={};
-  async function urlFundo(f){
-    if(NO_SITE.has(f.id)) return (CFG.pastaFundos||'fundos/')+f.id+'.jpg';
-    if(MODO_REAL && Dados.usuario && P().todosFundos) return await Dados.urlFundoPremium(f.id);
+  // Miniaturas (~25 KB) para as listas; a imagem grande só quando precisa (cofre na tela e estúdio).
+  // Tudo que já foi baixado fica guardado no aparelho (Cache Storage), então não baixa de novo a cada visita.
+  const cacheImg={}, cachePeq={}, cacheMini={}, falhas={}, carregando={};
+  const CAIXA_FUNDOS='cofre-fundos-v1';
+  async function urlFundo(f, peq){
+    const arq=f.id+(peq?'-mini':'')+'.jpg';
+    if(NO_SITE.has(f.id)) return (CFG.pastaFundos||'fundos/')+arq;
+    if(MODO_REAL && Dados.usuario && P().todosFundos) return await Dados.urlFundoPremium(arq);
     return null;
   }
-  async function imagemFundo(f){
-    if(!f || !fundoPodeUsar(f)) return null;
-    if(cacheImg[f.id]) return cacheImg[f.id];
-    if(carregando[f.id]) return carregando[f.id];
-    return carregando[f.id] = (async()=>{
-      const url = await urlFundo(f).catch(()=>null);
-      if(!url || falhas[url]) return null;
-      const im = await new Promise(res=>{ const i=new Image(); i.crossOrigin='anonymous'; i.onload=()=>res(i); i.onerror=()=>res(null); i.src=url; });
-      if(im) cacheImg[f.id]=im; else falhas[url]=1;
-      return im;
-    })().finally(()=>{ delete carregando[f.id]; });
+  async function baixarFundo(f, peq){
+    const chave=location.origin+'/__fundos/'+f.id+(peq?'-mini':'')+'.jpg';
+    let cx=null; try{ cx=await caches.open(CAIXA_FUNDOS); const r=await cx.match(chave); if(r) return URL.createObjectURL(await r.blob()); }catch(e){ cx=null; }
+    const url=await urlFundo(f,peq).catch(()=>null); if(!url || falhas[url]) return null;
+    try{ const r=await fetch(url); if(!r.ok) throw 0; const b=await r.blob(); if(cx) cx.put(chave,new Response(b,{headers:{'Content-Type':'image/jpeg'}})).catch(()=>{}); return URL.createObjectURL(b); }
+    catch(e){ falhas[url]=1; return null; }
   }
+  function carregarFundo(f, peq){
+    if(!f || !fundoPodeUsar(f)) return Promise.resolve(null);
+    const mem=peq?cachePeq:cacheImg, k=f.id+(peq?'p':'g');
+    if(mem[f.id]) return Promise.resolve(mem[f.id]);
+    if(carregando[k]) return carregando[k];
+    return carregando[k]=(async()=>{
+      const src=await baixarFundo(f,peq); if(!src) return null;
+      const im=await new Promise(res=>{ const i=new Image(); i.onload=()=>res(i); i.onerror=()=>res(null); i.src=src; });
+      if(im) mem[f.id]=im; return im;
+    })().finally(()=>{ delete carregando[k]; });
+  }
+  const imagemFundo = f => carregarFundo(f,false);
   function fundoCena(f){ return {cena:CENA_DA_CAT[f.cat], v:f.n}; }
   function miniFundo(f, w=360, h=640){
-    const im = fundoPodeUsar(f) ? cacheImg[f.id] : null;
-    const k=f.id+w+(im?'i':'c'); if(cacheMini[k]) return cacheMini[k];
+    const pode=fundoPodeUsar(f), g=pode?cacheImg[f.id]:null, pq=pode?cachePeq[f.id]:null;
+    const im = w>240 ? (g||pq) : (pq||g);
+    const k=f.id+w+(im?(im===g?'g':'p'):'c'); if(cacheMini[k]) return cacheMini[k];
     const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d');
     if(im){ const s=Math.max(w/im.width,h/im.height); ctx.drawImage(im,(w-im.width*s)/2,(h-im.height*s)/2,im.width*s,im.height*s); }
     else { const {cena,v}=fundoCena(f); desenharCena(ctx,w,h,cena,v); }
     return cacheMini[k]=c.toDataURL('image/jpeg',.8);
   }
+  // Primeiro as imagens grandes dos cofres da pessoa; depois as miniaturas do resto. A tela atualiza aos poucos.
+  let renderPendente=null;
+  const atualizarDepois = () => { if(renderPendente) return; renderPendente=setTimeout(()=>{ renderPendente=null; renderTudo(); }, 250); };
   async function preCarregarFundos(){
     if(!(S.perfil&&S.perfil.nome) && !S.cofres.length) return;
-    const faltam = FUNDOS.filter(f=>fundoPodeUsar(f) && !cacheImg[f.id]);
-    if(!faltam.length) return;
-    const novas = (await Promise.all(faltam.map(imagemFundo))).filter(Boolean);
-    if(novas.length) renderTudo();
+    const usados=new Set(S.cofres.map(c=>fundoDoCofre(c)).filter(Boolean));
+    const doCofre=[...usados].filter(f=>!cacheImg[f.id]);
+    const peqs=FUNDOS.filter(f=>fundoPodeUsar(f) && !usados.has(f) && !cachePeq[f.id] && !cacheImg[f.id]);
+    if(!doCofre.length && !peqs.length) return;
+    doCofre.forEach(f=>carregarFundo(f,false).then(im=>{ if(im) atualizarDepois(); }));
+    peqs.forEach(f=>carregarFundo(f,true).then(im=>{ if(im) atualizarDepois(); }));
   }
 
   /* ===================== ESTADO ===================== */
@@ -560,10 +577,10 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     urlFundoPremium(id){
       if(!this.urlsFundos || Date.now()>this.urlsFundos.ate){
         const ate=Date.now()+50*60e3;
-        this.urlsFundos={ate, mapa:this.sb.storage.from('fundos').createSignedUrls(FUNDOS.filter(f=>!NO_SITE.has(f.id)).map(f=>f.id+'.jpg'), 3600)
+        this.urlsFundos={ate, mapa:this.sb.storage.from('fundos').createSignedUrls(FUNDOS.filter(f=>!NO_SITE.has(f.id)).flatMap(f=>[f.id+'.jpg', f.id+'-mini.jpg']), 3600)
           .then(({data})=>{ const m={}; (data||[]).forEach(d=>{ if(d.signedUrl && !d.error) m[d.path]=d.signedUrl; }); return m; }).catch(()=>({}))};
       }
-      return this.urlsFundos.mapa.then(m=>m[id+'.jpg']||null);
+      return this.urlsFundos.mapa.then(m=>m[id]||null);
     },
     async whatsPendente(){
       if(ST.whats) return;
