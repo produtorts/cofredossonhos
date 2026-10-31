@@ -1071,8 +1071,13 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       <form id="fAss"><label for="aNome">Nome completo<input id="aNome" required autocomplete="name"></label><label for="aCpf">CPF<input id="aCpf" required inputmode="numeric" maxlength="14" placeholder="000.000.000-00"></label>
       <button class="ouro" type="submit" id="aBtn">Ir para o pagamento</button><p class="nota" id="aMsg"></p></form>`, el=>{
       el.querySelector('#fAss').onsubmit=async e=>{ e.preventDefault(); const b=el.querySelector('#aBtn'), m=el.querySelector('#aMsg'); b.disabled=true; m.textContent='Abrindo pagamento…';
-        try{ const url=await Dados.assinar(plano, el.querySelector('#aNome').value.trim(), el.querySelector('#aCpf').value.replace(/\D/g,'')); m.innerHTML=`Pronto. <a href="${esc(url)}" target="_blank" rel="noopener" style="color:var(--ouro)">Abrir pagamento</a>. Assim que o pagamento for confirmado, o plano é liberado sozinho.`; window.open(url,'_blank'); }
-        catch(err){ m.textContent=err.message||'Não deu certo. Tente de novo.'; } b.disabled=false; };
+        // Abre a aba já no clique (o navegador bloqueia abas abertas depois de esperar o servidor) e depois leva ao pagamento.
+        let aba=null; try{ aba=window.open('','_blank'); if(aba) aba.document.write('<meta name="viewport" content="width=device-width"><body style="background:#0c1222;color:#e2c48a;font:18px system-ui;display:grid;place-items:center;height:100vh;margin:0">Abrindo pagamento seguro…</body>'); }catch(_){}
+        try{ const url=await Dados.assinar(plano, el.querySelector('#aNome').value.trim(), el.querySelector('#aCpf').value.replace(/\D/g,''));
+          lsGravar('cofre2-pagando', String(Date.now()));
+          if(aba && !aba.closed){ aba.location.href=url; m.innerHTML=`Pagamento aberto em outra aba. Assim que for confirmado, o Premium libera sozinho aqui. <a href="${esc(url)}" target="_blank" rel="noopener" style="color:var(--ouro)">Abrir de novo</a>`; }
+          else location.href=url; }
+        catch(err){ try{ aba&&aba.close(); }catch(_){} m.textContent=err.message||'Não deu certo. Tente de novo.'; } b.disabled=false; };
     });
   }
 
@@ -1338,6 +1343,14 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ fecharFolhas(); document.querySelectorAll('.celebra').forEach(x=>x.remove()); } });
 
   /* ===================== INÍCIO ===================== */
+  async function conferirPagamento(){
+    const t=+(lsLer('cofre2-pagando')||0); if(!t || !MODO_REAL || !Dados.usuario) return;
+    if(Date.now()-t>2*3600e3){ try{ localStorage.removeItem('cofre2-pagando'); }catch(e){} return; }
+    const antes=ST.modo; await Dados.carregarNuvem().catch(()=>{});
+    if(ST.modo==='premium' && antes!=='premium'){ try{ localStorage.removeItem('cofre2-pagando'); }catch(e){} fecharFolhas(); renderTudo(); celebrar('Premium liberado!','Pagamento confirmado. Todos os wallpapers e conquistas ilimitadas já são seus.'); }
+  }
+  document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') conferirPagamento(); });
+  setInterval(()=>{ if(document.visibilityState==='visible') conferirPagamento(); }, 15000);
   try{ const u=new URL(location.href), cod=u.searchParams.get('cupom'); if(cod){ lsGravar('cofre2-cupom', cod.trim().toUpperCase()); u.searchParams.delete('cupom'); history.replaceState(null,'',u.pathname+u.search+u.hash); } }catch(e){}
   (async()=>{
     try{ await Dados.iniciar(); }catch(e){ aviso('Sem conexão. Usando os dados deste aparelho.'); }
