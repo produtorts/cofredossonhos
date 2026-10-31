@@ -23,6 +23,7 @@
   .contadores{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:14px}
   .cont{text-align:left;border:1px solid var(--linha);background:var(--ardosia);border-radius:12px;padding:12px;cursor:pointer}
   .cont b{display:block;font-size:26px;font-variant-numeric:tabular-nums;line-height:1.1} .cont span{color:var(--nevoa);font-size:13px}
+  .cont-pix{border-color:rgba(242,160,123,.45);background:#2a1f22}.cont-pix span{color:var(--alerta)}
   .cont[aria-pressed=true]{border-color:var(--ouro);box-shadow:0 0 0 1px var(--ouro) inset}
   .filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
   .filtros input[type=search]{flex:1;min-width:200px;background:var(--ardosia);border:1px solid var(--linha);border-radius:10px;padding:9px 12px}
@@ -99,9 +100,16 @@ Uma dica para economizar: no plano trimestral você paga R$ 29,90 a cada 3 meses
 Quer que eu faça a troca pra você?`,
   tri:`Oi, {nome}! Aqui é do Cofre dos Sonhos 💛 Passando para saber como está indo a sua conquista. Precisa de alguma ajuda com o app?`,
   lib:`Oi, {nome}! Aqui é do Cofre dos Sonhos 💛 Passando para saber como está indo a sua conquista. Precisa de alguma ajuda com o app?`,
-  sem:`Oi, {nome}! Vi que você criou sua conta no Cofre dos Sonhos 🔐 mas ainda não começou. Quer que eu te ajude a montar o seu primeiro cofre?`
+  sem:`Oi, {nome}! Vi que você criou sua conta no Cofre dos Sonhos 🔐 mas ainda não começou. Quer que eu te ajude a montar o seu primeiro cofre?`,
+  pix:`Oi, {nome}! Aqui é do Cofre dos Sonhos 🔐
+
+Vi que você gerou o Pix do Premium {plano} ({valor}), mas o pagamento não chegou a ser concluído.
+
+Ficou alguma dúvida ou deu algum problema na hora de pagar? Se quiser, é só abrir o app em Mais › Meu plano que o seu Pix continua lá, e o Premium libera na hora.
+
+Qualquer coisa, me chama aqui 💛`
 };
-const ROT_MSG={bas:'Básico vitalício',venc_promo:'Teste vencido (até 48h, com desconto)',venc:'Teste vencido (depois de 48h)',teste:'Teste 7 dias em andamento',men:'Premium mensal',tri:'Premium trimestral',lib:'Premium liberado',sem:'Só cadastro'};
+const ROT_MSG={pix:'Gerou Pix e não pagou',bas:'Básico vitalício',venc_promo:'Teste vencido (até 48h, com desconto)',venc:'Teste vencido (depois de 48h)',teste:'Teste 7 dias em andamento',men:'Premium mensal',tri:'Premium trimestral',lib:'Premium liberado',sem:'Só cadastro'};
 const lerMsgs=()=>{ try{ return Object.assign({},MSG_PADRAO,JSON.parse(localStorage.getItem('painel-msgs')||'{}')); }catch(e){ return {...MSG_PADRAO}; } };
 
 function situacao(c){
@@ -127,13 +135,18 @@ function detalhe(c){
   }
 }
 const fmtData=(t,hora)=>{ const s=new Date(t).toLocaleString('pt-BR',hora?{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}:{day:'2-digit',month:'2-digit',year:'numeric'}); return hora?s.replace(', ',' às '):s; };
+const haQuanto=t=>{ const m=Math.max(1,Math.round((Date.now()-Date.parse(t))/60000)); return m<60?`há ${m} min`:m<1440?`há ${Math.round(m/60)}h`:`há ${Math.round(m/1440)} dia${m>=2880?'s':''}`; };
 const fmtZap=n=>{ if(!n) return ''; const d=n.replace(/^55/,''); return d.length===11?`(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`:`(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`; };
 const primeiro=n=>{ const p=String(n||'').trim().split(/\s+/)[0]||''; return p? p.charAt(0).toLocaleUpperCase('pt-BR')+p.slice(1).toLocaleLowerCase('pt-BR') : ''; };
 
-function chaveMsg(c){ if(c.sit==='venc') return (Date.now()-Date.parse(c.teste_ate))<48*H?'venc_promo':'venc'; return c.sit; }
+const PRECO_PIX = c => c.pix_promo ? 24.9 : c.pix_ciclo==='QUARTERLY' ? 29.9 : c.pix_ciclo==='YEARLY' ? 0 : 12.9;
+const brl = v => 'R$ ' + Number(v||0).toFixed(2).replace('.',',');
+const nomeCiclo = c => c.pix_ciclo==='QUARTERLY' ? 'Trimestral' : c.pix_ciclo==='YEARLY' ? 'Anual' : 'Mensal';
+const pixAberto = c => !!c.pix_gerado_em && c.sit!=='men' && c.sit!=='tri';
+function chaveMsg(c){ if(pixAberto(c)) return 'pix'; if(c.sit==='venc') return (Date.now()-Date.parse(c.teste_ate))<48*H?'venc_promo':'venc'; return c.sit; }
 function montarMsg(c){
   const fim=c.teste_ate?Date.parse(c.teste_ate):0, dias=Math.max(1,Math.ceil((fim-Date.now())/D));
-  return lerMsgs()[chaveMsg(c)].replaceAll('{nome}',primeiro(c.nome)||'tudo bem').replaceAll('{prazo}',fmtData(fim+48*H,true)).replaceAll('{dias}',`${dias} dia${dias>1?'s':''}`)
+  return lerMsgs()[chaveMsg(c)].replaceAll('{nome}',primeiro(c.nome)||'tudo bem').replaceAll('{prazo}',fmtData(fim+48*H,true)).replaceAll('{dias}',`${dias} dia${dias>1?'s':''}`).replaceAll('{plano}',nomeCiclo(c)).replaceAll('{valor}',brl(PRECO_PIX(c)))
     .replace('Oi, tudo bem!','Oi, tudo bem?');
 }
 
@@ -159,12 +172,13 @@ async function iniciar(){
 }
 function desenhar(){
   const cont={}; Object.keys(SIT).forEach(k=>cont[k]=0); clientes.forEach(c=>cont[c.sit]++);
-  const semZap=clientes.filter(c=>!c.whatsapp).length;
+  const semZap=clientes.filter(c=>!c.whatsapp).length, nPix=clientes.filter(pixAberto).length;
   app.innerHTML=`<header class="topo"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel de clientes</small></div>
       <button class="b" id="bMsgs">Mensagens prontas</button><button class="b" id="bCsv">Baixar planilha</button><button class="b" id="bAtual">Atualizar</button><button class="b" id="bSair">Sair</button></header>
     <main>
       <div class="contadores">
         <button class="cont" data-f="todos" aria-pressed="${filtro==='todos'}"><b>${clientes.length}</b><span>Todos os clientes</span></button>
+        <button class="cont cont-pix" data-f="pix" aria-pressed="${filtro==='pix'}"><b>${nPix}</b><span>🛒 Gerou Pix e não pagou</span></button>
         ${Object.entries(SIT).map(([k,s])=>`<button class="cont" data-f="${k}" aria-pressed="${filtro===k}"><b>${cont[k]}</b><span>${s.n}</span></button>`).join('')}
       </div>
       <div class="filtros"><input type="search" id="busca" placeholder="Buscar nome, e-mail ou WhatsApp" value="${esc(busca)}">
@@ -186,7 +200,8 @@ function desenhar(){
 function visiveis(){
   const agora=Date.now(), q=busca.trim().toLowerCase(), qd=q.replace(/\D/g,'');
   return clientes.filter(c=>{
-    if(filtro!=='todos' && c.sit!==filtro) return false;
+    if(filtro==='pix'){ if(!pixAberto(c)) return false; }
+    else if(filtro!=='todos' && c.sit!==filtro) return false;
     if(extra==='venc48' && !(c.sit==='venc' && agora-Date.parse(c.teste_ate)<48*H)) return false;
     if(extra==='bas7' && !(c.sit==='bas' && agora-Date.parse(c.criado)>=7*D)) return false;
     if(extra==='teste2' && !(c.sit==='teste' && Date.parse(c.teste_ate)-agora<=2*D)) return false;
@@ -196,11 +211,11 @@ function visiveis(){
   });
 }
 function lista(){
-  const vs=visiveis();
+  const vs=visiveis(); if(filtro==='pix') vs.sort((a,b)=>Date.parse(b.pix_gerado_em)-Date.parse(a.pix_gerado_em));
   $('#lista').innerHTML = vs.length ? `<table><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Situação</th><th>Cadastro</th><th></th></tr></thead><tbody>
     ${vs.map(c=>`<tr><td><b>${esc(c.nome||'(sem nome)')}</b><small>${esc(c.email)}${c.instagram?' · @'+esc(c.instagram):''}</small></td>
       <td>${c.whatsapp?esc(fmtZap(c.whatsapp)):'<span class="nota">sem número</span>'}</td>
-      <td><span class="tag ${SIT[c.sit].c}">${SIT[c.sit].n}</span><small>${detalhe(c)}</small></td>
+      <td><span class="tag ${SIT[c.sit].c}">${SIT[c.sit].n}</span><small>${detalhe(c)}</small>${pixAberto(c)?`<small class="quente">🛒 Gerou Pix ${nomeCiclo(c)} (${brl(PRECO_PIX(c))}) ${haQuanto(c.pix_gerado_em)} e não pagou</small>`:''}</td>
       <td>${fmtData(Date.parse(c.criado))}<small>${c.ultimo_uso?'usou em '+fmtData(Date.parse(c.ultimo_uso)):''}</small></td>
       <td class="acao">${c.whatsapp&&c.whatsapp_aceite?`<button class="b zap" data-id="${c.id}">Chamar no WhatsApp</button>`:''}</td></tr>`).join('')}
     </tbody></table>` : `<p class="vazio">Nenhum cliente neste filtro.</p>`;
