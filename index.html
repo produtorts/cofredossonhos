@@ -1072,7 +1072,8 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   async function cupomPendente(){
     const cod=lsLer('cofre2-cupom'); if(!cod || !MODO_REAL || !Dados.usuario) return;
     if(ST.modo==='premium'||ST.modo==='teste'){ try{ localStorage.removeItem('cofre2-cupom'); }catch(e){} return; }
-    try{ await ativarCupom(cod); }catch(err){ aviso(err.message); if(!/internet/.test(err.message)){ try{ localStorage.removeItem('cofre2-cupom'); }catch(e){} } }
+    if(!ST.whats) return; // o teste grátis só libera depois do WhatsApp (pedirWhats chama de novo)
+    try{ await ativarCupom(cod); }catch(err){ if(/WhatsApp para liberar/.test(err.message)) return; aviso(err.message); if(!/internet/.test(err.message)){ try{ localStorage.removeItem('cofre2-cupom'); }catch(e){} } }
   }
   function abrirPlanos(motivo){
     if(bloqueado()){ abrirPausa(); return; }
@@ -1298,7 +1299,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
         const b=el.querySelector('button[type=submit]'); b.disabled=true; m.textContent='Salvando…';
         try{ const { data, error } = await Dados.sb.rpc('salvar_contato', { p_nome:(S.perfil&&S.perfil.nome)||'', p_whatsapp:w.numero, p_aceite:true });
           if(error || !data || !data.ok) throw new Error(data&&data.erro||'erro');
-          ST.whats=true; try{ localStorage.removeItem('cofre2-whats'); }catch(e){} fechar(); aviso('WhatsApp salvo. Obrigado!');
+          ST.whats=true; try{ localStorage.removeItem('cofre2-whats'); }catch(e){} fechar(); aviso('WhatsApp salvo. Obrigado!'); cupomPendente();
         }catch(err){ m.textContent = err.message && err.message!=='erro' ? err.message : 'Não deu certo agora. Confira a internet e tente de novo.'; b.disabled=false; } };
     }, true);
   }
