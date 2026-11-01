@@ -141,6 +141,8 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
 .lb-nav.ant{left:4px}.lb-nav.prox{right:4px}
 .lb .acoes{display:flex;gap:10px;width:100%;max-width:340px}
 .lb .acoes .btn{min-height:50px;font-size:14px}
+#aviso{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top));transform:translate(-50%,-140%);z-index:60;background:#14110a;border:1px solid var(--ouro);color:var(--ouro-cl);font-weight:700;font-size:14px;padding:12px 18px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.5);transition:transform .3s;max-width:92vw;text-align:center}
+#aviso.on{transform:translate(-50%,0)}
 /* planos */
 .planos{display:flex;flex-direction:column;gap:12px;margin-top:18px}
 .plano{border-radius:22px;padding:20px;background:var(--card);border:1px solid var(--linha);position:relative}
@@ -360,7 +362,7 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
         <li><b>2</b><span>Divulga com a estrutura pronta: posts, roteiros e o tutorial em vídeo.</span></li>
         <li><b>3</b><span>Cada venda pelo seu link cai como comissão na sua conta Kiwify.</span></li>
       </ul>
-      <a class="btn btn-ouro" id="btnSocio" href="#" target="_blank" rel="noopener">Quero ser sócio</a>
+      <a class="btn btn-ouro" id="btnSocio" href="#">Quero ser sócio</a>
       <p class="nota">Ganhos dependem só da sua divulgação. Não prometemos valores.</p>
     </div>
   </section>
@@ -411,7 +413,23 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
   const LINK_DIRECT = 'https://ig.me/m/inspiradiariooficial';
 
   document.querySelectorAll('[data-app]').forEach(a=>{ a.href=LINK_APP; });
-  document.getElementById('btnSocio').href = LINK_SOCIO || LINK_DIRECT;
+  const MSG_SOCIO = 'Olá! Vim pela página do Inspira Diário e quero ser sócio do Cofre dos Sonhos: me afiliar à sua estrutura e ganhar 80% de comissão de verdade. Como faço para começar?';
+  const btnSocio = document.getElementById('btnSocio');
+  btnSocio.href = LINK_SOCIO || LINK_DIRECT;
+  btnSocio.addEventListener('click', async e => {
+    if (LINK_SOCIO) return;
+    e.preventDefault();
+    let ok = false;
+    try { await navigator.clipboard.writeText(MSG_SOCIO); ok = true; }
+    catch (_) { const t = document.createElement('textarea'); t.value = MSG_SOCIO; document.body.append(t); t.select(); try { ok = document.execCommand('copy'); } catch (__) {} t.remove(); }
+    aviso(ok ? 'Mensagem copiada! No direct, é só colar e enviar.' : 'Abrindo o direct…');
+    setTimeout(() => { location.href = LINK_DIRECT; }, ok ? 1400 : 300);
+  });
+  function aviso(txt){
+    let el = document.getElementById('aviso');
+    if (!el) { el = document.createElement('div'); el.id = 'aviso'; el.setAttribute('role','status'); document.body.append(el); }
+    el.textContent = txt; el.classList.add('on'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('on'), 3500);
+  }
 
   const brl = v => 'R$ ' + Math.round(v).toLocaleString('pt-BR');
   const $ = s => document.querySelector(s);
