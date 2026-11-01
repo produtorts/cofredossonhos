@@ -8,7 +8,6 @@
 <link rel="icon" href="../icone-192-v2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
 <style>
   :root{--noite:#0c1222;--ardosia:#141c31;--cartao:#19223b;--linha:#27324f;--gelo:#edf1f8;--nevoa:#9aa6be;--ouro:#e2c48a;--ouro-forte:#c9a45f;--tinta:#1d1608;--aurora:#7fe0c9;--alerta:#f2a07b;--perigo:#ef8d8d;--zap:#25d366}
   *{box-sizing:border-box} html,body{margin:0;background:var(--noite);color:var(--gelo);font:15px/1.45 "DM Sans",system-ui,sans-serif}
@@ -55,8 +54,14 @@
 <dialog id="dlgMsg"></dialog>
 <script>
 (()=>{
-const URL_SB="https://rvkziyvihxweyrqnhuuh.supabase.co", CHAVE="sb_publishable_LHIUAPcrjo-5A62OVVAe6w_qfPlIAjv", DONO="produtorts@gmail.com";
-const sb=supabase.createClient(URL_SB, CHAVE, {auth:{persistSession:true}});
+// Login próprio do painel (usuário e senha do painel, não a conta do app). Só leitura.
+const FUNCAO="https://rvkziyvihxweyrqnhuuh.supabase.co/functions/v1/painel-dados", CHAVE="sb_publishable_LHIUAPcrjo-5A62OVVAe6w_qfPlIAjv";
+const lerToken=()=>{ try{ return sessionStorage.getItem('painel-token')||''; }catch(e){ return ''; } };
+const gravarToken=t=>{ try{ t?sessionStorage.setItem('painel-token',t):sessionStorage.removeItem('painel-token'); }catch(e){} };
+async function chamar(corpo){
+  const r=await fetch(FUNCAO,{method:'POST',headers:{'Content-Type':'application/json',apikey:CHAVE},body:JSON.stringify(corpo)});
+  let d={}; try{ d=await r.json(); }catch(e){} return {ok:r.ok, status:r.status, d};
+}
 const $=s=>document.querySelector(s), app=$('#app');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const H=36e5, D=24*H;
@@ -152,22 +157,24 @@ function montarMsg(c){
 
 /* ---------- telas ---------- */
 function telaLogin(msg){
-  app.innerHTML=`<form class="caixa" id="fl"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel do dono</small></div>
-    <input id="le" type="email" placeholder="E-mail" required autocomplete="email" value="${DONO}">
+  app.innerHTML=`<form class="caixa" id="fl" autocomplete="on"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel de clientes</small></div>
+    <input id="lu" placeholder="Usuário" required autocomplete="username" autocapitalize="none" spellcheck="false">
     <input id="ls" type="password" placeholder="Senha" required autocomplete="current-password">
-    <button class="b ouro" type="submit">Entrar</button><p class="nota" id="lm">${esc(msg||'Use a mesma conta do app.')}</p></form>`;
-  $('#fl').onsubmit=async e=>{ e.preventDefault(); $('#lm').textContent='Entrando…';
-    const {error}=await sb.auth.signInWithPassword({email:$('#le').value.trim().toLowerCase(), password:$('#ls').value});
-    if(error){ $('#lm').textContent='E-mail ou senha incorretos.'; return; } iniciar(); };
+    <button class="b ouro" type="submit">Entrar</button><p class="nota" id="lm">${esc(msg||'Acesso somente para leitura.')}</p></form>`;
+  $('#lu').focus();
+  $('#fl').onsubmit=async e=>{ e.preventDefault(); const m=$('#lm'), b=$('#fl button'); b.disabled=true; m.textContent='Entrando…';
+    try{ const {ok,d}=await chamar({usuario:$('#lu').value, senha:$('#ls').value});
+      if(!ok||!d.token){ m.textContent=d.erro||'Não deu para entrar agora.'; b.disabled=false; return; }
+      gravarToken(d.token); iniciar();
+    }catch(err){ m.textContent='Sem conexão. Tente de novo.'; b.disabled=false; } };
 }
 async function iniciar(){
-  const {data:{session}}=await sb.auth.getSession();
-  if(!session) return telaLogin();
-  if((session.user.email||'').toLowerCase()!==DONO) return telaLogin('Esta conta não tem acesso ao painel. Entre com '+DONO+'.');
+  const t=lerToken(); if(!t) return telaLogin();
   app.innerHTML=`<p class="vazio">Carregando clientes…</p>`;
-  const {data,error}=await sb.rpc('painel_clientes');
-  if(error){ app.innerHTML=`<p class="vazio">Não deu para carregar: ${esc(error.message)}</p>`; return; }
-  clientes=(data||[]).map(c=>({...c, sit:situacao(c)}));
+  let r; try{ r=await chamar({token:t}); }catch(e){ app.innerHTML=`<p class="vazio">Sem conexão. <button class="b" onclick="location.reload()">Tentar de novo</button></p>`; return; }
+  if(r.status===401){ gravarToken(''); return telaLogin('Sua sessão terminou. Entre de novo.'); }
+  if(!r.ok){ app.innerHTML=`<p class="vazio">${esc(r.d.erro||'Não deu para carregar.')}</p>`; return; }
+  clientes=(r.d.clientes||[]).map(c=>({...c, sit:situacao(c)}));
   desenhar();
 }
 function desenhar(){
@@ -193,7 +200,7 @@ function desenhar(){
   app.querySelectorAll('.cont').forEach(b=>b.onclick=()=>{ filtro=b.dataset.f; desenhar(); });
   app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ extra= extra===b.dataset.x?'':b.dataset.x; desenhar(); });
   const bi=$('#busca'); bi.oninput=()=>{ busca=bi.value; lista(); };
-  $('#bAtual').onclick=iniciar; $('#bSair').onclick=async()=>{ await sb.auth.signOut(); telaLogin(); };
+  $('#bAtual').onclick=iniciar; $('#bSair').onclick=()=>{ gravarToken(''); telaLogin('Você saiu do painel.'); };
   $('#bCsv').onclick=baixarCsv; $('#bMsgs').onclick=editarMsgs;
   lista();
 }
