@@ -22,6 +22,19 @@
   .contadores{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:14px}
   .cont{text-align:left;border:1px solid var(--linha);background:var(--ardosia);border-radius:12px;padding:12px;cursor:pointer}
   .cont b{display:block;font-size:26px;font-variant-numeric:tabular-nums;line-height:1.1} .cont span{color:var(--nevoa);font-size:13px}
+  .funil{display:flex;flex-direction:column;gap:8px;margin:6px 0 10px}
+  .etapa{display:grid;grid-template-columns:minmax(150px,220px) 1fr 110px;gap:12px;align-items:center;background:var(--ardosia);border:1px solid var(--linha);border-radius:12px;padding:10px 12px}
+  .et-txt small,.et-conv small{display:block;color:var(--nevoa);font-size:12px}
+  .et-barra{position:relative;height:26px;background:rgba(255,255,255,.04);border-radius:8px;overflow:hidden}
+  .et-barra i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--ouro-forte),var(--ouro));border-radius:8px}
+  .et-barra span{position:absolute;top:0;line-height:26px;font-weight:700}
+  .et-conv{text-align:right}.et-conv b{color:var(--aurora)}
+  .sec{margin:22px 0 10px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--nevoa);font-weight:500}
+  .dias{display:flex;gap:4px;align-items:flex-end;height:140px;background:var(--ardosia);border:1px solid var(--linha);border-radius:12px;padding:12px 10px 26px;overflow-x:auto}
+  .dia{flex:1;min-width:16px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative}
+  .dia i{width:100%;max-width:26px;background:var(--ouro);border-radius:4px 4px 0 0}
+  .dia small{position:absolute;bottom:-20px;font-size:10px;color:var(--nevoa);white-space:nowrap}
+  @media (max-width:760px){ .etapa{grid-template-columns:1fr 70px} .et-barra{grid-column:1 / -1;grid-row:2} .dia small{display:none} }
   .cont-pix{border-color:rgba(242,160,123,.45);background:#2a1f22}.cont-pix span{color:var(--alerta)}
   .cont[aria-pressed=true]{border-color:var(--ouro);box-shadow:0 0 0 1px var(--ouro) inset}
   .filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
@@ -65,7 +78,7 @@ async function chamar(corpo){
 const $=s=>document.querySelector(s), app=$('#app');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const H=36e5, D=24*H;
-let clientes=[], filtro='todos', extra='', busca='';
+let clientes=[], filtro='todos', extra='', busca='', aba='clientes', funilDias=7, funilDados=null;
 
 // Situações (mesma regra do app) e a mensagem pronta de cada uma.
 const SIT={
@@ -177,10 +190,11 @@ async function iniciar(){
   desenhar();
 }
 function desenhar(){
+  if(aba==='funil') return desenharFunil();
   const cont={}; Object.keys(SIT).forEach(k=>cont[k]=0); clientes.forEach(c=>cont[c.sit]++);
   const semZap=clientes.filter(c=>!c.whatsapp).length, nPix=clientes.filter(pixAberto).length;
   app.innerHTML=`<header class="topo"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel de clientes</small></div>
-      <button class="b" id="bMsgs">Mensagens prontas</button><button class="b" id="bCsv">Baixar planilha</button><button class="b" id="bAtual">Atualizar</button><button class="b" id="bSair">Sair</button></header>
+      <button class="b" id="bFunil">📊 Funil</button><button class="b" id="bMsgs">Mensagens prontas</button><button class="b" id="bCsv">Baixar planilha</button><button class="b" id="bAtual">Atualizar</button><button class="b" id="bSair">Sair</button></header>
     <main>
       <div class="contadores">
         <button class="cont" data-f="todos" aria-pressed="${filtro==='todos'}"><b>${clientes.length}</b><span>Todos os clientes</span></button>
@@ -200,8 +214,60 @@ function desenhar(){
   app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ extra= extra===b.dataset.x?'':b.dataset.x; desenhar(); });
   const bi=$('#busca'); bi.oninput=()=>{ busca=bi.value; lista(); };
   $('#bAtual').onclick=iniciar; $('#bSair').onclick=()=>{ gravarToken(''); telaLogin('Você saiu do painel.'); };
-  $('#bCsv').onclick=baixarCsv; $('#bMsgs').onclick=editarMsgs;
+  $('#bCsv').onclick=baixarCsv; $('#bMsgs').onclick=editarMsgs; $('#bFunil').onclick=()=>{ aba='funil'; desenhar(); };
   lista();
+}
+/* ---------- funil ---------- */
+const ETAPAS=[
+  ['visitas','Visitaram o site','Pessoas diferentes que abriram o app'],
+  ['inicio','Começaram o cadastro','Digitaram o nome'],
+  ['conquista','Criaram a conquista','Viram o próprio wallpaper'],
+  ['contas','Criaram a conta','E-mail e senha'],
+  ['whatsapp','Informaram o WhatsApp','Cadastro completo'],
+  ['teste','Ativaram o teste','7 dias de Premium'],
+  ['pix','Geraram o Pix','Tentaram assinar'],
+  ['pagou','Pagaram','Viraram clientes Premium']
+];
+async function carregarFunil(){
+  $('#funilCorpo').innerHTML='<p class="vazio">Carregando…</p>';
+  const r=await chamar({token:lerToken(), funil:funilDias}).catch(()=>null);
+  if(!r){ $('#funilCorpo').innerHTML='<p class="vazio">Sem conexão.</p>'; return; }
+  if(r.status===401){ gravarToken(''); return telaLogin('Sua sessão terminou. Entre de novo.'); }
+  if(!r.ok){ $('#funilCorpo').innerHTML=`<p class="vazio">${esc(r.d.erro||'Não deu para carregar.')}</p>`; return; }
+  funilDados=r.d.funil; corpoFunil();
+}
+function desenharFunil(){
+  app.innerHTML=`<header class="topo"><div class="marca">Cofre <em>dos Sonhos</em><small>Funil de vendas</small></div>
+      <button class="b" id="bVoltar">👥 Clientes</button><button class="b" id="bAtualF">Atualizar</button><button class="b" id="bSair">Sair</button></header>
+    <main><div class="filtros">${[[1,'Hoje'],[7,'7 dias'],[30,'30 dias'],[90,'90 dias'],[3650,'Tudo']].map(([d,n])=>`<button class="chip" data-d="${d}" aria-pressed="${funilDias===d}">${n}</button>`).join('')}</div>
+    <div id="funilCorpo"></div>
+    <p class="nota" style="margin-top:16px">Visitas contam pessoas diferentes por dia, sem guardar nenhum dado pessoal. Os números começam a contar a partir de 01/11/2026; as etapas de conta, WhatsApp, teste, Pix e pagamento já incluem quem chegou antes.</p></main>`;
+  app.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{ funilDias=+b.dataset.d; desenharFunil(); });
+  $('#bVoltar').onclick=()=>{ aba='clientes'; desenhar(); }; $('#bAtualF').onclick=carregarFunil;
+  $('#bSair').onclick=()=>{ gravarToken(''); telaLogin('Você saiu do painel.'); };
+  carregarFunil();
+}
+function corpoFunil(){
+  const cs=funilDados.campanhas||[], tot={}; ETAPAS.forEach(([k])=>tot[k]=cs.reduce((a,c)=>a+(+c[k]||0),0));
+  const topo=Math.max(1,...ETAPAS.map(([k])=>tot[k]));
+  const pct=(a,b)=>b?Math.round(a/b*100)+'%':'—';
+  const dias=funilDados.dias||[], maxDia=Math.max(1,...dias.map(d=>d.visitas||0));
+  $('#funilCorpo').innerHTML=`
+    <div class="contadores">
+      <div class="cont"><b>${tot.visitas}</b><span>Visitas</span></div>
+      <div class="cont"><b>${tot.contas}</b><span>Contas criadas</span></div>
+      <div class="cont"><b>${tot.pagou}</b><span>Pagaram</span></div>
+      <div class="cont"><b>${pct(tot.pagou,tot.visitas)}</b><span>Visita → venda</span></div>
+    </div>
+    <div class="funil">${ETAPAS.map(([k,n,dsc],i)=>{ const v=tot[k], ant=i?tot[ETAPAS[i-1][0]]:null, perdeu=ant!==null&&ant>v?ant-v:0;
+      return `<div class="etapa"><div class="et-txt"><b>${n}</b><small>${dsc}</small></div>
+        <div class="et-barra">${(()=>{ const w=Math.max(2,v/topo*100); return `<i style="width:${w}%"></i><span style="${w>80?'left:10px;color:#1d1608':`left:calc(${w}% + 8px);color:var(--gelo)`}">${v}</span>`; })()}</div>
+        <div class="et-conv">${i?`<b>${pct(v,ant)}</b><small>${perdeu?`${perdeu} não chegaram aqui`:'&nbsp;'}</small>`:''}</div></div>`; }).join('')}</div>
+    ${dias.length>1?`<h3 class="sec">Visitas por dia</h3><div class="dias">${dias.map(d=>`<div class="dia" title="${d.visitas} visitas · ${d.contas} contas"><i style="height:${Math.max(2,(d.visitas||0)/maxDia*100)}%"></i><small>${new Date(d.dia+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</small></div>`).join('')}</div>`:''}
+    <h3 class="sec">De onde vieram</h3>
+    ${cs.length?`<table><thead><tr><th>Origem</th><th>Visitas</th><th>Contas</th><th>Teste</th><th>Pix</th><th>Pagaram</th><th>Conversão</th></tr></thead><tbody>
+      ${cs.map(c=>`<tr><td><b>${esc(c.campanha==='DIRETO'?'Direto (sem código)':c.campanha)}</b></td><td>${c.visitas}</td><td>${c.contas}</td><td>${c.teste}</td><td>${c.pix}</td><td><b>${c.pagou}</b></td><td>${pct(c.pagou,c.visitas||c.contas)}</td></tr>`).join('')}
+    </tbody></table>`:'<p class="vazio">Ainda sem dados neste período.</p>'}`;
 }
 function visiveis(){
   const agora=Date.now(), q=busca.trim().toLowerCase(), qd=q.replace(/\D/g,'');
