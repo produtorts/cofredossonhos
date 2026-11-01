@@ -1071,6 +1071,15 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     try{ localStorage.removeItem('cofre2-cupom'); }catch(e){}
     renderTudo(); celebrar('Premium liberado por 7 dias!','Use tudo: conquistas ilimitadas, todos os fundos 4K e lembretes na tela de bloqueio. Ative as notificações em Mais › Lembretes.');
   }
+  // Funil do painel: registra visita e etapas do cadastro com um código aleatório do aparelho (sem dados pessoais).
+  function rastrear(evento){
+    try{
+      if(!MODO_REAL || !Dados.sb) return;
+      if(Dados.usuario && (Dados.usuario.email||'').toLowerCase()==='produtorts@gmail.com') return;
+      let v=lsLer('cofre2-vis'); if(!v){ v=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(36).slice(2)); lsGravar('cofre2-vis', v); }
+      Dados.sb.rpc('registrar_evento', { p_visitante:v, p_evento:evento, p_campanha:lsLer('cofre2-cupom')||lsLer('cofre2-origem')||'' }).then(()=>{},()=>{});
+    }catch(e){}
+  }
   async function cupomPendente(){
     const cod=lsLer('cofre2-cupom'); if(!cod || !MODO_REAL || !Dados.usuario) return;
     if(ST.modo==='premium'||ST.modo==='teste'){ try{ localStorage.removeItem('cofre2-cupom'); }catch(e){} return; }
@@ -1236,7 +1245,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     const passos=(n)=>`<div class="passos">${[0,1,2,3].map(i=>`<i class="${i<=n?'ok':''}"></i>`).join('')}</div>`;
     const tela0=()=>{ bv.innerHTML=`<div class="dentro">${passos(0)}<span class="sobre">Boas-vindas ao Cofre dos Sonhos</span><h1>Antes de tudo, como você se chama?</h1>
         <div id="bvPerfil"></div>${MODO_REAL?'<button class="vazado bloco" id="bvJa">Já tenho conta</button>':''}</div>`;
-      bv.querySelector('#bvPerfil').append(formPerfil(()=>tela1(), 'Continuar'));
+      bv.querySelector('#bvPerfil').append(formPerfil(()=>{ rastrear('inicio'); tela1(); }, 'Continuar'));
       const cp=lsLer('cofre2-cupom'); if(cp){ const n=document.createElement('div'); n.className='situacao'; n.innerHTML=`<div><b>Cupom ${esc(cp)}</b><span class="nota">7 dias de Premium grátis. Ele é ativado quando você criar sua conta.</span></div>`; bv.querySelector('.dentro').insertBefore(n, bv.querySelector('h1')); }
       const ja=bv.querySelector('#bvJa'); if(ja) ja.onclick=()=>{ bv.remove(); abrirLogin(); }; };
     const tela1=()=>{ const nm=primeiroNome(); bv.innerHTML=`<div class="dentro">${passos(1)}<button class="vazado mini" id="bvV0" style="align-self:flex-start">‹ Voltar</button><span class="sobre">${nm?'Prazer, '+esc(nm):'Vamos lá'}</span><h1>O que você vai conquistar?</h1>
@@ -1259,7 +1268,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
         <div class="situacao"><div><b>Como guardar de verdade</b><span class="nota">Separe ${brl(Math.ceil(porMes(c)))} por mês na caixinha do seu banco (Nubank, Inter, PicPay, Mercado Pago…) e marque aqui no Cofre sempre que guardar. O dinheiro fica no seu banco; o Cofre acompanha e te mantém no ritmo.</span></div></div>
         <button class="ouro bloco" id="bvOk">${MODO_REAL?'Salvar minha conquista':'Começar'}</button></div>`;
       desenharWallpaper(bv.querySelector('#bvWp'), c, c.fundo, 'minimal', 0.3); bv.querySelector('#bvV2').onclick=tela2;
-      bv.querySelector('#bvOk').onclick=()=>{ c.fundo=fundoLivre(c.cat); c.id=novoId(); c.criado=hoje(); c.depositos=[]; S.cofres.push(c); S.onboarding=true; Dados.salvar(); bv.remove(); renderTudo(); if(MODO_REAL && !Dados.usuario) abrirLogin(); }; };
+      bv.querySelector('#bvOk').onclick=()=>{ rastrear('conquista'); c.fundo=fundoLivre(c.cat); c.id=novoId(); c.criado=hoje(); c.depositos=[]; S.cofres.push(c); S.onboarding=true; Dados.salvar(); bv.remove(); renderTudo(); if(MODO_REAL && !Dados.usuario) abrirLogin(); }; };
     if(S.perfil && S.perfil.nome) tela1(); else tela0();
   }
   // Formulário de nome e sexo (boas-vindas e quem já usava o app).
@@ -1408,9 +1417,10 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   }
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') conferirPagamento(); });
   setInterval(()=>{ if(document.visibilityState==='visible') conferirPagamento(); }, 15000);
-  try{ const u=new URL(location.href), cod=u.searchParams.get('cupom'); if(cod){ lsGravar('cofre2-cupom', cod.trim().toUpperCase()); u.searchParams.delete('cupom'); history.replaceState(null,'',u.pathname+u.search+u.hash); } }catch(e){}
+  try{ const u=new URL(location.href), cod=u.searchParams.get('cupom'); if(cod){ lsGravar('cofre2-cupom', cod.trim().toUpperCase()); if(!lsLer('cofre2-origem')) lsGravar('cofre2-origem', cod.trim().toUpperCase()); u.searchParams.delete('cupom'); history.replaceState(null,'',u.pathname+u.search+u.hash); } }catch(e){}
   (async()=>{
     try{ await Dados.iniciar(); }catch(e){ aviso('Sem conexão. Usando os dados deste aparelho.'); }
+    rastrear('visita');
     carregarFotosDemo();
     await Dados.verificarPush();
     renderTudo();
