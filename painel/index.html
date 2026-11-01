@@ -54,7 +54,7 @@
 <dialog id="dlgMsg"></dialog>
 <script>
 (()=>{
-// Login próprio do painel (usuário e senha do painel, não a conta do app). Só leitura.
+// Senha própria do painel (não é a conta do app). Só leitura.
 const FUNCAO="https://rvkziyvihxweyrqnhuuh.supabase.co/functions/v1/painel-dados", CHAVE="sb_publishable_LHIUAPcrjo-5A62OVVAe6w_qfPlIAjv";
 const lerToken=()=>{ try{ return sessionStorage.getItem('painel-token')||''; }catch(e){ return ''; } };
 const gravarToken=t=>{ try{ t?sessionStorage.setItem('painel-token',t):sessionStorage.removeItem('painel-token'); }catch(e){} };
@@ -158,12 +158,11 @@ function montarMsg(c){
 /* ---------- telas ---------- */
 function telaLogin(msg){
   app.innerHTML=`<form class="caixa" id="fl" autocomplete="on"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel de clientes</small></div>
-    <input id="lu" placeholder="Usuário" required autocomplete="username" autocapitalize="none" spellcheck="false">
-    <input id="ls" type="password" placeholder="Senha" required autocomplete="current-password">
+    <input id="ls" type="password" placeholder="Senha de acesso" required autocomplete="current-password">
     <button class="b ouro" type="submit">Entrar</button><p class="nota" id="lm">${esc(msg||'Acesso somente para leitura.')}</p></form>`;
-  $('#lu').focus();
+  $('#ls').focus();
   $('#fl').onsubmit=async e=>{ e.preventDefault(); const m=$('#lm'), b=$('#fl button'); b.disabled=true; m.textContent='Entrando…';
-    try{ const {ok,d}=await chamar({usuario:$('#lu').value, senha:$('#ls').value});
+    try{ const {ok,d}=await chamar({senha:$('#ls').value});
       if(!ok||!d.token){ m.textContent=d.erro||'Não deu para entrar agora.'; b.disabled=false; return; }
       gravarToken(d.token); iniciar();
     }catch(err){ m.textContent='Sem conexão. Tente de novo.'; b.disabled=false; } };
