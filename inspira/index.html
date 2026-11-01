@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#05070d">
 <meta property="og:title" content="Inspira Diário · Cofre dos Sonhos">
 <meta property="og:description" content="O sonho não é caro. Caro é não ter plano. Teste 7 dias grátis.">
-<meta property="og:image" content="https://www.cofredossonhos.com/inspira/img/neve-5.jpg">
+<meta property="og:image" content="https://www.cofredossonhos.com/inspira/img/p-vila.jpg">
 <link rel="icon" type="image/png" href="../icone-192-v2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,11 +67,12 @@ section{padding:46px 16px 8px}
 .story .nome{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* hero */
-.heroi{margin:14px 16px 0;border-radius:28px;overflow:hidden;position:relative;min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 22px 24px;border:1px solid var(--linha)}
+.heroi{margin:14px 16px 0;border-radius:28px;overflow:hidden;position:relative;min-height:680px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 22px 24px;border:1px solid var(--linha)}
 .heroi>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);animation:respira 18s ease-in-out infinite alternate}
 @keyframes respira{to{transform:scale(1.14) translateY(-10px)}}
 .heroi::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,13,.1) 0%,rgba(5,7,13,.35) 40%,rgba(5,7,13,.95) 100%)}
 .heroi>*:not(img){position:relative;z-index:2}
+.heroi>.selo{position:absolute;top:18px;left:18px;margin:0}
 .heroi p{margin:10px 0 18px;color:#dde2ec;font-size:15px}
 .selo{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:7px 12px;border-radius:999px;background:rgba(0,0,0,.45);border:1px solid rgba(228,190,120,.4);font-size:12px;font-weight:700;margin-bottom:14px;backdrop-filter:blur(6px)}
 .selo i{width:8px;height:8px;border-radius:50%;background:#5ee08a;box-shadow:0 0 0 0 rgba(94,224,138,.6);animation:ping 1.8s infinite}
@@ -131,6 +132,15 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
 .feed button:active img{transform:scale(1.05)}
 .feed .trava{position:absolute;right:6px;top:6px;font-size:10px;font-weight:800;background:rgba(0,0,0,.55);padding:3px 7px;border-radius:999px;color:var(--ouro-cl);letter-spacing:.5px}
 
+
+.grade-posts{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:18px -16px 0}
+.grade-posts button{aspect-ratio:3/4;overflow:hidden;padding:0;position:relative}
+.grade-posts img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.grade-posts button:active img{transform:scale(1.05)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;font-size:40px;color:#fff;opacity:.8}
+.lb-nav.ant{left:4px}.lb-nav.prox{right:4px}
+.lb .acoes{display:flex;gap:10px;width:100%;max-width:340px}
+.lb .acoes .btn{min-height:50px;font-size:14px}
 /* planos */
 .planos{display:flex;flex-direction:column;gap:12px;margin-top:18px}
 .plano{border-radius:22px;padding:20px;background:var(--card);border:1px solid var(--linha);position:relative}
@@ -192,6 +202,8 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
 @keyframes sobe{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 .sv-texto .titulo{font-size:clamp(44px,13vw,62px)}
 .sv-texto p{font-size:16px;color:#e7eaf1;margin:12px 0 20px}
+.sv-palco.puro>img{object-fit:contain;animation:none;background:#000}
+.sv-palco.puro::after{background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 15%)}
 .sv-toque{position:absolute;top:80px;bottom:150px;z-index:2;width:40%}
 .sv-toque.esq{left:0}.sv-toque.dir{right:0;width:60%}
 
@@ -211,7 +223,7 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
 
   <!-- Perfil -->
   <header class="perfil">
-    <div class="avatar"><img src="img/neve-5.jpg" alt="Inspira Diário"></div>
+    <div class="avatar"><img src="img/perfil.jpg" alt="Inspira Diário"></div>
     <div>
       <h1>Inspira Diário <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="#e4be78" d="M12 1l2.6 2.4 3.5-.4.9 3.4 3 1.9-1.3 3.3 1.3 3.3-3 1.9-.9 3.4-3.5-.4L12 22.2l-2.6-2.4-3.5.4-.9-3.4-3-1.9 1.3-3.3L2 8.3l3-1.9.9-3.4 3.5.4z"/><path d="M8 12.3l2.6 2.6L16.3 9" stroke="#1a1206" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></h1>
       <div class="arroba">@inspiradiariooficial</div>
@@ -224,7 +236,7 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
 
   <!-- Hero -->
   <div class="heroi rev">
-    <img src="img/neve-5.jpg" alt="" fetchpriority="high">
+    <img src="img/p-vila.jpg" alt="" fetchpriority="high" style="object-position:50% 0%">
     <span class="selo"><i></i>Teste de 7 dias liberado pelo link da bio</span>
     <h2 class="titulo">O sonho<br>não é caro.</h2>
     <span class="script">caro é não ter plano</span>
@@ -239,15 +251,27 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
       <h2 class="titulo" style="margin-top:8px">Dinheiro curto<br><span class="ouro">tira o sono</span></h2>
     </div>
     <div class="carrossel" id="carDor">
-      <article class="dor"><img src="img/casa-6.jpg" alt="" loading="lazy"><span class="num">01</span><h3>O salário some antes do dia 10</h3><p>Paga as contas, sobra nada, e o sonho fica pro “mês que vem”.</p></article>
-      <article class="dor"><img src="img/carro-5.jpg" alt="" loading="lazy"><span class="num">02</span><h3>Já tentou guardar e parou</h3><p>Começa animado, esquece no segundo mês. Não é falta de força, é falta de lembrete.</p></article>
-      <article class="dor"><img src="img/liberdade-4.jpg" alt="" loading="lazy"><span class="num">03</span><h3>Tem um sonho, mas nunca fez a conta</h3><p>Sem saber quanto guardar por mês, o sonho parece impossível.</p></article>
+      <article class="dor"><img src="img/p-sacada.jpg" alt="" loading="lazy"><span class="num">01</span><h3>O salário some antes do dia 10</h3><p>Paga as contas, sobra nada, e o sonho fica pro “mês que vem”.</p></article>
+      <article class="dor"><img src="img/p-treino.jpg" alt="" loading="lazy"><span class="num">02</span><h3>Já tentou guardar e parou</h3><p>Começa animado, esquece no segundo mês. Não é falta de força, é falta de lembrete.</p></article>
+      <article class="dor"><img src="img/p-oculos.jpg" alt="" loading="lazy"><span class="num">03</span><h3>Tem um sonho, mas nunca fez a conta</h3><p>Sem saber quanto guardar por mês, o sonho parece impossível.</p></article>
       <article class="dor"><img src="img/negocio-4.jpg" alt="" loading="lazy"><span class="num">04</span><h3>A dívida virou um peso</h3><p>Juros de um lado, boleto do outro. Falta saber por onde começar.</p></article>
     </div>
     <div class="pontos" data-pontos="carDor"></div>
     <div class="alivio rev">
       <p><b>Respira.</b> <span class="fraco">Você não precisa ganhar mais para começar. Precisa de um plano simples, que caiba no seu mês e que te lembre todo dia do porquê.</span></p>
     </div>
+  </section>
+
+
+  <!-- Posts do perfil -->
+  <section id="posts">
+    <div class="rev">
+      <span class="sobre">Do perfil</span>
+      <h2 class="titulo" style="margin-top:8px">Talvez você<br><span class="ouro">precisasse ler isso</span></h2>
+      <p class="fraco" style="margin:10px 0 0">Fé, mentalidade e evolução, todo dia no @inspiradiariooficial. Toque para ver.</p>
+    </div>
+    <div class="grade-posts rev" id="gradePosts"></div>
+    <a class="btn btn-vazado" href="https://www.instagram.com/inspiradiariooficial/" target="_blank" rel="noopener" style="margin-top:16px">Ver todos no Instagram</a>
   </section>
 
   <!-- Calculadora -->
@@ -326,7 +350,7 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
   <!-- Sócio -->
   <section id="socio">
     <div class="socio rev">
-      <img src="img/liberdade-5.jpg" alt="" loading="lazy">
+      <img src="img/posts/08.jpg" alt="" loading="lazy" style="object-position:50% 20%">
       <span class="sobre">Programa de sócios</span>
       <h2 class="titulo" style="margin-top:8px">Ganhe dinheiro<br><span class="ouro">com o Cofre</span></h2>
       <div class="comissao ouro-t">80%</div>
@@ -377,7 +401,7 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
 </div>
 
 <!-- Lightbox -->
-<div class="lb" id="lb" role="dialog" aria-modal="true"><button class="x" id="lbX" aria-label="Fechar">×</button><img id="lbImg" alt=""><a class="btn btn-ouro" data-app href="#">Quero esse na minha tela</a></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true"><button class="x" id="lbX" aria-label="Fechar">×</button><button class="lb-nav ant" id="lbAnt" aria-label="Anterior">‹</button><button class="lb-nav prox" id="lbProx" aria-label="Próximo">›</button><img id="lbImg" alt=""><div class="acoes" id="lbAcoes"></div></div>
 
 <script>
 (()=>{
@@ -437,31 +461,46 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
   // ====== Feed de wallpapers ======
   const FEED=['neve-4','carro-5','casa-4','liberdade-4','moto-6','praia-4','neve-3','negocio-4','casa-6','notebook-4','liberdade-5','neve-1'];
   $('#feed').innerHTML=FEED.map(f=>`<button type="button" data-f="${f}"><img src="img/${f}.jpg" alt="Wallpaper" loading="lazy"><span class="trava">4K</span></button>`).join('');
-  const lb=$('#lb');
-  $('#feed').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; $('#lbImg').src='img/'+b.dataset.f+'.jpg'; lb.classList.add('on'); };
-  $('#lbX').onclick=()=>lb.classList.remove('on'); lb.onclick=e=>{ if(e.target===lb) lb.classList.remove('on'); };
+  // ====== Posts do perfil ======
+  const POSTS=Array.from({length:16},(_,i)=>String(i+1).padStart(2,'0'));
+  $('#gradePosts').innerHTML=POSTS.map((n,i)=>`<button type="button" data-i="${i}"><img src="img/posts/${n}-t.jpg" alt="Post do Inspira Diário" loading="lazy"></button>`).join('');
+  // ====== Visualizador (posts e wallpapers) ======
+  const lb=$('#lb'); let lista=[], li=0, tipo='';
+  const ACOES={ post:`<a class="btn btn-vazado" href="https://www.instagram.com/inspiradiariooficial/" target="_blank" rel="noopener">Seguir</a><a class="btn btn-ouro" href="${LINK_APP}">Testar o Cofre</a>`,
+                wall:`<a class="btn btn-ouro" href="${LINK_APP}">Quero esse na minha tela</a>` };
+  function verLb(){ $('#lbImg').src=lista[li]; $('#lbAcoes').innerHTML=ACOES[tipo]; }
+  function abrirLb(l,i,t){ lista=l; li=i; tipo=t; verLb(); lb.classList.add('on'); document.body.style.overflow='hidden'; }
+  function fecharLb(){ lb.classList.remove('on'); document.body.style.overflow=''; }
+  $('#gradePosts').onclick=e=>{ const b=e.target.closest('button'); if(b) abrirLb(POSTS.map(n=>`img/posts/${n}.jpg`), +b.dataset.i, 'post'); };
+  $('#feed').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; const l=FEED.map(f=>`img/${f}.jpg`); abrirLb(l, FEED.indexOf(b.dataset.f), 'wall'); };
+  $('#lbAnt').onclick=()=>{ li=(li-1+lista.length)%lista.length; verLb(); };
+  $('#lbProx').onclick=()=>{ li=(li+1)%lista.length; verLb(); };
+  $('#lbX').onclick=fecharLb; lb.onclick=e=>{ if(e.target===lb) fecharLb(); };
+  let lx=null; lb.addEventListener('touchstart',e=>{ lx=e.touches[0].clientX; },{passive:true});
+  lb.addEventListener('touchend',e=>{ if(lx===null) return; const dx=e.changedTouches[0].clientX-lx; if(Math.abs(dx)>50) (dx<0?$('#lbProx'):$('#lbAnt')).click(); lx=null; },{passive:true});
 
   // ====== Stories ======
   const ir = alvo => ({ alvo });
   const STORIES=[
-    {nome:'Comece', capa:'neve-5', slides:[
-      {img:'neve-5', titulo:['Talvez você','*precisasse','ler isso hoje'], texto:'Não é sobre ganhar mais. É sobre parar de deixar o seu sonho para o mês que vem.'},
-      {img:'casa-6', titulo:['Todo sonho','*tem um preço'], script:'e um prazo', texto:'Quando você sabe quanto guardar por mês, o impossível vira uma meta.'},
-      {img:'neve-4', titulo:['Cofre dos','*Sonhos'], texto:'Plano por mês, lembretes no dia certo e a sua meta na tela de bloqueio.', cta:'Testar 7 dias grátis'}]},
-    {nome:'Tutorial', capa:'neve-3', rotulo:'▶', slides:[
-      {img:'neve-3', titulo:['Se perdeu','*no Cofre?'], texto:'Em 1 minuto você aprende a usar tudo: cadastro, cofre, wallpaper e notificações.', acao:ir('#tutorial'), cta:'Assistir o tutorial'}]},
-    {nome:'Dívidas', capa:'negocio-4', slides:[
-      {img:'negocio-4', titulo:['A dívida','*tira o sono?'], texto:'Ela pesa no bolso e na cabeça. O primeiro passo é saber por onde começar.'},
+    {nome:'Comece', capa:'p-vila', slides:[
+      {img:'p-vila', titulo:['Talvez você','*precisasse','ler isso hoje'], texto:'Não é sobre ganhar mais. É sobre parar de deixar o seu sonho para o mês que vem.'},
+      {img:'p-sacada', titulo:['Todo sonho','*tem um preço'], script:'e um prazo', texto:'Quando você sabe quanto guardar por mês, o impossível vira uma meta.'},
+      {img:'p-oculos', titulo:['Cofre dos','*Sonhos'], texto:'Plano por mês, lembretes no dia certo e a sua meta na tela de bloqueio.', cta:'Testar 7 dias grátis'}]},
+    {nome:'Frases', capa:'posts/13-t', puro:true, slides:['13','15','02','05','06','11'].map(n=>({img:'posts/'+n, puro:true})).concat([{img:'p-vila', titulo:['Todo dia','*uma dose'], texto:'Fé, mentalidade e evolução no @inspiradiariooficial.', cta:'Seguir no Instagram', link:'https://www.instagram.com/inspiradiariooficial/'}])},
+    {nome:'Tutorial', capa:'p-sacada', rotulo:'▶', slides:[
+      {img:'p-sacada', titulo:['Se perdeu','*no Cofre?'], texto:'Em 1 minuto você aprende a usar tudo: cadastro, cofre, wallpaper e notificações.', acao:ir('#tutorial'), cta:'Assistir o tutorial'}]},
+    {nome:'Dívidas', capa:'p-treino', slides:[
+      {img:'p-treino', titulo:['A dívida','*tira o sono?'], texto:'Ela pesa no bolso e na cabeça. O primeiro passo é saber por onde começar.'},
       {img:'casa-4', titulo:['Qual pagar','*primeiro'], texto:'No Premium, o plano para sair das dívidas mostra a ordem certa: método avalanche ou bola de neve.', cta:'Testar 7 dias grátis'}]},
     {nome:'Calcular', capa:'carro-5', rotulo:'R$', slides:[
       {img:'carro-5', titulo:['Quanto custa','*seu sonho','por mês?'], texto:'Faça a conta em 10 segundos.', acao:ir('#calculadora'), cta:'Fazer a conta'}]},
     {nome:'Wallpaper', capa:'neve-4', slides:[
       {img:'neve-4', titulo:['Seu sonho','*na tela'], texto:'Wallpapers em 4K com a sua meta e o seu progresso.'},
       {img:'praia-4', titulo:['Atualiza','*a cada','depósito'], texto:'Toda vez que pegar o celular, você lembra por que está guardando.', acao:ir('#wallpapers'), cta:'Ver wallpapers'}]},
-    {nome:'Sócio 80%', capa:'liberdade-5', rotulo:'80%', slides:[
-      {img:'liberdade-5', titulo:['Ganhe','*80%','por venda'], texto:'Divulgue o Cofre com a nossa estrutura pronta e ganhe comissão em cada venda do seu link.', acao:ir('#socio'), cta:'Quero ser sócio'}]},
-    {nome:'Dúvidas', capa:'moto-6', rotulo:'?', slides:[
-      {img:'moto-6', titulo:['Ficou','*alguma dúvida?'], texto:'Respondemos as perguntas mais comuns.', acao:ir('#faq'), cta:'Ver respostas'}]},
+    {nome:'Sócio 80%', capa:'posts/08-t', rotulo:'80%', slides:[
+      {img:'p-oculos', titulo:['Ganhe','*80%','por venda'], texto:'Divulgue o Cofre com a nossa estrutura pronta e ganhe comissão em cada venda do seu link.', acao:ir('#socio'), cta:'Quero ser sócio'}]},
+    {nome:'Dúvidas', capa:'posts/16-t', rotulo:'?', slides:[
+      {img:'p-treino', titulo:['Ficou','*alguma dúvida?'], texto:'Respondemos as perguntas mais comuns.', acao:ir('#faq'), cta:'Ver respostas'}]},
   ];
   const vistos=(()=>{ try{ return JSON.parse(localStorage.getItem('insp-vistos')||'[]'); }catch(e){ return []; } })();
   $('#stories').innerHTML=STORIES.map((s,i)=>`<button class="story ${vistos.includes(i)?'visto':''}" data-s="${i}"><span class="anel"><img src="img/${s.capa}.jpg" alt="">${s.rotulo?`<span>${s.rotulo}</span>`:''}</span><span class="nome">${s.nome}</span></button>`).join('');
@@ -473,11 +512,12 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
   function marcar(i){ if(!vistos.includes(i)){ vistos.push(i); try{ localStorage.setItem('insp-vistos',JSON.stringify(vistos)); }catch(e){} } const b=document.querySelector(`.story[data-s="${i}"]`); if(b) b.classList.add('visto'); }
   function mostrar(){
     const s=STORIES[si], d=s.slides[sl];
+    palco.classList.toggle('puro', !!d.puro);
     palco.innerHTML=`<img src="img/${d.img}.jpg" alt="">
       <div class="sv-barras">${s.slides.map((_,k)=>`<i><b style="width:${k<sl?100:0}%"></b></i>`).join('')}</div>
-      <div class="sv-topo"><img src="img/neve-5.jpg" alt=""><span>inspiradiariooficial</span><span class="fraco" style="font-weight:500">${s.nome}</span><button class="x" aria-label="Fechar">×</button></div>
+      <div class="sv-topo"><img src="img/perfil.jpg" alt=""><span>inspiradiariooficial</span><span class="fraco" style="font-weight:500">${s.nome}</span><button class="x" aria-label="Fechar">×</button></div>
       <button class="sv-toque esq" aria-label="Anterior"></button><button class="sv-toque dir" aria-label="Próximo"></button>
-      <div class="sv-texto"><h2 class="titulo">${tituloHtml(d.titulo)}</h2>${d.script?`<span class="script">${d.script}</span>`:''}<p>${d.texto}</p>${d.cta?`<a class="btn btn-ouro" href="${d.acao?d.acao.alvo:LINK_APP}" data-cta>${d.cta}</a>`:''}</div>`;
+      ${d.puro?'':`<div class="sv-texto"><h2 class="titulo">${tituloHtml(d.titulo)}</h2>${d.script?`<span class="script">${d.script}</span>`:''}<p>${d.texto}</p>${d.cta?`<a class="btn btn-ouro" href="${d.link||(d.acao?d.acao.alvo:LINK_APP)}" ${d.link?'target="_blank" rel="noopener"':''} data-cta>${d.cta}</a>`:''}</div>`}`;
     palco.querySelector('.x').onclick=fechar;
     palco.querySelector('.esq').onclick=ant; palco.querySelector('.dir').onclick=prox;
     const cta=palco.querySelector('[data-cta]');
