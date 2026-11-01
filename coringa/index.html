@@ -392,7 +392,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   const IG = 'https://www.instagram.com/imcoringa_/';
 
   document.querySelectorAll('[data-app]').forEach(a=>{ a.href=LINK_APP; });
-  const MSG_SOCIO = 'Fala, Coringa! Vim pela sua página e quero a renda extra sem aparecer: me afiliar ao Cofre dos Sonhos e ganhar 80% de comissão. Como começo?';
+  const MSG_SOCIO = 'Olá! Vim pela página do Coringa e quero ser sócio do Cofre dos Sonhos: me afiliar à sua estrutura e ganhar 80% de comissão de verdade. Como faço para começar?';
   const btnSocio = document.getElementById('btnSocio');
   btnSocio.href = LINK_SOCIO || LINK_DIRECT;
   btnSocio.addEventListener('click', async e => {
@@ -401,8 +401,8 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
     let ok = false;
     try { await navigator.clipboard.writeText(MSG_SOCIO); ok = true; }
     catch (_) { const t = document.createElement('textarea'); t.value = MSG_SOCIO; document.body.append(t); t.select(); try { ok = document.execCommand('copy'); } catch (__) {} t.remove(); }
-    aviso(ok ? 'Mensagem copiada! No direct, é só colar e enviar.' : 'Abrindo o direct…');
-    setTimeout(() => { location.href = LINK_DIRECT; }, ok ? 1400 : 300);
+    aviso(ok ? 'Mensagem copiada! No Direct, segure no campo de mensagem, toque em Colar e envie.' : 'Abrindo o Direct…');
+    setTimeout(() => { location.href = LINK_DIRECT; }, ok ? 2600 : 300);
   });
   function aviso(txt){
     let el = document.getElementById('aviso');
