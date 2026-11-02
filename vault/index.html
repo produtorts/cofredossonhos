@@ -109,6 +109,21 @@ section{padding:84px 0 10px}
 .cofre small{font-size:12px;color:#cfc8b8}
 .cofre .num{position:absolute;top:12px;left:14px;font-family:var(--lux);font-weight:700;font-size:13px;color:var(--ouro)}
 
+
+/* euro */
+.euro{margin-top:30px;border-radius:30px;padding:40px 24px;position:relative;overflow:hidden;border:1px solid rgba(228,190,120,.35);background:radial-gradient(ellipse at 85% 0%,rgba(40,70,190,.28),transparent 55%),radial-gradient(ellipse at 10% 100%,rgba(228,190,120,.16),transparent 55%),#07070a;text-align:center}
+.euro .simb{position:absolute;right:-30px;top:-60px;font-family:var(--lux);font-weight:900;font-size:300px;line-height:1;color:rgba(228,190,120,.06);pointer-events:none}
+.compara{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;margin:28px auto 0;max-width:720px}
+@media(max-width:640px){.compara{grid-template-columns:1fr}.compara .vs{padding:2px 0}}
+.lado{border-radius:22px;padding:22px 18px;border:1px solid var(--linha2);background:rgba(255,255,255,.03)}
+.lado.eu{border-color:rgba(228,190,120,.55);background:linear-gradient(180deg,rgba(228,190,120,.14),rgba(228,190,120,.03))}
+.lado .bandeira{font-size:30px}
+.lado small{display:block;color:var(--nevoa);font-size:12.5px;margin-top:6px}
+.lado .valor{font-family:var(--cond);font-size:46px;line-height:1.05;margin-top:8px}
+.lado .rot{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--nevoa)}
+.vs{display:grid;place-items:center;font-family:var(--lux);font-weight:900;color:var(--ouro);font-size:22px}
+.multi{margin:26px auto 0;font-family:var(--cond);font-size:clamp(34px,7vw,56px);line-height:1.02;text-transform:uppercase}
+.euro .nota-euro{font-size:12px;color:var(--nevoa);max-width:620px;margin:18px auto 0}
 /* provas */
 .provas{columns:3 220px;column-gap:14px;margin-top:28px}
 .provas img{width:100%;margin-bottom:14px;border-radius:16px;border:1px solid var(--linha);break-inside:avoid}
@@ -239,6 +254,23 @@ section{padding:84px 0 10px}
       </div>
     </section>
 
+
+    <!-- EURO -->
+    <section id="euro">
+      <div class="euro rev">
+        <div class="simb">€</div>
+        <span class="sobre">O segredo que quase ninguém usa</span>
+        <h2 class="titulo">Ganhe comissão<br><span class="ouro">em euro</span></h2>
+        <p class="lead" style="margin:14px auto 0">Dentro do The Vault você também usa a nossa estrutura para vender na Espanha. Mesmo trabalho, mesma página sem rosto, só que cada venda paga em euro.</p>
+        <div class="compara">
+          <div class="lado"><span class="bandeira">🇧🇷</span><div class="rot">1 venda no Brasil</div><div class="valor">R$ 27</div><small>70% de um produto de R$ 39,90</small></div>
+          <div class="vs">VS</div>
+          <div class="lado eu"><span class="bandeira">🇪🇸</span><div class="rot">1 venda na Espanha</div><div class="valor ouro">R$ 190</div><small>70% de um produto de 49 € (cerca de 34 €)</small></div>
+        </div>
+        <div class="multi">Uma venda em euro vale<br><span class="ouro">quase 7 vendas no Brasil</span></div>
+        <p class="nota-euro">Valores aproximados por venda, antes das taxas da plataforma, com o euro a cerca de R$ 5,60 (o câmbio muda todo dia). Isso é uma comparação do valor de cada venda, não uma promessa de ganho: o resultado depende do seu trabalho.</p>
+      </div>
+    </section>
     <!-- PROVAS (aparece quando houver prints) -->
     <section id="provas" hidden>
       <div class="centro rev">
@@ -273,7 +305,7 @@ section{padding:84px 0 10px}
           <li><span><b>Ferramenta de páginas ilimitada</b>: identidade, posts e Reels prontos</span></li>
           <li><span><b>Ferramenta de vídeos ilimitada</b>: dezenas de vídeos com poucos cortes</span></li>
           <li><span><b>App financeiro</b> com acesso básico vitalício</span></li>
-          <li><span><b>Produtos prontos</b> para vender no Brasil e na Europa</span></li>
+          <li><span><b>Produtos prontos</b> para vender no Brasil e na Europa, com comissão em euro</span></li>
           <li><span><b>Material de divulgação</b> de cada produto, pronto para copiar</span></li>
           <li><span><b>Links para se afiliar</b> e ganhar por cada venda</span></li>
         </ul>
