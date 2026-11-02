@@ -252,7 +252,7 @@ section{padding:84px 0 10px}
       <p class="lead">Assista ao vídeo e descubra a estrutura que faltava para você finalmente vender na internet, sem aparecer e sem começar do zero.</p>
 
       <div class="vsl" id="vsl">
-        <img src="../inspira/img/p-vila.jpg" alt="" id="vslCapa" style="object-position:50% 25%">
+        <img src="vid/vsl-capa.jpg" alt="Capa do vídeo do The Vault" id="vslCapa">
         <div class="capa" id="vslPlay"><span class="play"><svg viewBox="0 0 24 24"><path fill="#140d03" d="M6 4l15 8-15 8z"/></svg></span><b>Assista com o som ligado</b></div>
       </div>
 
@@ -498,8 +498,8 @@ Fé • Mentalidade • Disciplina
 (()=>{
   // ====== Configuração (troque quando tiver) ======
   const LINK_CHECKOUT = 'https://pay.kiwify.com.br/6U9KuEC';          // link do checkout (Kiwify) do The Vault
-  const VSL_SRC = '';                // ex.: 'vsl.mp4' quando a VSL ficar pronta
-  const VSL_VERTICAL = false;        // true se a VSL for 9:16
+  const VSL_SRC = 'vid/vsl.mp4';
+  const VSL_VERTICAL = true;
   const LINK_DIRECT = 'https://ig.me/m/inspiradiariooficial';
   const MSG = 'Olá! Vim pela página do The Vault e quero garantir a minha chave de acesso ao ecossistema. Como faço?';
 
@@ -532,7 +532,7 @@ Fé • Mentalidade • Disciplina
   // VSL
   const vsl=$('#vsl'); if(VSL_VERTICAL) vsl.classList.add('vertical');
   if(VSL_SRC){
-    $('#vslPlay').onclick=()=>{ const v=document.createElement('video'); v.src=VSL_SRC; v.playsInline=true; v.controls=true; v.autoplay=true; vsl.innerHTML=''; vsl.append(v); v.play().catch(()=>{}); };
+    $('#vslPlay').onclick=()=>{ const v=document.createElement('video'); v.src=VSL_SRC; v.poster='vid/vsl-capa.jpg'; v.playsInline=true; v.controls=true; v.autoplay=true; vsl.innerHTML=''; vsl.append(v); v.play().catch(()=>{}); };
   } else {
     $('#vslPlay').innerHTML='<span class="play" style="animation:none;opacity:.85"><svg viewBox="0 0 24 24"><path fill="#140d03" d="M6 4l15 8-15 8z"/></svg></span><b>Vídeo de apresentação</b>';
     $('#vslPlay').insertAdjacentHTML('afterend','<div class="embreve">O vídeo completo chega em breve</div>');
