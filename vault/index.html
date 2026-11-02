@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Vault · Ferramentas e estrutura para faturar na internet</title>
+<meta name="description" content="The Vault reúne ferramentas que se conversam: organize o dinheiro, crie páginas sem aparecer, produza vídeos que vendem, venda no TikTok Shop e fature com a nossa estrutura.">
+<meta name="theme-color" content="#07080c">
+<meta property="og:title" content="The Vault · A estrutura pronta para faturar na internet">
+<meta property="og:description" content="Seis produtos que se conversam. Teste as ferramentas por 7 dias grátis.">
+<meta property="og:image" content="https://www.cofredossonhos.com/inspira/img/p-vila.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='12' fill='%2307080c' stroke='%23e4be78' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='14' fill='none' stroke='%23e4be78' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23e4be78'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Great+Vibes&family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#07080c; --bg2:#0c0e15; --card:rgba(255,255,255,.04); --card2:rgba(255,255,255,.07); --linha:rgba(255,255,255,.09);
+  --branco:#f5f5f7; --nevoa:#a9b0c0; --ouro:#e4be78; --ouro-cl:#ffe6aa;
+  --metal:linear-gradient(180deg,#fff2cc 0%,#ecc67c 36%,#b07f3a 54%,#e0b86e 72%,#ffe7ad 100%);
+  --verde:#5ee08a; --cond:'Anton',Impact,'Arial Narrow',sans-serif; --script:'Great Vibes',cursive; --texto:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--branco);font-family:var(--texto);font-size:15px;line-height:1.55;overflow-x:hidden}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+#neve{position:fixed;inset:0;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 16px}
+section{padding:72px 0 8px}
+
+/* tipografia */
+.sobre{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ouro)}
+.titulo{font-family:var(--cond);font-weight:400;text-transform:uppercase;line-height:.98;margin:8px 0 0;font-size:clamp(38px,8vw,64px);letter-spacing:.3px}
+.ouro{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.script{font-family:var(--script);color:var(--ouro);font-size:clamp(32px,6vw,52px);line-height:1;display:block;margin:8px 0 0}
+.fraco{color:var(--nevoa)}
+.lead{font-size:17px;color:#d6dae4;max-width:640px}
+.centro{text-align:center}.centro .lead{margin-left:auto;margin-right:auto}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 26px;border-radius:999px;font-weight:800;font-size:15px;text-decoration:none;transition:transform .15s,box-shadow .2s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-ouro{background:linear-gradient(180deg,#f3d18e,#d9a957);color:#1a1206;box-shadow:0 10px 30px rgba(228,190,120,.22),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-ouro:hover{box-shadow:0 14px 36px rgba(228,190,120,.35)}
+.btn-vazado{border:1px solid rgba(228,190,120,.5);color:var(--ouro-cl)}
+.btn-vazado:hover{background:rgba(228,190,120,.08)}
+.btn-bloco{width:100%}
+
+/* topo */
+.topo{position:sticky;top:0;z-index:30;background:rgba(7,8,12,.78);backdrop-filter:blur(12px);border-bottom:1px solid var(--linha)}
+.topo .wrap{display:flex;align-items:center;gap:16px;height:62px}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--cond);font-size:22px;letter-spacing:2px}
+.marca svg{width:30px;height:30px}
+.menu{display:flex;gap:22px;margin-left:auto;font-size:13px;font-weight:600}
+.menu a{text-decoration:none;color:var(--nevoa)}.menu a:hover{color:#fff}
+.topo .btn{min-height:40px;padding:0 18px;font-size:13px}
+@media(max-width:820px){.menu{display:none}.topo .btn{margin-left:auto}}
+
+/* hero */
+.heroi{position:relative;padding:56px 0 30px;min-height:min(86vh,760px);display:flex;align-items:center}
+.heroi-fundo{position:absolute;inset:0;overflow:hidden;z-index:0}
+.heroi-fundo img{width:100%;height:100%;object-fit:cover;object-position:60% 25%;opacity:.55;transform:scale(1.05);animation:respira 20s ease-in-out infinite alternate}
+@keyframes respira{to{transform:scale(1.14)}}
+.heroi-fundo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,8,12,.96) 0%,rgba(7,8,12,.75) 45%,rgba(7,8,12,.35) 100%),linear-gradient(180deg,rgba(7,8,12,0) 60%,var(--bg) 100%)}
+@media(max-width:720px){.heroi-fundo::after{background:linear-gradient(180deg,rgba(7,8,12,.55) 0%,rgba(7,8,12,.85) 55%,var(--bg) 100%)}.heroi-fundo img{object-position:50% 15%}}
+.heroi .wrap{width:100%}
+.heroi h1{font-family:var(--cond);font-weight:400;text-transform:uppercase;font-size:clamp(46px,10vw,96px);line-height:.95;margin:14px 0 0}
+.heroi .acoes{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.selos{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:13px;color:#cfd4df}
+.selos span::before{content:"✦ ";color:var(--ouro)}
+
+/* conexão */
+.ciclo{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px;position:relative}
+@media(max-width:820px){.ciclo{grid-template-columns:1fr 1fr}}
+@media(max-width:460px){.ciclo{grid-template-columns:1fr}}
+.elo{background:var(--card);border:1px solid var(--linha);border-radius:22px;padding:22px 18px;position:relative}
+.elo .n{font-family:var(--cond);font-size:44px;line-height:1}
+.elo h3{margin:8px 0 4px;font-size:17px}
+.elo p{margin:0;font-size:13.5px;color:var(--nevoa)}
+.elo .tag{display:inline-block;margin-top:12px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ouro-cl);background:rgba(228,190,120,.12);border:1px solid rgba(228,190,120,.3);padding:4px 10px;border-radius:999px}
+.elo:not(:last-child)::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--ouro);font-size:20px;z-index:2}
+@media(max-width:820px){.elo::after{display:none}}
+
+/* objetivos */
+.abas{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+.abas button{padding:11px 18px;border-radius:999px;border:1px solid var(--linha);background:var(--card);font-size:14px;font-weight:700}
+.abas button[aria-selected=true]{border-color:var(--ouro);background:rgba(228,190,120,.14);color:var(--ouro-cl)}
+.produtos{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:22px}
+.produto{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--linha);border-radius:26px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,border-color .25s}
+.produto:hover{transform:translateY(-3px);border-color:rgba(228,190,120,.35)}
+.produto[hidden]{display:none}
+.produto .vitrine{height:220px;position:relative;overflow:hidden;background:#000}
+.produto .vitrine img{width:100%;height:100%;object-fit:cover;object-position:top}
+.produto .vitrine .duas{display:flex;gap:8px;height:100%;padding:14px 14px 0;background:radial-gradient(circle at 50% 0%,rgba(228,190,120,.18),transparent 70%)}
+.produto .vitrine .duas img{border-radius:14px 14px 0 0;border:1px solid var(--linha);border-bottom:0}
+.produto .vitrine .icone{height:100%;display:grid;place-items:center;text-align:center;padding:0 16px;line-height:1;font-family:var(--cond);font-size:clamp(38px,9vw,50px);background:radial-gradient(circle at 50% 30%,rgba(228,190,120,.22),transparent 65%)}
+.produto .corpo{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.produto .cat{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ouro)}
+.produto h3{margin:0;font-family:var(--cond);font-weight:400;font-size:30px;text-transform:uppercase;line-height:1}
+.produto p{margin:0;font-size:14px;color:#cfd4df}
+.produto ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px;font-size:13.5px;color:#d8dde7}
+.produto li::before{content:"✦ ";color:var(--ouro)}
+.produto .preco{margin-top:auto;padding-top:8px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.produto .preco b{font-family:var(--cond);font-weight:400;font-size:28px}
+.produto .preco small{color:var(--nevoa);font-size:12.5px}
+.produto .gratis{color:var(--verde);font-weight:800;font-size:13px}
+.produto .btn{margin-top:6px}
+.selo-canto{position:absolute;top:12px;left:12px;font-size:11px;font-weight:800;background:rgba(0,0,0,.65);border:1px solid rgba(94,224,138,.5);color:var(--verde);padding:5px 10px;border-radius:999px;backdrop-filter:blur(6px)}
+
+/* demo criativos */
+.demo{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center;margin-top:30px}
+@media(max-width:820px){.demo{grid-template-columns:1fr}}
+.cortes{display:flex;gap:10px;align-items:center}
+.corte{flex:1;text-align:center}
+.corte video{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:16px;border:1px solid var(--linha);background:#000}
+.corte span{display:block;margin-top:8px;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.corte .g{color:#ff8a5c}.corte .c{color:#7cc7ff}.corte .t{color:var(--verde)}
+.mais{font-family:var(--cond);font-size:26px;color:var(--ouro)}
+.final-v{position:relative;max-width:300px;margin:0 auto;border-radius:30px;padding:8px;background:#0b0b0f;border:2px solid rgba(176,127,58,.6);box-shadow:0 30px 60px rgba(0,0,0,.6)}
+.final-v video{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:22px;background:#000}
+.final-v .rot{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--ouro);color:#1a1206;font-size:11px;font-weight:800;padding:5px 12px;border-radius:999px;white-space:nowrap}
+.conta{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+.conta div{flex:1;min-width:120px;background:var(--card);border:1px solid var(--linha);border-radius:18px;padding:14px;text-align:center}
+.conta b{display:block;font-family:var(--cond);font-weight:400;font-size:34px;line-height:1}
+.conta small{color:var(--nevoa);font-size:12px}
+.nota{font-size:12px;color:var(--nevoa);margin-top:12px}
+
+/* euro */
+.euro{margin-top:30px;border-radius:32px;overflow:hidden;position:relative;border:1px solid rgba(228,190,120,.3);padding:40px 26px;background:radial-gradient(circle at 85% 10%,rgba(60,90,200,.25),transparent 55%),radial-gradient(circle at 10% 90%,rgba(228,190,120,.16),transparent 55%),var(--bg2)}
+.euro .simbolo{position:absolute;right:-20px;top:-40px;font-family:var(--cond);font-size:280px;line-height:1;color:rgba(228,190,120,.07);pointer-events:none}
+.portas{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}
+@media(max-width:720px){.portas{grid-template-columns:1fr}}
+.porta{background:rgba(0,0,0,.35);border:1px solid var(--linha);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px;backdrop-filter:blur(6px)}
+.porta .bandeira{font-size:30px}
+.porta h3{margin:0;font-size:20px}
+.porta p{margin:0;font-size:14px;color:#cfd4df}
+.porta .btn{margin-top:auto}
+.aviso-euro{margin-top:18px;font-size:12.5px;color:var(--nevoa);border-left:2px solid var(--ouro);padding-left:12px}
+
+/* sócios */
+.socios{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;margin-top:30px}
+@media(max-width:820px){.socios{grid-template-columns:1fr}}
+.jeitos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.jeito{background:var(--card);border:1px solid var(--linha);border-radius:20px;padding:18px}
+.jeito b{display:block;font-size:15px;margin-bottom:4px}
+.jeito span{font-size:13px;color:var(--nevoa)}
+.passos{list-style:none;padding:0;margin:20px 0;display:flex;flex-direction:column;gap:10px}
+.passos li{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--linha);border-radius:18px;padding:14px 16px;font-size:14px}
+.passos li b{font-family:var(--cond);font-weight:400;font-size:24px;color:var(--ouro);line-height:1;min-width:20px}
+.comissao{font-family:var(--cond);font-size:clamp(90px,16vw,150px);line-height:.9}
+
+/* caminhos */
+.caminhos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+@media(max-width:820px){.caminhos{grid-template-columns:1fr}}
+.caminho{border-radius:24px;padding:24px;background:var(--card);border:1px solid var(--linha)}
+.caminho h3{margin:6px 0 10px;font-family:var(--cond);font-weight:400;font-size:26px;text-transform:uppercase}
+.caminho ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14px;color:#d8dde7}
+
+/* faq */
+.faq{margin-top:22px;display:flex;flex-direction:column;gap:10px;max-width:760px}
+.faq details{background:var(--card);border:1px solid var(--linha);border-radius:18px;padding:0 18px}
+.faq summary{list-style:none;padding:17px 0;font-weight:700;display:flex;justify-content:space-between;gap:12px;cursor:pointer}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--ouro);font-size:22px;line-height:1;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 17px;color:var(--nevoa);font-size:14px}
+
+.fim{padding:90px 0 60px;text-align:center}
+.rodape{border-top:1px solid var(--linha);padding:26px 0 110px;font-size:12px;color:var(--nevoa);text-align:center}
+.rodape .marca{justify-content:center;margin-bottom:10px;color:#fff}
+
+/* barra fixa celular */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:25;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(7,8,12,0),rgba(7,8,12,.95) 35%);transform:translateY(120%);transition:transform .35s;display:flex;gap:8px}
+.barra.on{transform:none}
+.barra .btn{flex:1;min-height:50px;padding:0 10px;font-size:14px}
+@media(min-width:821px){.barra{display:none}}
+
+.rev{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.rev.on{opacity:1;transform:none}
+#aviso{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top));transform:translate(-50%,-160%);z-index:60;background:#14110a;border:1px solid var(--ouro);color:var(--ouro-cl);font-weight:700;font-size:14px;padding:12px 18px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.5);transition:transform .3s;max-width:92vw;text-align:center}
+#aviso.on{transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#neve{display:none}.rev{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<canvas id="neve" aria-hidden="true"></canvas>
+
+<header class="topo">
+  <div class="wrap">
+    <a class="marca" href="#"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="4" width="56" height="56" rx="12" fill="none" stroke="#e4be78" stroke-width="4"/><circle cx="32" cy="32" r="15" fill="none" stroke="#e4be78" stroke-width="4"/><path d="M32 17v-6M32 53v-6M17 32h-6M53 32h-6" stroke="#e4be78" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="32" r="4.5" fill="#e4be78"/></svg>THE VAULT</a>
+    <nav class="menu"><a href="#conexao">Como funciona</a><a href="#ferramentas">Ferramentas</a><a href="#criativos">Criativos</a><a href="#euro">Ganhe em euro</a><a href="#socios">Seja sócio</a><a href="#duvidas">Dúvidas</a></nav>
+    <a class="btn btn-ouro" href="#ferramentas">Começar grátis</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <div class="heroi">
+    <div class="heroi-fundo"><img src="../inspira/img/p-vila.jpg" alt="" fetchpriority="high"></div>
+    <div class="wrap">
+      <div style="max-width:640px" class="rev">
+        <span class="sobre">The Vault · Ecossistema</span>
+        <h1>A estrutura pronta<br><span class="ouro">para faturar</span><br>na internet</h1>
+        <span class="script">sem começar do zero</span>
+        <p class="lead" style="margin-top:18px">Seis produtos que se conversam: organize o seu dinheiro, crie páginas sem aparecer, produza vídeos que vendem, venda no TikTok Shop e ganhe comissão usando a nossa estrutura.</p>
+        <div class="acoes">
+          <a class="btn btn-ouro" href="#ferramentas">Quero as ferramentas</a>
+          <a class="btn btn-vazado" href="#socios">Quero faturar com a estrutura</a>
+        </div>
+        <div class="selos"><span>7 dias grátis nas ferramentas</span><span>Funciona no celular</span><span>Sem mostrar o rosto</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- CONEXÃO -->
+    <section id="conexao">
+      <div class="rev">
+        <span class="sobre">Por que um ecossistema</span>
+        <h2 class="titulo">Uma peça<br><span class="ouro">puxa a outra</span></h2>
+        <p class="lead" style="margin-top:14px">Ninguém cria uma página para nada. Página precisa de algo para vender, venda precisa de vídeo, e dinheiro que entra precisa de destino. No The Vault cada ferramenta resolve uma parte do caminho.</p>
+      </div>
+      <div class="ciclo rev">
+        <div class="elo"><div class="n ouro">1</div><h3>Crie a página</h3><p>Uma página dark, de frases ou de notícias, com identidade própria e posts prontos todo dia.</p><span class="tag">Fábrica Dark</span></div>
+        <div class="elo"><div class="n ouro">2</div><h3>Tenha o que vender</h3><p>Produtos prontos para divulgar com o seu link de afiliado, ou a sua própria loja no TikTok Shop.</p><span class="tag">Cofre · Cursos</span></div>
+        <div class="elo"><div class="n ouro">3</div><h3>Produza vídeos</h3><p>Grave poucos cortes e transforme em dezenas de vídeos diferentes, com legenda e headline.</p><span class="tag">Criativos</span></div>
+        <div class="elo"><div class="n ouro">4</div><h3>Organize e escale</h3><p>Dê destino ao dinheiro que entra e transforme comissão em sonho realizado.</p><span class="tag">Cofre dos Sonhos</span></div>
+      </div>
+    </section>
+
+    <!-- FERRAMENTAS -->
+    <section id="ferramentas">
+      <div class="rev">
+        <span class="sobre">Os produtos</span>
+        <h2 class="titulo">O que você<br><span class="ouro">quer hoje?</span></h2>
+      </div>
+      <div class="abas rev" role="tablist" id="abas">
+        <button role="tab" aria-selected="true" data-f="todos">Todos</button>
+        <button role="tab" aria-selected="false" data-f="dinheiro">Organizar meu dinheiro</button>
+        <button role="tab" aria-selected="false" data-f="instagram">Crescer no Instagram</button>
+        <button role="tab" aria-selected="false" data-f="tiktok">Vender no TikTok Shop</button>
+        <button role="tab" aria-selected="false" data-f="euro">Ganhar em euro</button>
+      </div>
+      <div class="produtos" id="produtos">
+
+        <article class="produto rev" data-c="dinheiro">
+          <div class="vitrine"><span class="selo-canto">7 dias grátis</span><div class="duas"><img src="img/cofre-plano.jpg" alt="Tela do Cofre dos Sonhos mostrando o plano por mês" loading="lazy"><img src="img/cofre-inicio.jpg" alt="Tela inicial do Cofre dos Sonhos" loading="lazy"></div></div>
+          <div class="corpo">
+            <span class="cat">Organizar meu dinheiro</span>
+            <h3>Cofre dos Sonhos</h3>
+            <p>Escolha o sonho, coloque o valor e a data: o Cofre diz quanto guardar por mês, te lembra no dia certo e coloca a meta na tela de bloqueio.</p>
+            <ul><li>Cofres por conquista e plano mensal automático</li><li>Wallpaper do sonho em 4K</li><li>Plano para sair das dívidas</li><li>O dinheiro fica no seu banco, nunca no app</li></ul>
+            <div class="preco"><span class="gratis">7 dias grátis</span><small>depois R$ 12,90/mês ou R$ 29,90/trimestre</small></div>
+            <a class="btn btn-ouro btn-bloco" href="https://www.cofredossonhos.com/?cupom=COFREBIO">Testar 7 dias grátis</a>
+          </div>
+        </article>
+
+        <article class="produto rev" data-c="instagram">
+          <div class="vitrine"><span class="selo-canto">7 dias grátis</span><div class="duas"><img src="img/fd-minha-pagina.jpg" alt="Aba Minha página da Fábrica Dark" loading="lazy"><img src="img/fd-carrosseis.jpg" alt="Carrosséis prontos da Fábrica Dark" loading="lazy"></div></div>
+          <div class="corpo">
+            <span class="cat">Crescer no Instagram sem aparecer</span>
+            <h3>Fábrica Dark</h3>
+            <p>Tudo o que uma página dark, de frases ou de notícias precisa para postar todo dia: identidade, posts prontos, legenda com hashtags, dica de música e Reels.</p>
+            <ul><li>3 formatos: Perfil Dark, Perfil Frases e Página de Notícia</li><li>Foto, nome, bio e destaques prontos para copiar</li><li>Carrosséis com final para seguir ou para vender</li><li>Controle do que já foi postado</li></ul>
+            <div class="preco"><span class="gratis">7 dias grátis</span><small>acesso liberado após aprovação</small></div>
+            <a class="btn btn-ouro btn-bloco" href="https://fabricadark.cofredossonhos.com/conheca">Conhecer a Fábrica</a>
+          </div>
+        </article>
+
+        <article class="produto rev" data-c="tiktok instagram">
+          <div class="vitrine"><span class="selo-canto">7 dias grátis</span><img src="vid/video-final.jpg" alt="Vídeo gerado pelo Criativos" loading="lazy" style="object-position:50% 30%"></div>
+          <div class="corpo">
+            <span class="cat">Vídeos que vendem</span>
+            <h3>Criativos</h3>
+            <p>Envie seus cortes de gancho, corpo e CTA. A ferramenta monta vários vídeos diferentes, sem repetir combinação, cada um com headlines, legenda e hashtags.</p>
+            <ul><li>Até 3 ganchos × 5 corpos × 3 CTAs = 45 vídeos por rodada</li><li>Pronto no formato que o TikTok aceita</li><li>Funciona com vídeo gravado no iPhone</li></ul>
+            <div class="preco"><span class="gratis">7 dias grátis</span><small>acesso liberado após aprovação</small></div>
+            <a class="btn btn-ouro btn-bloco" href="#criativos">Ver como funciona</a>
+          </div>
+        </article>
+
+        <article class="produto rev" data-c="tiktok">
+          <div class="vitrine"><div class="icone"><span class="ouro">TIKTOK SHOP</span></div></div>
+          <div class="corpo">
+            <span class="cat">Vender no TikTok Shop · Brasil</span>
+            <h3>TikTok Shop do Zero</h3>
+            <p>O guia para começar a vender no TikTok Shop do zero, com o Método Frankenstein para produzir muitos vídeos gravando pouco.</p>
+            <ul><li>Guia completo em PDF, passo a passo</li><li>Bônus: 7 dias da ferramenta Criativos</li><li>Garantia de 7 dias</li></ul>
+            <div class="preco"><b>R$ 26,99</b><small>no Pix, pagamento único</small></div>
+            <a class="btn btn-ouro btn-bloco" href="https://thebestia.com.br/tiktok-shop">Quero o guia</a>
+          </div>
+        </article>
+
+        <article class="produto rev" data-c="tiktok euro">
+          <div class="vitrine"><div class="icone"><span class="ouro">ESPAÑA €</span></div></div>
+          <div class="corpo">
+            <span class="cat">Vender no TikTok Shop · Espanha</span>
+            <h3>Método TikTok Shop España</h3>
+            <p>Guia em espanhol para quem mora na Espanha e quer vender no TikTok Shop sem estoque e sem milhares de seguidores, recebendo em euro.</p>
+            <ul><li>Guia completo em espanhol</li><li>Pagamento com cartão, Apple Pay ou Google Pay</li><li>Garantia de 14 dias</li></ul>
+            <div class="preco"><b>19,90 €</b><small>oferta até 30/11, depois 49 €</small></div>
+            <a class="btn btn-ouro btn-bloco" href="https://thebestia.com.br/es">Ver o método</a>
+          </div>
+        </article>
+
+        <article class="produto rev" data-c="instagram">
+          <div class="vitrine"><div class="icone"><span class="ouro">PERSONAGENS IA</span></div></div>
+          <div class="corpo">
+            <span class="cat">Conteúdo com inteligência artificial</span>
+            <h3>Personagens IA</h3>
+            <p>Aprenda a criar personagens humanos com IA para páginas e conteúdos, sem precisar aparecer.</p>
+            <ul><li>Plano Básico ou Plus</li><li>Pagamento no Pix</li></ul>
+            <div class="preco"><b>R$ 19,90</b><small>Básico · Plus R$ 29,90</small></div>
+            <a class="btn btn-ouro btn-bloco" href="https://thebestia.com.br/">Conhecer</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CRIATIVOS DEMO -->
+    <section id="criativos">
+      <div class="rev">
+        <span class="sobre">Criativos por dentro</span>
+        <h2 class="titulo">Três cortes viram<br><span class="ouro">um vídeo pronto</span></h2>
+        <p class="lead" style="margin-top:14px">Este é um vídeo real montado pela ferramenta. Toque nos cortes para ouvir cada parte e veja o resultado final.</p>
+      </div>
+      <div class="demo">
+        <div class="rev">
+          <div class="cortes">
+            <div class="corte"><video src="vid/gancho.mp4" poster="vid/gancho.jpg" playsinline muted loop preload="none"></video><span class="g">Gancho</span></div>
+            <div class="mais">+</div>
+            <div class="corte"><video src="vid/corpo.mp4" poster="vid/corpo.jpg" playsinline muted loop preload="none"></video><span class="c">Corpo</span></div>
+            <div class="mais">+</div>
+            <div class="corte"><video src="vid/cta.mp4" poster="vid/cta.jpg" playsinline muted loop preload="none"></video><span class="t">CTA</span></div>
+          </div>
+          <div class="conta">
+            <div><b class="ouro">3</b><small>ganchos</small></div>
+            <div><b class="ouro">5</b><small>corpos</small></div>
+            <div><b class="ouro">3</b><small>CTAs</small></div>
+            <div><b>45</b><small>vídeos sem repetir</small></div>
+          </div>
+          <p class="nota">Vídeo real gerado no Criativos, usado com autorização de quem gravou.</p>
+        </div>
+        <div class="rev">
+          <div class="final-v"><span class="rot">VÍDEO PRONTO · COM LEGENDA E HEADLINE</span><video id="vFinal" src="vid/video-final.mp4" poster="vid/video-final.jpg" playsinline controls preload="none"></video></div>
+          <div style="max-width:300px;margin:18px auto 0"><a class="btn btn-ouro btn-bloco" href="https://criativos.thebestia.com.br">Testar o Criativos</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EURO -->
+    <section id="euro">
+      <div class="euro rev">
+        <div class="simbolo">€</div>
+        <span class="sobre">Oportunidade em euro</span>
+        <h2 class="titulo">Venda na Espanha<br><span class="ouro">e ganhe em euro</span></h2>
+        <p class="lead" style="margin-top:14px">O TikTok Shop está crescendo na Espanha, e a nossa estrutura já tem um método pensado para esse mercado. Escolha a sua porta:</p>
+        <div class="portas">
+          <div class="porta">
+            <span class="bandeira">🇪🇸</span>
+            <h3>Mora na Espanha?</h3>
+            <p>Venda no TikTok Shop España sem estoque, com o guia em espanhol, e use o Criativos para produzir os vídeos.</p>
+            <a class="btn btn-ouro" href="https://thebestia.com.br/es">Ver o Método España</a>
+          </div>
+          <div class="porta">
+            <span class="bandeira">🇧🇷</span>
+            <h3>Mora no Brasil?</h3>
+            <p>Crie uma página em espanhol com a Fábrica Dark e divulgue os produtos da estrutura para o público de lá. Estamos montando o programa de sócios em euro: entre na lista.</p>
+            <a class="btn btn-vazado" href="#" data-socio="euro">Quero entrar na lista</a>
+          </div>
+        </div>
+        <p class="aviso-euro">Para abrir a sua própria loja no TikTok Shop España é preciso morar na Espanha e ter registro de autônomo ou empresa. Nenhum produto garante renda: o resultado depende do seu trabalho.</p>
+      </div>
+    </section>
+
+    <!-- SÓCIOS -->
+    <section id="socios">
+      <div class="socios">
+        <div class="rev">
+          <span class="sobre">Programa de sócios</span>
+          <h2 class="titulo">Fature com<br><span class="ouro">a nossa estrutura</span></h2>
+          <div class="comissao ouro">80%</div>
+          <p style="margin:6px 0 0;font-weight:700">de comissão no produto de entrada do Cofre dos Sonhos.</p>
+          <ul class="passos">
+            <li><b>1</b><span>Você vira sócio e recebe os seus links de afiliado.</span></li>
+            <li><b>2</b><span>Cria a sua página sem aparecer com a Fábrica Dark.</span></li>
+            <li><b>3</b><span>Produz os vídeos de divulgação com o Criativos.</span></li>
+            <li><b>4</b><span>Cada venda pelo seu link vira comissão na sua conta.</span></li>
+          </ul>
+          <a class="btn btn-ouro" href="#" data-socio="br">Quero ser sócio</a>
+          <p class="nota">Ganhos dependem só da sua divulgação. Não prometemos valores.</p>
+        </div>
+        <div class="jeitos rev">
+          <div class="jeito"><b>Afiliado</b><span>Divulgue os produtos do ecossistema com o seu link e ganhe por venda.</span></div>
+          <div class="jeito"><b>Página própria</b><span>Uma página com público vira canal de venda para qualquer produto.</span></div>
+          <div class="jeito"><b>Loja no TikTok Shop</b><span>Venda produtos físicos com vídeos que você produz em escala.</span></div>
+          <div class="jeito"><b>Serviço de páginas</b><span>Crie e cuide de páginas para outras pessoas usando as ferramentas.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAMINHOS -->
+    <section>
+      <div class="rev">
+        <span class="sobre">Por onde começar</span>
+        <h2 class="titulo">Três caminhos<br><span class="ouro">recomendados</span></h2>
+      </div>
+      <div class="caminhos">
+        <div class="caminho rev"><span class="sobre">Quero renda sem aparecer</span><h3>Página que vende</h3><ol><li>Crie a página na Fábrica Dark</li><li>Poste 2 vezes e 1 Reel por dia</li><li>Coloque o seu link de sócio na bio</li></ol></div>
+        <div class="caminho rev"><span class="sobre">Quero vender produtos</span><h3>TikTok Shop</h3><ol><li>Aprenda com o guia TikTok Shop do Zero</li><li>Grave poucos cortes</li><li>Gere dezenas de vídeos no Criativos</li></ol></div>
+        <div class="caminho rev"><span class="sobre">Quero organizar a vida</span><h3>Sonho no plano</h3><ol><li>Crie o seu cofre no Cofre dos Sonhos</li><li>Separe o valor na caixinha do banco</li><li>Veja a meta na tela de bloqueio</li></ol></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="duvidas">
+      <div class="rev">
+        <span class="sobre">Dúvidas</span>
+        <h2 class="titulo">Perguntas<br><span class="ouro">frequentes</span></h2>
+      </div>
+      <div class="faq rev">
+        <details><summary>O que é o The Vault?</summary><p>É o ecossistema que reúne as nossas ferramentas e cursos: Cofre dos Sonhos, Fábrica Dark, Criativos, TikTok Shop do Zero, Método TikTok Shop España e Personagens IA. Cada produto funciona sozinho, mas juntos eles formam um caminho completo.</p></details>
+        <details><summary>Preciso mostrar o rosto?</summary><p>Não. A Fábrica Dark é feita para páginas sem rosto, e nos vídeos do Criativos você usa os cortes que quiser.</p></details>
+        <details><summary>Como funcionam os 7 dias grátis?</summary><p>Cofre dos Sonhos, Fábrica Dark e Criativos podem ser testados por 7 dias sem pagar. No Cofre o teste libera na hora pelo link desta página; na Fábrica e no Criativos o acesso é liberado após aprovação.</p></details>
+        <details><summary>Posso comprar só um produto?</summary><p>Sim. Cada produto tem a sua página e o seu preço. Os caminhos recomendados só mostram como eles se completam.</p></details>
+        <details><summary>Consigo ganhar em euro morando no Brasil?</summary><p>Para abrir a sua própria loja no TikTok Shop España é preciso morar na Espanha. Morando no Brasil, o caminho é ser sócio e divulgar os produtos da estrutura para o público de lá. O programa de sócios em euro está sendo montado; entre na lista para ser avisado.</p></details>
+        <details><summary>Vou ganhar dinheiro garantido?</summary><p>Não. Nenhuma ferramenta garante renda. O que a estrutura faz é tirar as travas do caminho: o resultado vem da sua constância.</p></details>
+        <details><summary>Funciona no celular?</summary><p>Sim. Todas as ferramentas funcionam no celular, inclusive no iPhone.</p></details>
+      </div>
+    </section>
+  </div>
+
+  <div class="fim wrap rev">
+    <span class="sobre">The Vault</span>
+    <h2 class="titulo">A estrutura<br><span class="ouro">já está pronta</span></h2>
+    <span class="script">falta só você</span>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px">
+      <a class="btn btn-ouro" href="#ferramentas">Começar pelas ferramentas</a>
+      <a class="btn btn-vazado" href="#socios">Quero ser sócio</a>
+    </div>
+  </div>
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <a class="marca" href="#"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="4" width="56" height="56" rx="12" fill="none" stroke="#e4be78" stroke-width="4"/><circle cx="32" cy="32" r="15" fill="none" stroke="#e4be78" stroke-width="4"/><circle cx="32" cy="32" r="4.5" fill="#e4be78"/></svg>THE VAULT</a>
+    <div>Cofre dos Sonhos · Fábrica Dark · Criativos · TikTok Shop do Zero · Método TikTok Shop España · Personagens IA</div>
+    <div style="margin-top:6px">Nenhum produto garante renda. Resultados dependem do seu trabalho.</div>
+  </div>
+</footer>
+
+<div class="barra" id="barra"><a class="btn btn-ouro" href="#ferramentas">Ferramentas</a><a class="btn btn-vazado" href="#socios">Ser sócio</a></div>
+
+<script>
+(()=>{
+  const $=s=>document.querySelector(s);
+  const LINK_DIRECT='https://ig.me/m/inspiradiariooficial';
+  const MSG={
+    br:'Olá! Vim pela página do The Vault e quero ser sócio: me afiliar à sua estrutura e ganhar comissão de verdade. Como faço para começar?',
+    euro:'Olá! Vim pela página do The Vault e quero entrar na lista do programa de sócios em euro (Espanha). Me avisa quando abrir?'
+  };
+
+  // neve
+  const cv=$('#neve'), cx=cv.getContext('2d'); let fl=[];
+  function tam(){ const d=devicePixelRatio||1; cv.width=innerWidth*d; cv.height=innerHeight*d; fl=Array.from({length:Math.min(110,Math.round(innerWidth/9))},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:(Math.random()*1.8+.5)*d,v:(Math.random()*.5+.2)*d,f:Math.random()*6})); }
+  tam(); addEventListener('resize',tam);
+  (function anim(t){ cx.clearRect(0,0,cv.width,cv.height); cx.fillStyle='#fff';
+    for(const p of fl){ p.y+=p.v; p.x+=Math.sin(t/1500+p.f)*.25; if(p.y>cv.height){p.y=-4;p.x=Math.random()*cv.width;} cx.globalAlpha=.25+p.r/8; cx.beginPath(); cx.arc(p.x,p.y,p.r,0,7); cx.fill(); }
+    requestAnimationFrame(anim); })(0);
+
+  // revelar ao rolar
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} }),{threshold:.1});
+  document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+
+  // barra fixa no celular
+  const barra=$('#barra');
+  addEventListener('scroll',()=>{ barra.classList.toggle('on', scrollY>600 && scrollY<document.body.scrollHeight-innerHeight-300); },{passive:true});
+
+  // filtro por objetivo
+  $('#abas').onclick=e=>{ const b=e.target.closest('button'); if(!b) return;
+    document.querySelectorAll('#abas button').forEach(x=>x.setAttribute('aria-selected',x===b));
+    const f=b.dataset.f; document.querySelectorAll('#produtos .produto').forEach(p=>{ p.hidden = f!=='todos' && !p.dataset.c.split(' ').includes(f); p.classList.add('on'); }); };
+
+  // cortes: tocam sem som quando aparecem; toque liga o som
+  const cortes=[...document.querySelectorAll('.corte video')];
+  const iv=new IntersectionObserver(es=>es.forEach(e=>{ const v=e.target; if(e.isIntersecting){ v.preload='auto'; v.play().catch(()=>{}); } else v.pause(); }),{threshold:.4});
+  cortes.forEach(v=>{ iv.observe(v); v.addEventListener('click',()=>{ cortes.forEach(o=>{ if(o!==v) o.muted=true; }); $('#vFinal').pause(); v.muted=!v.muted; v.currentTime=0; v.play(); }); });
+  $('#vFinal').addEventListener('play',()=>cortes.forEach(o=>o.muted=true));
+
+  // botões de sócio: copia a mensagem e abre o direct
+  function aviso(txt){ let el=$('#aviso'); if(!el){ el=document.createElement('div'); el.id='aviso'; el.setAttribute('role','status'); document.body.append(el); }
+    el.textContent=txt; el.classList.add('on'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('on'),3500); }
+  document.querySelectorAll('[data-socio]').forEach(b=>{ b.href=LINK_DIRECT; b.addEventListener('click',async e=>{ e.preventDefault(); const msg=MSG[b.dataset.socio]; let ok=false;
+    try{ await navigator.clipboard.writeText(msg); ok=true; }catch(_){ const t=document.createElement('textarea'); t.value=msg; document.body.append(t); t.select(); try{ ok=document.execCommand('copy'); }catch(__){} t.remove(); }
+    aviso(ok?'Mensagem copiada! No direct, é só colar e enviar.':'Abrindo o direct…'); setTimeout(()=>{ location.href=LINK_DIRECT; }, ok?1400:300); }); });
+})();
+</script>
+</body>
+</html>
