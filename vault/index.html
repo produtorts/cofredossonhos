@@ -99,7 +99,7 @@ section{padding:84px 0 10px}
 .dor b{display:block;font-size:16px;margin-bottom:2px}
 .dor span{font-size:14px;color:var(--nevoa)}
 .perfis{display:flex;justify-content:center;margin-top:36px}
-.perfis .p{width:76px;height:76px;border-radius:50%;border:3px solid var(--bg);margin-left:-18px;background:#1a1a1a center/cover;position:relative;filter:grayscale(1) brightness(.6)}
+.perfis .p{width:76px;height:76px;border-radius:50%;border:3px solid var(--bg);margin-left:-18px;background:radial-gradient(circle at 50% 38%,#3a3a3a 0 17%,transparent 18%),radial-gradient(ellipse at 50% 100%,#3a3a3a 0 38%,transparent 39%),#1b1b1b;position:relative}
 .perfis .p:first-child{margin-left:0}
 .perfis .p::after{content:"0 vendas";position:absolute;left:50%;bottom:-24px;transform:translateX(-50%);font-size:10px;font-weight:800;color:#ff6b5e;white-space:nowrap}
 
@@ -146,6 +146,55 @@ section{padding:84px 0 10px}
 .passo .n{font-family:var(--lux);font-weight:900;font-size:34px;line-height:1}
 .passo h3{margin:10px 0 6px;font-size:16px}
 .passo p{margin:0;font-size:13.5px;color:var(--nevoa)}
+
+
+/* instagram do inspira */
+.ig-bloco{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:48px;align-items:center;margin-top:40px}
+@media (max-width:860px){.ig-bloco{grid-template-columns:1fr;gap:32px}}
+.celular{background:#000;border:1px solid #2a2a2a;border-radius:38px;padding:14px 0 0;box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 6px #111,0 0 60px rgba(228,190,120,.12);overflow:hidden;max-width:400px;width:100%;margin:0 auto}
+.ig-top{display:flex;justify-content:space-between;align-items:center;padding:6px 16px 10px;font-weight:700;font-size:15px}
+.ig-top span{display:flex;align-items:center;gap:6px}
+.ig-top i{font-style:normal;color:#ccc;letter-spacing:3px}
+.ig-cab{display:flex;gap:18px;align-items:center;padding:4px 16px 0}
+.ig-av{flex:none;width:86px;height:86px;border-radius:50%;padding:3px;background:conic-gradient(#f6d797,#c9963f,#ffe6aa,#8a6424,#f6d797)}
+.ig-av img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #000;display:block}
+.ig-nome b{display:block;font-size:15px}
+.ig-nome span{font-size:13px;color:#a8a8a8}
+.ig-bio{padding:10px 16px 0;font-size:13.5px;line-height:1.45;white-space:pre-line}
+.ig-bio a{color:#e0f1ff;text-decoration:none}
+.ig-bts{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:12px 16px 0}
+.ig-bts span{background:#262626;border-radius:8px;text-align:center;font-size:13px;font-weight:700;padding:7px 0}
+.ig-bts span:first-child{background:#0095f6}
+.ig-dest{display:flex;gap:14px;padding:14px 16px 4px;overflow:hidden}
+.ig-dest div{flex:none;width:62px;text-align:center;font-size:11px;color:#ddd}
+.ig-dest img{width:62px;height:62px;border-radius:50%;object-fit:cover;border:2px solid #333;padding:2px;background:#000;display:block;margin-bottom:4px}
+.ig-abas{display:flex;justify-content:space-around;border-top:1px solid #222;margin-top:10px;padding:9px 0;color:#777;font-size:13px}
+.ig-abas b{color:#fff;border-bottom:1px solid #fff;padding-bottom:8px;margin-bottom:-9px}
+.ig-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.ig-grade img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.ig-texto .lead{margin-top:14px}
+.ig-lista{list-style:none;padding:0;margin:22px 0;display:flex;flex-direction:column;gap:12px}
+.ig-lista li{display:flex;gap:12px;font-size:15px}
+.ig-lista li::before{content:"◆";color:var(--ouro);font-size:12px;margin-top:4px}
+.posts-faixa{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 18px;margin-top:40px;scrollbar-width:thin}
+.post-ig{flex:none;width:min(78vw,320px);scroll-snap-align:center;background:#000;border:1px solid #222;border-radius:14px;overflow:hidden}
+.post-ig header{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:13px;font-weight:700}
+.post-ig header img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+.post-ig>img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.post-ig .acoes{display:flex;gap:14px;padding:10px 12px 4px}
+.post-ig .acoes svg{width:22px;height:22px}
+.post-ig p{margin:0;padding:0 12px 14px;font-size:13px;color:#ddd}
+.post-ig p b{color:#fff}
+
+/* provas */
+.provas-grupos{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:40px}
+@media (max-width:760px){.provas-grupos{grid-template-columns:1fr}}
+.grupo-prova h3{font-family:var(--cond);font-weight:400;text-transform:uppercase;font-size:22px;letter-spacing:1px;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.grupo-prova h3::before{content:"";width:22px;height:2px;background:var(--ouro)}
+.colunas-prova{columns:1;column-gap:12px}
+.colunas-prova img{width:100%;display:block;border-radius:16px;margin:0 0 12px;break-inside:avoid;border:1px solid var(--linha2);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.prova-tela{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.prova-nota{font-size:12.5px;color:var(--nevoa);max-width:640px;margin:22px auto 0}
 
 /* oferta */
 .oferta{margin-top:34px;border-radius:30px;padding:42px 26px;text-align:center;position:relative;overflow:hidden;border:1px solid rgba(228,190,120,.4);background:radial-gradient(ellipse at 50% -10%,rgba(228,190,120,.22),transparent 60%),linear-gradient(180deg,#0e0c08,#060504)}
@@ -222,11 +271,11 @@ section{padding:84px 0 10px}
         <h2 class="titulo">Quantas dessas<br><span class="ouro">você já viveu?</span></h2>
       </div>
       <div class="perfis rev">
-        <div class="p" style="background-image:url(../inspira/img/posts/03-t.jpg)"></div>
-        <div class="p" style="background-image:url(../inspira/img/posts/07-t.jpg)"></div>
-        <div class="p" style="background-image:url(../inspira/img/posts/10-t.jpg)"></div>
-        <div class="p" style="background-image:url(../inspira/img/posts/12-t.jpg)"></div>
-        <div class="p" style="background-image:url(../inspira/img/posts/14-t.jpg)"></div>
+        <div class="p"></div>
+        <div class="p"></div>
+        <div class="p"></div>
+        <div class="p"></div>
+        <div class="p"></div>
       </div>
       <div class="dores" style="margin-top:46px">
         <div class="dor rev"><span class="x">✕</span><div><b>Criou vários perfis e nenhum vendeu</b><span>Começou empolgado, postou por uma semana e desistiu porque nada acontecia.</span></div></div>
@@ -245,6 +294,59 @@ section{padding:84px 0 10px}
         <h2 class="titulo">Quem fatura não começa do zero.<br><span class="ouro">Começa com estrutura.</span></h2>
         <span class="script">e agora ela pode ser sua</span>
         <p class="lead" style="margin:18px auto 0">Página pronta, produto pronto, vídeo pronto, material pronto. Enquanto você tentava montar tudo sozinho, quem vende já tinha um ecossistema inteiro trabalhando. O The Vault abre esse ecossistema para você: <b style="color:var(--ouro-cl)">é só copiar e colar.</b></p>
+      </div>
+    </section>
+
+
+    <!-- A PÁGINA QUE VOCÊ VAI QUERER TER -->
+    <section id="pagina-dark">
+      <div class="centro rev">
+        <span class="sobre">Uma página do nosso ecossistema</span>
+        <h2 class="titulo">Imagina ter uma página<br><span class="ouro">desse nível.</span></h2>
+      </div>
+      <div class="ig-bloco">
+        <div class="celular rev" aria-label="Perfil do Instagram do Inspira Diário">
+          <div class="ig-top"><span>inspiradiariooficial <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#0095f6" d="M12 2l2.4 2.2 3.2-.4.9 3.1 2.9 1.4-1 3.1 1 3.1-2.9 1.4-.9 3.1-3.2-.4L12 22l-2.4-2.2-3.2.4-.9-3.1-2.9-1.4 1-3.1-1-3.1 2.9-1.4.9-3.1 3.2.4z"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2" fill="none"/></svg></span><i>•••</i></div>
+          <div class="ig-cab">
+            <div class="ig-av"><img src="../inspira/img/perfil.jpg" alt="Foto de perfil do Inspira Diário"></div>
+            <div class="ig-nome"><b>Inspira Diário</b><span>Criador de conteúdo digital</span></div>
+          </div>
+          <div class="ig-bio">Inspiração diária para quem constrói em silêncio.
+Fé • Mentalidade • Disciplina
+<a href="../inspira/">🔗 cofredossonhos.com/inspira</a></div>
+          <div class="ig-bts"><span>Seguir</span><span>Mensagem</span></div>
+          <div class="ig-dest">
+            <div><img src="../inspira/img/neve-1.jpg" alt="">Frases</div>
+            <div><img src="../inspira/img/carro-5.jpg" alt="">Wallpapers</div>
+            <div><img src="../inspira/img/casa-4.jpg" alt="">Cofre</div>
+            <div><img src="../inspira/img/p-treino.jpg" alt="">Rotina</div>
+            <div><img src="../inspira/img/neve-3.jpg" alt="">Sobre</div>
+          </div>
+          <div class="ig-abas"><b>▦ Posts</b><span>▶ Reels</span><span>◫ Marcados</span></div>
+          <div class="ig-grade">
+            <img src="../inspira/img/posts/01-t.jpg" alt="" loading="lazy"><img src="../inspira/img/posts/02-t.jpg" alt="" loading="lazy"><img src="../inspira/img/posts/03-t.jpg" alt="" loading="lazy">
+            <img src="../inspira/img/posts/04-t.jpg" alt="" loading="lazy"><img src="../inspira/img/posts/05-t.jpg" alt="" loading="lazy"><img src="../inspira/img/posts/06-t.jpg" alt="" loading="lazy">
+            <img src="../inspira/img/posts/07-t.jpg" alt="" loading="lazy"><img src="../inspira/img/posts/08-t.jpg" alt="" loading="lazy"><img src="../inspira/img/posts/09-t.jpg" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="ig-texto rev">
+          <span class="sobre">Sem rosto. Sem improviso.</span>
+          <h3 class="titulo" style="font-size:clamp(32px,5.4vw,48px)">Todo post no mesmo padrão.<br><span class="ouro">Todo dia.</span></h3>
+          <p class="lead">Esse é o Inspira Diário, uma das páginas dark do nosso ecossistema. Repara: personagem misterioso em todos os posts, a mesma paleta, frases que dão vontade de salvar e mandar para alguém. Quem passa pelo perfil reconhece a página sem nem ler o nome.</p>
+          <ul class="ig-lista">
+            <li><span><b>Personagem sem rosto</b> que vira a marca da página</span></li>
+            <li><span><b>Identidade visual travada</b>: cores, letras e cenários sempre iguais</span></li>
+            <li><span><b>Frases e carrosséis</b> feitos para serem compartilhados</span></li>
+            <li><span><b>Wallpapers e stories</b> que levam o seguidor até o produto</span></li>
+          </ul>
+          <p class="lead" style="color:var(--branco)">Dentro do The Vault, a ferramenta de páginas monta <b class="ouro">a identidade da sua</b> nesse padrão e entrega os posts prontos para você copiar e postar.</p>
+        </div>
+      </div>
+      <div class="posts-faixa rev" aria-label="Posts do Inspira Diário">
+        <article class="post-ig"><header><img src="../inspira/img/perfil.jpg" alt="">inspiradiariooficial</header><img src="../inspira/img/posts/01.jpg" alt="Post do Inspira Diário" loading="lazy"><div class="acoes"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 21s-7-4.4-9.3-9A5.3 5.3 0 0 1 12 6a5.3 5.3 0 0 1 9.3 6c-2.3 4.6-9.3 9-9.3 9z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 3L11 13M22 3l-7 18-4-8-8-4z"/></svg></div><p><b>inspiradiariooficial</b> Silêncio também é estratégia.</p></article>
+        <article class="post-ig"><header><img src="../inspira/img/perfil.jpg" alt="">inspiradiariooficial</header><img src="../inspira/img/posts/02.jpg" alt="Post do Inspira Diário" loading="lazy"><div class="acoes"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 21s-7-4.4-9.3-9A5.3 5.3 0 0 1 12 6a5.3 5.3 0 0 1 9.3 6c-2.3 4.6-9.3 9-9.3 9z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 3L11 13M22 3l-7 18-4-8-8-4z"/></svg></div><p><b>inspiradiariooficial</b> Blindado por Deus. O resto é consequência.</p></article>
+        <article class="post-ig"><header><img src="../inspira/img/perfil.jpg" alt="">inspiradiariooficial</header><img src="../inspira/img/posts/05.jpg" alt="Post do Inspira Diário" loading="lazy"><div class="acoes"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 21s-7-4.4-9.3-9A5.3 5.3 0 0 1 12 6a5.3 5.3 0 0 1 9.3 6c-2.3 4.6-9.3 9-9.3 9z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 3L11 13M22 3l-7 18-4-8-8-4z"/></svg></div><p><b>inspiradiariooficial</b> Ninguém viu o processo. Todo mundo vai ver o resultado.</p></article>
+        <article class="post-ig"><header><img src="../inspira/img/perfil.jpg" alt="">inspiradiariooficial</header><img src="../inspira/img/posts/08.jpg" alt="Post do Inspira Diário" loading="lazy"><div class="acoes"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 21s-7-4.4-9.3-9A5.3 5.3 0 0 1 12 6a5.3 5.3 0 0 1 9.3 6c-2.3 4.6-9.3 9-9.3 9z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 3L11 13M22 3l-7 18-4-8-8-4z"/></svg></div><p><b>inspiradiariooficial</b> Enquanto uns correm sem direção, você caminha com propósito.</p></article>
       </div>
     </section>
 
@@ -282,14 +384,41 @@ section{padding:84px 0 10px}
         <p class="nota-euro">Valores aproximados por venda, antes das taxas da plataforma, com o euro a cerca de R$ 5,60 (o câmbio muda todo dia). Isso é uma comparação do valor de cada venda, não uma promessa de ganho: o resultado depende do seu trabalho.</p>
       </div>
     </section>
-    <!-- PROVAS (aparece quando houver prints) -->
-    <section id="provas" hidden>
+    <!-- PROVAS -->
+    <section id="provas">
       <div class="centro rev">
-        <span class="sobre">Resultados reais</span>
+        <span class="sobre">Quem já está dentro</span>
         <h2 class="titulo">Não é promessa.<br><span class="ouro">É print.</span></h2>
+        <p class="lead" style="margin:14px auto 0">Mensagens reais de quem usa as ferramentas do ecossistema, mandadas para nós no WhatsApp.</p>
       </div>
-      <div class="provas" id="listaProvas"></div>
-      <p class="prova-nota centro">Prints reais de vendas da nossa estrutura. Resultados variam de pessoa para pessoa e dependem do seu trabalho.</p>
+      <div class="provas-grupos">
+        <div class="grupo-prova rev">
+          <h3>Ferramenta de vídeos</h3>
+          <div class="colunas-prova">
+            <img src="provas/criativos-7.jpg" alt="Print: tive minha primeira venda no TikTok Shop graças à ferramenta" loading="lazy">
+            <img src="provas/criativos-5.jpg" alt="Print: consigo organizar em minutos e já fiz algumas vendas" loading="lazy">
+            <img src="provas/criativos-2.jpg" alt="Print: ferramenta surreal, faz todas as combinações sozinha" loading="lazy">
+            <img src="provas/criativos-1.jpg" alt="Print: me ajudou a me organizar e fazer mais vídeos para o TikTok Shop" loading="lazy">
+            <img src="provas/criativos-3.jpg" alt="Print: a ferramenta monta os vídeos no modelo Frankenstein automaticamente" loading="lazy">
+            <img src="provas/criativos-6.jpg" alt="Print: coloco 10 ganchos, 3 corpos e 3 CTAs e ela gera as combinações" loading="lazy">
+            <img src="provas/criativos-4.jpg" alt="Print: uma mão na roda para quem posta vários vídeos por dia" loading="lazy">
+            <img src="provas/criativos-0.jpg" alt="Print: muito obrigada, estou feliz porque está dando certo" loading="lazy">
+          </div>
+        </div>
+        <div class="grupo-prova rev">
+          <h3>App financeiro</h3>
+          <div class="colunas-prova">
+            <img src="provas/cofre-5.jpg" alt="Print: cada dia me sinto motivado com o app, tem me ajudado muito" loading="lazy">
+            <div class="prova-tela">
+              <img src="provas/cofre-4.jpg" alt="Tela de bloqueio com o wallpaper do sonho e o progresso do cofre" loading="lazy">
+              <img src="provas/cofre-2.jpg" alt="Tela de bloqueio com a frase do dia do app" loading="lazy">
+            </div>
+            <img src="provas/cofre-3.jpg" alt="Notificação: R$ 120 guardados, 8% da viagem" loading="lazy">
+            <img src="provas/cofre-1.jpg" alt="Notificações de lembrete de depósito do app" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <p class="prova-nota centro">Prints reais enviados por usuários. Nomes, fotos e números foram ocultados para preservar a privacidade. Os resultados variam de pessoa para pessoa e dependem do trabalho de cada um.</p>
     </section>
 
     <!-- COMO FUNCIONA -->
@@ -371,7 +500,6 @@ section{padding:84px 0 10px}
   const LINK_CHECKOUT = 'https://pay.kiwify.com.br/6U9KuEC';          // link do checkout (Kiwify) do The Vault
   const VSL_SRC = '';                // ex.: 'vsl.mp4' quando a VSL ficar pronta
   const VSL_VERTICAL = false;        // true se a VSL for 9:16
-  const PROVAS = [];                 // ex.: ['provas/print-1.jpg','provas/print-2.jpg']
   const LINK_DIRECT = 'https://ig.me/m/inspiradiariooficial';
   const MSG = 'Olá! Vim pela página do The Vault e quero garantir a minha chave de acesso ao ecossistema. Como faço?';
 
@@ -412,7 +540,7 @@ section{padding:84px 0 10px}
   }
 
   // provas
-  if(PROVAS.length){ $('#provas').hidden=false; $('#listaProvas').innerHTML=PROVAS.map(p=>`<img src="${p}" alt="Print real de venda" loading="lazy">`).join(''); }
+
 
   // botões de entrar
   function aviso(txt){ let el=$('#aviso'); if(!el){ el=document.createElement('div'); el.id='aviso'; el.setAttribute('role','status'); document.body.append(el); }
