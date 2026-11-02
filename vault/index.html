@@ -244,7 +244,7 @@ section{padding:84px 0 10px}
 </header>
 
 <main>
-  <div class="heroi">
+  <div class="heroi" data-sec="topo">
     <div class="heroi-fundo"><img src="../inspira/img/p-oculos.jpg" alt=""></div>
     <div class="wrap">
       <span class="alerta"><i></i>Assista até o final: o mais importante está no fim</span>
@@ -265,7 +265,7 @@ section{padding:84px 0 10px}
 
   <div class="wrap">
     <!-- DOR -->
-    <section>
+    <section data-sec="dores">
       <div class="centro rev">
         <span class="sobre">Seja sincero</span>
         <h2 class="titulo">Quantas dessas<br><span class="ouro">você já viveu?</span></h2>
@@ -288,7 +288,7 @@ section{padding:84px 0 10px}
     </section>
 
     <!-- VIRADA -->
-    <section>
+    <section data-sec="virada">
       <div class="virada rev">
         <span class="sobre">A verdade que ninguém te conta</span>
         <h2 class="titulo">Quem fatura não começa do zero.<br><span class="ouro">Começa com estrutura.</span></h2>
@@ -299,7 +299,7 @@ section{padding:84px 0 10px}
 
 
     <!-- A PÁGINA QUE VOCÊ VAI QUERER TER -->
-    <section id="pagina-dark">
+    <section id="pagina-dark" data-sec="pagina-dark">
       <div class="centro rev">
         <span class="sobre">Uma página do nosso ecossistema</span>
         <h2 class="titulo">Imagina ter uma página<br><span class="ouro">desse nível.</span></h2>
@@ -351,7 +351,7 @@ Fé • Mentalidade • Disciplina
     </section>
 
     <!-- O QUE TEM DENTRO (MISTÉRIO) -->
-    <section>
+    <section data-sec="cofres">
       <div class="centro rev">
         <span class="sobre">O que está dentro do cofre</span>
         <h2 class="titulo">Seis cofres.<br><span class="ouro">Uma só chave.</span></h2>
@@ -369,7 +369,7 @@ Fé • Mentalidade • Disciplina
 
 
     <!-- EURO -->
-    <section id="euro">
+    <section id="euro" data-sec="euro">
       <div class="euro rev">
         <div class="simb">€</div>
         <span class="sobre">O segredo que quase ninguém usa</span>
@@ -385,7 +385,7 @@ Fé • Mentalidade • Disciplina
       </div>
     </section>
     <!-- PROVAS -->
-    <section id="provas">
+    <section id="provas" data-sec="provas">
       <div class="centro rev">
         <span class="sobre">Quem já está dentro</span>
         <h2 class="titulo">Não é promessa.<br><span class="ouro">É print.</span></h2>
@@ -422,7 +422,7 @@ Fé • Mentalidade • Disciplina
     </section>
 
     <!-- COMO FUNCIONA -->
-    <section>
+    <section data-sec="passos">
       <div class="centro rev">
         <span class="sobre">Depois que você entra</span>
         <h2 class="titulo">Do zero à primeira venda<br><span class="ouro">em quatro passos</span></h2>
@@ -436,7 +436,7 @@ Fé • Mentalidade • Disciplina
     </section>
 
     <!-- OFERTA -->
-    <section id="oferta">
+    <section id="oferta" data-sec="oferta">
       <div class="oferta rev">
         <img class="emblema" src="logo.svg" alt="">
         <span class="sobre">Acesso ao ecossistema completo</span>
@@ -462,7 +462,7 @@ Fé • Mentalidade • Disciplina
     </section>
 
     <!-- FAQ -->
-    <section>
+    <section data-sec="faq">
       <div class="centro rev">
         <span class="sobre">Dúvidas</span>
         <h2 class="titulo">Antes de <span class="ouro">entrar</span></h2>
@@ -478,7 +478,7 @@ Fé • Mentalidade • Disciplina
     </section>
   </div>
 
-  <div class="fim wrap rev">
+  <div class="fim wrap rev" data-sec="final">
     <img src="logo.svg" alt="" style="width:80px;margin:0 auto 14px;filter:drop-shadow(0 0 24px rgba(228,190,120,.4))">
     <h2 class="titulo">Você pode continuar tentando sozinho.<br><span class="ouro">Ou pode entrar.</span></h2>
     <div style="margin-top:28px"><a class="btn btn-ouro pulsa" data-entrar href="#oferta">Quero minha chave</a></div>
@@ -554,5 +554,6 @@ Fé • Mentalidade • Disciplina
   });
 })();
 </script>
+<script src="rastreio.js?v=1" data-pagina="vault" defer></script>
 </body>
 </html>

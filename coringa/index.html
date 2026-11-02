@@ -279,7 +279,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   <nav class="stories" aria-label="Destaques" id="stories"></nav>
 
   <!-- VSL -->
-  <section id="vsl" class="centro">
+  <section id="vsl" data-sec="vsl" class="centro">
     <div class="rev">
       <span class="alerta"><i></i>Assista até o final: o mais importante está no fim</span>
       <h2 class="titulo" style="margin-top:16px">Riram de você<br><span class="verde">por tentar vender?</span></h2>
@@ -295,7 +295,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   </section>
 
   <!-- DOR -->
-  <section id="dor">
+  <section id="dor" data-sec="dor">
     <div class="rev">
       <span class="sobre">Seja sincero</span>
       <h2 class="titulo" style="margin-top:8px">Quantas dessas<br><span class="verde">você já viveu?</span></h2>
@@ -314,7 +314,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   </section>
 
   <!-- VIRADA -->
-  <section id="virada">
+  <section id="virada" data-sec="virada">
     <div class="rev">
       <span class="sobre">A verdade que ninguém te conta</span>
       <h2 class="titulo" style="margin-top:8px">Pra uns, sorte.<br><span class="verde">Pra outros, estrutura.</span></h2>
@@ -329,7 +329,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   </section>
 
   <!-- COFRES -->
-  <section id="cofres">
+  <section id="cofres" data-sec="cofres">
     <div class="rev">
       <span class="sobre">O que está dentro do cofre</span>
       <h2 class="titulo" style="margin-top:8px">Seis cofres.<br><span class="verde">Uma só chave.</span></h2>
@@ -339,7 +339,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   </section>
 
   <!-- EURO -->
-  <section id="euro">
+  <section id="euro" data-sec="euro">
     <div class="euro rev">
       <span class="sobre">O segredo que quase ninguém usa</span>
       <h2 class="titulo" style="margin-top:8px">Comissão<br><span class="verde">em euro</span></h2>
@@ -355,7 +355,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   </section>
 
   <!-- PROVAS -->
-  <section id="provas">
+  <section id="provas" data-sec="provas">
     <div class="rev">
       <span class="sobre">Quem já está dentro</span>
       <h2 class="titulo" style="margin-top:8px">Não é promessa.<br><span class="verde">É print.</span></h2>
@@ -366,7 +366,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   </section>
 
   <!-- COMO -->
-  <section id="como">
+  <section id="como" data-sec="como">
     <div class="rev">
       <span class="sobre">Depois que você entra</span>
       <h2 class="titulo" style="margin-top:8px">As regras<br><span class="verde">do jogo</span></h2>
@@ -381,7 +381,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   </section>
 
   <!-- SEM ROSTO -->
-  <section id="mascara">
+  <section id="mascara" data-sec="mascara">
     <div class="socio rev">
       <img src="img/beco.jpg" alt="" loading="lazy">
       <span class="sobre">Sem aparecer</span>
@@ -393,7 +393,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   </section>
 
   <!-- OFERTA -->
-  <section id="oferta">
+  <section id="oferta" data-sec="oferta">
     <div class="oferta rev">
       <span class="sobre">Acesso ao ecossistema completo</span>
       <h2 class="titulo" style="margin-top:8px">A chave do<br><span class="verde">The Vault PRO</span></h2>
@@ -418,7 +418,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   </section>
 
   <!-- FAQ -->
-  <section id="faq">
+  <section id="faq" data-sec="faq">
     <div class="rev">
       <span class="sobre">Dúvidas</span>
       <h2 class="titulo" style="margin-top:8px">Antes de<br><span class="verde">entrar</span></h2>
@@ -433,7 +433,7 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
     </div>
   </section>
 
-  <div class="final rev">
+  <div class="final rev" data-sec="final">
     <span class="sobre">Pra eles, piada. Pra você, o começo.</span>
     <h2 class="titulo" style="margin-top:12px">Eles riram.<br><span class="verde">Agora é a sua vez.</span></h2>
     <span class="serif">continue tentando sozinho, ou entre.</span>
@@ -558,5 +558,6 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
   addEventListener('keydown',e=>{ if(!sv.classList.contains('on')) return; if(e.key==='Escape') fechar(); if(e.key==='ArrowRight') prox(); if(e.key==='ArrowLeft') ant(); });
 })();
 </script>
+<script src="../vault/rastreio.js?v=1" data-pagina="coringa" defer></script>
 </body>
 </html>
