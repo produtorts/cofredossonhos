@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Eu, Coringa · Cofre dos Sonhos</title>
-<meta name="description" content="Riram do seu sonho? Monte o plano no Cofre dos Sonhos, saia das dívidas e teste 7 dias grátis. E ganhe renda extra sem aparecer.">
+<title>Eu, Coringa · The Vault PRO</title>
+<meta name="description" content="Riram de você por tentar vender? Assista ao vídeo e conheça o The Vault PRO: a estrutura pronta para vender na internet sem aparecer.">
 <meta name="theme-color" content="#07050b">
-<meta property="og:title" content="Eu, Coringa · Cofre dos Sonhos">
-<meta property="og:description" content="Eles riram. Você fez um plano. Teste o Cofre dos Sonhos 7 dias grátis.">
+<meta property="og:title" content="Eu, Coringa · The Vault PRO">
+<meta property="og:description" content="Eles riram. Você entrou no cofre. Assista ao vídeo e conheça o The Vault PRO.">
 <meta property="og:image" content="https://www.cofredossonhos.com/coringa/img/close.jpg">
 <link rel="icon" type="image/png" href="../icone-192-v2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -207,10 +207,64 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
 #aviso.on{transform:translate(-50%,0)}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#chuva{display:none}}
+
+/* ===== The Vault no estilo Coringa ===== */
+.bf{position:sticky;top:0;z-index:30;background:linear-gradient(90deg,#0b0712,#1d0f33,#0b0712);border-bottom:1px solid rgba(61,255,143,.35);text-align:center;padding:9px 12px;font-size:12px;font-weight:700;letter-spacing:.4px}
+.bf b{color:var(--verde)}
+.bf .relogio{display:inline-flex;gap:4px;margin-left:6px;font-family:var(--cond);font-weight:400;font-size:15px;letter-spacing:1px;vertical-align:middle}
+.bf .relogio span{background:rgba(155,92,255,.18);border:1px solid rgba(155,92,255,.45);border-radius:6px;padding:1px 6px}
+.alerta{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(224,40,60,.12);border:1px solid rgba(224,40,60,.45);font-size:12px;font-weight:700}
+.alerta i{width:8px;height:8px;border-radius:50%;background:var(--vermelho);animation:pingv 1.6s infinite}
+@keyframes pingv{0%{box-shadow:0 0 0 0 rgba(224,40,60,.7)}70%,100%{box-shadow:0 0 0 8px rgba(224,40,60,0)}}
+.vermelho{color:#ff4d5e}
+#vsl{padding-top:26px}
+.vsl-moldura{margin:22px auto 0;width:min(86%,360px)}
+.vsl-moldura .video-play{place-items:center;padding:0;flex-direction:column;gap:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.55))}
+.vsl-moldura .video-play b{font-size:12px;letter-spacing:3px;text-transform:uppercase;text-shadow:0 2px 10px #000}
+.mini-selos{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--nevoa)}
+.mini-selos span::before{content:"♠ ";color:var(--roxo)}
+.cofres{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.cofre{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:3/4;border:1px solid var(--linha);background:#000}
+.cofre img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(6px) brightness(.4) saturate(.6);transform:scale(1.15)}
+.cofre .info{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px;gap:8px}
+.cofre .cad{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(61,255,143,.5);background:rgba(0,0,0,.5)}
+.cofre .cad svg{width:18px}
+.cofre b{font-family:var(--cond);font-weight:400;text-transform:uppercase;font-size:20px;line-height:1.05}
+.cofre small{font-size:11.5px;color:#d8d2e2;line-height:1.35}
+.cofre .num{position:absolute;top:10px;left:12px;font-family:var(--cond);font-size:20px;color:transparent;-webkit-text-stroke:1px rgba(61,255,143,.8)}
+.euro{margin-top:18px;padding:24px 18px;border-radius:26px;background:linear-gradient(160deg,rgba(155,92,255,.16),rgba(61,255,143,.05));border:1px solid rgba(155,92,255,.35);text-align:center}
+.compara{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:stretch;margin-top:16px}
+.lado{border-radius:18px;padding:16px 10px;background:rgba(0,0,0,.35);border:1px solid var(--linha)}
+.lado.eu{border-color:rgba(61,255,143,.55);background:rgba(61,255,143,.08)}
+.lado .rot{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--nevoa)}
+.lado .valor{font-family:var(--cond);font-size:38px;line-height:1.05;margin-top:4px}
+.lado small{display:block;font-size:11px;color:var(--nevoa);margin-top:4px;line-height:1.35}
+.vs{display:grid;place-items:center;font-family:var(--cond);color:#c4a0ff;font-size:20px}
+.multi{font-family:var(--cond);text-transform:uppercase;font-size:clamp(26px,8vw,36px);line-height:1.02;margin:18px 0 0}
+.provas{columns:2;column-gap:10px;margin-top:18px}
+.provas img{width:100%;margin:0 0 10px;border-radius:16px;border:1px solid var(--linha);break-inside:avoid}
+.oferta{margin-top:18px;padding:26px 18px;border-radius:28px;text-align:center;border:1px solid rgba(61,255,143,.5);background:radial-gradient(ellipse at 50% 0%,rgba(61,255,143,.16),transparent 60%),linear-gradient(180deg,#0e0a16,#07050b)}
+.oferta .lista{list-style:none;padding:0;margin:18px 0;text-align:left;display:flex;flex-direction:column;gap:9px;font-size:14px;color:#ddd7e6}
+.oferta .lista li{display:flex;gap:10px}
+.oferta .lista li::before{content:"♠";color:var(--verde);flex:none}
+.oferta .lista b{color:#fff}
+.selo-bf{display:inline-block;padding:5px 12px;border-radius:999px;background:var(--vermelho);color:#fff;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.de{font-size:15px;color:var(--nevoa);text-decoration:line-through;margin-top:10px}
+.por{font-family:var(--cond);font-size:clamp(76px,22vw,104px);line-height:1;margin:2px 0}
+.por small{font-family:var(--texto);font-size:15px;font-weight:700;vertical-align:top;margin-right:4px}
+.pagamento{font-size:13px;color:var(--nevoa);margin-bottom:16px}
+.cont{display:flex;justify-content:center;gap:8px;margin:0 0 18px}
+.cont div{min-width:58px;padding:8px 4px;border-radius:12px;background:rgba(0,0,0,.4);border:1px solid rgba(155,92,255,.45)}
+.cont b{display:block;font-family:var(--cond);font-weight:400;font-size:28px;line-height:1}
+.cont small{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--nevoa)}
+.garantia{display:flex;align-items:center;gap:12px;margin-top:18px;font-size:13px;color:#ddd7e6;text-align:left}
+.garantia .selo7{flex:none;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--verde);font-family:var(--cond);font-size:24px;line-height:1;text-align:center;color:var(--verde)}
+.garantia .selo7 small{display:block;font-size:8px;letter-spacing:1px;font-family:var(--texto);font-weight:700}
 </style>
 </head>
 <body>
 <canvas id="chuva" aria-hidden="true"></canvas>
+<div class="bf" id="bf"><b>BLACK FRIDAY</b> · R$ 39,90 até 30/11 <span class="relogio" data-relogio></span></div>
 <main class="pagina">
 
   <header class="perfil">
@@ -224,194 +278,190 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
 
   <nav class="stories" aria-label="Destaques" id="stories"></nav>
 
-  <div class="heroi rev">
-    <img src="img/heroi.jpg" alt="" fetchpriority="high">
-    <span class="selo"><i></i>7 dias grátis pelo link da bio</span>
-    <h2 class="titulo">Riram do<br><span class="verde">seu sonho?</span></h2>
-    <span class="serif">deixa rirem. Faz o plano.</span>
-    <p>O <b>Cofre dos Sonhos</b> organiza suas dívidas, diz quanto guardar por mês, te lembra no dia certo e coloca a meta na sua tela de bloqueio.</p>
-    <a class="btn btn-verde pulsa" data-app href="#">Testar 7 dias grátis</a>
-  </div>
+  <!-- VSL -->
+  <section id="vsl" class="centro">
+    <div class="rev">
+      <span class="alerta"><i></i>Assista até o final: o mais importante está no fim</span>
+      <h2 class="titulo" style="margin-top:16px">Riram de você<br><span class="verde">por tentar vender?</span></h2>
+      <span class="serif">o problema nunca foi você.</span>
+      <p class="fraco" style="margin:10px 0 0">Assista ao vídeo e descubra a estrutura que faltava para você vender na internet, sem aparecer e sem começar do zero.</p>
+    </div>
+    <div class="video-moldura vsl-moldura rev">
+      <video id="video" src="../vault/vid/vsl.mp4" poster="../vault/vid/vsl-capa.jpg" playsinline preload="none"></video>
+      <button class="video-play" id="videoPlay" aria-label="Assistir o vídeo"><span><svg viewBox="0 0 24 24"><path fill="#04140a" d="M6 4l15 8-15 8z"/></svg></span><b>Assista com o som ligado</b></button>
+    </div>
+    <a class="btn btn-verde pulsa" href="#oferta" style="margin-top:20px">Quero entrar no The Vault</a>
+    <div class="mini-selos"><span>Acesso imediato</span><span>Funciona no celular</span><span>Garantia de 7 dias</span></div>
+  </section>
 
+  <!-- DOR -->
   <section id="dor">
     <div class="rev">
-      <span class="sobre">Verdade difícil de encarar</span>
-      <h2 class="titulo" style="margin-top:8px">O vilão da<br><span class="verde">sua história</span></h2>
-      <span class="serif">talvez seja o seu dinheiro</span>
+      <span class="sobre">Seja sincero</span>
+      <h2 class="titulo" style="margin-top:8px">Quantas dessas<br><span class="verde">você já viveu?</span></h2>
     </div>
     <div class="carrossel" id="carDor">
-      <article class="dor"><img src="img/dinheiro.jpg" alt="" loading="lazy"><span class="num">01</span><h3>O salário some antes do dia 10</h3><p>Paga as contas, sobra nada, e o sonho vira piada pro “mês que vem”.</p></article>
-      <article class="dor"><img src="img/poker.jpg" alt="" loading="lazy"><span class="num">02</span><h3>A dívida ri por último</h3><p>Juros de um lado, boleto do outro. E você sem saber qual pagar primeiro.</p></article>
-      <article class="dor"><img src="img/selfie.jpg" alt="" loading="lazy"><span class="num">03</span><h3>Já tentou guardar e desistiu</h3><p>Começa animado, esquece no segundo mês. Não é falta de força, é falta de plano.</p></article>
-      <article class="dor"><img src="img/carro.jpg" alt="" loading="lazy"><span class="num">04</span><h3>Todo mundo duvidou</h3><p>Carro, casa, viagem… sem fazer a conta, até você começa a achar impossível.</p></article>
+      <article class="dor"><img src="img/selfie.jpg" alt="" loading="lazy"><span class="num">01</span><h3>Perfil atrás de perfil</h3><p>Começou empolgado, postou por uma semana e desistiu porque nada vendia.</p></article>
+      <article class="dor"><img src="img/carta.jpg" alt="" loading="lazy"><span class="num">02</span><h3>Não sabe o que postar</h3><p>Todo dia a mesma dúvida, e a página fica sem padrão e sem cara de profissional.</p></article>
+      <article class="dor"><img src="img/poker.jpg" alt="" loading="lazy"><span class="num">03</span><h3>Nenhum produto pra vender</h3><p>Até tem seguidores, mas não sabe o que oferecer nem onde pegar o link.</p></article>
+      <article class="dor"><img src="img/carro.jpg" alt="" loading="lazy"><span class="num">04</span><h3>Curso que ficou na teoria</h3><p>Muita aula, nenhuma ferramenta. Na hora de fazer, travou sozinho.</p></article>
+      <article class="dor"><img src="img/dinheiro.jpg" alt="" loading="lazy"><span class="num">05</span><h3>Vê os outros faturando</h3><p>E fica a pergunta: o que eles sabem que eu não sei?</p></article>
     </div>
     <div class="pontos" data-pontos="carDor"></div>
     <div class="alivio rev">
-      <p><b>Ninguém vem te salvar.</b> <span class="fraco">Mas você não precisa ganhar mais pra começar. Precisa de um plano que caiba no seu mês e te lembre todo dia do porquê.</span></p>
+      <p><b>Ninguém vem te salvar.</b> <span class="fraco">Mas quem fatura não começa do zero. Começa com estrutura: página pronta, produto pronto, vídeo pronto, material pronto.</span></p>
     </div>
   </section>
 
-  <section id="perfil">
+  <!-- VIRADA -->
+  <section id="virada">
     <div class="rev">
-      <span class="sobre">Do @imcoringa_</span>
-      <h2 class="titulo" style="margin-top:8px">Pra uns, vilão.<br><span class="verde">Pra outros, herói.</span></h2>
+      <span class="sobre">A verdade que ninguém te conta</span>
+      <h2 class="titulo" style="margin-top:8px">Pra uns, sorte.<br><span class="verde">Pra outros, estrutura.</span></h2>
     </div>
     <div class="manifesto rev"><img src="img/close.jpg" alt="Eu, Coringa" loading="lazy"></div>
     <div class="frases rev">
-      <p>Virou vilão quando<b>parou de emprestar dinheiro.</b></p>
-      <p>O mundo vê sorte.<b>A verdade: 300 posts que ninguém curtiu.</b></p>
-      <p>Eles riram.<b>Você fez a conta.</b></p>
+      <p>Riram quando você começou.<b>Vão perguntar como você fez.</b></p>
+      <p>O mundo vê sorte.<b>A verdade: um ecossistema inteiro trabalhando.</b></p>
+      <p>Você não precisa de mais um perfil.<b>Precisa da chave certa.</b></p>
     </div>
-    <a class="btn btn-vazado" href="https://www.instagram.com/imcoringa_/" target="_blank" rel="noopener" style="margin-top:16px">Seguir @imcoringa_</a>
+    <div class="alivio rev"><p><b>O The Vault abre esse ecossistema para você.</b> <span class="fraco">Tudo o que quem vende já tem, num lugar só. É copiar e colar.</span></p></div>
   </section>
 
-  <section id="calculadora">
+  <!-- COFRES -->
+  <section id="cofres">
     <div class="rev">
-      <span class="sobre">Faça a conta agora</span>
-      <h2 class="titulo" style="margin-top:8px">Quanto custa<br><span class="verde">seu sonho por mês?</span></h2>
+      <span class="sobre">O que está dentro do cofre</span>
+      <h2 class="titulo" style="margin-top:8px">Seis cofres.<br><span class="verde">Uma só chave.</span></h2>
+      <p class="fraco" style="margin:10px 0 0">Tudo liberado assim que você entra. Os detalhes você conhece lá dentro.</p>
     </div>
-    <div class="calc rev">
-      <div class="chips" id="chips"></div>
-      <label class="campo">Quanto custa (R$)<input type="text" inputmode="numeric" id="cValor" value="60.000"></label>
-      <label class="campo">Em quanto tempo: <span id="cMesesTxt" style="color:#fff">36 meses</span><input type="range" id="cMeses" min="3" max="60" value="36"></label>
-      <div class="resultado">
-        <span class="sobre">Você precisa guardar</span>
-        <div class="grande verde" id="cMes">R$ 1.667</div>
-        <div class="dia" id="cDia">por mês · cerca de <b>R$ 56</b> por dia</div>
-        <a class="btn btn-verde" data-app href="#">Criar meu cofre com esse plano</a>
+    <div class="cofres" id="gradeCofres"></div>
+  </section>
+
+  <!-- EURO -->
+  <section id="euro">
+    <div class="euro rev">
+      <span class="sobre">O segredo que quase ninguém usa</span>
+      <h2 class="titulo" style="margin-top:8px">Comissão<br><span class="verde">em euro</span></h2>
+      <p class="fraco" style="margin:10px 0 0">Com a mesma estrutura você vende também na Espanha. Mesmo trabalho, mesma página sem rosto, só que cada venda paga em euro.</p>
+      <div class="compara">
+        <div class="lado"><div class="rot">🇧🇷 1 venda</div><div class="valor">R$ 27</div><small>70% de um produto de R$ 39,90</small></div>
+        <div class="vs">VS</div>
+        <div class="lado eu"><div class="rot">🇪🇸 1 venda</div><div class="valor verde">R$ 190</div><small>70% de um produto de 49 € (cerca de 34 €)</small></div>
       </div>
+      <div class="multi">Uma venda em euro vale<br><span class="verde">quase 7 no Brasil</span></div>
+      <p class="nota">Valores aproximados por venda, antes das taxas, com o euro a cerca de R$ 5,60. É uma comparação do valor de cada venda, não promessa de ganho.</p>
     </div>
   </section>
 
-  <section id="tutorial" class="centro">
+  <!-- PROVAS -->
+  <section id="provas">
     <div class="rev">
-      <span class="sobre">Sem planilha, sem enrolação</span>
-      <h2 class="titulo" style="margin-top:8px">Aprenda em<br><span class="verde">1 minuto</span></h2>
-      <p class="fraco" style="margin:10px 0 0">Cadastro, primeiro cofre, como marcar o que guardou, wallpaper em 4K e notificações. Tudo com as telas reais do app.</p>
+      <span class="sobre">Quem já está dentro</span>
+      <h2 class="titulo" style="margin-top:8px">Não é promessa.<br><span class="verde">É print.</span></h2>
+      <p class="fraco" style="margin:10px 0 0">Mensagens reais de quem usa as ferramentas do ecossistema.</p>
     </div>
-    <div class="video-moldura rev">
-      <video id="video" src="../inspira/tutorial.mp4?v=2" poster="../inspira/tutorial.jpg" playsinline preload="none"></video>
-      <button class="video-play" id="videoPlay" aria-label="Assistir o tutorial"><span><svg viewBox="0 0 24 24"><path fill="#04140a" d="M6 4l15 8-15 8z"/></svg></span></button>
-    </div>
-    <div class="topicos" id="topicos"></div>
+    <div class="provas rev" id="provasGrade"></div>
+    <p class="nota">Prints reais enviados por usuários. Nomes, fotos e números foram ocultados. Os resultados variam e dependem do trabalho de cada um.</p>
   </section>
 
+  <!-- COMO -->
   <section id="como">
     <div class="rev">
-      <span class="sobre">Como funciona</span>
+      <span class="sobre">Depois que você entra</span>
       <h2 class="titulo" style="margin-top:8px">As regras<br><span class="verde">do jogo</span></h2>
     </div>
     <div class="carrossel" id="carPassos">
-      <article class="passo"><div class="n">1</div><h3>Escolha o sonho</h3><p>Carro, moto, casa, viagem, reserva… coloque o valor e a data.</p></article>
-      <article class="passo"><div class="n">2</div><h3>Organize as dívidas</h3><p>O plano mostra qual dívida atacar primeiro e quanto falta pra ficar livre.</p></article>
-      <article class="passo"><div class="n">3</div><h3>Guarde na caixinha</h3><p>O dinheiro fica no seu banco. No Cofre você marca o que guardou e vê o progresso subir.</p></article>
-      <article class="passo"><div class="n">4</div><h3>Mude o hábito</h3><p>Lembretes no dia certo e a meta na tela de bloqueio. Constância vira rotina.</p></article>
+      <article class="passo"><div class="n">1</div><h3>Garanta a chave</h3><p>Entrou, recebeu o acesso. Tudo liberado na hora, direto no celular.</p></article>
+      <article class="passo"><div class="n">2</div><h3>Monte a sua página</h3><p>Não tem? A ferramenta cria a sua. Já tem? Ela deixa com padrão profissional.</p></article>
+      <article class="passo"><div class="n">3</div><h3>Escolha o que vender</h3><p>Cada produto vem com link de afiliado e material pronto.</p></article>
+      <article class="passo"><div class="n">4</div><h3>Copie e cole</h3><p>Posts, vídeos e textos prontos. É só postar todo dia.</p></article>
     </div>
     <div class="pontos" data-pontos="carPassos"></div>
   </section>
 
-  <section id="wallpapers">
-    <div class="rev">
-      <span class="sobre">Wallpapers do Cofre</span>
-      <h2 class="titulo" style="margin-top:8px">Seu sonho na<br><span class="verde">tela de bloqueio</span></h2>
-      <p class="fraco" style="margin:10px 0 0">Toda vez que pegar o celular, você lembra por que está guardando. Toque para ver.</p>
-    </div>
-    <div class="feed rev" id="feed"></div>
-  </section>
-
-  <section id="planos">
-    <div class="rev">
-      <span class="sobre">Comece sem pagar nada</span>
-      <h2 class="titulo" style="margin-top:8px">7 dias de<br><span class="verde">Premium grátis</span></h2>
-    </div>
-    <div class="planos rev">
-      <div class="plano dest"><span class="tag">PELO LINK DA BIO</span><h3>Teste Premium</h3><div class="preco verde">R$ 0 <small>por 7 dias</small></div>
-        <ul><li>Plano para sair das dívidas</li><li>Cofres e lembretes ilimitados</li><li>Todos os wallpapers em 4K</li><li>Sem cartão para testar</li></ul></div>
-      <div class="plano"><h3>Premium depois do teste</h3><div class="preco">R$ 12,90 <small>/mês</small></div>
-        <ul><li>Ou R$ 29,90 por trimestre</li><li>Pagamento por Pix dentro do app</li><li>Sem fidelidade</li></ul></div>
-    </div>
-    <a class="btn btn-verde" data-app href="#" style="margin-top:16px">Quero meus 7 dias grátis</a>
-  </section>
-
-  <section id="renda">
+  <!-- SEM ROSTO -->
+  <section id="mascara">
     <div class="socio rev">
       <img src="img/beco.jpg" alt="" loading="lazy">
-      <span class="sobre">Renda extra sem aparecer</span>
+      <span class="sobre">Sem aparecer</span>
       <h2 class="titulo" style="margin-top:8px">Eu uso máscara.<br><span class="verde">Você nem precisa.</span></h2>
-      <p style="margin:12px 0 0;color:#e2dcec">Ganhe dinheiro divulgando o Cofre dos Sonhos sem mostrar o rosto: perfil anônimo, página dark, status ou grupo.</p>
-      <div class="comissao verde">80%</div>
-      <p style="margin:4px 0 0;font-weight:700">de comissão em cada venda que vier do seu link.</p>
+      <p style="margin:12px 0 0;color:#e2dcec">A estrutura do The Vault foi feita para páginas sem rosto. Perfil anônimo, página dark, status ou grupo: você vende sem nunca mostrar quem é.</p>
       <div class="sem-rosto"><span>🃏 Sem mostrar o rosto</span><span>📱 Só com o celular</span><span>🎬 Material pronto</span></div>
-      <ul class="lista-socio">
-        <li><b>1</b><span>Você se cadastra como afiliado na Kiwify e recebe o seu link.</span></li>
-        <li><b>2</b><span>Divulga com a estrutura pronta: posts, roteiros e o tutorial em vídeo.</span></li>
-        <li><b>3</b><span>Cada venda pelo seu link cai como comissão na sua conta Kiwify.</span></li>
-      </ul>
-      <a class="btn btn-verde" id="btnSocio" href="#">Quero minha renda extra</a>
-      <p class="nota">Ganhos dependem só da sua divulgação. Não prometemos valores.</p>
+      <a class="btn btn-verde" href="#oferta" style="margin-top:18px">Quero a minha chave</a>
     </div>
   </section>
 
+  <!-- OFERTA -->
+  <section id="oferta">
+    <div class="oferta rev">
+      <span class="sobre">Acesso ao ecossistema completo</span>
+      <h2 class="titulo" style="margin-top:8px">A chave do<br><span class="verde">The Vault PRO</span></h2>
+      <ul class="lista">
+        <li><span><b>Curso PRO</b>: destrave suas vendas sem aparecer, do zero à primeira venda</span></li>
+        <li><span><b>Ferramenta de páginas ilimitada</b>: identidade, posts e Reels prontos</span></li>
+        <li><span><b>Ferramenta de vídeos ilimitada</b>: 15 cortes viram até 125 vídeos</span></li>
+        <li><span><b>3 cursos completos</b>: TikTok Shop Brasil, TikTok Shop na Espanha e Personagens com IA</span></li>
+        <li><span><b>7 dias de Premium no app financeiro</b> para gerar seus prints e stories</span></li>
+        <li><span><b>Produtos prontos</b> para vender no Brasil e na Europa</span></li>
+        <li><span><b>Material de divulgação</b> de cada produto, pronto para copiar</span></li>
+        <li><span><b>Links para se afiliar</b> e ganhar por cada venda</span></li>
+      </ul>
+      <span class="selo-bf">Oferta de Black Friday</span>
+      <div class="de">Tudo isso somado passa de R$ 499,90</div>
+      <div class="por verde"><small>R$</small>39,90</div>
+      <div class="pagamento">Pagamento único · Pix ou cartão · acesso imediato<br><b style="color:#fff">Valor válido até 30/11, às 23h59.</b></div>
+      <div class="cont" id="cont"><div><b data-d>00</b><small>dias</small></div><div><b data-h>00</b><small>horas</small></div><div><b data-m>00</b><small>min</small></div><div><b data-s>00</b><small>seg</small></div></div>
+      <a class="btn btn-verde pulsa" data-checkout href="#">Garantir minha chave agora</a>
+      <div class="garantia"><span class="selo7">7<small>DIAS</small></span><span>Garantia incondicional de 7 dias. Entrou e não gostou, devolvemos 100% do valor.</span></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
   <section id="faq">
     <div class="rev">
       <span class="sobre">Dúvidas</span>
-      <h2 class="titulo" style="margin-top:8px">Perguntas<br><span class="verde">frequentes</span></h2>
+      <h2 class="titulo" style="margin-top:8px">Antes de<br><span class="verde">entrar</span></h2>
     </div>
     <div class="faq rev">
-      <details><summary>O Cofre guarda o meu dinheiro?</summary><p>Não. O dinheiro fica na caixinha do seu próprio banco (Nubank, Inter, PicPay, Mercado Pago…). O Cofre faz o plano, mostra o progresso e te lembra.</p></details>
-      <details><summary>Ajuda a sair das dívidas?</summary><p>Sim. No Premium você cadastra as dívidas e o plano mostra a ordem certa pra pagar e quanto falta pra ficar livre.</p></details>
-      <details><summary>Preciso baixar na loja de apps?</summary><p>Não. Abra cofredossonhos.com no celular e adicione à tela de início. No iPhone: Safari › Compartilhar › Adicionar à Tela de Início.</p></details>
-      <details><summary>O teste de 7 dias cobra alguma coisa?</summary><p>Não. Você entra pelo link, cria a conta e usa o Premium por 7 dias. Depois escolhe se quer continuar.</p></details>
-      <details><summary>Como funciona o pagamento?</summary><p>Por Pix, dentro do próprio app. O Premium libera sozinho assim que o pagamento é confirmado.</p></details>
-      <details><summary>Preciso aparecer pra ganhar a renda extra?</summary><p>Não. Você pode divulgar por um perfil anônimo, página dark, status ou grupos. Toque em “Quero minha renda extra”, receba o link de afiliado da Kiwify e ganhe 80% em cada venda que vier dele.</p></details>
+      <details><summary>Preciso mostrar o rosto?</summary><p>Não. A estrutura foi feita para páginas sem rosto. Você pode vender sem nunca aparecer.</p></details>
+      <details><summary>Preciso já ter uma página?</summary><p>Não. Se você não tem, a ferramenta monta a sua do zero. Se já tem, ela deixa com padrão profissional.</p></details>
+      <details><summary>Preciso saber design ou editar vídeo?</summary><p>Não. Os posts, vídeos e textos saem prontos. Você só copia e cola.</p></details>
+      <details><summary>Funciona no celular?</summary><p>Sim. Tudo funciona no celular, inclusive no iPhone.</p></details>
+      <details><summary>É pagamento único mesmo?</summary><p>Sim. Você paga uma vez, por Pix ou cartão, e garante o seu acesso.</p></details>
+      <details><summary>Vou ganhar dinheiro garantido?</summary><p>Não. Nenhuma estrutura garante renda. O The Vault tira as travas do caminho e entrega tudo pronto; o resultado vem da sua constância.</p></details>
     </div>
   </section>
 
   <div class="final rev">
-    <span class="sobre">Pra eles, vilão. Pra sua família, herói.</span>
+    <span class="sobre">Pra eles, piada. Pra você, o começo.</span>
     <h2 class="titulo" style="margin-top:12px">Eles riram.<br><span class="verde">Agora é a sua vez.</span></h2>
-    <span class="serif">o primeiro passo é hoje</span>
-    <a class="btn btn-verde" data-app href="#" style="margin-top:22px">Criar meu Cofre dos Sonhos</a>
+    <span class="serif">continue tentando sozinho, ou entre.</span>
+    <a class="btn btn-verde pulsa" data-checkout href="#" style="margin-top:22px">Quero minha chave · R$ 39,90</a>
     <a class="btn btn-vazado" href="https://www.instagram.com/imcoringa_/" target="_blank" rel="noopener" style="margin-top:12px">Seguir @imcoringa_</a>
-    <p class="marca" style="margin-top:44px">Eu, Coringa 🃏</p>
+    <p class="nota" style="margin-top:30px">Nenhum produto garante renda. Os resultados dependem do seu trabalho.</p>
+    <p class="marca" style="margin-top:24px">Eu, Coringa 🃏 · The Vault</p>
   </div>
 </main>
 
-<div class="barra" id="barra"><div class="dentro"><a class="btn btn-verde" data-app href="#">Testar 7 dias grátis</a><small>Sem cartão · cancela quando quiser</small></div></div>
+<div class="barra" id="barra"><div class="dentro"><a class="btn btn-verde" href="#oferta">Black Friday · R$ 39,90</a><small>Garantia de 7 dias · acesso imediato</small></div></div>
 
 <div class="sv" id="sv" role="dialog" aria-modal="true" aria-label="Story"><div class="sv-palco" id="svPalco"></div></div>
-
-<div class="lb" id="lb" role="dialog" aria-modal="true"><button class="x" id="lbX" aria-label="Fechar">×</button><button class="lb-nav ant" id="lbAnt" aria-label="Anterior">‹</button><button class="lb-nav prox" id="lbProx" aria-label="Próximo">›</button><img id="lbImg" alt=""><div class="acoes" id="lbAcoes"></div></div>
 
 <script>
 (()=>{
   // ====== Links ======
-  const LINK_APP = 'https://www.cofredossonhos.com/?cupom=COFRECORINGA';
-  const LINK_SOCIO = ''; // link da página de afiliados da Kiwify, quando tiver
-  const LINK_DIRECT = 'https://ig.me/m/imcoringa_';
-  const IG = 'https://www.instagram.com/imcoringa_/';
-
-  document.querySelectorAll('[data-app]').forEach(a=>{ a.href=LINK_APP; });
-  const MSG_SOCIO = 'Olá! Vim pela página do Coringa e quero ser sócio do Cofre dos Sonhos: me afiliar à sua estrutura e ganhar 80% de comissão de verdade. Como faço para começar?';
-  const btnSocio = document.getElementById('btnSocio');
-  btnSocio.href = LINK_SOCIO || LINK_DIRECT;
-  btnSocio.addEventListener('click', async e => {
-    if (LINK_SOCIO) return;
-    e.preventDefault();
-    let ok = false;
-    try { await navigator.clipboard.writeText(MSG_SOCIO); ok = true; }
-    catch (_) { const t = document.createElement('textarea'); t.value = MSG_SOCIO; document.body.append(t); t.select(); try { ok = document.execCommand('copy'); } catch (__) {} t.remove(); }
-    aviso(ok ? 'Mensagem copiada! No Direct, segure no campo de mensagem, toque em Colar e envie.' : 'Abrindo o Direct…');
-    setTimeout(() => { location.href = LINK_DIRECT; }, ok ? 2600 : 300);
-  });
-  function aviso(txt){
-    let el = document.getElementById('aviso');
-    if (!el) { el = document.createElement('div'); el.id = 'aviso'; el.setAttribute('role','status'); document.body.append(el); }
-    el.textContent = txt; el.classList.add('on'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('on'), 3500);
-  }
-
-  const brl = v => 'R$ ' + Math.round(v).toLocaleString('pt-BR');
+  const LINK_CHECKOUT = 'https://pay.kiwify.com.br/6U9KuEC?src=coringa';
   const $ = s => document.querySelector(s);
+  document.querySelectorAll('[data-checkout]').forEach(a=>{ a.href=LINK_CHECKOUT; });
+
+  // ====== Contagem real da Black Friday (30/11/2026 23:59:59, Brasília) ======
+  const FIM=new Date('2026-11-30T23:59:59-03:00').getTime(), z=n=>String(n).padStart(2,'0');
+  function relogio(){ let t=Math.max(0,FIM-Date.now()); const d=Math.floor(t/864e5); t%=864e5; const h=Math.floor(t/36e5); t%=36e5; const m=Math.floor(t/6e4), s=Math.floor(t%6e4/1e3);
+    document.querySelectorAll('[data-relogio]').forEach(el=>el.innerHTML=`<span>${z(d)}d</span><span>${z(h)}h</span><span>${z(m)}m</span><span>${z(s)}s</span>`);
+    const c=$('#cont'); c.querySelector('[data-d]').textContent=z(d); c.querySelector('[data-h]').textContent=z(h); c.querySelector('[data-m]').textContent=z(m); c.querySelector('[data-s]').textContent=z(s);
+    if(FIM<=Date.now()) $('#bf').innerHTML='<b>A oferta de Black Friday terminou.</b>'; }
+  relogio(); setInterval(relogio,1000);
 
   // ====== Chuva ======
   const cv=$('#chuva'), cx=cv.getContext('2d'); let gs=[];
@@ -422,12 +472,25 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
       cx.strokeStyle=`rgba(200,185,235,${g.a})`; cx.beginPath(); cx.moveTo(g.x,g.y); cx.lineTo(g.x+g.l*.12,g.y-g.l); cx.stroke(); }
     requestAnimationFrame(anim); })();
 
+  // ====== Cofres e provas ======
+  const CAD='<svg viewBox="0 0 24 24" fill="none" stroke="#3dff8f" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+  const COFRES=[['../vault/img/fd-carrosseis.jpg','Sua página pronta','ilimitado','Identidade, posts e Reels todo dia'],
+    ['../vault/vid/video-final.jpg','Fábrica de vídeos','ilimitado','15 cortes viram até 125 vídeos'],
+    ['../vault/img/cofre-plano.jpg','Cursos completos','inclusos','Do zero à venda, no Brasil e na Europa'],
+    ['img/poker.jpg','Produtos prontos','para vender','No Brasil e na Europa'],
+    ['../vault/img/fd-reel.jpg','Material de','divulgação','Posts, vídeos e textos para copiar'],
+    ['img/dinheiro.jpg','Links para','se afiliar','Venda cada produto e ganhe por venda']];
+  $('#gradeCofres').innerHTML=COFRES.map(([img,a,b,c],i)=>`<div class="cofre rev"><img src="${img}" alt="" loading="lazy"><span class="num">0${i+1}</span><div class="info"><span class="cad">${CAD}</span><b>${a}<br><span class="verde">${b}</span></b><small>${c}</small></div></div>`).join('');
+  const PROVAS=['criativos-7','criativos-5','cofre-5','criativos-2','criativos-1','cofre-3','criativos-3','criativos-6','criativos-4','criativos-0'];
+  $('#provasGrade').innerHTML=PROVAS.map(p=>`<img src="../vault/provas/${p}.jpg" alt="Print de mensagem de usuário" loading="lazy">`).join('');
+
   // ====== Revelar ao rolar ======
   const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} }),{threshold:.12});
   document.querySelectorAll('.rev').forEach(el=>io.observe(el));
 
-  const barra=$('#barra');
-  addEventListener('scroll',()=>{ const fim=document.body.scrollHeight-innerHeight-260; barra.classList.toggle('on', scrollY>520 && scrollY<fim); },{passive:true});
+  // barra fixa (some quando a oferta está na tela)
+  const barra=$('#barra'), oferta=$('#oferta');
+  addEventListener('scroll',()=>{ const r=oferta.getBoundingClientRect(); barra.classList.toggle('on', scrollY>600 && (r.top>innerHeight || r.bottom<0)); },{passive:true});
 
   document.querySelectorAll('[data-pontos]').forEach(p=>{
     const car=document.getElementById(p.dataset.pontos), n=car.children.length;
@@ -435,73 +498,42 @@ input[type=range]{width:100%;accent-color:var(--verde);height:28px}
     car.addEventListener('scroll',()=>{ const w=car.children[0].getBoundingClientRect().width+12; const i=Math.min(n-1,Math.round(car.scrollLeft/w)); p.querySelectorAll('i').forEach((d,k)=>d.classList.toggle('on',k===i)); },{passive:true});
   });
 
-  // ====== Calculadora ======
-  const SONHOS=[['Carro',60000,36],['Quitar dívida',8000,10],['Moto',25000,24],['Casa (entrada)',50000,48],['iPhone',9000,10],['Reserva',10000,12]];
-  const chips=$('#chips'), iv=$('#cValor'), im=$('#cMeses');
-  chips.innerHTML=SONHOS.map(([n],i)=>`<button type="button" aria-pressed="${i===0}" data-i="${i}">${n}</button>`).join('');
-  chips.onclick=e=>{ const b=e.target.closest('button'); if(!b) return; const [,v,m]=SONHOS[b.dataset.i];
-    chips.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); iv.value=v.toLocaleString('pt-BR'); im.value=m; calc(); };
-  const valor=()=>+(iv.value.replace(/\D/g,''))||0;
-  function calc(){ const v=valor(), m=+im.value; $('#cMesesTxt').textContent = m+' meses'+(m>=12?` (${(m/12).toLocaleString('pt-BR',{maximumFractionDigits:1})} ${m>=24?'anos':'ano'})`:'');
-    const mes=v/m; $('#cMes').textContent=brl(mes); $('#cDia').innerHTML=`por mês · cerca de <b>${brl(mes/30)}</b> por dia`; }
-  iv.addEventListener('input',()=>{ const v=valor(); iv.value=v?v.toLocaleString('pt-BR'):''; calc(); });
-  im.addEventListener('input',calc); calc();
-
-  // ====== Vídeo ======
+  // ====== VSL ======
   const vid=$('#video'), vp=$('#videoPlay');
-  vp.onclick=()=>{ vid.controls=true; vid.play(); vp.remove(); };
-  const TOP=[['Cadastro',4.6],['Primeiro cofre',9.8],['Criar conta',25.2],['Marcar o que guardou',30.4],['Wallpaper 4K',36],['Instalar no iPhone',41.2],['Notificações',51.7]];
-  $('#topicos').innerHTML=TOP.map(([n,t])=>`<button type="button" data-t="${t}">${n}</button>`).join('');
-  $('#topicos').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; if(document.body.contains(vp)) vp.click(); vid.currentTime=+b.dataset.t; vid.play(); vid.scrollIntoView({behavior:'smooth',block:'center'}); };
-
-  // ====== Wallpapers (os mesmos do app) ======
-  const FEED=['carro-5','moto-6','casa-4','notebook-4','liberdade-4','negocio-4','casa-6','praia-4','liberdade-5'];
-  const wsrc=f=>`../inspira/img/${f}.jpg`;
-  $('#feed').innerHTML=FEED.map(f=>`<button type="button" data-f="${f}"><img src="${wsrc(f)}" alt="Wallpaper" loading="lazy"><span class="trava">4K</span></button>`).join('');
-  const lb=$('#lb'); let lista=[], li=0;
-  function verLb(){ $('#lbImg').src=lista[li]; $('#lbAcoes').innerHTML=`<a class="btn btn-verde" href="${LINK_APP}">Quero esse na minha tela</a>`; }
-  function fecharLb(){ lb.classList.remove('on'); document.body.style.overflow=''; }
-  $('#feed').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; lista=FEED.map(wsrc); li=FEED.indexOf(b.dataset.f); verLb(); lb.classList.add('on'); document.body.style.overflow='hidden'; };
-  $('#lbAnt').onclick=()=>{ li=(li-1+lista.length)%lista.length; verLb(); };
-  $('#lbProx').onclick=()=>{ li=(li+1)%lista.length; verLb(); };
-  $('#lbX').onclick=fecharLb; lb.onclick=e=>{ if(e.target===lb) fecharLb(); };
-  let lx=null; lb.addEventListener('touchstart',e=>{ lx=e.touches[0].clientX; },{passive:true});
-  lb.addEventListener('touchend',e=>{ if(lx===null) return; const dx=e.changedTouches[0].clientX-lx; if(Math.abs(dx)>50) (dx<0?$('#lbProx'):$('#lbAnt')).click(); lx=null; },{passive:true});
+  vp.onclick=()=>{ vid.controls=true; vid.play().catch(()=>{}); vp.remove(); };
 
   // ====== Stories ======
   const ir = alvo => ({ alvo });
   const STORIES=[
-    {nome:'Comece', capa:'close', slides:[
-      {img:'heroi', titulo:['Riram do','*seu sonho?'], texto:'Deixa rirem. Quem tem plano não precisa explicar.'},
-      {img:'dinheiro', titulo:['Todo sonho','*tem um preço'], texto:'Quando você sabe quanto guardar por mês, o impossível vira meta.'},
-      {img:'carta', titulo:['Cofre dos','*Sonhos'], texto:'Dívidas organizadas, plano por mês, lembretes e a meta na tela de bloqueio.', cta:'Testar 7 dias grátis'}]},
-    {nome:'Dívidas', capa:'poker', slides:[
-      {img:'poker', titulo:['A dívida','*ri por último?'], texto:'Ela pesa no bolso e na cabeça. O primeiro passo é saber por onde começar.'},
-      {img:'selfie', titulo:['Qual pagar','*primeiro'], texto:'No Premium, o plano pra sair das dívidas mostra a ordem certa.', cta:'Testar 7 dias grátis'}]},
-    {nome:'Calcular', capa:'carro', rotulo:'R$', slides:[
-      {img:'carro', titulo:['Quanto custa','*seu sonho','por mês?'], texto:'Faça a conta em 10 segundos.', acao:ir('#calculadora'), cta:'Fazer a conta'}]},
-    {nome:'Tutorial', capa:'selfie', rotulo:'▶', slides:[
-      {img:'selfie', titulo:['Aprenda','*em 1 minuto'], texto:'Cadastro, cofre, wallpaper e notificações.', acao:ir('#tutorial'), cta:'Assistir o tutorial'}]},
-    {nome:'Renda 80%', capa:'beco', rotulo:'80%', slides:[
-      {img:'beco', titulo:['Eu uso','*máscara.'], texto:'Você nem precisa aparecer. Divulgue o Cofre e ganhe 80% por venda.', acao:ir('#renda'), cta:'Quero minha renda extra'}]},
-    {nome:'Dúvidas', capa:'carta', rotulo:'?', slides:[
-      {img:'carta', titulo:['Ficou','*alguma dúvida?'], texto:'Respondemos as perguntas mais comuns.', acao:ir('#faq'), cta:'Ver respostas'}]},
+    {nome:'Assista', capa:'close', rotulo:'▶', slides:[
+      {img:'heroi', titulo:['Riram de você','*por tentar vender?'], texto:'O problema nunca foi você. Era a falta de estrutura.'},
+      {img:'close', titulo:['Assista','*até o final'], texto:'O mais importante está no fim do vídeo.', acao:ir('#vsl'), cta:'Assistir agora'}]},
+    {nome:'O Cofre', capa:'carta', slides:[
+      {img:'carta', titulo:['Seis cofres.','*Uma só chave.'], texto:'Página, vídeos, cursos, produtos, material e links de afiliado.', acao:ir('#cofres'), cta:'Ver o que tem dentro'}]},
+    {nome:'Euro', capa:'dinheiro', rotulo:'€', slides:[
+      {img:'dinheiro', titulo:['Comissão','*em euro'], texto:'Uma venda na Espanha vale quase 7 no Brasil.', acao:ir('#euro'), cta:'Ver a conta'}]},
+    {nome:'Prints', capa:'selfie', slides:[
+      {img:'selfie', titulo:['Não é promessa.','*É print.'], texto:'Mensagens reais de quem já usa as ferramentas.', acao:ir('#provas'), cta:'Ver os prints'}]},
+    {nome:'Sem rosto', capa:'beco', rotulo:'🃏', slides:[
+      {img:'beco', titulo:['Eu uso','*máscara.'], texto:'Você nem precisa aparecer.', acao:ir('#mascara'), cta:'Como funciona'}]},
+    {nome:'Black Friday', capa:'poker', rotulo:'39', slides:[
+      {img:'poker', titulo:['R$ 39,90','*só até 30/11'], texto:'Pagamento único, acesso imediato e 7 dias de garantia.', cta:'Garantir minha chave'}]},
   ];
-  const vistos=(()=>{ try{ return JSON.parse(localStorage.getItem('cor-vistos')||'[]'); }catch(e){ return []; } })();
+  const vistos=(()=>{ try{ return JSON.parse(localStorage.getItem('cor-vault-vistos')||'[]'); }catch(e){ return []; } })();
   $('#stories').innerHTML=STORIES.map((s,i)=>`<button class="story ${vistos.includes(i)?'visto':''}" data-s="${i}"><span class="anel"><img src="img/${s.capa}.jpg" alt="">${s.rotulo?`<span>${s.rotulo}</span>`:''}</span><span class="nome">${s.nome}</span></button>`).join('');
 
   const sv=$('#sv'), palco=$('#svPalco'); let si=0, sl=0, timer=null, ini=0, DUR=6000, pausado=false, restante=DUR;
   const tituloHtml=ls=>ls.map(l=>l.startsWith('*')?`<span class="verde">${l.slice(1)}</span>`:l).join('<br>');
   function abrir(i){ si=i; sl=0; sv.classList.add('on'); document.body.style.overflow='hidden'; mostrar(); marcar(i); }
   function fechar(){ clearTimeout(timer); sv.classList.remove('on'); document.body.style.overflow=''; }
-  function marcar(i){ if(!vistos.includes(i)){ vistos.push(i); try{ localStorage.setItem('cor-vistos',JSON.stringify(vistos)); }catch(e){} } const b=document.querySelector(`.story[data-s="${i}"]`); if(b) b.classList.add('visto'); }
+  function marcar(i){ if(!vistos.includes(i)){ vistos.push(i); try{ localStorage.setItem('cor-vault-vistos',JSON.stringify(vistos)); }catch(e){} } const b=document.querySelector(`.story[data-s="${i}"]`); if(b) b.classList.add('visto'); }
   function mostrar(){
     const s=STORIES[si], d=s.slides[sl];
     palco.innerHTML=`<img src="img/${d.img}.jpg" alt="">
       <div class="sv-barras">${s.slides.map((_,k)=>`<i><b style="width:${k<sl?100:0}%"></b></i>`).join('')}</div>
       <div class="sv-topo"><img src="img/perfil.jpg" alt=""><span>imcoringa_</span><span class="fraco" style="font-weight:500">${s.nome}</span><button class="x" aria-label="Fechar">×</button></div>
       <button class="sv-toque esq" aria-label="Anterior"></button><button class="sv-toque dir" aria-label="Próximo"></button>
-      <div class="sv-texto"><h2 class="titulo">${tituloHtml(d.titulo)}</h2><p>${d.texto}</p>${d.cta?`<a class="btn btn-verde" href="${d.acao?d.acao.alvo:LINK_APP}" data-cta>${d.cta}</a>`:''}</div>`;
+      <div class="sv-texto"><h2 class="titulo">${tituloHtml(d.titulo)}</h2><p>${d.texto}</p>${d.cta?`<a class="btn btn-verde" href="${d.acao?d.acao.alvo:LINK_CHECKOUT}" data-cta>${d.cta}</a>`:''}</div>`;
     palco.querySelector('.x').onclick=fechar;
     palco.querySelector('.esq').onclick=ant; palco.querySelector('.dir').onclick=prox;
     const cta=palco.querySelector('[data-cta]');
