@@ -12,37 +12,75 @@
   :root{--noite:#0c1222;--ardosia:#141c31;--cartao:#19223b;--linha:#27324f;--gelo:#edf1f8;--nevoa:#9aa6be;--ouro:#e2c48a;--ouro-forte:#c9a45f;--tinta:#1d1608;--aurora:#7fe0c9;--alerta:#f2a07b;--perigo:#ef8d8d;--zap:#25d366}
   *{box-sizing:border-box} html,body{margin:0;background:var(--noite);color:var(--gelo);font:15px/1.45 "DM Sans",system-ui,sans-serif}
   button,input,select,textarea{font:inherit;color:inherit}
-  .topo{position:sticky;top:0;z-index:5;background:rgba(12,18,34,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--linha);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .topo{position:sticky;top:0;z-index:5;background:rgba(12,18,34,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--linha);padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .marca{font-family:Lora,serif;font-size:19px;font-weight:500;margin-right:auto} .marca em{color:var(--ouro);font-style:italic;font-weight:400} .marca small{display:block;font:500 11px "DM Sans";letter-spacing:.14em;color:var(--nevoa);text-transform:uppercase}
-  main{max-width:1180px;margin:0 auto;padding:16px}
+  main{max-width:1180px;margin:0 auto;padding:18px 16px 40px}
   .b{border:1px solid var(--linha);background:var(--cartao);border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:500}
   .b:hover{border-color:var(--ouro-forte)} .b.ouro{background:var(--ouro);color:var(--tinta);border-color:var(--ouro)}
   .b.zap{background:var(--zap);border-color:var(--zap);color:#062b14;font-weight:700;white-space:nowrap}
+  .b.pequeno{padding:7px 12px;font-size:13.5px}
   .b:disabled{opacity:.45;cursor:not-allowed}
-  .contadores{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:14px}
-  .cont{text-align:left;border:1px solid var(--linha);background:var(--ardosia);border-radius:12px;padding:12px;cursor:pointer}
-  .cont b{display:block;font-size:26px;font-variant-numeric:tabular-nums;line-height:1.1} .cont span{color:var(--nevoa);font-size:13px}
-  .funil{display:flex;flex-direction:column;gap:8px;margin:6px 0 10px}
-  .etapa{display:grid;grid-template-columns:minmax(150px,220px) 1fr 110px;gap:12px;align-items:center;background:var(--ardosia);border:1px solid var(--linha);border-radius:12px;padding:10px 12px}
-  .et-txt small,.et-conv small{display:block;color:var(--nevoa);font-size:12px}
-  .et-barra{position:relative;height:26px;background:rgba(255,255,255,.04);border-radius:8px;overflow:hidden}
-  .et-barra i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--ouro-forte),var(--ouro));border-radius:8px}
-  .et-barra span{position:absolute;top:0;line-height:26px;font-weight:700}
-  .et-conv{text-align:right}.et-conv b{color:var(--aurora)}
-  .sec{margin:22px 0 10px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--nevoa);font-weight:500}
-  .dias{display:flex;gap:4px;align-items:flex-end;height:140px;background:var(--ardosia);border:1px solid var(--linha);border-radius:12px;padding:12px 10px 26px;overflow-x:auto}
-  .dia{flex:1;min-width:16px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative}
-  .dia i{width:100%;max-width:26px;background:var(--ouro);border-radius:4px 4px 0 0}
-  .dia small{position:absolute;bottom:-20px;font-size:10px;color:var(--nevoa);white-space:nowrap}
-  @media (max-width:760px){ .etapa{grid-template-columns:1fr 70px} .et-barra{grid-column:1 / -1;grid-row:2} .dia small{display:none} }
-  .cont-pix{border-color:rgba(242,160,123,.45);background:#2a1f22}.cont-pix span{color:var(--alerta)}
-  .cont[aria-pressed=true]{border-color:var(--ouro);box-shadow:0 0 0 1px var(--ouro) inset}
+  /* abas (igual ao painel da Fábrica) */
+  .pn-abas{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 22px}
+  .pn-aba{border:1px solid var(--linha);background:var(--ardosia);border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:700;font-size:14px;color:var(--gelo)}
+  .pn-aba[aria-pressed=true]{border-color:var(--ouro);background:rgba(226,196,138,.1);color:var(--ouro)}
+  .pn-topo{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between;margin-bottom:16px}
+  .pn-topo h1{font-family:Lora,serif;font-weight:500;font-size:clamp(26px,4vw,34px);margin:0}
+  .pn-topo h1 em{color:var(--ouro);font-weight:400}
+  .pn-periodos{display:flex;flex-wrap:wrap;gap:6px;flex:1;justify-content:center}
+  .chip{border:1px solid var(--linha);background:var(--ardosia);border-radius:10px;padding:7px 14px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--gelo);min-height:38px}
+  .chip[aria-pressed=true]{border-color:var(--ouro);background:rgba(226,196,138,.1);color:var(--ouro)}
+  /* cartões */
+  .pn-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+  .pn-card{background:var(--ardosia);border:1px solid var(--linha);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0;text-align:left}
+  .pn-card span{font-size:12.5px;color:var(--nevoa);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .pn-card strong{font-size:clamp(24px,3vw,32px);font-weight:700;line-height:1.1;color:var(--gelo);font-variant-numeric:tabular-nums}
+  .pn-card small{font-size:12.5px;color:var(--nevoa)}
+  .pn-card.destaque{border-color:#2f6b5c;background:linear-gradient(160deg,rgba(127,224,201,.09),var(--ardosia))}
+  .pn-card.destaque strong{color:var(--aurora)}
+  .pn-card.ouro{border-color:#6b5a35;background:linear-gradient(160deg,rgba(226,196,138,.1),var(--ardosia))}
+  .pn-card.ouro strong{color:var(--ouro)}
+  .pn-card.alerta{border-color:#7a4a35;background:linear-gradient(160deg,rgba(242,160,123,.1),var(--ardosia))}
+  .pn-card.alerta strong{color:var(--alerta)}
+  button.pn-card{cursor:pointer;font:inherit;color:inherit} button.pn-card:hover{border-color:var(--ouro-forte)}
+  button.pn-card[aria-pressed=true]{border-color:var(--ouro);box-shadow:0 0 0 1px var(--ouro) inset}
+  /* blocos */
+  .pn-bloco{background:var(--ardosia);border:1px solid var(--linha);border-radius:16px;padding:18px;margin-bottom:16px}
+  .pn-bloco h2{font-family:Lora,serif;font-size:21px;font-weight:500;margin:0 0 6px}
+  .pn-bloco h3{font-size:14px;font-weight:700;margin:4px 0 10px}
+  .mudo{color:var(--nevoa)} .pn-bloco .mudo{font-size:13.5px;margin:0 0 12px}
+  .pn-funil{display:grid;gap:9px}
+  .pn-linha{display:grid;grid-template-columns:minmax(130px,250px) 1fr 54px 150px;align-items:center;gap:10px;font-size:14px}
+  .pn-linha .pn-rot small{display:block;color:var(--nevoa);font-size:12px}
+  .pn-linha b{text-align:right;font-variant-numeric:tabular-nums}
+  .pn-linha .pn-conv{font-size:12px;color:var(--nevoa)} .pn-linha .pn-conv em{font-style:normal;color:var(--aurora);font-weight:700}
+  .pn-barra{height:12px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
+  .pn-barra i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--ouro-forte),var(--ouro))}
+  .pn-barra.verde i{background:linear-gradient(90deg,#4fb8a0,var(--aurora))}
+  .pn-dias{display:flex;gap:4px;align-items:flex-end;overflow-x:auto;padding-bottom:4px}
+  .pn-dia{flex:1 0 46px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;color:var(--nevoa)}
+  .pn-col{position:relative;width:100%;height:140px;display:flex;align-items:flex-end;justify-content:center;background:rgba(255,255,255,.03);border-radius:6px}
+  .pn-col i{display:block;width:70%;border-radius:5px 5px 0 0;background:linear-gradient(180deg,var(--ouro),var(--ouro-forte))}
+  .pn-col em{position:absolute;top:2px;font-style:normal;font-size:10.5px;color:var(--gelo)}
+  .pn-dia-num{display:flex;gap:4px;justify-content:center;margin-top:4px}
+  .pn-dia-num b,.pn-leg{display:inline-block;min-width:18px;padding:1px 5px;border-radius:5px;font-size:11px;background:rgba(255,255,255,.08);color:var(--gelo);text-align:center}
+  .pn-dia-num b.pn-pg,.pn-leg.pn-pg{background:rgba(127,224,201,.16);color:var(--aurora)}
+  .pn-grade2{display:grid;grid-template-columns:1fr 1fr;gap:18px 26px}
+  .pn-acoes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .pn-link{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:1px solid var(--linha);border-radius:12px;background:var(--ardosia);margin-bottom:8px}
+  .pn-link code{display:block;font-size:12.5px;color:var(--ouro);word-break:break-all;margin-top:3px}
+  .campo{display:flex;flex-direction:column;gap:6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--nevoa);font-weight:700}
+  .campo input{background:var(--noite);border:1px solid var(--linha);border-radius:10px;padding:11px 12px;font-size:15px;letter-spacing:0;text-transform:none;font-weight:400;color:var(--gelo)}
+  @media(max-width:600px){.pn-periodos{flex-basis:100%;justify-content:flex-start;order:3}}
+  @media(max-width:860px){.pn-kpis,.pn-acoes{grid-template-columns:repeat(2,minmax(0,1fr))}.pn-grade2{grid-template-columns:1fr}.pn-linha{grid-template-columns:minmax(100px,150px) 1fr 40px;font-size:13px}.pn-linha .pn-conv{grid-column:1/-1;margin-top:-4px}}
+  /* clientes */
   .filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
   .filtros input[type=search]{flex:1;min-width:200px;background:var(--ardosia);border:1px solid var(--linha);border-radius:10px;padding:9px 12px}
-  .chip{border:1px solid var(--linha);background:transparent;border-radius:999px;padding:6px 12px;cursor:pointer;font-size:13px;color:var(--nevoa)}
-  .chip[aria-pressed=true]{border-color:var(--ouro);color:var(--ouro)}
-  table{width:100%;border-collapse:collapse} th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--nevoa);font-weight:500;padding:8px 10px;border-bottom:1px solid var(--linha)}
-  td{padding:11px 10px;border-bottom:1px solid var(--linha);vertical-align:middle}
+  .filtros .chip{border-radius:999px;font-weight:500;color:var(--nevoa);min-height:34px;padding:6px 12px;font-size:13px}
+  .filtros .chip[aria-pressed=true]{color:var(--ouro)}
+  .tabela-caixa{overflow-x:auto;border-radius:14px;border:1px solid var(--linha)}
+  table{width:100%;border-collapse:collapse} th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--nevoa);font-weight:700;padding:12px 14px;background:var(--ardosia)}
+  td{padding:12px 14px;border-top:1px solid var(--linha);vertical-align:middle}
   td small{color:var(--nevoa);display:block;font-size:12px}
   .tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;white-space:nowrap}
   .t-tri{background:#1d3a33;color:var(--aurora)} .t-men{background:#2a3350;color:#a9c1ff} .t-lib{background:#33301f;color:var(--ouro)}
@@ -57,8 +95,9 @@
   dialog textarea{width:100%;min-height:110px;background:var(--noite);border:1px solid var(--linha);border-radius:10px;padding:10px;resize:vertical}
   dialog h3{margin:14px 0 6px;font-size:14px}
   @media (max-width:760px){
-    thead{display:none} table,tbody,tr,td{display:block;width:100%} tr{border:1px solid var(--linha);border-radius:12px;margin-bottom:10px;padding:6px 4px;background:var(--ardosia)}
-    td{border:0;padding:6px 10px} td.acao{padding-top:8px}
+    .tabela-clientes thead{display:none} .tabela-clientes,.tabela-clientes tbody,.tabela-clientes tr,.tabela-clientes td{display:block;width:100%} .tabela-clientes tr{border:1px solid var(--linha);border-radius:12px;margin-bottom:10px;padding:6px 4px;background:var(--ardosia)}
+    .tabela-clientes td{border:0;padding:6px 10px} .caixa-clientes{border:0;overflow:visible}
+    .topo .b{padding:7px 10px;font-size:13px}
   }
 </style>
 </head>
@@ -78,7 +117,7 @@ async function chamar(corpo){
 const $=s=>document.querySelector(s), app=$('#app');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const H=36e5, D=24*H;
-let clientes=[], filtro='todos', extra='', busca='', aba='clientes', funilDias=7, funilDados=null;
+let clientes=[], filtro='todos', extra='', busca='', aba='geral', funilDias=7, funilDados=null, vezFunil=0;
 
 // Situações (mesma regra do app) e a mensagem pronta de cada uma.
 const SIT={
@@ -189,35 +228,20 @@ async function iniciar(){
   clientes=(r.d.clientes||[]).map(c=>({...c, sit:situacao(c)}));
   desenhar();
 }
+/* ---------- estrutura: topo + abas (mesmo formato do painel da Fábrica) ---------- */
+const ABAS=[['geral','Visão geral'],['clientes','Clientes'],['links','Links de divulgação']];
 function desenhar(){
-  if(aba==='funil') return desenharFunil();
-  const cont={}; Object.keys(SIT).forEach(k=>cont[k]=0); clientes.forEach(c=>cont[c.sit]++);
-  const semZap=clientes.filter(c=>!c.whatsapp).length, nPix=clientes.filter(pixAberto).length;
-  app.innerHTML=`<header class="topo"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel de clientes</small></div>
-      <button class="b" id="bFunil">📊 Funil</button><button class="b" id="bMsgs">Mensagens prontas</button><button class="b" id="bCsv">Baixar planilha</button><button class="b" id="bAtual">Atualizar</button><button class="b" id="bSair">Sair</button></header>
-    <main>
-      <div class="contadores">
-        <button class="cont" data-f="todos" aria-pressed="${filtro==='todos'}"><b>${clientes.length}</b><span>Todos os clientes</span></button>
-        <button class="cont cont-pix" data-f="pix" aria-pressed="${filtro==='pix'}"><b>${nPix}</b><span>🛒 Gerou Pix e não pagou</span></button>
-        ${Object.entries(SIT).map(([k,s])=>`<button class="cont" data-f="${k}" aria-pressed="${filtro===k}"><b>${cont[k]}</b><span>${s.n}</span></button>`).join('')}
-      </div>
-      <div class="filtros"><input type="search" id="busca" placeholder="Buscar nome, e-mail ou WhatsApp" value="${esc(busca)}">
-        <button class="chip" data-x="venc48" aria-pressed="${extra==='venc48'}">🔥 Teste venceu há menos de 48h</button>
-        <button class="chip" data-x="bas7" aria-pressed="${extra==='bas7'}">Básico há 7+ dias</button>
-        <button class="chip" data-x="teste2" aria-pressed="${extra==='teste2'}">Teste acabando (2 dias)</button>
-        <button class="chip" data-x="semzap" aria-pressed="${extra==='semzap'}">Sem WhatsApp (${semZap})</button>
-      </div>
-      <div id="lista"></div>
-      <p class="nota" style="margin-top:14px">Quem criou conta antes do campo de WhatsApp aparece "sem número" até abrir o app de novo, quando o número é pedido.</p>
-    </main>`;
-  app.querySelectorAll('.cont').forEach(b=>b.onclick=()=>{ filtro=b.dataset.f; desenhar(); });
-  app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ extra= extra===b.dataset.x?'':b.dataset.x; desenhar(); });
-  const bi=$('#busca'); bi.oninput=()=>{ busca=bi.value; lista(); };
-  $('#bAtual').onclick=iniciar; $('#bSair').onclick=()=>{ gravarToken(''); telaLogin('Você saiu do painel.'); };
-  $('#bCsv').onclick=baixarCsv; $('#bMsgs').onclick=editarMsgs; $('#bFunil').onclick=()=>{ aba='funil'; desenhar(); };
-  lista();
+  app.innerHTML=`<header class="topo"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel do dono</small></div>
+      <button class="b pequeno" id="bMsgs">Mensagens prontas</button><button class="b pequeno" id="bAtual">Atualizar</button><button class="b pequeno" id="bSair">Sair</button></header>
+    <main><nav class="pn-abas">${ABAS.map(([k,n])=>`<button class="pn-aba" data-aba="${k}" aria-pressed="${aba===k}">${n}${k==='clientes'?` (${clientes.length})`:''}</button>`).join('')}</nav><div id="corpo"></div></main>`;
+  app.querySelectorAll('[data-aba]').forEach(b=>b.onclick=()=>{ aba=b.dataset.aba; desenhar(); });
+  $('#bMsgs').onclick=editarMsgs; $('#bAtual').onclick=iniciar;
+  $('#bSair').onclick=()=>{ gravarToken(''); telaLogin('Você saiu do painel.'); };
+  if(aba==='clientes') telaClientes(); else if(aba==='links') telaLinks(); else visaoGeral();
 }
-/* ---------- funil ---------- */
+function irPara(f,x){ aba='clientes'; filtro=f; extra=x||''; busca=''; desenhar(); window.scrollTo(0,0); }
+
+/* ---------- visão geral ---------- */
 const ETAPAS=[
   ['visitas','Visitaram o site','Pessoas diferentes que abriram o app'],
   ['inicio','Começaram o cadastro','Digitaram o nome'],
@@ -228,46 +252,111 @@ const ETAPAS=[
   ['pix','Geraram o Pix','Tentaram assinar'],
   ['pagou','Pagaram','Viraram clientes Premium']
 ];
-async function carregarFunil(){
-  $('#funilCorpo').innerHTML='<p class="vazio">Carregando…</p>';
+const PERIODOS=[[1,'Hoje'],[7,'7 dias'],[30,'30 dias'],[90,'90 dias'],[3650,'Tudo']];
+const num=n=>Number(n||0).toLocaleString('pt-BR');
+const pct=(a,b)=>(b && a<=b) ? Math.round(a/b*1000)/10+'%' : '–';
+async function visaoGeral(){
+  const corpo=$('#corpo');
+  corpo.innerHTML=`<div class="pn-topo"><h1>Visão <em>geral</em></h1><div class="pn-periodos">${PERIODOS.map(([d,n])=>`<button class="chip" data-d="${d}" aria-pressed="${funilDias===d}">${n}</button>`).join('')}</div></div><div id="geralCorpo"><p class="vazio">Carregando os números…</p></div>`;
+  corpo.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{ funilDias=+b.dataset.d; visaoGeral(); });
+  const vez=++vezFunil;
   const r=await chamar({token:lerToken(), funil:funilDias}).catch(()=>null);
-  if(!r){ $('#funilCorpo').innerHTML='<p class="vazio">Sem conexão.</p>'; return; }
+  if(vez!==vezFunil || !$('#geralCorpo')) return; // trocou de aba ou de período enquanto carregava
+  if(!r){ $('#geralCorpo').innerHTML='<p class="vazio">Sem conexão.</p>'; return; }
   if(r.status===401){ gravarToken(''); return telaLogin('Sua sessão terminou. Entre de novo.'); }
-  if(!r.ok){ $('#funilCorpo').innerHTML=`<p class="vazio">${esc(r.d.erro||'Não deu para carregar.')}</p>`; return; }
-  funilDados=r.d.funil; corpoFunil();
+  if(!r.ok){ $('#geralCorpo').innerHTML=`<p class="vazio">${esc(r.d.erro||'Não deu para carregar.')}</p>`; return; }
+  funilDados=r.d.funil||{}; corpoGeral();
 }
-function desenharFunil(){
-  app.innerHTML=`<header class="topo"><div class="marca">Cofre <em>dos Sonhos</em><small>Funil de vendas</small></div>
-      <button class="b" id="bVoltar">👥 Clientes</button><button class="b" id="bAtualF">Atualizar</button><button class="b" id="bSair">Sair</button></header>
-    <main><div class="filtros">${[[1,'Hoje'],[7,'7 dias'],[30,'30 dias'],[90,'90 dias'],[3650,'Tudo']].map(([d,n])=>`<button class="chip" data-d="${d}" aria-pressed="${funilDias===d}">${n}</button>`).join('')}</div>
-    <div id="funilCorpo"></div>
-    <p class="nota" style="margin-top:16px">Visitas contam pessoas diferentes por dia, sem guardar nenhum dado pessoal. Os números começam a contar a partir de 01/11/2026; as etapas de conta, WhatsApp, teste, Pix e pagamento já incluem quem chegou antes.</p></main>`;
-  app.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{ funilDias=+b.dataset.d; desenharFunil(); });
-  $('#bVoltar').onclick=()=>{ aba='clientes'; desenhar(); }; $('#bAtualF').onclick=carregarFunil;
-  $('#bSair').onclick=()=>{ gravarToken(''); telaLogin('Você saiu do painel.'); };
-  carregarFunil();
-}
-function corpoFunil(){
+function corpoGeral(){
   const cs=funilDados.campanhas||[], tot={}; ETAPAS.forEach(([k])=>tot[k]=cs.reduce((a,c)=>a+(+c[k]||0),0));
-  const topo=Math.max(1,...ETAPAS.map(([k])=>tot[k]));
-  const pct=(a,b)=>b?Math.round(a/b*100)+'%':'—';
-  const dias=funilDados.dias||[], maxDia=Math.max(1,...dias.map(d=>d.visitas||0));
-  $('#funilCorpo').innerHTML=`
-    <div class="contadores">
-      <div class="cont"><b>${tot.visitas}</b><span>Visitas</span></div>
-      <div class="cont"><b>${tot.contas}</b><span>Contas criadas</span></div>
-      <div class="cont"><b>${tot.pagou}</b><span>Pagaram</span></div>
-      <div class="cont"><b>${pct(tot.pagou,tot.visitas)}</b><span>Visita → venda</span></div>
+  const agora=Date.now(), cont={}; Object.keys(SIT).forEach(k=>cont[k]=0); clientes.forEach(c=>cont[c.sit]++);
+  const nPix=clientes.filter(pixAberto).length;
+  const venc48=clientes.filter(c=>c.sit==='venc' && agora-Date.parse(c.teste_ate)<48*H).length;
+  const teste2=clientes.filter(c=>c.sit==='teste' && Date.parse(c.teste_ate)-agora<=2*D).length;
+  const bas7=clientes.filter(c=>c.sit==='bas' && agora-Date.parse(c.criado)>=7*D).length;
+  const premium=cont.men+cont.tri+cont.lib, mrr=cont.men*12.9+cont.tri*29.9/3;
+  const card=(rot,val,sub,cls)=>`<div class="pn-card ${cls||''}"><span>${rot}</span><strong>${val}</strong>${sub?`<small>${sub}</small>`:''}</div>`;
+  const acao=(rot,n,sub,f,x)=>`<button type="button" class="pn-card ${n?'alerta':''}" data-f="${f}" data-x="${x||''}"><span>${rot}</span><strong>${n}</strong><small>${sub}</small></button>`;
+  let h=`<div class="pn-kpis">
+      ${card('Visitas no site',num(tot.visitas),'pessoas diferentes no período')}
+      ${card('Contas criadas',num(tot.contas),pct(tot.contas,tot.visitas)+' das visitas')}
+      ${card('Testes ativados',num(tot.teste),num(tot.pix)+' geraram Pix')}
+      ${card('Pagaram',num(tot.pagou),pct(tot.pagou,tot.visitas)+' das visitas viraram venda','destaque')}
+      ${card('Premium ativos agora',num(premium),`${cont.men} mensal · ${cont.tri} trimestral · ${cont.lib} liberado${cont.lib===1?'':'s'}`,'ouro')}
+      ${card('Receita por mês',brl(mrr),'estimada pelos planos pagos ativos','destaque')}
+      ${card('Testes em andamento',num(cont.teste),`${teste2} acaba${teste2===1?'':'m'} em até 2 dias`)}
+      ${card('Básico vitalício',num(cont.bas),`${bas7} há mais de 7 dias (dá pra oferecer Premium)`)}
     </div>
-    <div class="funil">${ETAPAS.map(([k,n,dsc],i)=>{ const v=tot[k], ant=i?tot[ETAPAS[i-1][0]]:null, perdeu=ant!==null&&ant>v?ant-v:0;
-      return `<div class="etapa"><div class="et-txt"><b>${n}</b><small>${dsc}</small></div>
-        <div class="et-barra">${(()=>{ const w=Math.max(2,v/topo*100); return `<i style="width:${w}%"></i><span style="${w>80?'left:10px;color:#1d1608':`left:calc(${w}% + 8px);color:var(--gelo)`}">${v}</span>`; })()}</div>
-        <div class="et-conv">${i?`<b>${pct(v,ant)}</b><small>${perdeu?`${perdeu} não chegaram aqui`:'&nbsp;'}</small>`:''}</div></div>`; }).join('')}</div>
-    ${dias.length>1?`<h3 class="sec">Visitas por dia</h3><div class="dias">${dias.map(d=>`<div class="dia" title="${d.visitas} visitas · ${d.contas} contas"><i style="height:${Math.max(2,(d.visitas||0)/maxDia*100)}%"></i><small>${new Date(d.dia+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</small></div>`).join('')}</div>`:''}
-    <h3 class="sec">De onde vieram</h3>
-    ${cs.length?`<table><thead><tr><th>Origem</th><th>Visitas</th><th>Contas</th><th>Teste</th><th>Pix</th><th>Pagaram</th><th>Conversão</th></tr></thead><tbody>
-      ${cs.map(c=>`<tr><td><b>${esc(c.campanha==='DIRETO'?'Direto (sem código)':c.campanha)}</b></td><td>${c.visitas}</td><td>${c.contas}</td><td>${c.teste}</td><td>${c.pix}</td><td><b>${c.pagou}</b></td><td>${pct(c.pagou,c.visitas||c.contas)}</td></tr>`).join('')}
-    </tbody></table>`:'<p class="vazio">Ainda sem dados neste período.</p>'}`;
+    <div class="pn-bloco"><h2>Precisa de atenção agora</h2><p class="mudo">Toque num cartão para abrir a lista dessas pessoas já com a mensagem certa para o WhatsApp.</p><div class="pn-acoes">
+      ${acao('Gerou Pix e não pagou',nPix,'quase compraram','pix')}
+      ${acao('Teste venceu há menos de 48h',venc48,'hora da oferta com desconto','todos','venc48')}
+      ${acao('Teste acabando',teste2,'faltam 2 dias ou menos','todos','teste2')}
+      ${acao('Básico há 7+ dias',bas7,'prontos para o Premium','todos','bas7')}
+    </div></div>`;
+  // funil
+  const topo=Math.max(1,...ETAPAS.map(([k])=>tot[k]));
+  h+=`<div class="pn-bloco"><h2>Funil de vendas</h2><p class="mudo">Cada etapa conta pessoas. Ao lado, quantas passaram da etapa anterior. Onde a barra cai mais é onde você está perdendo gente.</p><div class="pn-funil">${ETAPAS.map(([k,n,dsc],i)=>{ const v=tot[k], ant=i?tot[ETAPAS[i-1][0]]:null, perdeu=ant!==null&&ant>v?ant-v:0;
+    return `<div class="pn-linha"><span class="pn-rot">${i+1}. ${n}<small>${dsc}</small></span><div class="pn-barra ${k==='pagou'?'verde':''}"><i style="width:${Math.max(2,v/topo*100)}%"></i></div><b>${num(v)}</b><span class="pn-conv">${i?`<em>${pct(v,ant)}</em>${perdeu?` · ${perdeu} não chegaram`:''}`:''}</span></div>`; }).join('')}</div></div>`;
+  // dia a dia
+  const dias=funilDados.dias||[], maxD=Math.max(1,...dias.map(d=>d.visitas||0));
+  if(dias.length) h+=`<div class="pn-bloco"><h2>Dia a dia</h2><p class="mudo">Barra dourada = visitas no site. Embaixo de cada dia: <b class="pn-leg">contas criadas</b>. Passe o dedo/mouse no dia para ver tudo.</p><div class="pn-dias">${dias.map(d=>`<div class="pn-dia" title="${esc(d.dia)}: ${d.visitas||0} visitas, ${d.contas||0} contas"><div class="pn-col"><i style="height:${Math.max(2,(d.visitas||0)/maxD*100)}%"></i><em>${d.visitas||''}</em></div><small class="pn-dia-num"><b>${d.contas||0}</b></small><span>${new Date(d.dia+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span></div>`).join('')}</div></div>`;
+  // origem
+  h+=`<div class="pn-bloco"><h2>De onde vêm as pessoas</h2><p class="mudo">Use os links da aba <b>Links de divulgação</b> (ou um cupom) em cada lugar para saber o que traz cliente de verdade.</p>
+    ${cs.length?`<div class="tabela-caixa"><table><thead><tr><th>Origem</th><th>Visitas</th><th>Contas</th><th>Teste</th><th>Pix</th><th>Pagaram</th><th>Visita → venda</th></tr></thead><tbody>
+      ${cs.map(c=>`<tr><td><b>${esc(c.campanha==='DIRETO'?'Direto (sem código)':c.campanha)}</b></td><td>${num(c.visitas)}</td><td>${num(c.contas)}</td><td>${num(c.teste)}</td><td>${num(c.pix)}</td><td><b style="color:var(--aurora)">${num(c.pagou)}</b></td><td>${pct(c.pagou,c.visitas)}</td></tr>`).join('')}
+    </tbody></table></div>`:'<p class="vazio">Ainda sem dados neste período.</p>'}</div>`;
+  // clientes por situação
+  const maxS=Math.max(1,...Object.values(cont));
+  h+=`<div class="pn-bloco"><h2>Clientes por situação</h2><p class="mudo">Todos os clientes, hoje. Toque numa linha para ver a lista.</p><div class="pn-funil">${Object.entries(SIT).map(([k,s])=>`<div class="pn-linha" role="button" tabindex="0" data-sit="${k}" style="cursor:pointer"><span class="pn-rot"><span class="tag ${s.c}">${s.n}</span></span><div class="pn-barra ${['men','tri','lib'].includes(k)?'verde':''}"><i style="width:${Math.max(2,cont[k]/maxS*100)}%"></i></div><b>${num(cont[k])}</b><span class="pn-conv">${pct(cont[k],clientes.length)} do total</span></div>`).join('')}</div></div>
+    <p class="nota">Visitas contam pessoas diferentes por dia, sem guardar nenhum dado pessoal. Os números de visita começam em 01/11/2026; as etapas de conta, WhatsApp, teste, Pix e pagamento já incluem quem chegou antes. A receita por mês é uma estimativa (mensal R$ 12,90 e trimestral R$ 29,90 ÷ 3).</p>`;
+  const g=$('#geralCorpo'); g.innerHTML=h;
+  g.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>irPara(b.dataset.f,b.dataset.x));
+  g.querySelectorAll('[data-sit]').forEach(b=>{ const ir=()=>irPara(b.dataset.sit); b.onclick=ir; b.onkeydown=e=>{ if(e.key==='Enter') ir(); }; });
+}
+
+/* ---------- clientes ---------- */
+function telaClientes(){
+  const cont={}; Object.keys(SIT).forEach(k=>cont[k]=0); clientes.forEach(c=>cont[c.sit]++);
+  const semZap=clientes.filter(c=>!c.whatsapp).length, nPix=clientes.filter(pixAberto).length;
+  $('#corpo').innerHTML=`<div class="pn-topo"><h1>Clientes</h1><button class="b pequeno" id="bCsv">Baixar planilha</button></div>
+    <div class="pn-kpis" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))">
+      <button class="pn-card" data-f="todos" aria-pressed="${filtro==='todos'}"><span>Todos</span><strong>${clientes.length}</strong></button>
+      <button class="pn-card ${nPix?'alerta':''}" data-f="pix" aria-pressed="${filtro==='pix'}"><span>🛒 Pix sem pagar</span><strong>${nPix}</strong></button>
+      ${Object.entries(SIT).map(([k,s])=>`<button class="pn-card" data-f="${k}" aria-pressed="${filtro===k}"><span>${s.n}</span><strong>${cont[k]}</strong></button>`).join('')}
+    </div>
+    <div class="filtros"><input type="search" id="busca" placeholder="Buscar nome, e-mail ou WhatsApp" value="${esc(busca)}">
+      <button class="chip" data-x="venc48" aria-pressed="${extra==='venc48'}">🔥 Teste venceu há menos de 48h</button>
+      <button class="chip" data-x="bas7" aria-pressed="${extra==='bas7'}">Básico há 7+ dias</button>
+      <button class="chip" data-x="teste2" aria-pressed="${extra==='teste2'}">Teste acabando (2 dias)</button>
+      <button class="chip" data-x="semzap" aria-pressed="${extra==='semzap'}">Sem WhatsApp (${semZap})</button>
+    </div>
+    <div id="lista"></div>
+    <p class="nota" style="margin-top:14px">Quem criou conta antes do campo de WhatsApp aparece "sem número" até abrir o app de novo, quando o número é pedido.</p>`;
+  const corpo=$('#corpo');
+  corpo.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{ filtro=b.dataset.f; telaClientes(); });
+  corpo.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>{ extra= extra===b.dataset.x?'':b.dataset.x; telaClientes(); });
+  const bi=$('#busca'); bi.oninput=()=>{ busca=bi.value; lista(); };
+  $('#bCsv').onclick=baixarCsv;
+  lista();
+}
+
+/* ---------- links de divulgação ---------- */
+const LUGARES=[['bio','Link da bio do Instagram'],['reels','Reels'],['stories','Stories'],['anuncio','Anúncio pago (Meta)'],['whatsapp','WhatsApp / grupos'],['tiktok','TikTok']];
+let campanhaLink='';
+function telaLinks(){
+  const slug=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,24);
+  const base='https://www.cofredossonhos.com/?src=';
+  const corpo=$('#corpo');
+  corpo.innerHTML=`<div class="pn-topo"><h1>Links de <em>divulgação</em></h1></div>
+    <p class="mudo" style="margin:0 0 14px">Use um link diferente em cada lugar. A aba Visão geral mostra quantas visitas, contas, testes e vendas cada um trouxe (em "De onde vêm as pessoas"). Os links com cupom continuam funcionando normalmente.</p>
+    <div class="pn-bloco"><label class="campo">Nome do vídeo ou campanha (opcional)<input id="campLink" placeholder="ex.: video-carro-dos-sonhos" value="${esc(campanhaLink)}"></label></div>
+    <div id="listaLinks"></div>`;
+  const montar=()=>{ const c=slug(campanhaLink);
+    $('#listaLinks').innerHTML=LUGARES.map(([k,n])=>{ const u=base+k+(c?'-'+c:''); return `<div class="pn-link"><div><b>${esc(n)}</b><code>${esc(u)}</code></div><button class="b pequeno" data-u="${esc(u)}">Copiar</button></div>`; }).join('');
+    $('#listaLinks').querySelectorAll('[data-u]').forEach(b=>b.onclick=async()=>{ try{ await navigator.clipboard.writeText(b.dataset.u); b.textContent='Copiado ✓'; }catch(e){ prompt('Copie o link:',b.dataset.u); } setTimeout(()=>b.textContent='Copiar',1600); });
+  };
+  $('#campLink').oninput=e=>{ campanhaLink=e.target.value; montar(); };
+  montar();
 }
 function visiveis(){
   const agora=Date.now(), q=busca.trim().toLowerCase(), qd=q.replace(/\D/g,'');
@@ -284,13 +373,13 @@ function visiveis(){
 }
 function lista(){
   const vs=visiveis(); if(filtro==='pix') vs.sort((a,b)=>Date.parse(b.pix_gerado_em)-Date.parse(a.pix_gerado_em));
-  $('#lista').innerHTML = vs.length ? `<table><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Situação</th><th>Cadastro</th><th></th></tr></thead><tbody>
+  $('#lista').innerHTML = vs.length ? `<div class="tabela-caixa caixa-clientes"><table class="tabela-clientes"><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Situação</th><th>Cadastro</th><th></th></tr></thead><tbody>
     ${vs.map(c=>`<tr><td><b>${esc(c.nome||'(sem nome)')}</b><small>${esc(c.email)}${c.instagram?' · @'+esc(c.instagram):''}${c.campanha?' · veio de <b style="color:var(--ouro)">'+esc(c.campanha)+'</b>':''}</small></td>
       <td>${c.whatsapp?esc(fmtZap(c.whatsapp)):'<span class="nota">sem número</span>'}</td>
       <td><span class="tag ${SIT[c.sit].c}">${SIT[c.sit].n}</span><small>${detalhe(c)}</small>${pixAberto(c)?`<small class="quente">🛒 Gerou Pix ${nomeCiclo(c)} (${brl(PRECO_PIX(c))}) ${haQuanto(c.pix_gerado_em)} e não pagou</small>`:''}</td>
       <td>${fmtData(Date.parse(c.criado))}<small>${c.ultimo_uso?'usou em '+fmtData(Date.parse(c.ultimo_uso)):''}</small></td>
       <td class="acao">${c.whatsapp&&c.whatsapp_aceite?`<button class="b zap" data-id="${c.id}">Chamar no WhatsApp</button>`:''}</td></tr>`).join('')}
-    </tbody></table>` : `<p class="vazio">Nenhum cliente neste filtro.</p>`;
+    </tbody></table></div>` : `<p class="vazio">Nenhum cliente neste filtro.</p>`;
   $('#lista').querySelectorAll('.zap').forEach(b=>b.onclick=()=>abrirConversa(clientes.find(c=>c.id===b.dataset.id)));
 }
 function abrirConversa(c){

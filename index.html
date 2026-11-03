@@ -1417,7 +1417,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   }
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') conferirPagamento(); });
   setInterval(()=>{ if(document.visibilityState==='visible') conferirPagamento(); }, 15000);
-  try{ const u=new URL(location.href), cod=u.searchParams.get('cupom'); if(cod){ lsGravar('cofre2-cupom', cod.trim().toUpperCase()); if(!lsLer('cofre2-origem')) lsGravar('cofre2-origem', cod.trim().toUpperCase()); u.searchParams.delete('cupom'); history.replaceState(null,'',u.pathname+u.search+u.hash); } }catch(e){}
+  try{ const u=new URL(location.href), cod=u.searchParams.get('cupom'); if(cod){ lsGravar('cofre2-cupom', cod.trim().toUpperCase()); if(!lsLer('cofre2-origem')) lsGravar('cofre2-origem', cod.trim().toUpperCase()); u.searchParams.delete('cupom'); history.replaceState(null,'',u.pathname+u.search+u.hash); } else { const src=(u.searchParams.get('src')||u.searchParams.get('utm_source')||'').trim(); if(src && !lsLer('cofre2-origem')) lsGravar('cofre2-origem', src.toUpperCase().replace(/[^A-Z0-9-]/g,'').slice(0,40)); } }catch(e){}
   (async()=>{
     try{ await Dados.iniciar(); }catch(e){ aviso('Sem conexão. Usando os dados deste aparelho.'); }
     rastrear('visita');
