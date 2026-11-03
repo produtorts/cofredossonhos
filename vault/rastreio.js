@@ -86,9 +86,10 @@
 
     // ---- VSL (o vídeo pode ser criado depois do clique, por isso escuta o documento inteiro)
     var MARCAS = [10, 25, 50, 75, 90, 100];
-    document.addEventListener('play', function (e) { if (e.target && e.target.tagName === 'VIDEO') enviar('vsl_play'); }, true);
+    // vídeo tocando sem som (prévia) não conta: só conta quando a pessoa liga o som
+    document.addEventListener('play', function (e) { if (e.target && e.target.tagName === 'VIDEO' && !e.target.hasAttribute('data-previa')) enviar('vsl_play'); }, true);
     document.addEventListener('timeupdate', function (e) {
-      var v = e.target; if (!v || v.tagName !== 'VIDEO' || !v.duration) return;
+      var v = e.target; if (!v || v.tagName !== 'VIDEO' || !v.duration || v.hasAttribute('data-previa')) return;
       var p = (v.currentTime / v.duration) * 100;
       MARCAS.forEach(function (m) { if (p >= (m === 100 ? 97 : m)) enviar('vsl', m); });
     }, true);

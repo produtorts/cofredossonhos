@@ -233,12 +233,30 @@ section{padding:84px 0 10px}
 #aviso{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top));transform:translate(-50%,-160%);z-index:60;background:#14110a;border:1px solid var(--ouro);color:var(--ouro-cl);font-weight:700;font-size:14px;padding:12px 18px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.5);transition:transform .3s;max-width:92vw;text-align:center}
 #aviso.on{transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#neve{display:none}.rev{opacity:1;transform:none}}
+/* 03/11 · topo enxuto: o vídeo aparece inteiro na primeira tela do celular e já começa a tocar sem som */
+.bf{padding:6px 10px;font-size:11.5px}
+.bf .relogio{font-size:13px;margin-left:6px}
+.topo{padding:12px 0 0}
+.logo{gap:10px}
+.logo img{width:34px;height:34px}
+.logo .nome{font-size:15px;letter-spacing:5px}
+.logo .nome small{font-size:7px;letter-spacing:4px;margin-top:4px}
+.heroi{padding:12px 0 26px}
+.heroi h1{font-size:clamp(25px,6.6vw,54px);line-height:1.04;margin-top:4px}
+.vsl{margin-top:14px}
+.vsl.vertical{max-width:min(380px,calc((100svh - 290px) * 9 / 16));min-width:230px}
+.bf{white-space:nowrap}.bf .relogio span{padding:0 4px}
+@media(max-width:420px){.bf .ate{display:none}}
+.vsl .ouvir{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;white-space:nowrap;background:linear-gradient(180deg,#f6d797,#c9963f);color:#140d03;border:0;border-radius:999px;padding:13px 20px;font:800 14px var(--texto);letter-spacing:.5px;box-shadow:0 0 0 8px rgba(228,190,120,.18),0 10px 30px rgba(0,0,0,.6);cursor:pointer;animation:pulsa 2.2s infinite}
+.vsl .ouvir svg{width:20px;height:20px}
+.vsl .ouvir.grande{bottom:50%;transform:translate(-50%,50%);padding:18px 26px;font-size:16px}
+.heroi .lead.depois{font-size:15px;margin:14px auto 0;max-width:520px}
 </style>
 </head>
 <body>
 <canvas id="neve" aria-hidden="true"></canvas>
 
-<div class="bf" id="bf"><b>BLACK FRIDAY</b> · R$ 39,90 só até 30/11 <span class="relogio" data-relogio></span></div>
+<div class="bf" id="bf"><b>BLACK FRIDAY</b> · R$ 39,90<span class="ate"> só até 30/11</span> <span class="relogio" data-relogio></span></div>
 <header class="topo">
   <a class="logo" href="#"><img src="logo.svg" alt=""><span class="nome ouro">THE VAULT<small>ECOSSISTEMA DE VENDAS</small></span></a>
 </header>
@@ -247,14 +265,13 @@ section{padding:84px 0 10px}
   <div class="heroi" data-sec="topo">
     <div class="heroi-fundo"><img src="../inspira/img/p-oculos.jpg" alt=""></div>
     <div class="wrap">
-      <span class="alerta"><i></i>Assista até o final: o mais importante está no fim</span>
-      <h1>Você criou perfil atrás de perfil<br>e <span class="vermelho">ainda não vendeu nada?</span><br><span class="ouro">O problema nunca foi você.</span></h1>
-      <p class="lead">Assista ao vídeo e descubra a estrutura que faltava para você finalmente vender na internet, sem aparecer e sem começar do zero.</p>
+      <h1>Criou perfil atrás de perfil<br>e <span class="vermelho">não vendeu nada?</span><br><span class="ouro">O problema nunca foi você.</span></h1>
 
       <div class="vsl" id="vsl">
-        <img src="vid/vsl-capa.jpg" alt="Capa do vídeo do The Vault" id="vslCapa">
+        <img src="vid/vsl-capa2.jpg" alt="Capa do vídeo do The Vault" id="vslCapa">
         <div class="capa" id="vslPlay"><span class="play"><svg viewBox="0 0 24 24"><path fill="#140d03" d="M6 4l15 8-15 8z"/></svg></span><b>Assista com o som ligado</b></div>
       </div>
+      <p class="lead depois">A estrutura que faltava para você vender na internet sem aparecer e sem começar do zero. Assista até o final.</p>
 
       <div class="depois-vsl">
         <a class="btn btn-ouro pulsa" data-entrar href="#oferta">Quero entrar no The Vault</a>
@@ -532,7 +549,16 @@ Fé • Mentalidade • Disciplina
   // VSL
   const vsl=$('#vsl'); if(VSL_VERTICAL) vsl.classList.add('vertical');
   if(VSL_SRC){
-    $('#vslPlay').onclick=()=>{ const v=document.createElement('video'); v.src=VSL_SRC; v.poster='vid/vsl-capa.jpg'; v.playsInline=true; v.controls=true; v.autoplay=true; vsl.innerHTML=''; vsl.append(v); v.play().catch(()=>{}); };
+    // o vídeo já começa a tocar sem som (prende a atenção de quem chega do anúncio); o toque liga o som e volta do começo.
+    // "data-previa" faz o painel só contar o play quando a pessoa liga o som.
+    const v=document.createElement('video'); v.src=VSL_SRC; v.poster='vid/vsl-capa2.jpg'; v.muted=true; v.defaultMuted=true; v.setAttribute('muted',''); v.playsInline=true; v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline',''); v.loop=true; v.autoplay=true; v.preload='auto'; v.setAttribute('data-previa','');
+    vsl.innerHTML=''; vsl.append(v);
+    const ouvir=document.createElement('button'); ouvir.type='button'; ouvir.className='ouvir';
+    ouvir.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>Toque para ouvir';
+    vsl.append(ouvir);
+    const ligar=()=>{ if(!v.hasAttribute('data-previa')) return; v.removeAttribute('data-previa'); ouvir.remove(); v.pause(); v.loop=false; v.muted=false; v.currentTime=0; v.controls=true; v.play().catch(()=>{}); };
+    ouvir.addEventListener('click',ligar); v.addEventListener('click',ligar);
+    const p=v.play(); if(p&&p.catch) p.catch(()=>ouvir.classList.add('grande')); // se o celular bloquear o autoplay (modo economia), o botão fica no meio
   } else {
     $('#vslPlay').innerHTML='<span class="play" style="animation:none;opacity:.85"><svg viewBox="0 0 24 24"><path fill="#140d03" d="M6 4l15 8-15 8z"/></svg></span><b>Vídeo de apresentação</b>';
     $('#vslPlay').insertAdjacentHTML('afterend','<div class="embreve">O vídeo completo chega em breve</div>');
@@ -554,6 +580,6 @@ Fé • Mentalidade • Disciplina
   });
 })();
 </script>
-<script src="rastreio.js?v=1" data-pagina="vault" defer></script>
+<script src="rastreio.js?v=2" data-pagina="vault" defer></script>
 </body>
 </html>
