@@ -111,7 +111,8 @@
       var a = e.target.closest && e.target.closest('a');
       if (a) {
         var href = a.getAttribute('href') || '';
-        if (/pay\.kiwify\.com\.br/.test(a.href)) { marcarCheckout(a); enviar('checkout', rotulo(a), true); }
+        if (a.hasAttribute('data-comprar')) enviar('checkout', rotulo(a), true);
+        else if (/pay\.kiwify\.com\.br/.test(a.href)) { marcarCheckout(a); enviar('checkout', rotulo(a), true); }
         else if (href === '#oferta') enviar('cta_oferta', rotulo(a), true);
         else if (/instagram\.com/.test(href)) enviar('instagram', rotulo(a));
       }
