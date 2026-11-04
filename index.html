@@ -1195,7 +1195,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   /* ---------- login (produção) ---------- */
   function abrirLogin(){
     if(CFG.loginSenha) return abrirLoginSenha();
-    folha(`<h2>Salve sua conquista</h2><p class="fraco">Entre com seu e-mail para guardar tudo na sua conta e acessar de qualquer celular. Use o mesmo e-mail da compra.</p>
+    folha(`<h2>Salve sua conquista</h2><p class="fraco">Entre com seu e-mail para guardar tudo na sua conta e acessar de qualquer celular.</p><p class="fraco"><b>Comprou o Cofre ou o The Vault?</b> Use o mesmo e-mail da compra na Kiwify. É assim que o seu acesso é liberado sozinho.</p>
       <form id="fLogin"><label for="lEmail">E-mail<input id="lEmail" type="email" required autocomplete="email"></label><button class="ouro" type="submit" id="lBtn">Receber código</button></form>
       <form id="fCodigo" hidden><label for="lCod">Código de 6 dígitos enviado ao seu e-mail<input id="lCod" inputmode="numeric" maxlength="8" required autocomplete="one-time-code"></label><button class="ouro" type="submit">Entrar</button></form>
       <p class="nota" id="lMsg"></p>`, (el,fechar)=>{
@@ -1212,7 +1212,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
 
   // Login com e-mail e senha (usado enquanto o e-mail com código não está configurado).
   function abrirLoginSenha(){
-    folha(`<h2>Salve sua conquista</h2><p class="fraco">Crie sua conta com o mesmo e-mail da compra. Assim tudo fica guardado e você acessa de qualquer celular.</p>
+    folha(`<h2>Salve sua conquista</h2><p class="fraco">Assim tudo fica guardado e você acessa de qualquer celular.</p><p class="fraco"><b>Comprou o Cofre ou o The Vault?</b> Use o mesmo e-mail da compra na Kiwify. É assim que o seu acesso é liberado sozinho.</p>
       <form id="fSenha"><label for="sEmail">E-mail<input id="sEmail" type="email" required autocomplete="email"></label>
         <label for="sSenha">Senha (mínimo 6 caracteres)<input id="sSenha" type="password" required minlength="6" autocomplete="current-password"></label>
         ${camposWhats('s')}
