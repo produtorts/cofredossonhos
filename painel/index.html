@@ -99,6 +99,14 @@
     .tabela-clientes td{border:0;padding:6px 10px} .caixa-clientes{border:0;overflow:visible}
     .topo .b{padding:7px 10px;font-size:13px}
   }
+  .pn-online{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 12px;background:rgba(127,224,201,.1);color:var(--aurora);font-weight:700;font-size:13px;white-space:nowrap}
+  .pn-online i{width:8px;height:8px;border-radius:50%;background:var(--aurora);box-shadow:0 0 0 3px rgba(127,224,201,.25)}
+  .on-tag{display:inline-block;margin-left:6px;border-radius:999px;padding:2px 8px;font-size:11.5px;font-weight:700;background:rgba(127,224,201,.14);color:var(--aurora);vertical-align:middle}
+  .nota-adm{display:block;margin-top:3px;color:var(--ouro);font-size:12.5px}
+  .ed-grade{display:grid;gap:10px;margin-top:12px} .ed-grade label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--nevoa)}
+  .ed-grade input,.ed-grade select,.ed-grade textarea{background:var(--noite);border:1px solid var(--linha);border-radius:10px;padding:9px 10px;color:var(--gelo)}
+  .ed-duas{display:grid;grid-template-columns:1fr 1fr;gap:10px} .ed-ck{flex-direction:row!important;align-items:center;gap:8px!important;color:var(--gelo)!important}
+  .ed-ck input{width:18px;height:18px}
 </style>
 </head>
 <body>
@@ -106,7 +114,7 @@
 <dialog id="dlgMsg"></dialog>
 <script>
 (()=>{
-// Senha própria do painel (não é a conta do app). Só leitura.
+// Senha própria do painel (não é a conta do app). Mostra quem está online e permite editar os clientes.
 const FUNCAO="https://rvkziyvihxweyrqnhuuh.supabase.co/functions/v1/painel-dados", CHAVE="sb_publishable_LHIUAPcrjo-5A62OVVAe6w_qfPlIAjv";
 const lerToken=()=>{ try{ return sessionStorage.getItem('painel-token')||''; }catch(e){ return ''; } };
 const gravarToken=t=>{ try{ t?sessionStorage.setItem('painel-token',t):sessionStorage.removeItem('painel-token'); }catch(e){} };
@@ -117,7 +125,7 @@ async function chamar(corpo){
 const $=s=>document.querySelector(s), app=$('#app');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const H=36e5, D=24*H;
-let clientes=[], filtro='todos', extra='', busca='', aba='geral', funilDias=7, funilDados=null, vezFunil=0;
+let agora={}, clientes=[], filtro='todos', extra='', busca='', aba='geral', funilDias=7, funilDados=null, vezFunil=0;
 
 // Situações (mesma regra do app) e a mensagem pronta de cada uma.
 const SIT={
@@ -211,7 +219,7 @@ function montarMsg(c){
 function telaLogin(msg){
   app.innerHTML=`<form class="caixa" id="fl" autocomplete="on"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel de clientes</small></div>
     <input id="ls" type="password" placeholder="Senha de acesso" required autocomplete="current-password">
-    <button class="b ouro" type="submit">Entrar</button><p class="nota" id="lm">${esc(msg||'Acesso somente para leitura.')}</p></form>`;
+    <button class="b ouro" type="submit">Entrar</button><p class="nota" id="lm">${esc(msg||'Acesso só do dono.')}</p></form>`;
   $('#ls').focus();
   $('#fl').onsubmit=async e=>{ e.preventDefault(); const m=$('#lm'), b=$('#fl button'); b.disabled=true; m.textContent='Entrando…';
     try{ const {ok,d}=await chamar({senha:$('#ls').value});
@@ -225,17 +233,30 @@ async function iniciar(){
   let r; try{ r=await chamar({token:t}); }catch(e){ app.innerHTML=`<p class="vazio">Sem conexão. <button class="b" onclick="location.reload()">Tentar de novo</button></p>`; return; }
   if(r.status===401){ gravarToken(''); return telaLogin('Sua sessão terminou. Entre de novo.'); }
   if(!r.ok){ app.innerHTML=`<p class="vazio">${esc(r.d.erro||'Não deu para carregar.')}</p>`; return; }
-  clientes=(r.d.clientes||[]).map(c=>({...c, sit:situacao(c)}));
+  clientes=(r.d.clientes||[]).map(c=>({...c, sit:situacao(c)})); agora=r.d.agora||{};
   desenhar();
 }
+// "online agora": atualiza sozinho a cada minuto, sem tirar você da tela em que está
+function textoOnline(){
+  const p=[`${agora.app??0} no app`]; if(agora.visitantes!=null) p.push(`${agora.visitantes} visitante${agora.visitantes===1?'':'s'} no site`); if(agora.pagina!=null) p.push(`${agora.pagina} na página de vendas`);
+  return `<i></i>Agora: ${p.join(' · ')}`;
+}
+setInterval(async()=>{
+  const t=lerToken(); if(!t || document.hidden || !$('#pnOnline')) return;
+  let r; try{ r=await chamar({token:t}); }catch(e){ return; } if(!r.ok) return;
+  clientes=(r.d.clientes||[]).map(c=>({...c, sit:situacao(c)})); agora=r.d.agora||{};
+  const el=$('#pnOnline'); if(el) el.innerHTML=textoOnline();
+  if(aba==='clientes' && !$('#dlgMsg').open && $('#lista')){ const ch=$('[data-x="online"]'); if(ch) ch.textContent=`🟢 Online agora (${clientes.filter(c=>c.online).length})`; lista(); }
+},60000);
 /* ---------- estrutura: topo + abas (mesmo formato do painel da Fábrica) ---------- */
 const ABAS=[['geral','Visão geral'],['clientes','Clientes'],['links','Links de divulgação']];
 function desenhar(){
   app.innerHTML=`<header class="topo"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel do dono</small></div>
+      <button type="button" class="pn-online" id="pnOnline" title="Pessoas com o app ou o site aberto nos últimos 3 minutos. Toque para ver quem está no app.">${textoOnline()}</button>
       <button class="b pequeno" id="bMsgs">Mensagens prontas</button><button class="b pequeno" id="bAtual">Atualizar</button><button class="b pequeno" id="bSair">Sair</button></header>
     <main><nav class="pn-abas">${ABAS.map(([k,n])=>`<button class="pn-aba" data-aba="${k}" aria-pressed="${aba===k}">${n}${k==='clientes'?` (${clientes.length})`:''}</button>`).join('')}</nav><div id="corpo"></div></main>`;
   app.querySelectorAll('[data-aba]').forEach(b=>b.onclick=()=>{ aba=b.dataset.aba; desenhar(); });
-  $('#bMsgs').onclick=editarMsgs; $('#bAtual').onclick=iniciar;
+  $('#pnOnline').onclick=()=>irPara('todos','online'); $('#bMsgs').onclick=editarMsgs; $('#bAtual').onclick=iniciar;
   $('#bSair').onclick=()=>{ gravarToken(''); telaLogin('Você saiu do painel.'); };
   if(aba==='clientes') telaClientes(); else if(aba==='links') telaLinks(); else visaoGeral();
 }
@@ -325,6 +346,7 @@ function telaClientes(){
       ${Object.entries(SIT).map(([k,s])=>`<button class="pn-card" data-f="${k}" aria-pressed="${filtro===k}"><span>${s.n}</span><strong>${cont[k]}</strong></button>`).join('')}
     </div>
     <div class="filtros"><input type="search" id="busca" placeholder="Buscar nome, e-mail ou WhatsApp" value="${esc(busca)}">
+      <button class="chip" data-x="online" aria-pressed="${extra==='online'}">🟢 Online agora (${clientes.filter(c=>c.online).length})</button>
       <button class="chip" data-x="venc48" aria-pressed="${extra==='venc48'}">🔥 Teste venceu há menos de 48h</button>
       <button class="chip" data-x="bas7" aria-pressed="${extra==='bas7'}">Básico há 7+ dias</button>
       <button class="chip" data-x="teste2" aria-pressed="${extra==='teste2'}">Teste acabando (2 dias)</button>
@@ -367,6 +389,7 @@ function visiveis(){
     if(extra==='bas7' && !(c.sit==='bas' && agora-Date.parse(c.criado)>=7*D)) return false;
     if(extra==='teste2' && !(c.sit==='teste' && Date.parse(c.teste_ate)-agora<=2*D)) return false;
     if(extra==='semzap' && c.whatsapp) return false;
+    if(extra==='online' && !c.online) return false;
     if(q && !((c.nome||'').toLowerCase().includes(q) || (c.email||'').includes(q) || (qd && (c.whatsapp||'').includes(qd)))) return false;
     return true;
   });
@@ -374,13 +397,49 @@ function visiveis(){
 function lista(){
   const vs=visiveis(); if(filtro==='pix') vs.sort((a,b)=>Date.parse(b.pix_gerado_em)-Date.parse(a.pix_gerado_em));
   $('#lista').innerHTML = vs.length ? `<div class="tabela-caixa caixa-clientes"><table class="tabela-clientes"><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Situação</th><th>Cadastro</th><th></th></tr></thead><tbody>
-    ${vs.map(c=>`<tr><td><b>${esc(c.nome||'(sem nome)')}</b><small>${esc(c.email)}${c.instagram?' · @'+esc(c.instagram):''}${c.campanha?' · veio de <b style="color:var(--ouro)">'+esc(c.campanha)+'</b>':''}</small></td>
+    ${vs.map(c=>`<tr><td><b>${esc(c.nome||'(sem nome)')}</b>${c.online?`<span class="on-tag">● online${c.visto_tela?' · '+esc(c.visto_tela):''}</span>`:''}<small>${esc(c.email)}${c.instagram?' · @'+esc(c.instagram):''}${c.campanha?' · veio de <b style="color:var(--ouro)">'+esc(c.campanha)+'</b>':''}</small></td>
       <td>${c.whatsapp?esc(fmtZap(c.whatsapp)):'<span class="nota">sem número</span>'}</td>
       <td><span class="tag ${SIT[c.sit].c}">${SIT[c.sit].n}</span><small>${detalhe(c)}</small>${pixAberto(c)?`<small class="quente">🛒 Gerou Pix ${nomeCiclo(c)} (${brl(PRECO_PIX(c))}) ${haQuanto(c.pix_gerado_em)} e não pagou</small>`:''}</td>
-      <td>${fmtData(Date.parse(c.criado))}<small>${c.ultimo_uso?'usou em '+fmtData(Date.parse(c.ultimo_uso)):''}</small></td>
-      <td class="acao">${c.whatsapp&&c.whatsapp_aceite?`<button class="b zap" data-id="${c.id}">Chamar no WhatsApp</button>`:''}</td></tr>`).join('')}
+      <td>${fmtData(Date.parse(c.criado))}<small>${c.online?'<b style="color:var(--aurora)">no app agora</b>':c.visto_em?'visto '+haQuanto(c.visto_em):c.ultimo_uso?'usou em '+fmtData(Date.parse(c.ultimo_uso)):''}</small>${c.nota_admin?`<span class="nota-adm">📝 ${esc(c.nota_admin)}</span>`:''}</td>
+      <td class="acao"><button class="b pequeno" data-ed="${c.id}">Editar</button> ${c.whatsapp&&c.whatsapp_aceite?`<button class="b zap" data-id="${c.id}">Chamar no WhatsApp</button>`:''}</td></tr>`).join('')}
     </tbody></table></div>` : `<p class="vazio">Nenhum cliente neste filtro.</p>`;
   $('#lista').querySelectorAll('.zap').forEach(b=>b.onclick=()=>abrirConversa(clientes.find(c=>c.id===b.dataset.id)));
+  $('#lista').querySelectorAll('[data-ed]').forEach(b=>b.onclick=()=>editarCliente(clientes.find(c=>c.id===b.dataset.ed)));
+}
+/* ---------- edição do cliente (controle total do dono) ---------- */
+function editarCliente(c){
+  const d=$('#dlgMsg'), zap=String(c.whatsapp||'').replace(/^55/,'');
+  const ate=c.plano_ate?fmtData(Date.parse(c.plano_ate)):'—', teste=c.teste_ate?fmtData(Date.parse(c.teste_ate),true):'—';
+  d.innerHTML=`<b>Editar cliente</b> <span class="tag ${SIT[c.sit].c}">${SIT[c.sit].n}</span>
+    <p class="nota">${esc(c.email)} · cadastro ${fmtData(Date.parse(c.criado))} · ${c.online?'<b style="color:var(--aurora)">no app agora</b>':c.visto_em?'visto '+haQuanto(c.visto_em):'ainda sem registro de acesso'}<br>Premium até: <b>${ate}</b> · Teste até: <b>${teste}</b></p>
+    <div class="ed-grade">
+      <label>Nome<input id="edNome" value="${esc(c.nome||'')}"></label>
+      <label>WhatsApp com DDD<input id="edZap" inputmode="tel" value="${esc(zap)}" placeholder="(11) 91234-5678"></label>
+      <label>Plano<select id="edPlano"><option value="entrada">Entrada</option><option value="premium">Premium</option><option value="elite">Elite</option></select></label>
+      <div class="ed-duas"><label>+ dias de Premium<input id="edDiasP" type="number" min="0" max="366" placeholder="0"></label><label>+ dias de teste<input id="edDiasT" type="number" min="0" max="60" placeholder="0"></label></div>
+      <label class="ed-ck"><input type="checkbox" id="edTirar"> Tirar o Premium agora</label>
+      <label class="ed-ck"><input type="checkbox" id="edFimTeste"> Encerrar o teste agora</label>
+      <label>Anotação (só você vê)<textarea id="edNota" style="min-height:70px">${esc(c.nota_admin||'')}</textarea></label>
+    </div>
+    <p class="nota" id="edMsg"></p>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px"><button class="b" id="cx">Cancelar</button><button class="b ouro" id="ok">Salvar</button></div>`;
+  $('#edPlano').value=['premium','elite'].includes(c.plano)?c.plano:'entrada';
+  d.showModal(); $('#cx').onclick=()=>d.close();
+  $('#ok').onclick=async()=>{
+    const mud={}, m=$('#edMsg'), b=$('#ok');
+    const nome=$('#edNome').value.trim(); if(nome!==(c.nome||'')) mud.nome=nome;
+    const z=$('#edZap').value.replace(/\D/g,''); if(z!==zap.replace(/\D/g,'')){ if(z.length<10){ m.textContent='O WhatsApp precisa ter DDD + número.'; return; } mud.whatsapp=z; }
+    const pl=$('#edPlano').value; if(pl!==(['premium','elite'].includes(c.plano)?c.plano:'entrada')) mud.plano=pl;
+    if(+$('#edDiasP').value>0) mud.diasPremium=+$('#edDiasP').value; if(+$('#edDiasT').value>0) mud.diasTeste=+$('#edDiasT').value;
+    if($('#edTirar').checked) mud.tirarPremium=true; if($('#edFimTeste').checked) mud.encerrarTeste=true;
+    const nota=$('#edNota').value; if(nota!==(c.nota_admin||'')) mud.nota_admin=nota;
+    if(!Object.keys(mud).length){ d.close(); return; }
+    b.disabled=true; m.textContent='Salvando…';
+    let r; try{ r=await chamar({token:lerToken(), acao:'editar', id:c.id, mud}); }catch(e){ m.textContent='Sem conexão. Tente de novo.'; b.disabled=false; return; }
+    if(r.status===401){ d.close(); gravarToken(''); return telaLogin('Sua sessão terminou. Entre de novo.'); }
+    if(!r.ok){ m.textContent=r.d.erro||'Não deu para salvar.'; b.disabled=false; return; }
+    d.close(); await iniciar();
+  };
 }
 function abrirConversa(c){
   const d=$('#dlgMsg');

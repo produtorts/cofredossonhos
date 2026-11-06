@@ -1433,9 +1433,13 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   })();
 
   /* ---------- presença (painel mostra quem está online agora) e aviso de versão nova ---------- */
-  const VERSAO_APP = '20261106a';
+  const VERSAO_APP = '20261106b';
   (() => {
-    const presenca = () => { if (document.hidden || !MODO_REAL || !Dados.sb || !Dados.usuario) return; Dados.sb.rpc('cofre_presenca', { tela: (document.querySelector('[aria-current="page"], .ativo[data-aba], .tab.ativa') || {}).textContent?.trim().slice(0, 30) || '' }).then(() => {}, () => {}); };
+    const presenca = () => { if (document.hidden || !MODO_REAL || !Dados.sb) return;
+      if (Dados.usuario && (Dados.usuario.email || '').toLowerCase() === 'produtorts@gmail.com') return; // o dono não conta
+      let v = lsLer('cofre2-vis'); if (!v) { v = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(36).slice(2)); lsGravar('cofre2-vis', v); }
+      Dados.sb.rpc('cofre_ping', { p_visitante: v, p_logado: !!Dados.usuario }).then(() => {}, () => {}); // todo mundo no site (logado ou não)
+      if (!Dados.usuario) return; Dados.sb.rpc('cofre_presenca', { tela: (document.querySelector('[aria-current="page"], .ativo[data-aba], .tab.ativa') || {}).textContent?.trim().slice(0, 30) || '' }).then(() => {}, () => {}); };
     setTimeout(presenca, 5000); setInterval(presenca, 60000); document.addEventListener('visibilitychange', presenca);
     let avisado = false;
     async function conferir() {
