@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cofre dos Sonhos · Acesso vitalício</title>
-<meta name="description" content="Coloque seu sonho na tela de bloqueio e saiba quanto guardar por mês. Acesso vitalício ao Cofre dos Sonhos por R$ 10,90, pagamento único.">
+<title>Cofre dos Sonhos · Oferta de lançamento</title>
+<meta name="description" content="Coloque seu sonho na tela de bloqueio e saiba quanto guardar por mês. Cofre dos Sonhos Premium por R$ 10,90/mês no lançamento.">
 <meta name="theme-color" content="#0c1222">
 <meta property="og:title" content="Cofre dos Sonhos · Seu sonho na tela de bloqueio">
-<meta property="og:description" content="Saiba quanto guardar por mês e veja sua conquista toda vez que pegar o celular. Acesso vitalício por R$ 10,90.">
+<meta property="og:description" content="Saiba quanto guardar por mês e veja sua conquista toda vez que pegar o celular. Premium completo por R$ 10,90/mês no lançamento.">
 <meta property="og:image" content="https://www.cofredossonhos.com/inspira/img/carro-5.jpg">
 <link rel="icon" type="image/png" href="../icone-192-v2.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon-v2.png">
@@ -65,11 +65,25 @@ section{padding:78px 0 6px}
 .mini{font-size:13px;color:var(--nevoa)}
 .mini span+span::before{content:" · "}
 .celular{width:min(310px,78vw);margin:0 auto;border-radius:42px;padding:10px;background:#05080f;border:1px solid #2b3552;box-shadow:0 40px 80px rgba(0,0,0,.55),0 0 0 6px #0e1527,0 0 70px rgba(127,224,201,.12);position:relative}
-.celular img{border-radius:32px;width:100%}
+.celular img{border-radius:32px;width:100%;height:auto}
 .flutua{position:absolute;background:rgba(20,28,49,.92);border:1px solid var(--linha);border-radius:14px;padding:10px 12px;font-size:12.5px;line-height:1.35;box-shadow:0 14px 30px rgba(0,0,0,.45);backdrop-filter:blur(8px);text-align:left;max-width:190px}
 .flutua b{color:var(--aurora)}
 .f1{left:-46px;top:18%}.f2{right:-40px;bottom:16%}
 @media(max-width:520px){.f1{left:-8px}.f2{right:-8px}}
+
+.preco-chip{white-space:nowrap}.preco-chip s{color:var(--nevoa);font-weight:600}
+.faixa-lanc{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(127,224,201,.10);border:1px solid rgba(127,224,201,.35);color:var(--aurora);font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.faixa-lanc i{width:8px;height:8px;border-radius:50%;background:var(--aurora);box-shadow:0 0 10px var(--aurora);animation:pisca 1.6s infinite}
+@keyframes pisca{50%{opacity:.35}}
+.valor{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+@media(max-width:760px){.valor{grid-template-columns:1fr}}
+.valor div{padding:22px 20px;border-radius:20px;background:var(--ardosia);border:1px solid var(--linha)}
+.valor b{display:block;font-family:var(--serif);font-weight:400;font-size:30px;color:var(--ouro);line-height:1.1;margin-bottom:6px}
+.valor p{margin:0;font-size:14.5px;color:var(--nevoa)}
+.porque{margin-top:16px;padding:16px;border-radius:16px;background:rgba(127,224,201,.07);border:1px solid rgba(127,224,201,.3);font-size:14px;color:#cdd5e4;text-align:left}
+.porque b{color:var(--aurora)}
+.de{font-size:15px;font-weight:700;color:var(--nevoa);margin-top:6px}.de s{color:#cdd5e4}
+.preco .mes{font-family:var(--texto);font-size:18px;font-weight:800;color:var(--nevoa)}
 
 /* dores */
 .dores{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
@@ -183,7 +197,7 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
 
 <header class="topo">
   <a class="marca" href="#">
-    <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="none" stroke="#e2c48a" stroke-width="2.5"/><circle cx="24" cy="24" r="12" fill="none" stroke="#e2c48a" stroke-width="2"/><g stroke="#e2c48a" stroke-width="2" stroke-linecap="round"><line x1="24" y1="5" x2="24" y2="9"/><line x1="24" y1="39" x2="24" y2="43"/><line x1="5" y1="24" x2="9" y2="24"/><line x1="39" y1="24" x2="43" y2="24"/></g><circle cx="24" cy="24" r="3" fill="#7fe0c9"/></svg>
+    <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="52" r="38" fill="none" stroke="#e2c48a" stroke-width="7" stroke-linecap="round" stroke-dasharray="207 32" transform="rotate(-66 50 52)"/><path fill="#e2c48a" d="M50 2 L53 11 L62 14 L53 17 L50 26 L47 17 L38 14 L47 11Z"/><circle cx="50" cy="47" r="8.5" fill="#e2c48a"/><path d="M45.2 51h9.6l2.6 16.5H42.6z" fill="#e2c48a"/></svg>
     <span class="nome">Cofre <em>dos Sonhos</em><small>POR INSPIRA DIÁRIO</small></span>
   </a>
 </header>
@@ -191,19 +205,19 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
 <main class="wrap">
   <div class="heroi" data-sec="topo">
     <div class="rev">
-      <span class="sobre">Para quem tem um sonho e nunca consegue guardar</span>
+      <span class="faixa-lanc"><i></i>Lançamento · só nesta página</span>
       <h1>Seu sonho na <em>tela de bloqueio.</em><br>O plano no seu bolso.</h1>
       <p class="lead">Escolha a sua conquista, descubra quanto guardar por mês e veja o progresso toda vez que pegar o celular. O dinheiro fica no seu banco; o Cofre te mantém no ritmo.</p>
-      <div class="preco-chip">Acesso vitalício <b>R$ 10,90</b></div>
+      <div class="preco-chip">Premium <s>R$ 12,90</s> <b>R$ 10,90/mês</b></div>
       <div class="acoes">
-        <a class="btn btn-ouro pulsa" href="#oferta">Quero meu Cofre</a>
-        <div class="mini"><span>Pagamento único</span><span>Sem mensalidade</span><span>Funciona no celular</span></div>
+        <a class="btn btn-ouro pulsa" href="#oferta">Quero meu Cofre por R$ 10,90</a>
+        <div class="mini"><span>Menos de R$ 0,37 por dia</span><span>Pix na hora</span><span>Sem fidelidade</span></div>
       </div>
     </div>
     <div class="rev" style="position:relative">
-      <div class="celular"><img src="../vault/img/cofre-inicio.jpg" alt="Tela inicial do Cofre dos Sonhos com a conquista Viagem para a neve" fetchpriority="high"></div>
-      <div class="flutua f1">🔒 <b>R$ 250 guardados</b><br>faltam R$ 11.750</div>
-      <div class="flutua f2">📅 Guardando <b>R$ 904/mês</b><br>você chega em dez. de 2027</div>
+      <div class="celular"><img src="img/app-inicio.jpg" width="780" height="1688" alt="Tela inicial do Cofre dos Sonhos com a conquista Meu carro em 62%" fetchpriority="high"></div>
+      <div class="flutua f1">🔒 <b>R$ 52.700 guardados</b><br>faltam R$ 32.300</div>
+      <div class="flutua f2">📅 Guardando <b>R$ 4.615/mês</b><br>você chega em jun. de 2027</div>
     </div>
   </div>
 
@@ -291,27 +305,41 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
     <p class="nota centro">Prints reais enviados por usuários. Nomes e dados pessoais foram ocultados.</p>
   </section>
 
+  <section data-sec="valor">
+    <div class="centro rev">
+      <span class="sobre">Faça as contas</span>
+      <h2 class="titulo">O Cofre não é um gasto. <em>É o que te faz guardar.</em></h2>
+    </div>
+    <div class="valor">
+      <div class="rev"><b>R$ 0,37 por dia</b><p>É o que custa ter o seu plano, o seu progresso e o seu sonho na tela de bloqueio. Por semana, menos que um cafezinho.</p></div>
+      <div class="rev"><b>R$ 20 a mais por mês</b><p>Se o Cofre te fizer guardar só isso a mais todo mês, ele já se pagou. O resto é sonho chegando mais rápido.</p></div>
+      <div class="rev"><b>Dezenas de vezes por dia</b><p>É quantas vezes você desbloqueia o celular. Cada uma delas vira um lembrete do que você quer conquistar.</p></div>
+    </div>
+  </section>
+
   <section id="oferta" data-sec="oferta">
     <div class="centro rev">
-      <span class="sobre">Acesso para sempre</span>
-      <h2 class="titulo">Comece hoje <em>pelo preço de um lanche</em></h2>
+      <span class="sobre">Preço de lançamento</span>
+      <h2 class="titulo">Tudo do Premium <em>por menos de um lanche</em></h2>
     </div>
     <div class="oferta rev">
-      <span class="selo">Pagamento único · sem mensalidade</span>
-      <h3>Cofre dos Sonhos <em>Vitalício</em></h3>
+      <span class="selo">Exclusivo desta página</span>
+      <h3>Cofre dos Sonhos <em>Premium</em></h3>
       <ul class="lista">
-        <li><span><b>Sua conquista</b> com o plano: quanto guardar por mês e quando você chega lá</span></li>
-        <li><span><b>Wallpaper do seu sonho</b> para a tela de bloqueio, no estilo Minimal</span></li>
-        <li><span><b>Progresso visual</b>: o disco do cofre enche a cada valor guardado</span></li>
-        <li><span><b>Gastos do mês</b> e o desafio <b>30 dias sem impulso</b></span></li>
-        <li><span><b>Simulador</b> para testar valores e prazos antes de começar</span></li>
+        <li><span><b>Conquistas ilimitadas</b>: carro, casa, viagem, iPhone… cada uma com o plano de quanto guardar por mês e quando você chega lá</span></li>
+        <li><span><b>Wallpaper do seu sonho</b> na tela de bloqueio, com o progresso, em todos os estilos (Minimal, Disco e Frase)</span></li>
+        <li><span><b>Todos os fundos em 4K</b> e coleção nova todo mês, ou use a <b>foto do seu modelo exato</b></span></li>
+        <li><span><b>Motivação diária e lembretes</b> na tela de bloqueio para você não esquecer de guardar</span></li>
+        <li><span><b>Plano para sair das dívidas</b>, desafio das 52 semanas e relatório de gastos por categoria</span></li>
+        <li><span><b>Desafio 30 dias sem impulso</b> e simulador para testar valores e prazos</span></li>
         <li><span><b>Funciona no celular</b>, instala como app (iPhone e Android)</span></li>
       </ul>
-      <div class="preco"><small>R$</small>10,90</div>
-      <div class="pagamento">Uma vez só. O acesso é seu para sempre.</div>
-      <a class="btn btn-ouro btn-bloco pulsa" data-comprar href="#">Garantir meu acesso vitalício</a>
+      <div class="de">De <s>R$ 12,90</s> por</div>
+      <div class="preco"><small>R$</small>10,90<span class="mes">/mês</span></div>
+      <div class="pagamento">Menos de R$ 0,37 por dia. Pix na hora, sem cartão e sem fidelidade.</div>
+      <a class="btn btn-ouro btn-bloco pulsa" data-comprar href="#">Garantir por R$ 10,90/mês</a>
+      <div class="porque"><b>Por que tão barato?</b> O Cofre está em lançamento e queremos o seu sonho na tela de bloqueio de muita gente. Por isso, quem entra por esta página paga <b>R$ 10,90</b> em vez de R$ 12,90, e esse preço fica <b>travado enquanto a assinatura estiver ativa</b>. Esta condição pode sair do ar a qualquer momento, sem aviso.</div>
       <div class="garantia"><span class="selo7">7<small>DIAS</small></span><span>Garantia de 7 dias. Entrou e não gostou, devolvemos 100% do valor.</span></div>
-      <div class="extra">Quer ir além? Dentro do app você pode, quando quiser, liberar o <b>Premium</b>: conquistas ilimitadas, todos os fundos em 4K, motivação diária e plano para sair das dívidas. É opcional.</div>
     </div>
   </section>
 
@@ -322,17 +350,20 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
     </div>
     <div class="faq rev">
       <details><summary>O Cofre guarda o meu dinheiro?</summary><p>Não. O dinheiro fica na caixinha do seu próprio banco (Nubank, Inter, PicPay, Mercado Pago…). O Cofre faz o plano, mostra o progresso e te lembra de guardar.</p></details>
-      <details><summary>É vitalício mesmo?</summary><p>Sim. Você paga R$ 10,90 uma única vez e o acesso ao plano Vitalício é seu, sem mensalidade.</p></details>
+      <details><summary>Quanto vou pagar?</summary><p>R$ 10,90 por mês, por Pix, direto no app. Todo mês o Pix da renovação aparece dentro do Cofre. Não precisa de cartão.</p></details>
+      <details><summary>O preço vai subir?</summary><p>Para quem entra por esta página, não: os R$ 10,90 ficam travados enquanto a sua assinatura estiver ativa. Fora desta oferta, o Premium mensal custa R$ 12,90.</p></details>
+      <details><summary>Tem fidelidade? Posso parar quando quiser?</summary><p>Não tem fidelidade. Se não quiser continuar, é só não pagar o Pix do mês seguinte. Suas conquistas continuam salvas se quiser voltar.</p></details>
       <details><summary>Preciso baixar na loja de aplicativos?</summary><p>Não. Você abre o Cofre no navegador do celular e adiciona à tela de início. Ele fica com ícone, igual a um app.</p></details>
       <details><summary>Funciona no iPhone?</summary><p>Sim. No iPhone: Safari › Compartilhar › Adicionar à Tela de Início. No Android, o próprio navegador oferece instalar.</p></details>
-      <details><summary>Como recebo o acesso?</summary><p>Logo depois do pagamento você recebe as instruções de acesso no e-mail informado na compra.</p></details>
+      <details><summary>Como recebo o acesso?</summary><p>Na hora. Você cria sua conta, monta a sua primeira conquista e ativa o Premium pelo Pix. Assim que o pagamento cai, tudo é liberado.</p></details>
       <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias de garantia. É só pedir o reembolso dentro do prazo que devolvemos 100% do valor.</p></details>
     </div>
   </section>
 
   <div class="fim rev" data-sec="final">
-    <h2 class="titulo">Todo sonho tem um preço.<br><em>Descubra o seu hoje.</em></h2>
-    <div style="margin-top:26px"><a class="btn btn-ouro pulsa" data-comprar href="#">Quero meu Cofre · R$ 10,90</a></div>
+    <h2 class="titulo">Todo sonho tem um preço.<br><em>O do Cofre hoje é R$ 10,90.</em></h2>
+    <p class="lead fraco" style="margin:14px auto 0">Preço de lançamento, só por esta página. Amanhã ele pode não estar mais aqui.</p>
+    <div style="margin-top:26px"><a class="btn btn-ouro pulsa" data-comprar href="#">Quero meu Cofre por R$ 10,90/mês</a></div>
   </div>
 </main>
 
@@ -345,24 +376,25 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
     <button type="button" class="fechar" id="mFechar" aria-label="Fechar">×</button>
     <div id="mCampos">
       <h3 id="mTitulo">Falta pouco para o <em>seu Cofre</em></h3>
-      <p>Preencha para garantir o acesso vitalício por R$ 10,90. É por aqui que enviamos seu acesso e o suporte.</p>
+      <p>Deixe seu contato para reservar o preço de lançamento de <b style="color:var(--gelo)">R$ 10,90/mês</b>. No próximo passo você cria sua conta e ativa pelo Pix.</p>
       <label>Seu nome<input type="text" id="lNome" autocomplete="given-name" required maxlength="80"></label>
       <label>WhatsApp com DDD<input type="tel" id="lZap" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999" required maxlength="20"></label>
       <label>E-mail<input type="email" id="lEmail" autocomplete="email" required maxlength="120"></label>
       <p class="erro" id="lErro" role="alert"></p>
-      <button class="btn btn-ouro btn-bloco" type="submit" id="lEnviar">Continuar para o pagamento</button>
+      <button class="btn btn-ouro btn-bloco" type="submit" id="lEnviar">Criar meu Cofre</button>
       <p class="lgpd">Ao continuar, você concorda em receber contato do Cofre dos Sonhos e do parceiro que te indicou sobre o seu acesso e novidades, por WhatsApp e e-mail. Você pode pedir para sair a qualquer momento.</p>
     </div>
     <div class="ok" id="mOk" hidden><div class="icone">🔐</div><h3>Recebemos, <em id="mNomeOk"></em>!</h3><p id="mOkTxt">As vendas abrem em breve. Vamos te chamar no WhatsApp assim que o acesso estiver liberado.</p></div>
   </form>
 </div>
 
-<div class="barra" id="barra"><div class="dentro"><a class="btn btn-ouro btn-bloco" href="#oferta">Acesso vitalício · R$ 10,90</a></div></div>
+<div class="barra" id="barra"><div class="dentro"><a class="btn btn-ouro btn-bloco" href="#oferta">Garantir por R$ 10,90/mês</a></div></div>
 
 <script>
 (()=>{
   // ====== Link do checkout (preencher quando a plataforma estiver definida) ======
-  const LINK_CHECKOUT = '';
+  // Vai para o app com a oferta de lançamento (Premium mensal R$ 10,90, Pix dentro do app)
+  const LINK_CHECKOUT = location.origin + '/?oferta=lancamento';
   const $ = s => document.querySelector(s);
 
   function aviso(txt){ let el=$('#aviso'); if(!el){ el=document.createElement('div'); el.id='aviso'; el.setAttribute('role','status'); document.body.append(el); }
@@ -392,7 +424,7 @@ input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
     try { await fetch(API_LEAD, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(corpo), keepalive: true }); } catch (_) {}
     enviado = true;
     if (LINK_CHECKOUT) {
-      try { const u = new URL(LINK_CHECKOUT); u.searchParams.set('name', nome); u.searchParams.set('email', email); u.searchParams.set('phone', zap); u.searchParams.set('src', 'cofre'); u.searchParams.set('utm_source', corpo.origem); location.href = u.toString(); }
+      try { const u = new URL(LINK_CHECKOUT); u.searchParams.set('src', String(corpo.origem || 'conheca').slice(0, 40)); const af = new URLSearchParams(location.search).get('a'); if (af) u.searchParams.set('a', af); location.href = u.toString(); }
       catch (_) { location.href = LINK_CHECKOUT; }
       return;
     }

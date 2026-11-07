@@ -343,12 +343,14 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     premium: { nome:'Premium', maxCofres:Infinity, todosFundos:true, layouts:['minimal','disco','frase'], foto:true, d52:true, dividas:true, relatorio:true },
     elite:   { nome:'Elite',   maxCofres:Infinity, todosFundos:true, layouts:['minimal','disco','frase'], foto:true, d52:true, dividas:true, relatorio:true, comunidade:true }
   };
-  const PRECOS = { premium_mensal:12.90, premium_trimestral:29.90, promo_trimestral:24.90, elite_fundador:29.90 };
+  const PRECOS = { premium_lancamento:10.90, premium_mensal:12.90, premium_trimestral:29.90, promo_trimestral:24.90, elite_fundador:29.90 };
   // Situação do acesso: premium (pago ou cortesia) · teste (cupom, 7 dias) · basico (Kiwify) · pausado (teste acabou) · sem (sem cupom nem compra)
   let ST = { modo:'premium', teste_ate:null, whats:true };
   const PROMO_HORAS = 48;
   const promoAte = () => ST.teste_ate ? Date.parse(ST.teste_ate) + PROMO_HORAS*3600e3 : 0;
   const promoAtiva = () => ST.modo==='pausado' && Date.now() < promoAte();
+  // Veio da página de vendas (/conheca?oferta): Premium mensal com preço de lançamento.
+  const ofertaLanc = () => lsLer('cofre2-oferta')==='lancamento';
   const bloqueado = () => ST.modo==='pausado' || ST.modo==='sem';
   const diasTeste = () => Math.max(0, Math.ceil(((ST.teste_ate?Date.parse(ST.teste_ate):0) - Date.now())/864e5));
   function simularDemo(m){
@@ -1078,9 +1080,9 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   function blocoPlanos(){
     const div=document.createElement('div'); div.className='planos';
     const promo=promoAtiva(), tri=promo?PRECOS.promo_trimestral:PRECOS.premium_trimestral;
-    const premiumPreco = ciclo==='mensal' ? `${brl(PRECOS.premium_mensal)}<span class="nota"> /mês</span>`
+    const premiumPreco = ciclo==='mensal' ? (ofertaLanc()?`<s class="nota">${brl(PRECOS.premium_mensal)}</s> ${brl(PRECOS.premium_lancamento)}`:brl(PRECOS.premium_mensal))+`<span class="nota"> /mês</span>`
       : `${promo?`<s class="nota">${brl(PRECOS.premium_trimestral)}</s> `:''}${brl(tri)}<span class="nota"> /3 meses</span>`;
-    const sub = ciclo==='mensal' ? 'Cobrado todo mês. Cancele quando quiser.' : `Pago de uma vez a cada 3 meses: equivale a ${brl(tri/3)} por mês.${promo?' Preço de boas-vindas no primeiro trimestre.':''}`;
+    const sub = ciclo==='mensal' ? (ofertaLanc()?'Preço de lançamento: fica travado enquanto sua assinatura estiver ativa. Cancele quando quiser.':'Cobrado todo mês. Cancele quando quiser.') : `Pago de uma vez a cada 3 meses: equivale a ${brl(tri/3)} por mês.${promo?' Preço de boas-vindas no primeiro trimestre.':''}`;
     const seu = p => `<span class="cadeado" style="color:var(--aurora)">Seu plano</span>`;
     div.innerHTML=`<div class="alternar" style="align-self:center"><button data-acao="ciclo" data-c="trimestral" aria-pressed="${ciclo==='trimestral'}">Trimestral · mais vantajoso</button><button data-acao="ciclo" data-c="mensal" aria-pressed="${ciclo==='mensal'}">Mensal</button></div>
       ${ST.modo==='basico'?`<div class="plano"><div class="linha"><h3>Básico</h3>${seu()}</div>
@@ -1088,7 +1090,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       <div class="plano destaque"><div class="linha"><h3>Premium</h3><span class="preco">${premiumPreco}</span></div>
         <p class="nota">${sub}</p>
         <ul><li>Conquistas ilimitadas</li><li>Todos os fundos 4K + coleção nova todo mês</li><li>Estilos Disco e Frase + foto do seu modelo exato</li><li>Motivação diária e lembretes na tela de bloqueio</li><li>Relatório por categoria, 52 semanas e plano para sair das dívidas</li></ul>
-        ${planoAtual==='premium'&&ST.modo==='premium'?seu():`<button class="ouro bloco" data-acao="assinar" data-p="${ciclo==='mensal'?'premium_mensal':'premium_trimestral'}">${vendasFechadas()?'Em breve':ciclo==='mensal'?'Assinar mensal':'Assinar trimestral'}</button>`}</div>
+        ${planoAtual==='premium'&&ST.modo==='premium'?seu():`<button class="ouro bloco" data-acao="assinar" data-p="${ciclo==='mensal'?(ofertaLanc()?'premium_lancamento':'premium_mensal'):'premium_trimestral'}">${vendasFechadas()?'Em breve':ciclo==='mensal'?'Assinar mensal':'Assinar trimestral'}</button>`}</div>
       <div class="plano"><div class="linha"><h3>Elite Fundador</h3><span class="preco">${brl(PRECOS.elite_fundador)}<span class="nota"> /mês</span></span></div>
         <ul><li>Tudo do Premium</li><li>Comunidade: canal diário, grupo e desafio mensal com ranking</li><li>Coleções de fundos antes de todo mundo</li><li>Wallpaper com IA personalizado (em breve, fundadores primeiro)</li></ul>
         <p class="nota">Preço de fundador para sempre. Só 100 vagas.</p>
@@ -1102,6 +1104,16 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     const c=[...S.cofres].filter(x=>x.guardado<x.meta).sort((a,b)=>pct(b)-pct(a))[0]||S.cofres[0];
     const promo=promoAtiva(), tri=promo?PRECOS.promo_trimestral:PRECOS.premium_trimestral, horas=Math.max(1,Math.ceil((promoAte()-Date.now())/3600e3));
     const sem=ST.modo==='sem';
+    if(ofertaLanc()){
+      folha(`<h2>${sem?'Ative o seu Cofre':'Continue de onde parou'}</h2>
+        <p class="fraco">${c?`${esc(c.nome)} já está salvo${pct(c)?` em <b style="color:var(--gelo)">${pct(c)}%</b>`:''}. `:''}Ative o Premium e use tudo agora.</p>
+        <div class="plano destaque"><div class="linha"><h3>Premium · Lançamento</h3><span class="preco"><s class="nota">${brl(PRECOS.premium_mensal)}</s> ${brl(PRECOS.premium_lancamento)}<span class="nota"> /mês</span></span></div>
+          <p class="nota">Preço de lançamento travado enquanto sua assinatura estiver ativa. Pix na hora, cancele quando quiser.</p>
+          <ul><li>Conquistas ilimitadas</li><li>Todos os fundos 4K + coleção nova todo mês</li><li>Wallpaper do seu sonho com o progresso</li><li>Motivação diária e lembretes na tela de bloqueio</li><li>Relatório, 52 semanas e plano para sair das dívidas</li></ul>
+          <button class="ouro bloco" data-acao="assinar" data-p="premium_lancamento">${vendasFechadas()?'Em breve':'Ativar por '+brl(PRECOS.premium_lancamento)+'/mês'}</button></div>
+        ${sem?`<button class="vazado bloco" data-acao="cupom">Tenho um cupom</button>`:''}`);
+      return;
+    }
     folha(`<h2>${sem?'Ative o seu acesso':'Continue de onde parou'}</h2>
       ${sem?`<div class="cartao" style="border-color:var(--ouro);gap:8px"><span class="sobre" style="color:var(--ouro)">Quer testar 7 dias grátis?</span><p style="margin:0">Comente <b>COFRE</b> no post do <b>@inspiradiariooficial</b> e receba o seu acesso no Direct.</p><a href="https://www.instagram.com/inspiradiariooficial/" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;padding:12px 16px;border-radius:999px;background:var(--ouro);color:#1d1608;font-weight:700">Abrir o Instagram</a></div>`:''}
       <p class="fraco">${sem?'Ou ative o Premium agora mesmo:':c?`${esc(c.nome)} está pausado em <b style="color:var(--gelo)">${pct(c)}%</b>. Seus cofres estão salvos: ative o Premium e tudo volta exatamente como estava.`:'Seus dados estão salvos. Ative o Premium e tudo volta como estava.'}</p>
@@ -1113,6 +1125,8 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
         <button class="bloco" data-acao="assinar" data-p="premium_mensal">${vendasFechadas()?'Em breve':'Ativar mensal'}</button></div>
       ${sem?`<button class="vazado bloco" data-acao="cupom">Tenho um cupom</button>`:''}`);
   }
+  // quem veio da página de vendas: depois de criar a conta e salvar o WhatsApp, já vê a oferta de lançamento
+  function ofertaDepois(){ if(ofertaLanc() && MODO_REAL && Dados.usuario && bloqueado()) setTimeout(()=>{ if(!document.querySelector('.fundo-folha')) abrirPausa(); }, 900); }
   function exigirAcesso(){ if(!bloqueado()) return false; abrirPausa(); return true; }
   function abrirCupom(){
     if(MODO_REAL && !Dados.usuario){ aviso('Entre na sua conta para ativar o cupom'); abrirLogin(); return; }
@@ -1263,7 +1277,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       el.querySelector('#fCodigo').onsubmit=async e=>{ e.preventDefault(); const m=el.querySelector('#lMsg');
         try{ await Dados.confirmarCodigo(email, el.querySelector('#lCod').value.trim());
           if(!(await Dados.temAcesso())){ m.innerHTML=`Não encontramos uma compra com este e-mail. ${CFG.linkCompraEntrada?`<a href="${esc(CFG.linkCompraEntrada)}" target="_blank" rel="noopener" style="color:var(--ouro)">Garantir meu acesso por R$ 19,90</a>`:''}`; return; }
-          await Dados.carregarNuvem(); fechar(); renderTudo(); aviso('Conta conectada'); cupomPendente(); pedirWhats(); }
+          await Dados.carregarNuvem(); fechar(); renderTudo(); aviso('Conta conectada'); cupomPendente(); pedirWhats(); if(ST.whats) ofertaDepois(); }
         catch(err){ m.textContent='Código inválido ou expirado. Peça um novo.'; } };
     });
   }
@@ -1368,7 +1382,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
         const b=el.querySelector('button[type=submit]'); b.disabled=true; m.textContent='Salvando…';
         try{ const { data, error } = await Dados.sb.rpc('salvar_contato', { p_nome:(S.perfil&&S.perfil.nome)||'', p_whatsapp:w.numero, p_aceite:true });
           if(error || !data || !data.ok) throw new Error(data&&data.erro||'erro');
-          ST.whats=true; try{ localStorage.removeItem('cofre2-whats'); }catch(e){} Dados.avisarCadastro(); fechar(); aviso('WhatsApp salvo. Obrigado!'); cupomPendente();
+          ST.whats=true; try{ localStorage.removeItem('cofre2-whats'); }catch(e){} Dados.avisarCadastro(); fechar(); aviso('WhatsApp salvo. Obrigado!'); cupomPendente(); ofertaDepois();
         }catch(err){ m.textContent = err.message && err.message!=='erro' ? err.message : 'Não deu certo agora. Confira a internet e tente de novo.'; b.disabled=false; } };
     }, true);
   }
@@ -1475,6 +1489,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   }
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') conferirPagamento(); });
   setInterval(()=>{ if(document.visibilityState==='visible') conferirPagamento(); }, 15000);
+  try{ const u=new URL(location.href); if(u.searchParams.get('oferta')==='lancamento'){ lsGravar('cofre2-oferta','lancamento'); ciclo='mensal'; u.searchParams.delete('oferta'); history.replaceState(null,'',u.pathname+u.search+u.hash); } }catch(e){}
   try{ const af=(new URL(location.href).searchParams.get('a')||'').toLowerCase().trim(); if(/^[a-z0-9]{2,20}$/.test(af)) lsGravar('cofre2-af', JSON.stringify({c:af,t:Date.now()})); }catch(e){}
   try{ const u=new URL(location.href), cod=u.searchParams.get('cupom'); if(cod){ lsGravar('cofre2-cupom', cod.trim().toUpperCase()); if(!lsLer('cofre2-origem')) lsGravar('cofre2-origem', cod.trim().toUpperCase()); u.searchParams.delete('cupom'); history.replaceState(null,'',u.pathname+u.search+u.hash); } else { const src=(u.searchParams.get('src')||u.searchParams.get('utm_source')||'').trim(); if(src && !lsLer('cofre2-origem')) lsGravar('cofre2-origem', src.toUpperCase().replace(/[^A-Z0-9-]/g,'').slice(0,40)); } }catch(e){}
   (async()=>{
@@ -1488,10 +1503,11 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     if(!S.onboarding && !S.cofres.length) boasVindas();
     else if(!(S.perfil&&S.perfil.nome)) pedirPerfil();
     pedirWhats();
+    if(S.cofres.length && ST.whats) ofertaDepois();
   })();
 
   /* ---------- presença (painel mostra quem está online agora) e aviso de versão nova ---------- */
-  const VERSAO_APP = '20261107a';
+  const VERSAO_APP = '20261107b';
   (() => {
     const presenca = () => { if (document.hidden || !MODO_REAL || !Dados.sb) return;
       if (Dados.usuario && (Dados.usuario.email || '').toLowerCase() === 'produtorts@gmail.com') return; // o dono não conta
