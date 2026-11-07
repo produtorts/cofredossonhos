@@ -140,6 +140,33 @@ section{padding:84px 0 10px}
 .prova-nota{font-size:12px;color:var(--nevoa);margin-top:6px}
 
 /* como funciona */
+/* ganhos, módulos e time */
+.ganhos{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+@media(max-width:760px){.ganhos{grid-template-columns:1fr}}
+.ganho{padding:24px 22px;border-radius:22px;background:radial-gradient(ellipse at 100% 0%,rgba(228,190,120,.12),transparent 60%),var(--bg2);border:1px solid var(--linha);position:relative}
+.ganho .pct{font-family:var(--cond);font-weight:400;font-size:46px;line-height:1}
+.ganho h3{margin:8px 0 6px;font-size:17px}
+.ganho p{margin:0;font-size:14px;color:var(--nevoa)}
+.ganho .ex{display:inline-block;margin-top:12px;font-size:12.5px;font-weight:700;color:var(--ouro-cl);background:rgba(228,190,120,.08);border:1px solid var(--linha);border-radius:999px;padding:6px 12px}
+.ganho.destaque{border-color:rgba(228,190,120,.55);box-shadow:0 20px 60px rgba(228,190,120,.08)}
+.recorre{margin-top:18px;border-radius:22px;padding:26px 22px;border:1px dashed rgba(228,190,120,.4);text-align:center}
+.recorre b{font-family:var(--cond);font-weight:400;text-transform:uppercase;font-size:clamp(24px,4.5vw,34px);line-height:1.05;display:block}
+.recorre p{margin:10px auto 0;max-width:640px;color:#d9d4c8;font-size:15px}
+.nota-peq{font-size:12px;color:var(--nevoa);max-width:680px;margin:16px auto 0;text-align:center}
+.modulos{display:grid;grid-template-columns:1fr;gap:10px;margin:30px auto 0;max-width:760px}
+.modulo{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;border-radius:18px;background:var(--card);border:1px solid var(--linha2)}
+.modulo .m{flex:none;width:30px;font-family:var(--lux);font-weight:900;font-size:13px;letter-spacing:2px;color:var(--ouro);padding-top:3px}
+.modulo b{display:block;font-size:16px}
+.modulo span{font-size:14px;color:var(--nevoa)}
+.modulo.pratica{border-color:rgba(228,190,120,.45);background:radial-gradient(ellipse at 0% 0%,rgba(228,190,120,.10),transparent 60%),var(--bg2)}
+.modulo .tag{display:inline-block;margin-left:6px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#140d03;background:linear-gradient(180deg,#f6d797,#c9963f);border-radius:999px;padding:2px 8px;vertical-align:middle}
+.time{margin-top:30px;border-radius:30px;padding:44px 24px;text-align:center;border:1px solid rgba(228,190,120,.35);background:radial-gradient(ellipse at 50% 0%,rgba(228,190,120,.16),transparent 65%),#070707}
+.time p{max-width:640px;margin:14px auto 0;color:#d9d4c8;font-size:16px}
+.paraquem{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px;text-align:left}
+@media(max-width:760px){.paraquem{grid-template-columns:1fr}}
+.paraquem div{padding:20px;border-radius:18px;background:var(--card);border:1px solid var(--linha2)}
+.paraquem h3{margin:0 0 10px;font-size:15px;letter-spacing:2px;text-transform:uppercase}
+.paraquem ul{margin:0;padding-left:18px;color:#d9d4c8;font-size:14.5px;display:flex;flex-direction:column;gap:6px}
 .passos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
 @media(max-width:760px){.passos{grid-template-columns:1fr 1fr}}
 .passo{padding:22px 18px;border-radius:20px;background:var(--card);border:1px solid var(--linha2)}
@@ -271,11 +298,11 @@ section{padding:84px 0 10px}
         <img src="vid/vsl-capa2.jpg" alt="Capa do vídeo do The Vault" id="vslCapa">
         <div class="capa" id="vslPlay"><span class="play"><svg viewBox="0 0 24 24"><path fill="#140d03" d="M6 4l15 8-15 8z"/></svg></span><b>Assista com o som ligado</b></div>
       </div>
-      <p class="lead depois">A estrutura que faltava para você vender na internet sem aparecer e sem começar do zero. Assista até o final.</p>
+      <p class="lead depois">A estrutura que faltava para você vender na internet sem aparecer e sem começar do zero: ferramentas prontas, um curso que transforma você em afiliado do ecossistema inteiro e comissão que se repete todo mês. Assista até o final.</p>
 
       <div class="depois-vsl">
         <a class="btn btn-ouro pulsa" data-entrar href="#oferta">Quero entrar no The Vault</a>
-        <div class="mini-selos"><span>Acesso imediato</span><span>Funciona no celular</span><span>Garantia de 7 dias</span></div>
+        <div class="mini-selos"><span>Acesso imediato</span><span>Sem aparecer</span><span>Funciona no celular</span><span>Garantia de 7 dias</span></div>
       </div>
     </div>
   </div>
@@ -372,35 +399,54 @@ Fé • Mentalidade • Disciplina
       <div class="centro rev">
         <span class="sobre">O que está dentro do cofre</span>
         <h2 class="titulo">Seis cofres.<br><span class="ouro">Uma só chave.</span></h2>
-        <p class="lead" style="margin:14px auto 0">Tudo isso fica liberado assim que você entra. Os detalhes de cada um você conhece lá dentro.</p>
+        <p class="lead" style="margin:14px auto 0">Tudo isso fica liberado assim que você entra, com o mesmo e-mail da compra.</p>
       </div>
       <div class="cofres">
-        <div class="cofre rev"><img src="img/fd-carrosseis.jpg" alt=""><span class="num">01</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Sua página pronta<br><span class="ouro">15 dias de acesso</span></b><small>Identidade, posts e Reels todo dia</small></div></div>
-        <div class="cofre rev"><img src="vid/video-final.jpg" alt=""><span class="num">02</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Fábrica de vídeos<br><span class="ouro">7 dias de acesso</span></b><small>15 cortes viram até 125 vídeos</small></div></div>
-        <div class="cofre rev"><img src="img/cofre-plano.jpg" alt=""><span class="num">03</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Cursos completos<br><span class="ouro">inclusos</span></b><small>Do zero à venda, no Brasil e na Europa</small></div></div>
-        <div class="cofre rev"><img src="../inspira/img/posts/02-t.jpg" alt=""><span class="num">04</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Produtos prontos<br><span class="ouro">para vender</span></b><small>No Brasil e na Europa</small></div></div>
-        <div class="cofre rev"><img src="img/fd-reel.jpg" alt=""><span class="num">05</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Material de<br><span class="ouro">divulgação</span></b><small>Posts, vídeos e textos para copiar</small></div></div>
-        <div class="cofre rev"><img src="../inspira/img/posts/05-t.jpg" alt=""><span class="num">06</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Links para se<br><span class="ouro">afiliar</span></b><small>Venda cada produto e ganhe por venda</small></div></div>
+        <div class="cofre rev"><img src="img/fd-carrosseis.jpg" alt="" loading="lazy"><span class="num">01</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Sua página dark<br><span class="ouro">15 dias de Fábrica</span></b><small>Identidade, posts, carrosséis e Reels prontos</small></div></div>
+        <div class="cofre rev"><img src="vid/video-final.jpg" alt="" loading="lazy"><span class="num">02</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Vídeos em escala<br><span class="ouro">7 dias de Frankenstein</span></b><small>15 gravações viram até 125 vídeos para o TikTok Shop</small></div></div>
+        <div class="cofre rev"><img src="img/fd-minha-pagina.jpg" alt="" loading="lazy"><span class="num">03</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Curso Máquina<br><span class="ouro">de Afiliados</span></b><small>7 módulos, 38 aulas práticas</small></div></div>
+        <div class="cofre rev"><img src="img/cofre-inicio.jpg" alt="" loading="lazy"><span class="num">04</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>App financeiro<br><span class="ouro">30 dias de Premium</span></b><small>Seus prints viram conteúdo que vende</small></div></div>
+        <div class="cofre rev"><img src="img/cofre-plano.jpg" alt="" loading="lazy"><span class="num">05</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>3 cursos<br><span class="ouro">inclusos</span></b><small>TikTok Shop Brasil, Espanha e Personagens com IA</small></div></div>
+        <div class="cofre rev"><img src="../inspira/img/posts/05-t.jpg" alt="" loading="lazy"><span class="num">06</span><div class="info"><span class="cad"><svg viewBox="0 0 24 24" fill="none" stroke="#e4be78" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Comissão em<br><span class="ouro">todo o ecossistema</span></b><small>70% no The Vault + comissão todo mês nas ferramentas</small></div></div>
       </div>
     </section>
 
-
-    <!-- EURO -->
-    <section id="euro" data-sec="euro">
-      <div class="euro rev">
-        <div class="simb">€</div>
-        <span class="sobre">O segredo que quase ninguém usa</span>
-        <h2 class="titulo">Ganhe comissão<br><span class="ouro">em euro</span></h2>
-        <p class="lead" style="margin:14px auto 0">Dentro do The Vault você também usa a nossa estrutura para vender na Espanha. Mesmo trabalho, mesma página sem rosto, só que cada venda paga em euro.</p>
-        <div class="compara">
-          <div class="lado"><span class="bandeira">🇧🇷</span><div class="rot">1 venda no Brasil</div><div class="valor">R$ 27</div><small>70% de um produto de R$ 39,90</small></div>
-          <div class="vs">VS</div>
-          <div class="lado eu"><span class="bandeira">🇪🇸</span><div class="rot">1 venda na Espanha</div><div class="valor ouro">R$ 190</div><small>70% de um produto de 49 € (cerca de 34 €)</small></div>
-        </div>
-        <div class="multi">Uma venda em euro vale<br><span class="ouro">quase 7 vendas no Brasil</span></div>
-        <p class="nota-euro">Valores aproximados por venda, antes das taxas da plataforma, com o euro a cerca de R$ 5,60 (o câmbio muda todo dia). Isso é uma comparação do valor de cada venda, não uma promessa de ganho: o resultado depende do seu trabalho.</p>
+    <!-- CURSO -->
+    <section id="curso" data-sec="curso">
+      <div class="centro rev">
+        <span class="sobre">O curso que vem dentro</span>
+        <h2 class="titulo">Máquina<br><span class="ouro">de Afiliados</span></h2>
+        <p class="lead" style="margin:14px auto 0">Não é aula de motivação. É o passo a passo para usar as ferramentas na prática, criar a sua página sem aparecer e vender todos os produtos do ecossistema, em todos os canais. Aulas curtas em texto, cada uma com uma tarefa no fim.</p>
+      </div>
+      <div class="modulos">
+        <div class="modulo rev"><span class="m">00</span><div><b>Comece aqui</b><span>Seus acessos, seus 4 links de afiliado e as regras de cada comissão.</span></div></div>
+        <div class="modulo rev"><span class="m">01</span><div><b>A máquina de comissões</b><span>Quanto cada produto paga, a conta da renda que se repete todo mês e qual produto oferecer para cada pessoa.</span></div></div>
+        <div class="modulo pratica rev"><span class="m">02</span><div><b>Cada ferramenta na prática <span class="tag">15 aulas</span></b><span>Página dark que vende na Fábrica, TikTok Shop com o Frankenstein (Radar, Modelar, 125 vídeos e Placar de ganchos), Cofre em qualquer canal e The Vault em qualquer veículo.</span></div></div>
+        <div class="modulo rev"><span class="m">03</span><div><b>Onde vender</b><span>Instagram, TikTok, Kwai, WhatsApp, direct, negócios locais, parcerias e tráfego pago na hora certa.</span></div></div>
+        <div class="modulo rev"><span class="m">04</span><div><b>Roteiros prontos</b><span>Ganchos, legendas e mensagens de direct para cada produto, mais as respostas para as objeções.</span></div></div>
+        <div class="modulo rev"><span class="m">05</span><div><b>A escada</b><span>Como a mesma pessoa vira várias comissões: do Cofre ao The Vault e às ferramentas.</span></div></div>
+        <div class="modulo rev"><span class="m">06</span><div><b>Rotina e números</b><span>40 minutos por dia e os 4 números que mostram o que ajustar.</span></div></div>
+        <div class="modulo rev"><span class="m">07</span><div><b>Regras de ouro</b><span>Vender sem promessa falsa, sem spam e sem queimar o seu nome.</span></div></div>
       </div>
     </section>
+
+    <!-- GANHOS -->
+    <section id="ganhos" data-sec="ganhos">
+      <div class="centro rev">
+        <span class="sobre">Você não entra só para aprender</span>
+        <h2 class="titulo">Você entra para<br><span class="ouro">fazer parte do time</span></h2>
+        <p class="lead" style="margin:14px auto 0">Todo aluno pode se afiliar a todos os produtos do ecossistema. São quatro jeitos de ganhar com a mesma estrutura:</p>
+      </div>
+      <div class="ganhos">
+        <div class="ganho destaque rev"><div class="pct ouro">70%</div><h3>The Vault PRO</h3><p>De cada venda feita pelo seu link na Kiwify. Você vende exatamente o que comprou e já está usando.</p><span class="ex">Até R$ 27,93 por venda, antes das taxas</span></div>
+        <div class="ganho rev"><div class="pct ouro">20% + 15%</div><h3>Fábrica Dark e Frankenstein</h3><p>20% no primeiro pagamento de quem você indicar e 15% em todas as mensalidades seguintes, enquanto a pessoa continuar assinando.</p><span class="ex">Ex.: plano de R$ 47,90 → R$ 9,58 e depois R$ 7,19 todo mês</span></div>
+        <div class="ganho rev"><div class="pct ouro">20% + 15%</div><h3>Cofre dos Sonhos</h3><p>O produto mais fácil de vender: preço baixo, público enorme e um visual que explica tudo em 1 segundo.</p><span class="ex">Comissão pequena, mas no volume e todo mês</span></div>
+        <div class="ganho rev"><div class="pct ouro">TikTok Shop</div><h3>Comissão dos produtos que você divulga</h3><p>Com o Frankenstein você escolhe produtos que já vendem, modela os vídeos campeões e posta em volume. A comissão é a de cada loja.</p><span class="ex">Sem estoque, sem entregar nada</span></div>
+      </div>
+      <div class="recorre rev"><b>Uma venda paga uma vez.<br><span class="ouro">Um cliente que fica paga todo mês.</span></b><p>Nas ferramentas, cada pessoa que continua assinando soma na sua comissão do mês seguinte. É assim que o time constrói uma renda que cresce, em vez de recomeçar do zero todo mês.</p></div>
+      <p class="nota-peq">Valores de exemplo calculados com os preços atuais, que podem mudar. Nas ferramentas, a comissão vale para quem está com a conta ativa e libera 30 dias depois do pagamento. Isso não é promessa de ganho: o resultado depende do seu trabalho.</p>
+    </section>
+
     <!-- PROVAS -->
     <section id="provas" data-sec="provas">
       <div class="centro rev">
@@ -447,8 +493,22 @@ Fé • Mentalidade • Disciplina
       <div class="passos">
         <div class="passo rev"><div class="n ouro">I</div><h3>Garanta seu acesso</h3><p>Entrou, recebeu a chave. Tudo liberado na hora.</p></div>
         <div class="passo rev"><div class="n ouro">II</div><h3>Monte a sua página</h3><p>Ainda não tem? A ferramenta cria a sua. Já tem? Ela deixa profissional.</p></div>
-        <div class="passo rev"><div class="n ouro">III</div><h3>Escolha o que vender</h3><p>Cada produto vem com link de afiliado e material pronto.</p></div>
-        <div class="passo rev"><div class="n ouro">IV</div><h3>Copie e cole</h3><p>Posts, vídeos e textos prontos. É só postar todo dia.</p></div>
+        <div class="passo rev"><div class="n ouro">III</div><h3>Produza em escala</h3><p>Posts e Reels na Fábrica, dezenas de vídeos no Frankenstein, prints do Cofre.</p></div>
+        <div class="passo rev"><div class="n ouro">IV</div><h3>Venda com os seus links</h3><p>Siga os roteiros do curso e ganhe em cada produto que indicar.</p></div>
+      </div>
+    </section>
+
+    <!-- TIME -->
+    <section data-sec="time">
+      <div class="time rev">
+        <span class="sobre">Por que só R$ 39,90?</span>
+        <h2 class="titulo">Estamos formando<br><span class="ouro">o time do The Vault</span></h2>
+        <p>Nesta Black Friday a gente prefere ter muita gente dentro, usando as ferramentas e vendendo junto, do que ganhar mais em cada venda. Quem entra agora começa com a estrutura completa, aprende a vender o ecossistema inteiro e cresce com ele.</p>
+        <p><b style="color:var(--ouro-cl)">Essa condição vale só até 30/11, às 23h59.</b></p>
+        <div class="paraquem">
+          <div><h3 class="ouro">É para você se</h3><ul><li>já criou perfis e não vendeu</li><li>quer renda extra sem mostrar o rosto</li><li>quer vender no TikTok Shop com constância</li><li>tem uma página parada e quer fazer ela vender</li><li>quer comissão que se repete todo mês</li></ul></div>
+          <div><h3 style="color:var(--nevoa)">Não é para você se</h3><ul><li>procura dinheiro rápido sem trabalhar</li><li>não pretende postar com constância</li><li>quer só assistir aula e não fazer as tarefas</li></ul></div>
+        </div>
       </div>
     </section>
 
@@ -459,22 +519,22 @@ Fé • Mentalidade • Disciplina
         <span class="sobre">Acesso ao ecossistema completo</span>
         <h2 class="titulo">A chave do <span class="ouro">The Vault</span></h2>
         <ul class="lista">
-          <li><span><b>Curso PRO</b>: destrave suas vendas sem aparecer, do zero à primeira venda</span></li>
-          <li><span><b>Ferramenta de páginas por 15 dias</b>: identidade, posts e Reels prontos</span></li>
-          <li><span><b>Ferramenta de vídeos por 7 dias</b>: 15 cortes viram até 125 vídeos</span></li>
-          <li><span><b>3 cursos completos</b> para vender e para aprender: TikTok Shop Brasil, TikTok Shop na Espanha e Personagens com IA</span></li>
-          <li><span><b>30 dias de Premium no app financeiro</b> para gerar seus prints e stories</span></li>
-          <li><span><b>Produtos prontos</b> para vender no Brasil e na Europa, com comissão em euro</span></li>
-          <li><span><b>Material de divulgação</b> de cada produto, pronto para copiar</span></li>
-          <li><span><b>Links para se afiliar</b> e ganhar por cada venda</span></li>
+          <li><span><b>Curso Máquina de Afiliados</b>: 7 módulos e 38 aulas práticas para vender todo o ecossistema sem aparecer</span></li>
+          <li><span><b>Fábrica Dark por 15 dias</b>: a sua página com identidade, posts, carrosséis e Reels prontos</span></li>
+          <li><span><b>Frankenstein por 7 dias</b>: Radar de produtos, modelagem de vídeos que vendem e até 125 vídeos por gravação</span></li>
+          <li><span><b>30 dias de Premium no Cofre dos Sonhos</b> para gerar os seus prints e stories</span></li>
+          <li><span><b>3 cursos completos</b>: TikTok Shop do Zero, TikTok Shop na Espanha e Personagens com IA</span></li>
+          <li><span><b>Afiliação em todo o ecossistema</b>: 70% no The Vault e comissão todo mês na Fábrica, no Frankenstein e no Cofre</span></li>
+          <li><span><b>Roteiros prontos</b> de ganchos, legendas e directs para cada produto</span></li>
         </ul>
         <span class="selo-bf">Oferta de Black Friday</span>
-        <div class="de">Tudo isso somado passa de R$ 499,90</div>
+        <div class="de" style="text-decoration:none">Só os 3 cursos inclusos, no preço normal: <s>mais de R$ 330</s></div>
         <div class="por ouro"><small>R$</small>39,90</div>
         <div class="pagamento">Pagamento único · acesso imediato<br><b style="color:var(--ouro-cl)">Valor promocional válido até 30/11, às 23h59.</b></div>
         <div class="cont-oferta" id="contOferta"><div><b data-d>00</b><small>dias</small></div><div><b data-h>00</b><small>horas</small></div><div><b data-m>00</b><small>min</small></div><div><b data-s>00</b><small>seg</small></div></div>
         <a class="btn btn-ouro pulsa btn-bloco" style="max-width:520px" data-entrar href="#">Garantir minha chave agora</a>
         <div class="garantia"><span class="selo7">7<small>DIAS</small></span><span>Garantia incondicional de 7 dias. Entrou e não gostou, devolvemos 100% do valor.</span></div>
+        <p class="nota-peq">Cursos no preço normal: TikTok Shop do Zero R$ 26,99, Personagens com IA (Plus) R$ 29,90 e TikTok Shop na Espanha 49 € (cerca de R$ 274, câmbio aproximado).</p>
       </div>
     </section>
 
@@ -489,7 +549,9 @@ Fé • Mentalidade • Disciplina
         <details><summary>Preciso já ter uma página?</summary><p>Não. Se você não tem, a ferramenta monta a sua do zero. Se já tem, ela deixa a sua página com padrão profissional.</p></details>
         <details><summary>Preciso saber design ou editar vídeo?</summary><p>Não. Os posts, vídeos e textos saem prontos. Você só copia e cola.</p></details>
         <details><summary>Funciona no celular?</summary><p>Sim. Tudo funciona no celular, inclusive no iPhone.</p></details>
-        <details><summary>É pagamento único mesmo?</summary><p>Sim. Você paga uma vez e garante o seu acesso ao ecossistema.</p></details>
+        <details><summary>É pagamento único mesmo?</summary><p>Sim. Você paga R$ 39,90 uma vez e fica com o curso, os cursos inclusos e a afiliação. As ferramentas vêm com os prazos de acesso acima (Fábrica 15 dias, Frankenstein 7 dias, Cofre Premium 30 dias). Depois, se quiser continuar usando, você escolhe o plano que quiser. Não tem cobrança automática.</p></details>
+        <details><summary>Como funciona a comissão?</summary><p>No The Vault você ganha 70% de cada venda pelo seu link na Kiwify. Na Fábrica Dark, no Frankenstein e no Cofre você ganha 20% no primeiro pagamento de quem indicar e 15% nas mensalidades seguintes, enquanto a pessoa assinar. Nas ferramentas, a comissão vale para quem está com a conta ativa e libera 30 dias depois do pagamento.</p></details>
+        <details><summary>O curso é em vídeo?</summary><p>As aulas são em texto, curtas e diretas, cada uma com uma tarefa prática no fim. Você lê no celular em poucos minutos e já aplica.</p></details>
         <details><summary>Vou ganhar dinheiro garantido?</summary><p>Não. Nenhuma estrutura garante renda. O The Vault tira as travas do caminho e entrega tudo pronto; o resultado vem da sua constância.</p></details>
       </div>
     </section>
