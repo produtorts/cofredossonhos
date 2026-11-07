@@ -900,7 +900,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     const sb=Dados.sb; if(!sb){ corpo.innerHTML=`${voltar}<h2>Indique e ganhe</h2><p class="fraco">Entre na sua conta para ver o seu link.</p>`; return; }
     const { data:d, error } = await sb.rpc('af_minha_conta',{ p_app:'cofre' });
     if(error||!d){ corpo.innerHTML=`${voltar}<h2>Indique e ganhe</h2><p class="fraco">Não deu para abrir agora. Tente de novo em instantes.</p>`; return; }
-    const link='https://www.cofredossonhos.com/?a='+d.codigo, s=d.saldo||{}, real=v=>'R$ '+Number(v||0).toFixed(2).replace('.',',');
+    const link='https://www.cofredossonhos.com/conheca/?a='+d.codigo, s=d.saldo||{}, real=v=>'R$ '+Number(v||0).toFixed(2).replace('.',',');
     const dt=t=>new Date(t).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
     const SC={pendente:['Garantida','ok'],sem_direito:['Perdida: seu plano estava inativo','ruim'],estornada:['Cancelada (estorno)','ruim']};
     const SS={solicitado:['Esperando aprovação','espera'],pago:['Pago','ok'],recusado:['Recusado','ruim']};
@@ -1507,7 +1507,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   })();
 
   /* ---------- presença (painel mostra quem está online agora) e aviso de versão nova ---------- */
-  const VERSAO_APP = '20261107b';
+  const VERSAO_APP = '20261107c';
   (() => {
     const presenca = () => { if (document.hidden || !MODO_REAL || !Dados.sb) return;
       if (Dados.usuario && (Dados.usuario.email || '').toLowerCase() === 'produtorts@gmail.com') return; // o dono não conta
