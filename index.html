@@ -906,7 +906,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     corpo.innerHTML=`${voltar}<h2>Indique e ganhe</h2>
       <div class="cartao"><span class="sobre">Você ganha</span><div class="ind-grande">${d.pct}% <small>de cada mensalidade</small></div>
         <p class="fraco" style="margin:0">De quem assinar o Premium pelo seu link, todo mês, enquanto a pessoa continuar assinando.</p>
-        ${d.ativo?`<span class="ind-ok">✓ Você está recebendo</span>`:`<div class="ind-alerta">Para receber, o seu Premium precisa estar ativo e pago. Com o plano parado, a comissão do mês é perdida.</div>`}</div>
+        ${d.ativo?`<span class="ind-ok">✓ Você está recebendo</span>`:d.bloqueado?`<div class="ind-alerta">Suas comissões estão pausadas. Fale com o suporte.</div>`:`<div class="ind-alerta">Para receber, o seu Premium precisa estar ativo e pago. Com o plano parado, a comissão do mês é perdida.</div>`}</div>
       <div class="cartao"><span class="sobre">Seu link</span><code class="ind-link">${esc(link)}</code>
         <div class="ind-linha"><button class="ouro" id="indCopiar">Copiar link</button>${navigator.share?`<button class="vazado" id="indComp">Compartilhar</button>`:''}</div>
         <p class="nota" style="margin:0">Quem entrar pelo seu link e criar a conta fica ligado a você.</p></div>
@@ -918,8 +918,8 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       <div class="cartao"><span class="sobre">Seus números</span><p style="margin:0"><b>${d.indicados}</b> conta(s) pelo seu link · <b>${d.pagantes}</b> pagando</p></div>
       <div class="cartao"><span class="sobre">Sacar no Pix</span>
         <div class="ind-linha"><select id="indTipo" aria-label="Tipo da chave Pix">${TP.map(([v,r])=>`<option value="${v}" ${d.pix_tipo===v?'selected':''}>${r}</option>`).join('')}</select><input id="indChave" placeholder="Sua chave Pix" value="${esc(d.pix_chave||'')}" autocomplete="off"><button class="vazado" id="indSalvar">Salvar chave</button></div>
-        <div class="ind-linha"><input id="indValor" type="number" min="50" step="0.01" inputmode="decimal" placeholder="Valor (mínimo R$ 50)"><button class="ouro" id="indSacar" ${Number(s.disponivel)<50?'disabled':''}>Pedir saque</button></div>
-        <p class="nota" style="margin:0">Saque a partir de R$ 50. O pagamento cai no seu Pix depois que a equipe aprovar.</p>
+        <div class="ind-linha"><input id="indValor" type="number" min="${d.regras.minimo}" step="0.01" inputmode="decimal" placeholder="Valor (mínimo ${real(d.regras.minimo)})"><button class="ouro" id="indSacar" ${Number(s.disponivel)<Number(d.regras.minimo)?'disabled':''}>Pedir saque</button></div>
+        <p class="nota" style="margin:0">Saque a partir de ${real(d.regras.minimo)}. O pagamento cai no seu Pix depois que a equipe aprovar.</p>
         <p class="ind-msg" id="indMsg" role="status"></p></div>
       ${d.saques.length?`<div class="cartao"><span class="sobre">Saques</span><ul class="ind-lista">${d.saques.map(x=>`<li><span>${dt(x.criado_em)} · ${real(x.valor)}</span><span class="ind-tag ${SS[x.status][1]}">${SS[x.status][0]}</span></li>`).join('')}</ul></div>`:''}
       <div class="cartao"><span class="sobre">Comissões</span>${d.comissoes.length?`<ul class="ind-lista">${d.comissoes.map(c=>`<li><span>${dt(c.criado_em)} · ${esc(c.quem)} · <b>${real(c.valor)}</b>${c.status==='pendente'&&Date.parse(c.libera_em)>Date.now()?` <span class="nota">libera ${dt(c.libera_em)}</span>`:''}</span><span class="ind-tag ${SC[c.status][1]}">${SC[c.status][0]}</span></li>`).join('')}</ul>`:`<p class="fraco" style="margin:0">Quando alguém pagar pelo seu link, a comissão aparece aqui.</p>`}</div>`;
