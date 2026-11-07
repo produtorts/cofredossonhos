@@ -873,7 +873,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
         ${planoAtual==='elite'?it('comunidade','Comunidade Elite','Canal diário, grupo e desafio do mês',false):''}
         <button data-acao="perfil"><span style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left"><span>Meu perfil</span><span class="nota" style="font-weight:500">${esc(primeiroNome()||'Seu nome e suas capas')}</span></span></button>
         ${ST.modo==='premium'||ST.modo==='teste'?'':`<button data-acao="cupom"><span style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left"><span>Tenho um cupom</span><span class="nota" style="font-weight:500">7 dias de Premium grátis</span></span></button>`}
-        ${MODO_REAL?it('indicar','Indique e ganhe 20%','Ganhe todo mês com quem assinar pelo seu link',false):''}
+        ${MODO_REAL?it('indicar','Indique e ganhe','20% na adesão e 15% todo mês de quem assinar pelo seu link',false):''}
         ${it('planos','Meu plano',P().nome+(planoAtual==='entrada'?' · conheça o Premium':''),false)}
         ${it('conta','Conta',MODO_REAL?(Dados.usuario?.email||'Entrar'):'Modo demonstração',false)}
       </div>`;
@@ -904,7 +904,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     const SS={solicitado:['Esperando aprovação','espera'],pago:['Pago','ok'],recusado:['Recusado','ruim']};
     const TP=[['CPF','CPF'],['CNPJ','CNPJ'],['EMAIL','E-mail'],['PHONE','Celular'],['EVP','Chave aleatória']];
     corpo.innerHTML=`${voltar}<h2>Indique e ganhe</h2>
-      <div class="cartao"><span class="sobre">Você ganha</span><div class="ind-grande">${d.pct}% <small>de cada mensalidade</small></div>
+      <div class="cartao"><span class="sobre">Você ganha</span><div class="ind-grande">${d.pct === d.pct_mensal ? `${d.pct}% <small>de cada mensalidade</small>` : `${d.pct}% <small>na adesão</small> + ${d.pct_mensal ?? 15}% <small>nas mensalidades</small>`}</div>
         <p class="fraco" style="margin:0">De quem assinar o Premium pelo seu link, todo mês, enquanto a pessoa continuar assinando.</p>
         ${d.ativo?`<span class="ind-ok">✓ Você está recebendo</span>`:d.bloqueado?`<div class="ind-alerta">Suas comissões estão pausadas. Fale com o suporte.</div>`:`<div class="ind-alerta">Para receber, o seu Premium precisa estar ativo e pago. Com o plano parado, a comissão do mês é perdida.</div>`}</div>
       <div class="cartao"><span class="sobre">Seu link</span><code class="ind-link">${esc(link)}</code>
