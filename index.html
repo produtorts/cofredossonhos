@@ -238,6 +238,22 @@ canvas.confete{position:fixed;inset:0;width:100%;height:100%;pointer-events:none
   .folha .alca{display:none}
   .aviso{bottom:32px}
 }
+/* Indique e ganhe (afiliados) */
+.ind-grande{font-family:var(--display);font-size:44px;color:var(--ouro);line-height:1}
+.ind-grande small{font-family:var(--texto);font-size:15px;color:var(--nevoa)}
+.ind-alerta{background:rgba(242,160,123,.12);color:var(--alerta);border-radius:12px;padding:10px 12px;font-size:14px}
+.ind-ok{color:var(--aurora);font-weight:700;font-size:14px}
+.ind-link{display:block;background:var(--noite);border:1px solid var(--linha);border-radius:12px;padding:10px 12px;font-size:13px;word-break:break-all;color:var(--gelo)}
+.ind-saldos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ind-saldos .cartao{gap:2px}
+.ind-saldos b{font-size:19px}.ind-saldos b.verde{color:var(--aurora)}
+.ind-linha{display:flex;flex-wrap:wrap;gap:8px}
+.ind-linha select,.ind-linha input{flex:1 1 140px;min-width:0;background:var(--noite);color:var(--gelo);border:1px solid var(--linha);border-radius:12px;padding:11px 12px;font:inherit}
+.ind-lista{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ind-lista li{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--linha);padding-bottom:8px;font-size:14px}
+.ind-tag{font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.ind-tag.ok{background:rgba(127,224,201,.12);color:var(--aurora)}.ind-tag.ruim{background:rgba(239,141,141,.12);color:var(--perigo)}.ind-tag.espera{background:rgba(226,196,138,.14);color:var(--ouro)}
+.ind-msg{min-height:20px;font-size:14px;color:var(--ouro);margin:0}
 </style>
 
 <div class="app" id="app">
@@ -608,6 +624,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       const { data:st, error:erroSt } = await sb.rpc('meu_status');
       if(!erroSt && st){ aplicarStatus(st); await this.whatsPendente(); }
       else { const { data:perfil } = await sb.from('perfis').select('plano,plano_ate').eq('id',uid).maybeSingle(); aplicarStatus({ plano:perfil?.plano, plano_ate:perfil?.plano_ate, kiwify_basico:true }); }
+      try{ const v=JSON.parse(lsLer('cofre2-af')||'null'); if(v&&v.c){ if(Date.now()-v.t<30*864e5) await sb.rpc('af_vincular',{ p_app:'cofre', p_codigo:v.c }); localStorage.removeItem('cofre2-af'); } }catch(e){}
       const { data:est } = await sb.from('estados').select('dados').eq('user_id',uid).maybeSingle();
       const perfilLocal=S.perfil;
       if(est && est.dados && est.dados.cofres){ S=Object.assign(vazio(),est.dados); if(!S.perfil && perfilLocal){ S.perfil=perfilLocal; this.salvar(); } }
@@ -856,6 +873,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
         ${planoAtual==='elite'?it('comunidade','Comunidade Elite','Canal diário, grupo e desafio do mês',false):''}
         <button data-acao="perfil"><span style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left"><span>Meu perfil</span><span class="nota" style="font-weight:500">${esc(primeiroNome()||'Seu nome e suas capas')}</span></span></button>
         ${ST.modo==='premium'||ST.modo==='teste'?'':`<button data-acao="cupom"><span style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left"><span>Tenho um cupom</span><span class="nota" style="font-weight:500">7 dias de Premium grátis</span></span></button>`}
+        ${MODO_REAL?it('indicar','Indique e ganhe 20%','Ganhe todo mês com quem assinar pelo seu link',false):''}
         ${it('planos','Meu plano',P().nome+(planoAtual==='entrada'?' · conheça o Premium':''),false)}
         ${it('conta','Conta',MODO_REAL?(Dados.usuario?.email||'Entrar'):'Modo demonstração',false)}
       </div>`;
@@ -867,12 +885,51 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     if(telaMais==='dividas') return renderDividas(corpo,voltar);
     if(telaMais==='lembretes') return renderLembretes(corpo,voltar);
     if(telaMais==='comunidade'){ corpo.innerHTML=`${voltar}<h2>Comunidade Elite</h2><div class="cartao"><p>Canal com frase, desafio e dica todos os dias, grupo para comemorar conquistas e o desafio mensal com ranking.</p>${CFG.linkComunidade?`<a class="btn ouro" href="${esc(CFG.linkComunidade)}" target="_blank" rel="noopener">Entrar na comunidade</a>`:'<p class="nota">O link da comunidade será liberado aqui.</p>'}<p class="nota">Wallpaper com IA personalizado: chega em breve, e os fundadores recebem primeiro.</p></div>`; return; }
+    if(telaMais==='indicar') return renderIndicar(corpo,voltar);
     if(telaMais==='planos'){ corpo.innerHTML=`${voltar}<h2>Meu plano</h2>`; corpo.append(blocoPlanos()); return; }
     if(telaMais==='conta'){
       corpo.innerHTML=`${voltar}<h2>Conta</h2><div class="cartao">${MODO_REAL?`<p>${esc(Dados.usuario?.email||'')}</p><button class="vazado" data-acao="sair">Sair da conta</button>`:`<p class="fraco">Modo demonstração. No app publicado, o login é por código enviado ao e-mail.</p>
         <span class="sobre">Simular situação</span><div class="chips">${[['sem','Sem acesso'],['teste','Teste 7 dias'],['pausado','Pausado (dia 8)'],['entrada','Básico'],['premium','Premium'],['elite','Elite']].map(([p,n])=>`<button data-acao="demo-plano" data-p="${p}" aria-pressed="${lsLer('cofre2-plano-demo')===p}">${n}</button>`).join('')}</div>
         <button class="vazado mini" data-acao="demo-zerar" id="btnZerar">Apagar dados de teste</button>`}</div>`;
     }
+  }
+  async function renderIndicar(corpo,voltar){
+    corpo.innerHTML=`${voltar}<h2>Indique e ganhe</h2><p class="fraco">Carregando…</p>`;
+    const sb=Dados.sb; if(!sb){ corpo.innerHTML=`${voltar}<h2>Indique e ganhe</h2><p class="fraco">Entre na sua conta para ver o seu link.</p>`; return; }
+    const { data:d, error } = await sb.rpc('af_minha_conta',{ p_app:'cofre' });
+    if(error||!d){ corpo.innerHTML=`${voltar}<h2>Indique e ganhe</h2><p class="fraco">Não deu para abrir agora. Tente de novo em instantes.</p>`; return; }
+    const link='https://www.cofredossonhos.com/?a='+d.codigo, s=d.saldo||{}, real=v=>'R$ '+Number(v||0).toFixed(2).replace('.',',');
+    const dt=t=>new Date(t).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+    const SC={pendente:['Garantida','ok'],sem_direito:['Perdida: seu plano estava inativo','ruim'],estornada:['Cancelada (estorno)','ruim']};
+    const SS={solicitado:['Esperando aprovação','espera'],pago:['Pago','ok'],recusado:['Recusado','ruim']};
+    const TP=[['CPF','CPF'],['CNPJ','CNPJ'],['EMAIL','E-mail'],['PHONE','Celular'],['EVP','Chave aleatória']];
+    corpo.innerHTML=`${voltar}<h2>Indique e ganhe</h2>
+      <div class="cartao"><span class="sobre">Você ganha</span><div class="ind-grande">${d.pct}% <small>de cada mensalidade</small></div>
+        <p class="fraco" style="margin:0">De quem assinar o Premium pelo seu link, todo mês, enquanto a pessoa continuar assinando.</p>
+        ${d.ativo?`<span class="ind-ok">✓ Você está recebendo</span>`:`<div class="ind-alerta">Para receber, o seu Premium precisa estar ativo e pago. Com o plano parado, a comissão do mês é perdida.</div>`}</div>
+      <div class="cartao"><span class="sobre">Seu link</span><code class="ind-link">${esc(link)}</code>
+        <div class="ind-linha"><button class="ouro" id="indCopiar">Copiar link</button>${navigator.share?`<button class="vazado" id="indComp">Compartilhar</button>`:''}</div>
+        <p class="nota" style="margin:0">Quem entrar pelo seu link e criar a conta fica ligado a você.</p></div>
+      <div class="ind-saldos">
+        <div class="cartao"><span class="sobre">Disponível</span><b class="verde">${real(s.disponivel)}</b></div>
+        <div class="cartao"><span class="sobre">A liberar</span><b>${real(s.a_liberar)}</b><span class="nota">30 dias após o pagamento</span></div>
+        <div class="cartao"><span class="sobre">Em análise</span><b>${real(s.em_analise)}</b></div>
+        <div class="cartao"><span class="sobre">Já recebido</span><b>${real(s.recebido)}</b></div></div>
+      <div class="cartao"><span class="sobre">Seus números</span><p style="margin:0"><b>${d.indicados}</b> conta(s) pelo seu link · <b>${d.pagantes}</b> pagando</p></div>
+      <div class="cartao"><span class="sobre">Sacar no Pix</span>
+        <div class="ind-linha"><select id="indTipo" aria-label="Tipo da chave Pix">${TP.map(([v,r])=>`<option value="${v}" ${d.pix_tipo===v?'selected':''}>${r}</option>`).join('')}</select><input id="indChave" placeholder="Sua chave Pix" value="${esc(d.pix_chave||'')}" autocomplete="off"><button class="vazado" id="indSalvar">Salvar chave</button></div>
+        <div class="ind-linha"><input id="indValor" type="number" min="50" step="0.01" inputmode="decimal" placeholder="Valor (mínimo R$ 50)"><button class="ouro" id="indSacar" ${Number(s.disponivel)<50?'disabled':''}>Pedir saque</button></div>
+        <p class="nota" style="margin:0">Saque a partir de R$ 50. O pagamento cai no seu Pix depois que a equipe aprovar.</p>
+        <p class="ind-msg" id="indMsg" role="status"></p></div>
+      ${d.saques.length?`<div class="cartao"><span class="sobre">Saques</span><ul class="ind-lista">${d.saques.map(x=>`<li><span>${dt(x.criado_em)} · ${real(x.valor)}</span><span class="ind-tag ${SS[x.status][1]}">${SS[x.status][0]}</span></li>`).join('')}</ul></div>`:''}
+      <div class="cartao"><span class="sobre">Comissões</span>${d.comissoes.length?`<ul class="ind-lista">${d.comissoes.map(c=>`<li><span>${dt(c.criado_em)} · ${esc(c.quem)} · <b>${real(c.valor)}</b>${c.status==='pendente'&&Date.parse(c.libera_em)>Date.now()?` <span class="nota">libera ${dt(c.libera_em)}</span>`:''}</span><span class="ind-tag ${SC[c.status][1]}">${SC[c.status][0]}</span></li>`).join('')}</ul>`:`<p class="fraco" style="margin:0">Quando alguém pagar pelo seu link, a comissão aparece aqui.</p>`}</div>`;
+    const msg=t=>{ const m=corpo.querySelector('#indMsg'); if(m) m.textContent=t; };
+    corpo.querySelector('#indCopiar').onclick=async e=>{ try{ await navigator.clipboard.writeText(link); e.currentTarget.textContent='Copiado ✓'; }catch(_){ msg('Segure o dedo no link para copiar.'); } };
+    const comp=corpo.querySelector('#indComp'); if(comp) comp.onclick=()=>navigator.share({title:'Cofre dos Sonhos',text:'Organize o seu dinheiro e realize os seus sonhos:',url:link}).catch(()=>{});
+    corpo.querySelector('#indSalvar').onclick=async()=>{ const { error:e }=await sb.rpc('af_salvar_pix',{ p_app:'cofre', p_tipo:corpo.querySelector('#indTipo').value, p_chave:corpo.querySelector('#indChave').value }); msg(e?(e.message||'Não deu para salvar.'):'Chave Pix salva ✓'); };
+    corpo.querySelector('#indSacar').onclick=async e=>{ const v=Number(String(corpo.querySelector('#indValor').value).replace(',','.')); e.currentTarget.disabled=true;
+      const { error:er }=await sb.rpc('af_pedir_saque',{ p_app:'cofre', p_valor:v }); if(er){ msg(er.message||'Não deu para pedir o saque.'); e.currentTarget.disabled=false; return; }
+      aviso('Saque pedido! Avisamos quando o Pix for feito.'); renderIndicar(corpo,voltar); };
   }
   function renderGastos(corpo,voltar){
     const ym=hoje().slice(0,7); let ent=0,sai=0; const cats={};
@@ -1418,6 +1475,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   }
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') conferirPagamento(); });
   setInterval(()=>{ if(document.visibilityState==='visible') conferirPagamento(); }, 15000);
+  try{ const af=(new URL(location.href).searchParams.get('a')||'').toLowerCase().trim(); if(/^[a-z0-9]{2,20}$/.test(af)) lsGravar('cofre2-af', JSON.stringify({c:af,t:Date.now()})); }catch(e){}
   try{ const u=new URL(location.href), cod=u.searchParams.get('cupom'); if(cod){ lsGravar('cofre2-cupom', cod.trim().toUpperCase()); if(!lsLer('cofre2-origem')) lsGravar('cofre2-origem', cod.trim().toUpperCase()); u.searchParams.delete('cupom'); history.replaceState(null,'',u.pathname+u.search+u.hash); } else { const src=(u.searchParams.get('src')||u.searchParams.get('utm_source')||'').trim(); if(src && !lsLer('cofre2-origem')) lsGravar('cofre2-origem', src.toUpperCase().replace(/[^A-Z0-9-]/g,'').slice(0,40)); } }catch(e){}
   (async()=>{
     try{ await Dados.iniciar(); }catch(e){ aviso('Sem conexão. Usando os dados deste aparelho.'); }
@@ -1433,7 +1491,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
   })();
 
   /* ---------- presença (painel mostra quem está online agora) e aviso de versão nova ---------- */
-  const VERSAO_APP = '20261106b';
+  const VERSAO_APP = '20261107a';
   (() => {
     const presenca = () => { if (document.hidden || !MODO_REAL || !Dados.sb) return;
       if (Dados.usuario && (Dados.usuario.email || '').toLowerCase() === 'produtorts@gmail.com') return; // o dono não conta
