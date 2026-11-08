@@ -771,7 +771,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
         <div><span class="sobre">Estilo</span><div class="layouts" style="margin-top:6px">
           ${(est.formato==='pc'?[['minimal','Minimal']]:[['minimal','Minimal'],['disco','Disco'],['frase','Frase']]).map(([id,n])=>{ const ok=P().layouts.includes(id); return `<button data-acao="wp-layout" data-l="${id}" aria-pressed="${est.layout===id}">${n}${ok?'':`<span class="cadeado">${cadeadoSvg()}</span>`}</button>`; }).join('')}
         </div></div>
-        <button class="ouro" id="wpSalvar">Salvar em 4K</button>
+        <button class="ouro" id="wpSalvar">Salvar em 4K</button>${est.formato!=='pc'?'<button class="vazado" id="wpPostar">Postar nos stories</button>':''}
         <p class="nota" id="wpMsg"></p>
       </div></div>
       <div><span class="sobre">Fundos de ${esc(nomeCat(c.cat))}${P().todosFundos?' e outros':''}</span>
@@ -781,6 +781,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     desenharWallpaper($('#telaWp'), c, est.fundo, est.layout, 0.25, est.formato);
     const sel=$('#wpCofre'); if(sel) sel.onchange=e=>{ est.cofreId=e.target.value; est.fundo=null; renderEstudio(); };
     $('#wpSalvar').onclick=()=>salvarWallpaper(c);
+    const bp=$('#wpPostar'); if(bp) bp.onclick=()=>postarStories(c);
   }
   function quebrar(ctx, t, max){ const ps=t.split(' '), ls=[]; let l=''; ps.forEach(p=>{ const x=l?l+' '+p:p; if(ctx.measureText(x).width>max&&l){ ls.push(l); l=p; } else l=x; }); if(l) ls.push(l); return ls; }
   // Wallpaper para computador: 16:9, 4K (3840x2160 ao salvar).
@@ -802,7 +803,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     y+=62; ctx.fillStyle='#fff'; ctx.font='800 38px Manrope, sans-serif'; ctx.fillText(p+'%', x, y);
     ctx.fillStyle='rgba(255,255,255,.8)'; ctx.font='600 30px Manrope, sans-serif'; ctx.textAlign='right'; ctx.fillText(`${brl(c.guardado)} de ${brl(c.meta)}`, x+larg, y); ctx.textAlign='left';
     y+=84; ctx.fillStyle='rgba(255,255,255,.9)'; ctx.font='italic 400 40px "DM Serif Display", Georgia, serif'; quebrar(ctx,'“'+fraseDoDia()+'”',larg).slice(0,3).forEach(l=>{ ctx.fillText(l,x,y); y+=52; });
-    ctx.fillStyle='rgba(255,255,255,.55)'; ctx.font='600 20px Manrope, sans-serif'; ctx.fillText('COFRE DOS SONHOS  ·  @inspiradiariooficial', x, H-64);
+    ctx.fillStyle='rgba(255,255,255,.55)'; ctx.font='600 20px Manrope, sans-serif'; ctx.fillText('CRIE O SEU EM COFREDOSSONHOS.COM', x, H-64);
   }
   async function desenharWallpaper(cv, c, fundoId, layout, escala, formato){
     if(formato==='pc') return desenharWallpaperPC(cv, c, fundoId, escala);
@@ -818,7 +819,7 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     const topo=ctx.createLinearGradient(0,0,0,H*.22); topo.addColorStop(0,'rgba(6,9,20,.5)'); topo.addColorStop(1,'rgba(6,9,20,0)'); ctx.fillStyle=topo; ctx.fillRect(0,0,W,H*.22);
     const ouro='#e2c48a';
     const barra=(y)=>{ ctx.fillStyle='rgba(255,255,255,.18)'; ctx.beginPath(); ctx.roundRect(x,y,larg,20,10); ctx.fill(); const g=ctx.createLinearGradient(x,0,x+larg,0); g.addColorStop(0,'#c9a45f'); g.addColorStop(1,'#f3e2b9'); ctx.fillStyle=p>=100?'#7fe0c9':g; ctx.beginPath(); ctx.roundRect(x,y,Math.max(20,larg*p/100),20,10); ctx.fill(); };
-    const rodape=()=>{ ctx.fillStyle='rgba(255,255,255,.55)'; ctx.font='600 26px Manrope, sans-serif'; ctx.textAlign='center'; ctx.fillText('COFRE DOS SONHOS  ·  @inspiradiariooficial', W/2, H-86); ctx.textAlign='left'; };
+    const rodape=()=>{ ctx.fillStyle='rgba(255,255,255,.55)'; ctx.font='600 26px Manrope, sans-serif'; ctx.textAlign='center'; ctx.fillText('CRIE O SEU EM COFREDOSSONHOS.COM', W/2, H-86); ctx.textAlign='left'; };
     ctx.textAlign='left';
     if(layout==='disco'){
       const cx=W/2, cy=H*.64, R=190;
@@ -842,6 +843,21 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       y+=104; ctx.fillStyle='rgba(255,255,255,.9)'; ctx.font='italic 400 50px "DM Serif Display", Georgia, serif'; quebrar(ctx,'“'+fraseDoDia()+'”',larg).slice(0,4).forEach(l=>{ ctx.fillText(l,x,y); y+=64; });
     }
     rodape();
+  }
+
+  // Laço de produto: a pessoa posta a própria conquista nos stories e quem vê descobre o Cofre (rodapé "crie o seu em cofredossonhos.com").
+  async function postarStories(c){
+    if(exigirAcesso()) return;
+    const btn=$('#wpPostar'), msg=$('#wpMsg'); btn.disabled=true; msg.textContent='Preparando…';
+    try{
+      const cv=document.createElement('canvas'); await desenharWallpaper(cv, c, est.fundo, est.layout, 0.5, 'celular');
+      const blob=await new Promise(r=>cv.toBlob(r,'image/jpeg',.92));
+      const arq=new File([blob],'minha-conquista.jpg',{type:'image/jpeg'});
+      const texto='Comecei meu cofre: '+c.nome+' 🔐 Crie o seu em cofredossonhos.com';
+      if(navigator.canShare && navigator.canShare({files:[arq]})){ await navigator.share({files:[arq], text:texto}); msg.textContent='Escolha Instagram → Stories. Marque @inspiradiariooficial!'; rastrear('compartilhou'); }
+      else { const u=URL.createObjectURL(blob), a=document.createElement('a'); a.href=u; a.download='minha-conquista.jpg'; document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(u),4000); msg.textContent='Imagem salva. Poste nos stories e marque @inspiradiariooficial.'; rastrear('compartilhou'); }
+    }catch(e){ msg.textContent = e&&e.name==='AbortError' ? '' : 'Não deu para compartilhar agora. Use Salvar em 4K e poste a imagem.'; }
+    btn.disabled=false;
   }
   async function salvarWallpaper(c){
     if(exigirAcesso()) return;
