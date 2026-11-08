@@ -36,6 +36,15 @@
   .pn-card span{font-size:12.5px;color:var(--nevoa);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
   .pn-card strong{font-size:clamp(24px,3vw,32px);font-weight:700;line-height:1.1;color:var(--gelo);font-variant-numeric:tabular-nums}
   .pn-card small{font-size:12.5px;color:var(--nevoa)}
+  .pn-card.s-verde{border-color:#2f6b5c;background:linear-gradient(160deg,rgba(127,224,201,.1),var(--ardosia))}.pn-card.s-verde strong{color:var(--aurora)}
+  .pn-card.s-ouro{border-color:#6b5a35;background:linear-gradient(160deg,rgba(226,196,138,.1),var(--ardosia))}.pn-card.s-ouro strong{color:var(--ouro)}
+  .pn-card.s-alerta{border-color:#7a4a35;background:linear-gradient(160deg,rgba(242,160,123,.1),var(--ardosia))}.pn-card.s-alerta strong{color:var(--alerta)}
+  .pn-saas .info{font-style:normal;cursor:help;opacity:.7}
+  .pn-saas .pn-card .ex{display:none;font-style:normal;font-size:12px;color:var(--gelo);opacity:.85;margin-top:4px;line-height:1.35;text-transform:none;letter-spacing:0}
+  .pn-saas .pn-card:hover .ex,.pn-saas .pn-card:focus-within .ex{display:block}
+  .pn-saas-trafego{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:14px 0 4px}
+  .pn-saas-trafego label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--nevoa)}
+  .pn-saas-trafego input{background:var(--ardosia);border:1px solid var(--linha);border-radius:10px;padding:8px 10px;color:var(--gelo);width:180px}
   .pn-card.destaque{border-color:#2f6b5c;background:linear-gradient(160deg,rgba(127,224,201,.09),var(--ardosia))}
   .pn-card.destaque strong{color:var(--aurora)}
   .pn-card.ouro{border-color:#6b5a35;background:linear-gradient(160deg,rgba(226,196,138,.1),var(--ardosia))}
@@ -288,6 +297,60 @@ async function visaoGeral(){
   if(!r.ok){ $('#geralCorpo').innerHTML=`<p class="vazio">${esc(r.d.erro||'Não deu para carregar.')}</p>`; return; }
   funilDados=r.d.funil||{}; corpoGeral();
 }
+
+// ---------- saúde do SaaS (mesmo bloco nos painéis do Frankenstein, Fábrica Dark e Cofre) ----------
+// O Cofre não guarda histórico no servidor para o painel: o tráfego do mês e o MRR de cada mês ficam salvos neste aparelho.
+function lerSaas(){ try{ return JSON.parse(localStorage.getItem('cofre-saas')||'{}'); }catch(e){ return {}; } }
+function gravarSaas(o){ try{ localStorage.setItem('cofre-saas',JSON.stringify(o)); }catch(e){} }
+function saudeCofre(cont, mrr){
+  const agora=Date.now(), mes=new Date(agora-3*H).toISOString().slice(0,7), ini=Date.parse(mes+'-01T03:00:00Z');
+  const contas=clientes, pagantes=cont.men+cont.tri;
+  // saíram no mês: tinham Premium pago e o plano acabou neste mês sem renovar
+  const sairam=contas.filter(c=>c.assinatura_status==='cancelada' && c.plano_ate && Date.parse(c.plano_ate)>=ini && Date.parse(c.plano_ate)<=agora).length;
+  const base=pagantes+sairam, churn=base?sairam/base:null, arpu=pagantes?mrr/pagantes:null;
+  const testaram=contas.filter(c=>c.teste_ate).length;
+  const pagouAlgumaVez=c=>c.sit==='men'||c.sit==='tri'||!!c.assinatura_status;
+  const novos=contas.filter(c=>(c.sit==='men'||c.sit==='tri') && Date.parse(c.criado)>=ini).length;
+  const conf=lerSaas(), trafego=Number(conf.trafego&&conf.trafego[mes]||0);
+  const cac=trafego>0&&novos?trafego/novos:null, ltv=arpu==null?null:churn?arpu/churn:arpu*12;
+  const usou=c=>c.ultimo_uso||c.visto_em;
+  const ativados=contas.filter(usou).length;
+  const ativos7=contas.filter(c=>{ const t=Date.parse(c.ultimo_uso||c.visto_em||0); return t && agora-t<7*D; }).length;
+  conf.mrrMes=conf.mrrMes||{}; conf.mrrMes[mes]=Math.round(mrr*100)/100; gravarSaas(conf);
+  const meses=Object.keys(conf.mrrMes).sort().slice(-13), ant=meses.filter(m=>m<mes).at(-1), mrrAnt=ant?conf.mrrMes[ant]:null;
+  return { mes, acaoPrincipal:'usaram o app', mrr, arr:mrr*12, crescimento:mrrAnt?Math.round((mrr-mrrAnt)/mrrAnt*100):null,
+    historico:meses.map(m=>({mes:m,mrr:conf.mrrMes[m]})), contas:contas.length, pagantes, arpu, sairam,
+    churn:churn==null?null:Math.round(churn*1000)/10, testaram,
+    conversao:testaram?Math.round(contas.filter(c=>c.teste_ate&&pagouAlgumaVez(c)).length/testaram*100):null,
+    ativacao:contas.length?Math.round(ativados/contas.length*100):null, ativados,
+    ativos7, engajamento:contas.length?Math.round(ativos7/contas.length*100):null,
+    ltv, ltvEstimado:!churn, trafego, novosPagantes:novos, cac, ltvCac:cac&&ltv?Math.round(ltv/cac*10)/10:null,
+    margem:mrr>0?Math.round((mrr-trafego)/mrr*100):null, receitaMes:mrr, custoTotal:trafego };
+}
+function blocoSaas(s){
+  const pc=v=>v==null?'—':v+'%';
+  const cor=(v,bom,ok,menor)=>v==null?'':(menor?(v<=bom?'s-verde':v<=ok?'s-ouro':'s-alerta'):(v>=bom?'s-verde':v>=ok?'s-ouro':'s-alerta'));
+  const cards=[
+    ['Receita recorrente (MRR)',brl(s.mrr),s.crescimento==null?'quanto entra todo mês com as assinaturas':`${s.crescimento>=0?'▲':'▼'} ${Math.abs(s.crescimento)}% vs mês passado`,s.mrr>0?'s-verde':'','Soma das mensalidades ativas (trimestral dividido por 3). É o número nº 1 de um SaaS.'],
+    ['Receita anual (ARR)',brl(s.arr),'MRR × 12','','Quanto o app fatura em 1 ano se nada mudar. É o número que investidor olha.'],
+    ['Assinantes pagando',num(s.pagantes),`de ${num(s.contas)} contas (liberados por você não contam)`,s.pagantes?'s-verde':'','Quem está pagando o Premium hoje.'],
+    ['Ticket médio (ARPU)',s.arpu==null?'—':brl(s.arpu),'por assinante, por mês','','Quanto cada assinante paga em média por mês.'],
+    ['Cancelamento (churn)',!s.pagantes&&!s.sairam?'—':pc(s.churn),`${s.sairam} saíram este mês · meta até 5%`,cor(s.churn,5,10,true),'Dos assinantes do início do mês, quantos % saíram. Quanto menor, melhor.'],
+    ['Conversão teste → pago',pc(s.conversao),`de ${num(s.testaram)} que testaram · meta 15%+`,cor(s.conversao,15,7),'Dos que fizeram o teste de 7 dias, quantos % viraram assinantes.'],
+    ['Ativação',pc(s.ativacao),`${s.ativados} ${s.acaoPrincipal} · meta 60%+`,cor(s.ativacao,60,35),'Quantos % das contas chegaram a usar o app de verdade. Quem não ativa, não assina.'],
+    ['Ativos nos últimos 7 dias',pc(s.engajamento),`${s.ativos7} pessoas usaram · meta 40%+`,cor(s.engajamento,40,20),'Quantos % das contas usaram o app na última semana. Mostra se o app virou hábito.'],
+    ['Valor do cliente (LTV)',s.ltv==null?'—':brl(s.ltv),s.ltv==null?'aparece com o 1º assinante':s.ltvEstimado?'estimado em 12 meses (sem cancelamentos ainda)':'ticket ÷ churn','','Quanto um assinante deixa de dinheiro durante todo o tempo que fica.'],
+    ['Custo por assinante (CAC)',s.cac==null?'—':brl(s.cac),s.trafego?`${brl(s.trafego)} em anúncios ÷ ${s.novosPagantes} novos pagantes`:'preencha o tráfego pago do mês aqui embaixo','','Quanto você gasta em anúncio para ganhar 1 assinante novo.'],
+    ['LTV ÷ CAC',s.ltvCac==null?'—':s.ltvCac+'x','meta 3x ou mais',cor(s.ltvCac,3,1),'Cada R$ 1 em anúncio volta quantas vezes. Abaixo de 1x, o anúncio dá prejuízo.'],
+    ['Margem do mês',pc(s.margem),s.receitaMes?`MRR ${brl(s.receitaMes)} − ${brl(s.custoTotal)} de anúncios`:'aparece com o 1º assinante',cor(s.margem,60,20),'Quanto sobra de cada R$ 100 que entram, depois dos anúncios.']
+  ];
+  const max=Math.max(1,...s.historico.map(h=>h.mrr));
+  return `<div class="pn-bloco pn-saas"><h2>Saúde do SaaS</h2><p class="mudo">Os números que todo micro-SaaS acompanha. Verde = saudável, amarelo = atenção, laranja = agir. Toque no ⓘ para entender cada um.</p>
+    <div class="pn-kpis">${cards.map(([n,v,sub,c,ex])=>`<div class="pn-card ${c}"><span>${n} <i class="info" tabindex="0" title="${esc(ex)}">ⓘ</i></span><strong>${v}</strong><small>${esc(sub)}</small><em class="ex">${esc(ex)}</em></div>`).join('')}</div>
+    <div class="pn-saas-trafego"><label>Tráfego pago neste mês (R$, Meta + TikTok) <input type="number" min="0" step="0.01" id="saasTrafego" value="${s.trafego||''}" placeholder="0,00"></label><button type="button" class="btn pequeno" id="saasSalvar">Salvar</button><small class="mudo">fica salvo neste aparelho</small></div>
+    ${s.historico.length>1?`<h3>MRR mês a mês</h3><div class="pn-dias">${s.historico.map(h=>`<div class="pn-dia" title="${h.mes}: ${brl(h.mrr)}"><div class="pn-col"><i style="height:${Math.max(2,h.mrr/max*100)}%"></i></div><span>${h.mes.slice(5)}/${h.mes.slice(2,4)}</span></div>`).join('')}</div>`:''}
+  </div>`;
+}
 function corpoGeral(){
   const cs=funilDados.campanhas||[], tot={}; ETAPAS.forEach(([k])=>tot[k]=cs.reduce((a,c)=>a+(+c[k]||0),0));
   const agora=Date.now(), cont={}; Object.keys(SIT).forEach(k=>cont[k]=0); clientes.forEach(c=>cont[c.sit]++);
@@ -308,6 +371,7 @@ function corpoGeral(){
       ${card('Testes em andamento',num(cont.teste),`${teste2} acaba${teste2===1?'':'m'} em até 2 dias`)}
       ${card('Básico vitalício',num(cont.bas),`${bas7} há mais de 7 dias (dá pra oferecer Premium)`)}
     </div>
+    ${(()=>{ try{ return blocoSaas(saudeCofre(cont,mrr)); }catch(e){ return ''; } })()}
     <div class="pn-bloco"><h2>Precisa de atenção agora</h2><p class="mudo">Toque num cartão para abrir a lista dessas pessoas já com a mensagem certa para o WhatsApp.</p><div class="pn-acoes">
       ${acao('Gerou Pix e não pagou',nPix,'quase compraram','pix')}
       ${acao('Teste venceu há menos de 48h',venc48,'hora da oferta com desconto','todos','venc48')}
@@ -331,6 +395,7 @@ function corpoGeral(){
   h+=`<div class="pn-bloco"><h2>Clientes por situação</h2><p class="mudo">Todos os clientes, hoje. Toque numa linha para ver a lista.</p><div class="pn-funil">${Object.entries(SIT).map(([k,s])=>`<div class="pn-linha" role="button" tabindex="0" data-sit="${k}" style="cursor:pointer"><span class="pn-rot"><span class="tag ${s.c}">${s.n}</span></span><div class="pn-barra ${['men','tri','lib'].includes(k)?'verde':''}"><i style="width:${Math.max(2,cont[k]/maxS*100)}%"></i></div><b>${num(cont[k])}</b><span class="pn-conv">${pct(cont[k],clientes.length)} do total</span></div>`).join('')}</div></div>
     <p class="nota">Visitas contam pessoas diferentes por dia, sem guardar nenhum dado pessoal. Os números de visita começam em 01/11/2026; as etapas de conta, WhatsApp, teste, Pix e pagamento já incluem quem chegou antes. A receita por mês é uma estimativa (mensal R$ 12,90 e trimestral R$ 29,90 ÷ 3).</p>`;
   const g=$('#geralCorpo'); g.innerHTML=h;
+  const bs=$('#saasSalvar'); if(bs) bs.onclick=()=>{ const c=lerSaas(), m=new Date(Date.now()-3*H).toISOString().slice(0,7); c.trafego=c.trafego||{}; c.trafego[m]=Math.max(0,Number(String($('#saasTrafego').value).replace(',','.'))||0); gravarSaas(c); corpoGeral(); };
   g.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>irPara(b.dataset.f,b.dataset.x));
   g.querySelectorAll('[data-sit]').forEach(b=>{ const ir=()=>irPara(b.dataset.sit); b.onclick=ir; b.onkeydown=e=>{ if(e.key==='Enter') ir(); }; });
 }
