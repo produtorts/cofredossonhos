@@ -1315,17 +1315,19 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
     const bv=document.createElement('div'); bv.className='boas-vindas'; document.body.append(bv);
     const rascunho={nome:'', cat:'moto', meta:'', data:new Date(Date.now()+365*864e5).toISOString().slice(0,10)};
     const passos=(n)=>`<div class="passos">${[0,1,2,3].map(i=>`<i class="${i<=n?'ok':''}"></i>`).join('')}</div>`;
-    const tela0=()=>{ bv.innerHTML=`<div class="dentro">${passos(0)}<span class="sobre">Boas-vindas ao Cofre dos Sonhos</span><h1>Antes de tudo, como você se chama?</h1>
-        <div id="bvPerfil"></div>${MODO_REAL?'<button class="vazado bloco" id="bvJa">Já tenho conta</button>':''}</div>`;
-      bv.querySelector('#bvPerfil').append(formPerfil(()=>{ rastrear('inicio'); tela1(); }, 'Continuar'));
-      const cp=lsLer('cofre2-cupom'); if(cp){ const n=document.createElement('div'); n.className='situacao'; n.innerHTML=`<div><b>Cupom ${esc(cp)}</b><span class="nota">7 dias de Premium grátis. Ele é ativado quando você criar sua conta.</span></div>`; bv.querySelector('.dentro').insertBefore(n, bv.querySelector('h1')); }
-      const ja=bv.querySelector('#bvJa'); if(ja) ja.onclick=()=>{ bv.remove(); abrirLogin(); }; };
-    const tela1=()=>{ const nm=primeiroNome(); bv.innerHTML=`<div class="dentro">${passos(1)}<button class="vazado mini" id="bvV0" style="align-self:flex-start">‹ Voltar</button><span class="sobre">${nm?'Prazer, '+esc(nm):'Vamos lá'}</span><h1>O que você vai conquistar?</h1>
+    // O sonho vem primeiro: a pessoa vê o próprio wallpaper antes de qualquer cadastro. Nome e conta ficam para o fim.
+    let comecou=false;
+    const telaNome=(fim)=>{ bv.innerHTML=`<div class="dentro">${passos(3)}<span class="sobre">Último passo</span><h1>Como você se chama?</h1>
+        <p class="fraco" style="margin-top:-6px">Para o Cofre falar com você pelo nome e te mandar a mensagem do dia do seu jeito.</p><div id="bvPerfil"></div></div>`;
+      bv.querySelector('#bvPerfil').append(formPerfil(fim, 'Salvar minha conquista')); };
+    const tela1=()=>{ const nm=primeiroNome(); bv.innerHTML=`<div class="dentro">${passos(0)}<span class="sobre">${nm?'Que bom te ver, '+esc(nm):'Cofre dos Sonhos'}</span><h1>Qual sonho você vai conquistar?</h1><p class="fraco" style="margin-top:-6px">Escolha um. Em 1 minuto você vê o seu wallpaper e quanto guardar por mês.</p><div id="bvCupom"></div>
         <div class="categorias">${CATEGORIAS.map(([id,n])=>`<button data-cat="${id}" aria-pressed="${rascunho.cat===id}">${icone(id)}${n}</button>`).join('')}</div>
-        <button class="ouro bloco" id="bv1">Continuar</button></div>`;
+        <button class="ouro bloco" id="bv1">Continuar</button>${MODO_REAL&&!Dados.usuario?'<button class="vazado bloco" id="bvJa">Já tenho conta</button>':''}</div>`;
       bv.querySelectorAll('.categorias button').forEach(b=>b.onclick=()=>{ rascunho.cat=b.dataset.cat; bv.querySelectorAll('.categorias button').forEach(x=>x.setAttribute('aria-pressed',x===b)); });
-      bv.querySelector('#bvV0').onclick=tela0; bv.querySelector('#bv1').onclick=tela2; };
-    const tela2=()=>{ bv.innerHTML=`<div class="dentro">${passos(2)}<button class="vazado mini" id="bvV" style="align-self:flex-start">‹ Voltar</button><h1>Conte sobre ela</h1>
+      const cp=lsLer('cofre2-cupom'); if(cp) bv.querySelector('#bvCupom').innerHTML=`<div class="situacao"><div><b>Cupom ${esc(cp)}</b><span class="nota">7 dias de Premium grátis. Ele é ativado quando você criar sua conta.</span></div></div>`;
+      const ja=bv.querySelector('#bvJa'); if(ja) ja.onclick=()=>{ bv.remove(); abrirLogin(); };
+      bv.querySelector('#bv1').onclick=()=>{ if(!comecou){ comecou=true; rastrear('inicio'); } tela2(); }; };
+    const tela2=()=>{ bv.innerHTML=`<div class="dentro">${passos(1)}<button class="vazado mini" id="bvV" style="align-self:flex-start">‹ Voltar</button><h1>Conte sobre ela</h1>
         <form id="bvF"><label for="bvNome">Nome da conquista<input id="bvNome" required maxlength="40" value="${esc(rascunho.nome)}" placeholder="${{carro:'Ex.: Meu primeiro carro',moto:'Ex.: Minha CB 500',casa:'Ex.: Minha casa própria',celular:'Ex.: Celular novo',notebook:'Ex.: Meu setup',neve:'Ex.: Viagem para a neve',praia:'Ex.: Férias na praia',liberdade:'Ex.: Reserva de liberdade',negocio:'Ex.: Meu negócio',estudos:'Ex.: Minha faculdade'}[rascunho.cat]||'Ex.: Minha conquista'}"></label>
         <label for="bvMeta">Quanto custa (R$)<input id="bvMeta" type="number" inputmode="decimal" min="1" step="1" required value="${rascunho.meta}"></label>
         <label for="bvData">Quando você quer conquistar<input id="bvData" type="date" required value="${rascunho.data}"></label>
@@ -1333,15 +1335,16 @@ window.COFRE_CONFIG = window.COFRE_CONFIG || {
       bv.querySelector('#bvV').onclick=tela1;
       bv.querySelector('#bvF').onsubmit=e=>{ e.preventDefault(); rascunho.nome=bv.querySelector('#bvNome').value.trim(); rascunho.meta=+bv.querySelector('#bvMeta').value; rascunho.data=bv.querySelector('#bvData').value; tela3(); }; };
     const tela3=()=>{ const c={id:'previa', guardado:0, ...rascunho, fundo:fundoLivre(rascunho.cat)};
-      bv.innerHTML=`<div class="dentro">${passos(3)}<button class="vazado mini" id="bvV2" style="align-self:flex-start">‹ Voltar</button><span class="sobre">${primeiroNome()?esc(primeiroNome())+', sua':'Sua'} conquista já tem plano</span><h1>${esc(c.nome)}</h1>
+      bv.innerHTML=`<div class="dentro">${passos(2)}<button class="vazado mini" id="bvV2" style="align-self:flex-start">‹ Voltar</button><span class="sobre">${primeiroNome()?esc(primeiroNome())+', sua':'Sua'} conquista já tem plano</span><h1>${esc(c.nome)}</h1>
         <p class="fraco">Guardando <b style="color:var(--gelo)">${brl(Math.ceil(porMes(c)))} por mês</b>, ela é sua em ${new Date(c.data+'T12:00:00').toLocaleDateString('pt-BR',{month:'long',year:'numeric'})}.</p>
         <div class="capa-bv" style="aspect-ratio:9/16;max-width:260px;align-self:center;width:70%"><canvas id="bvWp"></canvas></div>
         <p class="nota" style="text-align:center">Este é o seu wallpaper. Ele atualiza a cada depósito.</p>
         <div class="situacao"><div><b>Como guardar de verdade</b><span class="nota">Separe ${brl(Math.ceil(porMes(c)))} por mês na caixinha do seu banco (Nubank, Inter, PicPay, Mercado Pago…) e marque aqui no Cofre sempre que guardar. O dinheiro fica no seu banco; o Cofre acompanha e te mantém no ritmo.</span></div></div>
         <button class="ouro bloco" id="bvOk">${MODO_REAL?'Salvar minha conquista':'Começar'}</button></div>`;
       desenharWallpaper(bv.querySelector('#bvWp'), c, c.fundo, 'minimal', 0.3); bv.querySelector('#bvV2').onclick=tela2;
-      bv.querySelector('#bvOk').onclick=()=>{ rastrear('conquista'); c.fundo=fundoLivre(c.cat); c.id=novoId(); c.criado=hoje(); c.depositos=[]; S.cofres.push(c); S.onboarding=true; Dados.salvar(); bv.remove(); renderTudo(); if(MODO_REAL && !Dados.usuario) abrirLogin(); }; };
-    if(S.perfil && S.perfil.nome) tela1(); else tela0();
+      const salvarConquista=()=>{ rastrear('conquista'); c.fundo=fundoLivre(c.cat); c.id=novoId(); c.criado=hoje(); c.depositos=[]; S.cofres.push(c); S.onboarding=true; Dados.salvar(); bv.remove(); renderTudo(); if(MODO_REAL && !Dados.usuario) abrirLogin(); };
+      bv.querySelector('#bvOk').onclick=()=>{ if(S.perfil && S.perfil.nome) salvarConquista(); else telaNome(salvarConquista); }; };
+    tela1();
   }
   // Formulário de nome e sexo (boas-vindas e quem já usava o app).
   function formPerfil(aoSalvar, rotulo){
