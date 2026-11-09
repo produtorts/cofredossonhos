@@ -3,562 +3,462 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Inspira Diário · Cofre dos Sonhos</title>
-<meta name="description" content="Talvez você precisasse ler isso hoje. Monte o plano do seu sonho no Cofre dos Sonhos e teste 7 dias grátis.">
+<title>Inspira Diário · Ferramentas e wallpapers</title>
+<meta name="description" content="Eu crio IAs que trabalham por você. Pegue o pack grátis de wallpapers do Inspira Diário e conheça as ferramentas: The Vault, Cofre dos Sonhos, Fábrica Dark e Frankenstein.">
 <meta name="theme-color" content="#05070d">
-<meta property="og:title" content="Inspira Diário · Cofre dos Sonhos">
-<meta property="og:description" content="O sonho não é caro. Caro é não ter plano. Teste 7 dias grátis.">
-<meta property="og:image" content="https://www.cofredossonhos.com/inspira/img/p-vila.jpg">
+<meta property="og:title" content="Inspira Diário · Pack grátis de wallpapers e ferramentas">
+<meta property="og:description" content="16 wallpapers em 4K grátis e as ferramentas que trabalham por você.">
+<meta property="og:image" content="https://www.cofredossonhos.com/inspira/wall/legado-mini.webp">
 <link rel="icon" type="image/png" href="../icone-192-v2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Great+Vibes&family=Montserrat:wght@400;500;600;700;800&display=swap">
 <style>
 :root{
-  --bg:#05070d; --bg2:#0a0e19; --card:rgba(255,255,255,.045); --linha:rgba(255,255,255,.09);
-  --branco:#f6f6f8; --nevoa:#aeb6c8; --ouro:#e4be78; --ouro-cl:#ffe6aa; --ouro-esc:#a8762f;
+  --bg:#05070d; --bg2:#0a0e19; --card:rgba(255,255,255,.045); --linha:rgba(255,255,255,.10);
+  --branco:#f6f6f8; --nevoa:#aeb6c8; --gelo:#9fc1e6; --ouro:#e4be78; --ouro-cl:#ffe6aa; --ouro-esc:#a8762f;
   --metal:linear-gradient(180deg,#fff2cc 0%,#ecc67c 36%,#b07f3a 54%,#e0b86e 72%,#ffe7ad 100%);
+  --prata:linear-gradient(180deg,#ffffff 0%,#dfe4ec 40%,#8d96a6 55%,#e9edf3 75%,#ffffff 100%);
   --cond:'Anton',Impact,'Arial Narrow',sans-serif; --script:'Great Vibes',cursive; --texto:'Montserrat',system-ui,sans-serif;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--branco);font-family:var(--texto);font-size:15px;line-height:1.5;overflow-x:hidden}
-img{max-width:100%;display:block}
-a{color:inherit}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-#neve{position:fixed;inset:0;pointer-events:none;z-index:1}
-.pagina{position:relative;z-index:2;max-width:480px;margin:0 auto;padding-bottom:110px}
+body{background:var(--bg);color:var(--branco);font:500 16px/1.6 var(--texto);overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.caixa{width:min(1120px,100% - 32px);margin:0 auto}
+#neve{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.55}
+main,header,footer{position:relative;z-index:2}
 
-/* tipografia Inspira */
-.titulo{font-family:var(--cond);font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:.98;margin:0;font-size:clamp(40px,12vw,56px);text-shadow:0 4px 18px rgba(0,0,0,.55)}
-.titulo .ouro,.ouro-t{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 3px 10px rgba(0,0,0,.6))}
-.script{font-family:var(--script);color:var(--ouro);font-size:clamp(34px,10vw,46px);line-height:1;display:block;margin:6px 0 2px;text-shadow:0 2px 14px rgba(0,0,0,.6)}
-.sobre{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ouro)}
-.fraco{color:var(--nevoa)}
-.marca{font-weight:700;letter-spacing:9px;font-size:12px;text-transform:uppercase;color:rgba(255,255,255,.75)}
-section{padding:46px 16px 8px}
-.centro{text-align:center}
+/* tipografia da marca */
+.marca{font:600 12px var(--texto);letter-spacing:.42em;text-transform:uppercase;color:var(--nevoa)}
+.grande{font-family:var(--cond);font-weight:400;text-transform:uppercase;line-height:.95;letter-spacing:.005em}
+.ouro{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 18px rgba(228,190,120,.25))}
+.prata{background:var(--prata);-webkit-background-clip:text;background-clip:text;color:transparent}
+.script{font-family:var(--script);font-weight:400;text-transform:none;letter-spacing:0;color:var(--ouro);line-height:1}
+.kicker{display:inline-flex;align-items:center;gap:10px;font:700 12px var(--texto);letter-spacing:.24em;text-transform:uppercase;color:var(--ouro)}
+.kicker::before{content:"";width:26px;height:1px;background:var(--ouro)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:16px 28px;border-radius:999px;font:800 15px var(--texto);letter-spacing:.04em;text-transform:uppercase;cursor:pointer;border:0;transition:transform .15s,box-shadow .2s}
+.btn:active{transform:scale(.98)}
+.btn-ouro{background:var(--metal);color:#1b1205;box-shadow:0 10px 40px rgba(228,190,120,.35),inset 0 1px 0 rgba(255,255,255,.6)}
+.btn-ouro:hover{box-shadow:0 14px 50px rgba(228,190,120,.5)}
+.btn-vidro{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(10px)}
+.btn svg{width:18px;height:18px}
 
-/* botões */
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:56px;border-radius:999px;font-weight:800;font-size:15px;text-decoration:none;letter-spacing:.3px;transition:transform .15s}
-.btn:active{transform:scale(.97)}
-.btn-ouro{background:linear-gradient(180deg,#f3d18e,#d9a957);color:#1a1206;box-shadow:0 10px 30px rgba(228,190,120,.25),inset 0 1px 0 rgba(255,255,255,.5)}
-.btn-vazado{border:1px solid rgba(228,190,120,.55);color:var(--ouro-cl)}
-.pulsa{animation:pulsa 2.4s ease-in-out infinite}
-@keyframes pulsa{0%,100%{box-shadow:0 10px 30px rgba(228,190,120,.22),0 0 0 0 rgba(228,190,120,.45)}50%{box-shadow:0 10px 30px rgba(228,190,120,.3),0 0 0 12px rgba(228,190,120,0)}}
+/* HERO */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:120px 0 96px;overflow:hidden}
+.hero-fundo{position:absolute;inset:0}
+.hero-fundo img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;transform:scale(1.06);animation:respira 18s ease-in-out infinite alternate}
+@keyframes respira{to{transform:scale(1.14)}}
+.hero-fundo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,13,.55) 0%,rgba(5,7,13,.15) 30%,rgba(5,7,13,.75) 65%,var(--bg) 100%)}
+.topo{position:absolute;top:0;left:0;right:0;z-index:3;padding:22px 0}
+.topo .caixa{display:flex;justify-content:space-between;align-items:center}
+.perfil{display:flex;align-items:center;gap:12px}
+.perfil img{width:44px;height:44px;border-radius:50%;border:2px solid var(--ouro)}
+.perfil b{display:block;font:800 13px var(--texto);letter-spacing:.2em}
+.perfil span{font-size:12px;color:var(--nevoa)}
+.topo a.ig{font:700 12px var(--texto);letter-spacing:.12em;text-transform:uppercase;padding:10px 16px;border:1px solid rgba(255,255,255,.25);border-radius:999px;background:rgba(0,0,0,.25);backdrop-filter:blur(8px)}
+.hero-txt{position:relative;z-index:2;max-width:760px}
+.hero h1{font-size:clamp(54px,11vw,128px);margin:18px 0 6px}
+.hero h1 .script{display:block;font-size:clamp(46px,9vw,104px);margin-top:-4px}
+.hero p.sub{font-size:clamp(16px,2.2vw,19px);color:#d9dde6;max-width:600px;margin:20px 0 30px}
+.hero-botoes{display:flex;flex-wrap:wrap;gap:12px}
+.rolar{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:3;font:600 11px var(--texto);letter-spacing:.3em;color:var(--nevoa);text-align:center}
+.rolar i{display:block;width:1px;height:34px;margin:8px auto 0;background:linear-gradient(var(--ouro),transparent);animation:desce 1.8s infinite}
+@keyframes desce{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* perfil estilo Instagram */
-.perfil{padding:22px 16px 6px;display:flex;align-items:center;gap:16px}
-.avatar{width:86px;height:86px;border-radius:50%;padding:3px;background:conic-gradient(from 200deg,#ffe7ad,#b07f3a,#ecc67c,#fff2cc,#b07f3a,#ffe7ad);flex:none}
-.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--bg)}
-.perfil h1{font-size:17px;margin:0;font-weight:800;display:flex;align-items:center;gap:6px}
-.perfil .arroba{color:var(--nevoa);font-size:13px}
-.perfil .bio{font-size:13.5px;margin-top:6px;line-height:1.45}
-.perfil .bio b{color:var(--ouro-cl);font-weight:600}
+section{padding:96px 0}
+.tit{font-size:clamp(40px,7vw,76px)}
+.tit .script{font-size:.85em;display:block;margin-top:2px}
+.lead{color:var(--nevoa);font-size:clamp(16px,2vw,18px);max-width:640px;margin-top:18px}
+.lead b{color:#fff}
 
-/* stories */
-.stories{display:flex;gap:14px;overflow-x:auto;padding:16px 16px 6px;scrollbar-width:none;scroll-snap-type:x proximity}
-.stories::-webkit-scrollbar{display:none}
-.story{flex:none;width:76px;text-align:center;font-size:11px;letter-spacing:-.1px;font-weight:600;scroll-snap-align:start}
-.story .anel{display:block;width:74px;height:74px;border-radius:50%;padding:3px;background:conic-gradient(from 120deg,#ffe7ad,#b07f3a,#ecc67c,#fff2cc,#b07f3a,#ffe7ad);margin-bottom:6px;position:relative}
-.story.visto .anel{background:rgba(255,255,255,.18)}
-.story .anel img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--bg)}
-.story .anel span{position:absolute;inset:3px;border-radius:50%;display:grid;place-items:center;font-family:var(--cond);font-size:20px;color:#fff;background:rgba(0,0,0,.35);border:3px solid var(--bg)}
-.story .nome{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* QUEM SOU */
+.quem{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:center}
+.fone{position:relative;width:min(330px,100%);margin:0 auto;aspect-ratio:9/16;border-radius:38px;padding:9px;background:linear-gradient(140deg,#5a5246,#141210 35%,#0b0b0b 65%,#4b4337);box-shadow:0 40px 90px rgba(0,0,0,.7),0 0 120px rgba(228,190,120,.12)}
+.fone video{width:100%;height:100%;object-fit:cover;border-radius:30px;background:#000}
+.fone .rotulo{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);white-space:nowrap;font:700 11px var(--texto);letter-spacing:.2em;text-transform:uppercase;padding:9px 16px;border-radius:999px;background:#0d1018;border:1px solid var(--linha);color:var(--nevoa)}
+.pilares{display:grid;gap:12px;margin-top:30px}
+.pilar{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;border-radius:18px;background:var(--card);border:1px solid var(--linha)}
+.pilar .n{font:400 30px/1 var(--cond);color:var(--ouro);min-width:34px}
+.pilar b{display:block;font-weight:800;font-size:16px}
+.pilar span{color:var(--nevoa);font-size:14.5px}
 
-/* hero */
-.heroi{margin:14px 16px 0;border-radius:28px;overflow:hidden;position:relative;min-height:680px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 22px 24px;border:1px solid var(--linha)}
-.heroi>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);animation:respira 18s ease-in-out infinite alternate}
-@keyframes respira{to{transform:scale(1.14) translateY(-10px)}}
-.heroi::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,13,.1) 0%,rgba(5,7,13,.35) 40%,rgba(5,7,13,.95) 100%)}
-.heroi>*:not(img){position:relative;z-index:2}
-.heroi>.selo{position:absolute;top:18px;left:18px;margin:0}
-.heroi p{margin:10px 0 18px;color:#dde2ec;font-size:15px}
-.selo{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:7px 12px;border-radius:999px;background:rgba(0,0,0,.45);border:1px solid rgba(228,190,120,.4);font-size:12px;font-weight:700;margin-bottom:14px;backdrop-filter:blur(6px)}
-.selo i{width:8px;height:8px;border-radius:50%;background:#5ee08a;box-shadow:0 0 0 0 rgba(94,224,138,.6);animation:ping 1.8s infinite}
-@keyframes ping{70%{box-shadow:0 0 0 8px rgba(94,224,138,0)}100%{box-shadow:0 0 0 0 rgba(94,224,138,0)}}
+/* PACK GRÁTIS */
+.pack{position:relative;background:radial-gradient(900px 600px at 80% 0%,rgba(228,190,120,.10),transparent 70%),radial-gradient(700px 500px at 0% 100%,rgba(159,193,230,.08),transparent 70%),var(--bg2);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+.publi{display:inline-flex;align-items:center;gap:8px;font:800 11px var(--texto);letter-spacing:.22em;text-transform:uppercase;padding:8px 14px;border-radius:999px;background:rgba(228,190,120,.12);border:1px solid rgba(228,190,120,.45);color:var(--ouro-cl)}
+.publi i{width:7px;height:7px;border-radius:50%;background:var(--ouro);box-shadow:0 0 12px var(--ouro);animation:pisca 1.6s infinite}
+@keyframes pisca{50%{opacity:.3}}
+.pack-topo{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:start;margin-top:22px}
+.porque{display:grid;gap:10px;margin-top:26px;padding:0;list-style:none}
+.porque li{position:relative;padding-left:30px;color:#dde1ea}
+.porque li::before{content:"";position:absolute;left:0;top:.45em;width:16px;height:16px;border-radius:50%;background:var(--metal);box-shadow:0 0 14px rgba(228,190,120,.4)}
+.porque b{color:#fff}
+.form{padding:28px;border-radius:26px;background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.form h3{font:400 30px/1 var(--cond);text-transform:uppercase}
+.form p{color:var(--nevoa);font-size:14px;margin:8px 0 18px}
+.form label{display:block;font:700 12px var(--texto);letter-spacing:.12em;text-transform:uppercase;color:var(--nevoa);margin:14px 0 6px}
+.form input{width:100%;min-height:54px;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.35);color:#fff;font:600 16px var(--texto);outline:none}
+.form input:focus{border-color:var(--ouro);box-shadow:0 0 0 3px rgba(228,190,120,.2)}
+.form .btn{width:100%;margin-top:18px}
+.form small{display:block;color:#7f889b;font-size:12px;margin-top:12px;text-align:center}
+.erro{color:#ff9b8a;font-size:13.5px;margin-top:10px;min-height:1px}
+.liberado{display:none}
+.pack.aberto .liberado{display:block}
+.pack.aberto .so-bloq{display:none}
+.ok-topo{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:16px;background:rgba(120,210,150,.1);border:1px solid rgba(120,210,150,.35);color:#c9f0d4;font-weight:600;font-size:14.5px}
+.galeria{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:40px}
+.wp{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:9/16;background:#111;box-shadow:0 18px 40px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.08)}
+.wp img{width:100%;height:100%;object-fit:cover;transition:transform .5s,filter .4s}
+.wp:hover img{transform:scale(1.04)}
+.wp .cad{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.75))}
+.wp .cad span{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border-radius:999px;font:800 12px var(--texto);letter-spacing:.08em;text-transform:uppercase;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px)}
+.pack.aberto .wp .cad span{background:var(--metal);color:#1b1205;border:0}
+.wp .novo{position:absolute;top:10px;left:10px;font:800 10px var(--texto);letter-spacing:.15em;padding:6px 10px;border-radius:999px;background:var(--metal);color:#1b1205}
+.pack-acoes{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:26px}
+.dica-ios{color:var(--nevoa);font-size:13.5px}
 
-/* carrossel genérico */
-.carrossel{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px 16px 6px;margin:0 -16px;scrollbar-width:none}
-.carrossel::-webkit-scrollbar{display:none}
-.carrossel>*{scroll-snap-align:center;flex:none}
-.pontos{display:flex;justify-content:center;gap:6px;margin-top:10px}
-.pontos i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.25);transition:width .25s,background .25s}
-.pontos i.on{width:18px;background:var(--ouro)}
+/* FERRAMENTAS */
+.ferr-cab{text-align:center;max-width:760px;margin:0 auto 56px}
+.ferr-cab .lead{margin-left:auto;margin-right:auto}
+.prod{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:0;border-radius:30px;overflow:hidden;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--linha);margin-bottom:26px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.prod:nth-child(even){grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+.prod:nth-child(even) .prod-foto{order:2}
+.prod-foto{position:relative;min-height:420px}
+.prod-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.prod-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(5,7,13,.6))}
+.prod-foto .num{position:absolute;left:22px;bottom:16px;z-index:2;font:400 64px/1 var(--cond);color:rgba(255,255,255,.9);text-shadow:0 6px 30px rgba(0,0,0,.6)}
+.prod-txt{padding:42px 44px;display:flex;flex-direction:column;justify-content:center}
+.selo{align-self:flex-start;font:800 11px var(--texto);letter-spacing:.18em;text-transform:uppercase;padding:8px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:var(--nevoa);margin-bottom:16px}
+.selo.quente{background:linear-gradient(90deg,#b4231a,#e8452a);border:0;color:#fff;box-shadow:0 8px 30px rgba(232,69,42,.35)}
+.prod h3{font:400 clamp(40px,5.4vw,60px)/.95 var(--cond);text-transform:uppercase}
+.prod h3 small{display:block;font:400 clamp(30px,3.6vw,40px)/1 var(--script);text-transform:none;color:var(--ouro);margin-top:6px}
+.prod .frase{font:700 clamp(18px,2.2vw,21px)/1.35 var(--texto);margin:18px 0 10px}
+.prod p{color:var(--nevoa);font-size:15.5px}
+.prod ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px}
+.prod li{display:flex;gap:10px;font-size:15px;color:#dfe3ea}
+.prod li::before{content:"✦";color:var(--ouro);flex:none}
+.prod .preco{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:22px;color:var(--nevoa);font-size:14px}
+.prod .preco b{font:400 34px/1 var(--cond);color:#fff;letter-spacing:.01em}
+.prod .preco s{color:#7f889b}
+.prod .btn{margin-top:22px;align-self:flex-start}
+.prod.destaque{border-color:rgba(228,190,120,.45);box-shadow:0 30px 90px rgba(0,0,0,.45),0 0 0 1px rgba(228,190,120,.15),0 0 80px rgba(228,190,120,.10)}
 
-/* dor */
-.dor{width:78%;min-height:300px;border-radius:24px;padding:24px 20px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;border:1px solid var(--linha)}
-.dor img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.42) saturate(.8)}
-.dor *{position:relative}
-.dor .num{font-family:var(--cond);font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(228,190,120,.7)}
-.dor h3{font-family:var(--cond);font-weight:400;font-size:30px;line-height:1.02;margin:6px 0 8px;text-transform:uppercase}
-.dor p{margin:0;font-size:14px;color:#d3d8e3}
-.alivio{margin:22px 0 0;padding:20px;border-radius:22px;background:linear-gradient(135deg,rgba(228,190,120,.14),rgba(228,190,120,.03));border:1px solid rgba(228,190,120,.3)}
-.alivio p{margin:0}
+/* PREMIUM (em breve) */
+.premium{position:relative;border-radius:30px;overflow:hidden;min-height:520px;display:flex;align-items:flex-end;border:1px solid rgba(228,190,120,.35)}
+.premium>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.premium::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,13,.92) 0%,rgba(5,7,13,.7) 45%,rgba(5,7,13,.1) 100%),linear-gradient(0deg,rgba(5,7,13,.6),transparent 40%)}
+.premium-txt{position:relative;z-index:2;padding:48px;max-width:600px}
+.premium .temas{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 4px}
+.premium .temas span{font:700 12px var(--texto);letter-spacing:.06em;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18)}
 
-/* calculadora */
-.calc{margin-top:18px;padding:20px;border-radius:26px;background:var(--card);border:1px solid var(--linha);backdrop-filter:blur(8px)}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.chips button{padding:9px 14px;border-radius:999px;border:1px solid var(--linha);background:rgba(255,255,255,.03);font-size:13px;font-weight:600}
-.chips button[aria-pressed=true]{border-color:var(--ouro);background:rgba(228,190,120,.14);color:var(--ouro-cl)}
-.campo{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;font-size:13px;font-weight:600;color:var(--nevoa)}
-.campo input[type=text]{background:rgba(0,0,0,.35);border:1px solid var(--linha);border-radius:16px;padding:14px 16px;color:#fff;font:700 22px var(--texto);outline:none}
-.campo input[type=text]:focus{border-color:var(--ouro)}
-input[type=range]{width:100%;accent-color:var(--ouro);height:28px}
-.resultado{text-align:center;padding:18px 10px 6px;border-top:1px dashed var(--linha);margin-top:4px}
-.resultado .grande{font-family:var(--cond);font-size:64px;line-height:1;margin:6px 0}
-.resultado .dia{color:var(--nevoa);font-size:14px;margin-bottom:16px}
-.resultado .dia b{color:var(--ouro-cl)}
+/* reels */
+.reels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
+.reels video{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:22px;border:1px solid var(--linha);background:#000;box-shadow:0 20px 50px rgba(0,0,0,.5)}
 
-/* vídeo */
-.video-moldura{margin:20px auto 0;width:min(78%,330px);border-radius:44px;padding:10px;background:#0b0b0f;border:2px solid rgba(176,127,58,.65);box-shadow:0 30px 60px rgba(0,0,0,.6),0 0 0 6px rgba(255,255,255,.02);position:relative}
-.video-moldura video{width:100%;aspect-ratio:9/16;border-radius:34px;background:#000;display:block;object-fit:cover}
-.video-play{position:absolute;inset:10px;border-radius:34px;display:grid;place-items:end center;padding-bottom:16%;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.35))}
-.video-play span{width:78px;height:78px;border-radius:50%;background:rgba(228,190,120,.92);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(228,190,120,.2)}
-.video-play svg{width:30px;margin-left:5px}
-.topicos{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px}
-.topicos button{font-size:12px;font-weight:600;padding:8px 12px;border-radius:999px;background:var(--card);border:1px solid var(--linha)}
+footer{padding:70px 0 110px;text-align:center;border-top:1px solid var(--linha)}
+footer .grande{font-size:clamp(40px,8vw,72px)}
+footer p{color:var(--nevoa);font-size:14px;margin-top:10px}
+footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
 
-/* passos */
-.passo{width:72%;border-radius:24px;padding:22px 18px;background:var(--card);border:1px solid var(--linha);min-height:210px}
-.passo .n{font-family:var(--cond);font-size:46px;line-height:1}
-.passo h3{margin:8px 0 6px;font-size:17px}
-.passo p{margin:0;font-size:13.5px;color:var(--nevoa)}
+/* barra fixa no celular */
+.barra{position:fixed;left:12px;right:12px;bottom:12px;z-index:20;display:none;transform:translateY(130%);transition:transform .3s}
+.barra.mostrar{transform:none}
+.barra .btn{width:100%;min-height:54px}
 
-/* feed de wallpapers */
-.feed{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:18px -16px 0}
-.feed button{aspect-ratio:9/16;overflow:hidden;position:relative;padding:0}
-.feed img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.feed button:active img{transform:scale(1.05)}
-.feed .trava{position:absolute;right:6px;top:6px;font-size:10px;font-weight:800;background:rgba(0,0,0,.55);padding:3px 7px;border-radius:999px;color:var(--ouro-cl);letter-spacing:.5px}
+/* animação ao aparecer */
+.sobe{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.sobe.vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.sobe{opacity:1;transform:none;transition:none}.hero-fundo img{animation:none}}
 
-
-.grade-posts{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:18px -16px 0}
-.grade-posts button{aspect-ratio:3/4;overflow:hidden;padding:0;position:relative}
-.grade-posts img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.grade-posts button:active img{transform:scale(1.05)}
-.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;font-size:40px;color:#fff;opacity:.8}
-.lb-nav.ant{left:4px}.lb-nav.prox{right:4px}
-.lb .acoes{display:flex;gap:10px;width:100%;max-width:340px}
-.lb .acoes .btn{min-height:50px;font-size:14px}
-#aviso{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top));transform:translate(-50%,-140%);z-index:60;background:#14110a;border:1px solid var(--ouro);color:var(--ouro-cl);font-weight:700;font-size:14px;padding:12px 18px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.5);transition:transform .3s;max-width:92vw;text-align:center}
-#aviso.on{transform:translate(-50%,0)}
-/* planos */
-.planos{display:flex;flex-direction:column;gap:12px;margin-top:18px}
-.plano{border-radius:22px;padding:20px;background:var(--card);border:1px solid var(--linha);position:relative}
-.plano.dest{border-color:rgba(228,190,120,.6);background:linear-gradient(160deg,rgba(228,190,120,.16),rgba(228,190,120,.03))}
-.plano .tag{position:absolute;top:-11px;right:16px;background:var(--ouro);color:#1a1206;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px}
-.plano h3{margin:0;font-size:16px}
-.plano .preco{font-family:var(--cond);font-size:38px;line-height:1.1;margin:6px 0 4px}
-.plano .preco small{font-family:var(--texto);font-size:13px;color:var(--nevoa);font-weight:600}
-.plano ul{margin:10px 0 0;padding:0;list-style:none;font-size:13.5px;color:#d8dde7;display:flex;flex-direction:column;gap:6px}
-.plano li::before{content:"✦ ";color:var(--ouro)}
-
-/* sócio */
-.socio{margin-top:6px;border-radius:30px;overflow:hidden;position:relative;padding:30px 22px 24px;border:1px solid rgba(228,190,120,.35)}
-.socio>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.3)}
-.socio>*:not(img){position:relative}
-.comissao{font-family:var(--cond);font-size:120px;line-height:.9;margin:8px 0 0}
-.lista-socio{list-style:none;padding:0;margin:18px 0;display:flex;flex-direction:column;gap:10px}
-.lista-socio li{display:flex;gap:12px;align-items:flex-start;font-size:14px;background:rgba(0,0,0,.35);border:1px solid var(--linha);border-radius:16px;padding:12px 14px;backdrop-filter:blur(6px)}
-.lista-socio li b{font-family:var(--cond);font-size:22px;color:var(--ouro);font-weight:400;line-height:1}
-.nota{font-size:12px;color:var(--nevoa);margin-top:12px}
-
-/* faq */
-.faq{margin-top:16px;display:flex;flex-direction:column;gap:10px}
-.faq details{background:var(--card);border:1px solid var(--linha);border-radius:18px;padding:0 16px}
-.faq summary{list-style:none;padding:16px 0;font-weight:700;display:flex;justify-content:space-between;gap:12px;cursor:pointer}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";color:var(--ouro);font-size:22px;line-height:1;transition:transform .2s}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq details p{margin:0 0 16px;color:var(--nevoa);font-size:14px}
-
-/* final */
-.final{padding:60px 16px 20px;text-align:center}
-.final .script{font-size:52px}
-
-/* barra fixa */
-.barra{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(5,7,13,0),rgba(5,7,13,.92) 35%);transform:translateY(120%);transition:transform .35s}
-.barra.on{transform:none}
-.barra .dentro{max-width:448px;margin:0 auto}
-.barra small{display:block;text-align:center;font-size:11px;color:var(--nevoa);margin-top:6px}
-
-/* revelar ao rolar */
-.rev{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
-.rev.on{opacity:1;transform:none}
-
-/* visualizador de stories */
-.sv{position:fixed;inset:0;z-index:50;background:#000;display:none}
-.sv.on{display:block}
-.sv-palco{position:absolute;inset:0;max-width:480px;margin:0 auto;overflow:hidden}
-.sv-palco>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 6s linear forwards}
-@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.12)}}
-.sv-palco::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.05) 25%,rgba(0,0,0,.25) 55%,rgba(0,0,0,.9) 100%)}
-.sv-barras{position:absolute;top:calc(10px + env(safe-area-inset-top));left:10px;right:10px;display:flex;gap:4px;z-index:3}
-.sv-barras i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.3);overflow:hidden}
-.sv-barras i b{display:block;height:100%;width:0;background:#fff}
-.sv-topo{position:absolute;top:calc(22px + env(safe-area-inset-top));left:12px;right:12px;display:flex;align-items:center;gap:10px;z-index:3;font-size:13px;font-weight:700}
-.sv-topo img{width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid var(--ouro)}
-.sv-topo .x{margin-left:auto;width:40px;height:40px;font-size:28px;line-height:1}
-.sv-texto{position:absolute;left:22px;right:22px;bottom:calc(40px + env(safe-area-inset-bottom));z-index:3;animation:sobe .6s ease both}
-@keyframes sobe{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-.sv-texto .titulo{font-size:clamp(44px,13vw,62px)}
-.sv-texto p{font-size:16px;color:#e7eaf1;margin:12px 0 20px}
-.sv-palco.puro>img{object-fit:contain;animation:none;background:#000}
-.sv-palco.puro::after{background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 15%)}
-.sv-toque{position:absolute;top:80px;bottom:150px;z-index:2;width:40%}
-.sv-toque.esq{left:0}.sv-toque.dir{right:0;width:60%}
-
-/* lightbox */
-.lb{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:16px}
-.lb.on{display:flex}
-.lb img{max-height:72vh;border-radius:22px;box-shadow:0 30px 60px rgba(0,0,0,.6)}
-.lb .btn{max-width:340px}
-.lb .x{position:absolute;top:calc(12px + env(safe-area-inset-top));right:14px;font-size:32px;width:44px;height:44px}
-
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#neve{display:none}}
+@media(max-width:900px){
+  .quem,.pack-topo{grid-template-columns:1fr}
+  .quem .fone{order:2}
+  .galeria{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .prod,.prod:nth-child(even){grid-template-columns:1fr}
+  .prod:nth-child(even) .prod-foto{order:0}
+  .prod-foto{min-height:300px}
+  .prod-txt{padding:30px 24px 34px}
+  .premium-txt{padding:30px 24px}
+  .premium::before{background:linear-gradient(0deg,rgba(5,7,13,.95) 0%,rgba(5,7,13,.75) 55%,rgba(5,7,13,.15) 100%)}
+  .reels{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .reels video{border-radius:14px}
+  .barra{display:block}
+  .rolar{display:none}
+  .hero{padding-bottom:40px}
+  section{padding:72px 0}
+  .btn{width:100%}
+  .hero-botoes .btn{width:100%}
+}
 </style>
 </head>
 <body>
 <canvas id="neve" aria-hidden="true"></canvas>
-<main class="pagina">
 
-  <!-- Perfil -->
-  <header class="perfil">
-    <div class="avatar"><img src="img/perfil.jpg" alt="Inspira Diário"></div>
-    <div>
-      <h1>Inspira Diário <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="#e4be78" d="M12 1l2.6 2.4 3.5-.4.9 3.4 3 1.9-1.3 3.3 1.3 3.3-3 1.9-.9 3.4-3.5-.4L12 22.2l-2.6-2.4-3.5.4-.9-3.4-3-1.9 1.3-3.3L2 8.3l3-1.9.9-3.4 3.5.4z"/><path d="M8 12.3l2.6 2.6L16.3 9" stroke="#1a1206" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></h1>
-      <div class="arroba">@inspiradiariooficial</div>
-      <div class="bio">Talvez você precisasse ler isso hoje.<br>Fé • Mentalidade • <b>Evolução</b></div>
+<header class="hero">
+  <div class="hero-fundo"><img src="img/n/b4.webp" alt="" fetchpriority="high"></div>
+  <div class="topo"><div class="caixa">
+    <div class="perfil"><img src="img/perfil.jpg" alt="Inspira Diário"><div><b>INSPIRA DIÁRIO</b><span>@inspiradiariooficial</span></div></div>
+    <a class="ig" href="https://www.instagram.com/inspiradiariooficial/" target="_blank" rel="noopener">Instagram</a>
+  </div></div>
+  <div class="caixa hero-txt">
+    <span class="kicker">Founder · SaaS Builder com IA</span>
+    <h1 class="grande"><span class="prata">Eu crio IAs</span><span class="script">que trabalham por você.</span></h1>
+    <p class="sub">Comecei o Inspira Diário falando de fé, disciplina e silêncio. Depois transformei isso em ferramentas: para organizar o dinheiro e tirar o sonho do papel, para ter uma página que posta todo dia sem aparecer e para criar vídeos que vendem. Tudo pelo celular.</p>
+    <div class="hero-botoes">
+      <a class="btn btn-ouro" href="#pack" data-ev="hero-pack">Pegar o pack grátis</a>
+      <a class="btn btn-vidro" href="#ferramentas" data-ev="hero-ferramentas">Ver as ferramentas</a>
     </div>
-  </header>
-
-  <!-- Stories -->
-  <nav class="stories" aria-label="Destaques" id="stories"></nav>
-
-  <!-- Hero -->
-  <div class="heroi rev">
-    <img src="img/p-vila.jpg" alt="" fetchpriority="high" style="object-position:50% 0%">
-    <span class="selo"><i></i>Teste de 7 dias liberado pelo link da bio</span>
-    <h2 class="titulo">O sonho<br>não é caro.</h2>
-    <span class="script">caro é não ter plano</span>
-    <p>O <b>Cofre dos Sonhos</b> diz quanto guardar por mês, te lembra no dia certo e coloca a sua meta na tela de bloqueio.</p>
-    <a class="btn btn-ouro pulsa" data-app href="#">Testar 7 dias grátis</a>
   </div>
+  <div class="rolar">ROLE<i></i></div>
+</header>
 
-  <!-- Dor -->
-  <section id="dor">
-    <div class="rev">
-      <span class="sobre">Isso é você?</span>
-      <h2 class="titulo" style="margin-top:8px">Dinheiro curto<br><span class="ouro">tira o sono</span></h2>
-    </div>
-    <div class="carrossel" id="carDor">
-      <article class="dor"><img src="img/p-sacada.jpg" alt="" loading="lazy"><span class="num">01</span><h3>O salário some antes do dia 10</h3><p>Paga as contas, sobra nada, e o sonho fica pro “mês que vem”.</p></article>
-      <article class="dor"><img src="img/p-treino.jpg" alt="" loading="lazy"><span class="num">02</span><h3>Já tentou guardar e parou</h3><p>Começa animado, esquece no segundo mês. Não é falta de força, é falta de lembrete.</p></article>
-      <article class="dor"><img src="img/p-oculos.jpg" alt="" loading="lazy"><span class="num">03</span><h3>Tem um sonho, mas nunca fez a conta</h3><p>Sem saber quanto guardar por mês, o sonho parece impossível.</p></article>
-      <article class="dor"><img src="img/negocio-4.jpg" alt="" loading="lazy"><span class="num">04</span><h3>A dívida virou um peso</h3><p>Juros de um lado, boleto do outro. Falta saber por onde começar.</p></article>
-    </div>
-    <div class="pontos" data-pontos="carDor"></div>
-    <div class="alivio rev">
-      <p><b>Respira.</b> <span class="fraco">Você não precisa ganhar mais para começar. Precisa de um plano simples, que caiba no seu mês e que te lembre todo dia do porquê.</span></p>
-    </div>
-  </section>
-
-
-  <!-- Posts do perfil -->
-  <section id="posts">
-    <div class="rev">
-      <span class="sobre">Do perfil</span>
-      <h2 class="titulo" style="margin-top:8px">Talvez você<br><span class="ouro">precisasse ler isso</span></h2>
-      <p class="fraco" style="margin:10px 0 0">Fé, mentalidade e evolução, todo dia no @inspiradiariooficial. Toque para ver.</p>
-    </div>
-    <div class="grade-posts rev" id="gradePosts"></div>
-    <a class="btn btn-vazado" href="https://www.instagram.com/inspiradiariooficial/" target="_blank" rel="noopener" style="margin-top:16px">Ver todos no Instagram</a>
-  </section>
-
-  <!-- Calculadora -->
-  <section id="calculadora">
-    <div class="rev">
-      <span class="sobre">Faça a conta agora</span>
-      <h2 class="titulo" style="margin-top:8px">Quanto custa<br><span class="ouro">seu sonho por mês?</span></h2>
-    </div>
-    <div class="calc rev">
-      <div class="chips" id="chips"></div>
-      <label class="campo">Quanto custa (R$)<input type="text" inputmode="numeric" id="cValor" value="12.000"></label>
-      <label class="campo">Em quanto tempo: <span id="cMesesTxt" style="color:#fff">12 meses</span><input type="range" id="cMeses" min="3" max="60" value="12"></label>
-      <div class="resultado">
-        <span class="sobre">Você precisa guardar</span>
-        <div class="grande ouro-t" id="cMes">R$ 1.000</div>
-        <div class="dia" id="cDia">por mês · cerca de <b>R$ 33</b> por dia</div>
-        <a class="btn btn-ouro" data-app href="#">Criar meu cofre com esse plano</a>
+<main>
+  <!-- QUEM SOU -->
+  <section>
+    <div class="caixa quem">
+      <div class="fone sobe"><video src="img/n/reels_silencio_resultado.mp4" poster="img/n/reels_silencio_resultado.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Reels do Inspira Diário"></video><span class="rotulo">Do perfil · Reels</span></div>
+      <div>
+        <span class="kicker sobe">Quem está por trás</span>
+        <h2 class="grande tit sobe">Construído <span class="script">em silêncio.</span></h2>
+        <p class="lead sobe">O Inspira Diário é o lado de dentro: <b>fé que sustenta, disciplina quando ninguém está olhando e visão antes de existir.</b> As ferramentas são o lado de fora: o que eu mesmo uso para executar, agora nas mãos de quem quer mudar de vida de verdade.</p>
+        <div class="pilares">
+          <div class="pilar sobe"><span class="n">01</span><div><b>Para quem tem um sonho e nenhum plano</b><span>O Cofre dos Sonhos diz quanto guardar por mês e coloca a meta na sua tela de bloqueio.</span></div></div>
+          <div class="pilar sobe"><span class="n">02</span><div><b>Para quem quer uma página sem aparecer</b><span>A Fábrica Dark cria os posts da sua página todo dia, no estilo dela.</span></div></div>
+          <div class="pilar sobe"><span class="n">03</span><div><b>Para quem quer vender na internet</b><span>O Frankenstein e o The Vault entregam a estrutura que faltava: ferramenta, método e produto.</span></div></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Vídeo -->
-  <section id="tutorial" class="centro">
-    <div class="rev">
-      <span class="sobre">Chegou e se perdeu?</span>
-      <h2 class="titulo" style="margin-top:8px">Aprenda em<br><span class="ouro">1 minuto</span></h2>
-      <p class="fraco" style="margin:10px 0 0">Cadastro, primeiro cofre, como marcar o que guardou, wallpaper em 4K e notificações no iPhone. Tudo com as telas reais do app.</p>
-    </div>
-    <div class="video-moldura rev">
-      <video id="video" src="tutorial.mp4?v=2" poster="tutorial.jpg" playsinline preload="none"></video>
-      <button class="video-play" id="videoPlay" aria-label="Assistir o tutorial"><span><svg viewBox="0 0 24 24"><path fill="#1a1206" d="M6 4l15 8-15 8z"/></svg></span></button>
-    </div>
-    <div class="topicos" id="topicos"></div>
-  </section>
-
-  <!-- Como funciona -->
-  <section id="como">
-    <div class="rev">
-      <span class="sobre">Como funciona</span>
-      <h2 class="titulo" style="margin-top:8px">Simples assim,<br><span class="ouro">sem planilha</span></h2>
-    </div>
-    <div class="carrossel" id="carPassos">
-      <article class="passo"><div class="n ouro-t">1</div><h3>Escolha o sonho</h3><p>Viagem, carro, moto, casa, reserva… coloque o valor e a data.</p></article>
-      <article class="passo"><div class="n ouro-t">2</div><h3>Veja o valor do mês</h3><p>O Cofre calcula quanto guardar por mês até a data que você escolheu.</p></article>
-      <article class="passo"><div class="n ouro-t">3</div><h3>Guarde na caixinha</h3><p>O dinheiro fica no seu banco. No Cofre você só marca o que guardou e vê o progresso subir.</p></article>
-      <article class="passo"><div class="n ouro-t">4</div><h3>Lembre todo dia</h3><p>Wallpaper com a meta na tela de bloqueio e lembretes no dia da reserva.</p></article>
-    </div>
-    <div class="pontos" data-pontos="carPassos"></div>
-  </section>
-
-  <!-- Wallpapers -->
-  <section id="wallpapers">
-    <div class="rev">
-      <span class="sobre">Wallpapers do Cofre</span>
-      <h2 class="titulo" style="margin-top:8px">Seu sonho na<br><span class="ouro">tela de bloqueio</span></h2>
-      <p class="fraco" style="margin:10px 0 0">Toda vez que pegar o celular, você lembra por que está guardando. Toque para ver.</p>
-    </div>
-    <div class="feed rev" id="feed"></div>
-  </section>
-
-  <!-- Planos -->
-  <section id="planos">
-    <div class="rev">
-      <span class="sobre">Comece sem pagar nada</span>
-      <h2 class="titulo" style="margin-top:8px">7 dias de<br><span class="ouro">Premium grátis</span></h2>
-    </div>
-    <div class="planos rev">
-      <div class="plano dest"><span class="tag">PELO LINK DA BIO</span><h3>Teste Premium</h3><div class="preco ouro-t">R$ 0 <small>por 7 dias</small></div>
-        <ul><li>Todos os wallpapers em 4K</li><li>Cofres e lembretes ilimitados</li><li>Plano para sair das dívidas</li><li>Sem cartão para testar</li></ul></div>
-      <div class="plano"><h3>Premium depois do teste</h3><div class="preco">R$ 12,90 <small>/mês</small></div>
-        <ul><li>Ou R$ 29,90 por trimestre</li><li>Pagamento por Pix dentro do app</li><li>Sem fidelidade</li></ul></div>
-    </div>
-    <a class="btn btn-ouro" data-app href="#" style="margin-top:16px">Quero meus 7 dias grátis</a>
-  </section>
-
-  <!-- Sócio -->
-  <section id="socio">
-    <div class="socio rev">
-      <img src="img/posts/08.jpg" alt="" loading="lazy" style="object-position:50% 20%">
-      <span class="sobre">Programa de sócios</span>
-      <h2 class="titulo" style="margin-top:8px">Ganhe dinheiro<br><span class="ouro">com o Cofre</span></h2>
-      <div class="comissao ouro-t">80%</div>
-      <p style="margin:4px 0 0;font-weight:700">de comissão em cada venda que vier do seu link.</p>
-      <ul class="lista-socio">
-        <li><b>1</b><span>Você se cadastra como afiliado na Kiwify e recebe o seu link.</span></li>
-        <li><b>2</b><span>Divulga com a estrutura pronta: posts, roteiros e o tutorial em vídeo.</span></li>
-        <li><b>3</b><span>Cada venda pelo seu link cai como comissão na sua conta Kiwify.</span></li>
-      </ul>
-      <a class="btn btn-ouro" id="btnSocio" href="#">Quero ser sócio</a>
-      <p class="nota">Ganhos dependem só da sua divulgação. Não prometemos valores.</p>
+  <!-- PACK GRÁTIS -->
+  <section class="pack" id="pack">
+    <div class="caixa">
+      <span class="publi sobe"><i></i>Publi grátis · Garanta o seu</span>
+      <div class="pack-topo">
+        <div>
+          <h2 class="grande tit sobe"><span class="ouro">Pack Inspira Diário</span><span class="script">16 wallpapers em 4K. Grátis.</span></h2>
+          <p class="lead sobe">O celular é a primeira coisa que você vê quando acorda e a última antes de dormir. <b>Que ele te lembre, todo dia, de quem você está se tornando.</b></p>
+          <ul class="porque sobe">
+            <li><b>Frases de fé, foco e disciplina</b> para quem constrói em silêncio e não pede licença.</li>
+            <li><b>Feitos para a tela do celular</b>, em alta resolução, para não ficar borrado na tela de bloqueio.</li>
+            <li><b>Sempre chegam novos.</b> Quando o pack crescer, você fica sabendo primeiro.</li>
+            <li>Use, poste nos stories e marque <b>@inspiradiariooficial</b>.</li>
+          </ul>
+        </div>
+        <div class="sobe">
+          <form class="form so-bloq" id="formPack" novalidate>
+            <h3>Liberar meu pack</h3>
+            <p>Coloque seu nome e WhatsApp e os 16 wallpapers são liberados na hora, aqui mesmo.</p>
+            <label for="pNome">Seu nome</label>
+            <input id="pNome" name="nome" autocomplete="given-name" maxlength="60" placeholder="Como você se chama?" required>
+            <label for="pZap">WhatsApp com DDD</label>
+            <input id="pZap" name="whatsapp" inputmode="tel" autocomplete="tel-national" maxlength="16" placeholder="(11) 99999-9999" required>
+            <button class="btn btn-ouro" type="submit" id="pEnviar">Liberar os 16 wallpapers</button>
+            <div class="erro" id="pErro" role="alert"></div>
+            <small>Sem spam. Só avisos de wallpapers novos e novidades do Inspira.</small>
+          </form>
+          <div class="liberado">
+            <div class="ok-topo">✓ Pack liberado. Toque em um wallpaper para baixar.</div>
+            <div class="pack-acoes">
+              <a class="btn btn-ouro" href="pack-inspira-diario.zip" download data-ev="zip">Baixar todos (.zip · 18 MB)</a>
+            </div>
+            <p class="dica-ios" style="margin-top:14px">No iPhone: toque no wallpaper, ele abre em tela cheia. Segure o dedo na imagem e escolha <b>Salvar na Fotos</b>. Depois: Ajustes › Imagem de Fundo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="galeria" id="galeria"></div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="rev">
-      <span class="sobre">Dúvidas</span>
-      <h2 class="titulo" style="margin-top:8px">Perguntas<br><span class="ouro">frequentes</span></h2>
-    </div>
-    <div class="faq rev">
-      <details><summary>O Cofre guarda o meu dinheiro?</summary><p>Não. O dinheiro fica na caixinha do seu próprio banco (Nubank, Inter, PicPay, Mercado Pago…). O Cofre faz o plano, mostra o progresso e te lembra.</p></details>
-      <details><summary>Preciso baixar na loja de apps?</summary><p>Não. Abra cofredossonhos.com no celular e adicione à tela de início. No iPhone: Safari › Compartilhar › Adicionar à Tela de Início.</p></details>
-      <details><summary>Como ativo as notificações no iPhone?</summary><p>Primeiro adicione o Cofre à tela de início e abra pelo ícone. Depois vá em Mais › Lembretes › Ativar notificações e toque em Permitir.</p></details>
-      <details><summary>O teste de 7 dias cobra alguma coisa?</summary><p>Não. Você entra pelo link, cria a conta e usa o Premium por 7 dias. Depois escolhe se quer continuar.</p></details>
-      <details><summary>Como funciona o pagamento?</summary><p>Por Pix, dentro do próprio app. O Premium libera sozinho assim que o pagamento é confirmado.</p></details>
-      <details><summary>Como viro sócio?</summary><p>Toque em “Quero ser sócio”. Você recebe o link de afiliado da Kiwify e ganha 80% em cada venda que vier dele.</p></details>
+  <!-- FERRAMENTAS -->
+  <section id="ferramentas">
+    <div class="caixa">
+      <div class="ferr-cab">
+        <span class="kicker sobe">As ferramentas</span>
+        <h2 class="grande tit sobe">Escolha <span class="script">por onde começar.</span></h2>
+        <p class="lead sobe">Cada uma resolve um pedaço do caminho. Toque na que é a sua e veja tudo na página dela.</p>
+      </div>
+
+      <article class="prod destaque sobe">
+        <div class="prod-foto"><img src="img/n/b7.webp" alt="Personagem do Inspira diante de um cofre dourado aberto" loading="lazy"><span class="num">01</span></div>
+        <div class="prod-txt">
+          <span class="selo quente">Black Friday · só até 30/11</span>
+          <h3>The Vault<small>a estrutura inteira.</small></h3>
+          <p class="frase">Criou perfil atrás de perfil e não vendeu nada? O problema nunca foi você. Faltava estrutura.</p>
+          <p>O The Vault abre o ecossistema inteiro para você vender na internet sem aparecer e sem começar do zero.</p>
+          <ul><li>3 cursos completos, com aulas práticas</li><li>As ferramentas liberadas para você usar e mostrar</li><li>Vire afiliado e ganhe 70% de comissão no curso</li><li>Pagamento único e garantia de 7 dias</li></ul>
+          <div class="preco"><b>R$ 39,90</b> pagamento único · preço de Black Friday</div>
+          <a class="btn btn-ouro" href="https://www.cofredossonhos.com/vault/" data-ev="vault">Quero entrar no The Vault</a>
+        </div>
+      </article>
+
+      <article class="prod sobe">
+        <div class="prod-foto"><img src="img/n/b3.webp" alt="Personagem do Inspira planejando no celular à luz de lamparina" loading="lazy"><span class="num">02</span></div>
+        <div class="prod-txt">
+          <span class="selo">App · por Inspira Diário</span>
+          <h3>Cofre dos Sonhos<small>o plano no seu bolso.</small></h3>
+          <p class="frase">O sonho não é caro. Caro é não ter plano.</p>
+          <p>Escolha a conquista (carro, casa, viagem, moto), descubra quanto guardar por mês e veja o progresso toda vez que pegar o celular. O dinheiro fica no seu banco; o Cofre te mantém no ritmo.</p>
+          <ul><li>Sua meta no wallpaper da tela de bloqueio</li><li>Lembrete no dia de guardar</li><li>Plano para sair das dívidas</li></ul>
+          <div class="preco"><s>R$ 12,90</s><b>R$ 10,90</b>/mês · Pix · sem fidelidade</div>
+          <a class="btn btn-ouro" href="https://www.cofredossonhos.com/conheca/" data-ev="cofre">Quero o meu Cofre</a>
+        </div>
+      </article>
+
+      <article class="prod sobe">
+        <div class="prod-foto"><img src="img/n/b6.webp" alt="Personagem do Inspira no notebook ao lado da lareira" loading="lazy"><span class="num">03</span></div>
+        <div class="prod-txt">
+          <span class="selo">Para páginas e empresas</span>
+          <h3>Fábrica Dark<small>sua página postando todo dia.</small></h3>
+          <p class="frase">O Inspira Diário usa a Fábrica. A sua página pode ser a próxima.</p>
+          <p>Você diz o tema (ou deixa ela escolher) e a IA cria na hora o post, a imagem e a legenda, na identidade da sua página. Sem saber design e sem aparecer.</p>
+          <ul><li>Post, carrossel, Reels e stories</li><li>Dark, frases, quadrinhos, notícias e memes</li><li>Modo Business: posts com a marca da sua empresa</li></ul>
+          <div class="preco"><b>3 dias grátis</b> · sem cartão</div>
+          <a class="btn btn-ouro" href="https://fabricadark.cofredossonhos.com/conheca/" data-ev="fabrica">Testar a Fábrica grátis</a>
+        </div>
+      </article>
+
+      <article class="prod sobe">
+        <div class="prod-foto"><img src="img/n/b8.webp" alt="Personagem do Inspira caminhando numa vila de neve à noite" loading="lazy"><span class="num">04</span></div>
+        <div class="prod-txt">
+          <span class="selo">Para quem vende no TikTok Shop</span>
+          <h3>Frankenstein<small>a IA que dá vida aos seus vídeos.</small></h3>
+          <p class="frase">Pare de postar no chute. Veja o que já vende e grave em cima disso.</p>
+          <p>Veja o que vende hoje no Brasil e nos Estados Unidos, deixe a IA modelar os vídeos campeões, grave no teleprompter e receba até 125 vídeos prontos com só 15 gravações.</p>
+          <ul><li>Radar do que mais vende, por nicho</li><li>Roteiros feitos pela IA para o seu produto</li><li>Montagem de vídeos sem repetir combinação</li></ul>
+          <div class="preco"><b>3 dias grátis</b> · sem cartão para testar</div>
+          <a class="btn btn-ouro" href="https://frankenstein.thebestia.com.br/conheca" data-ev="frankenstein">Testar o Frankenstein grátis</a>
+        </div>
+      </article>
     </div>
   </section>
 
-  <!-- Final -->
-  <div class="final rev">
-    <span class="sobre">Talvez você precisasse ler isso hoje</span>
-    <h2 class="titulo" style="margin-top:12px">O primeiro passo<br><span class="ouro">é hoje</span></h2>
-    <span class="script">o resto é constância</span>
-    <a class="btn btn-ouro" data-app href="#" style="margin-top:22px">Criar meu Cofre dos Sonhos</a>
-    <a class="btn btn-vazado" href="https://www.instagram.com/inspiradiariooficial/" target="_blank" rel="noopener" style="margin-top:12px">Seguir @inspiradiariooficial</a>
-    <p class="marca" style="margin-top:44px">Inspira Diário</p>
-  </div>
+  <!-- PREMIUM EM BREVE -->
+  <section style="padding-top:20px">
+    <div class="caixa">
+      <div class="premium sobe" id="premium">
+        <img src="img/n/b1.webp" alt="Personagem do Inspira segurando uma chave dourada" loading="lazy">
+        <div class="premium-txt">
+          <span class="publi"><i></i>Em breve</span>
+          <h2 class="grande tit" style="margin-top:16px"><span class="ouro">Wallpapers Premium</span><span class="script">sem logo. sem texto. só a imagem.</span></h2>
+          <p class="lead">Packs por tema, na pegada do Inspira, para você usar na sua página dark, nos seus posts e no seu celular.</p>
+          <div class="temas"><span>Neve e luxo</span><span>Carros</span><span>Chalés</span><span>Cofres e ouro</span><span>Viagem</span><span>Fé</span></div>
+          <button class="btn btn-ouro" type="button" id="btnAviso" style="margin-top:22px">Quero ser avisado</button>
+          <div class="erro" id="avisoMsg" role="status" style="color:#c9f0d4"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REELS -->
+  <section style="padding-top:40px">
+    <div class="caixa" style="text-align:center">
+      <span class="kicker sobe">Direto do perfil</span>
+      <h2 class="grande tit sobe">Todo dia, <span class="script">uma dose.</span></h2>
+      <div class="reels">
+        <video class="sobe" src="img/n/reels_silencio_resultado.mp4" poster="img/n/reels_silencio_resultado.jpg" muted loop playsinline preload="none" aria-label="Reels: eu fiquei em silêncio"></video>
+        <video class="sobe" src="img/n/reels_parar_passar.mp4" poster="img/n/reels_parar_passar.jpg" muted loop playsinline preload="none" aria-label="Reels: torceram pra eu parar"></video>
+        <video class="sobe" src="img/n/reels_mais_longe.mp4" poster="img/n/reels_mais_longe.jpg" muted loop playsinline preload="none" aria-label="Reels: disseram que eu não ia chegar"></video>
+      </div>
+      <a class="btn btn-vidro sobe" style="margin-top:30px" href="https://www.instagram.com/inspiradiariooficial/" target="_blank" rel="noopener">Seguir @inspiradiariooficial</a>
+    </div>
+  </section>
 </main>
 
-<!-- Barra fixa -->
-<div class="barra" id="barra"><div class="dentro"><a class="btn btn-ouro" data-app href="#">Testar 7 dias grátis</a><small>Sem cartão · cancela quando quiser</small></div></div>
+<footer>
+  <div class="caixa">
+    <div class="marca">Inspira Diário</div>
+    <div class="grande prata" style="margin-top:14px">Ninguém viu <span class="ouro">o processo.</span></div>
+    <p>Fé, disciplina e as ferramentas certas. O resto é constância.</p>
+    <p class="aviso">Resultados dependem de cada pessoa. Nenhum valor de ganho é prometido. · contato@cofredossonhos.com</p>
+  </div>
+</footer>
 
-<!-- Stories -->
-<div class="sv" id="sv" role="dialog" aria-modal="true" aria-label="Story">
-  <div class="sv-palco" id="svPalco"></div>
-</div>
-
-<!-- Lightbox -->
-<div class="lb" id="lb" role="dialog" aria-modal="true"><button class="x" id="lbX" aria-label="Fechar">×</button><button class="lb-nav ant" id="lbAnt" aria-label="Anterior">‹</button><button class="lb-nav prox" id="lbProx" aria-label="Próximo">›</button><img id="lbImg" alt=""><div class="acoes" id="lbAcoes"></div></div>
+<div class="barra" id="barra"><a class="btn btn-ouro" href="#pack" data-ev="barra-pack">Pegar o pack grátis</a></div>
 
 <script>
-(()=>{
-  // ====== Links (troque aqui quando tiver o link da Kiwify) ======
-  const LINK_APP = 'https://www.cofredossonhos.com/?cupom=COFREBIO';
-  const LINK_SOCIO = ''; // ex.: link da página de afiliados da Kiwify
-  const LINK_DIRECT = 'https://ig.me/m/inspiradiariooficial';
-
-  document.querySelectorAll('[data-app]').forEach(a=>{ a.href=LINK_APP; });
-  const MSG_SOCIO = 'Olá! Vim pela página do Inspira Diário e quero ser sócio do Cofre dos Sonhos: me afiliar à sua estrutura e ganhar 80% de comissão de verdade. Como faço para começar?';
-  const btnSocio = document.getElementById('btnSocio');
-  btnSocio.href = LINK_SOCIO || LINK_DIRECT;
-  btnSocio.addEventListener('click', async e => {
-    if (LINK_SOCIO) return;
-    e.preventDefault();
-    let ok = false;
-    try { await navigator.clipboard.writeText(MSG_SOCIO); ok = true; }
-    catch (_) { const t = document.createElement('textarea'); t.value = MSG_SOCIO; document.body.append(t); t.select(); try { ok = document.execCommand('copy'); } catch (__) {} t.remove(); }
-    aviso(ok ? 'Mensagem copiada! No direct, é só colar e enviar.' : 'Abrindo o direct…');
-    setTimeout(() => { location.href = LINK_DIRECT; }, ok ? 1400 : 300);
-  });
-  function aviso(txt){
-    let el = document.getElementById('aviso');
-    if (!el) { el = document.createElement('div'); el.id = 'aviso'; el.setAttribute('role','status'); document.body.append(el); }
-    el.textContent = txt; el.classList.add('on'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('on'), 3500);
-  }
-
-  const brl = v => 'R$ ' + Math.round(v).toLocaleString('pt-BR');
-  const $ = s => document.querySelector(s);
-
-  // ====== Neve ======
-  const cv=$('#neve'), cx=cv.getContext('2d'); let fl=[];
-  function tam(){ cv.width=innerWidth*devicePixelRatio; cv.height=innerHeight*devicePixelRatio; fl=Array.from({length:Math.min(90,Math.round(innerWidth/5))},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:(Math.random()*2+.6)*devicePixelRatio,v:(Math.random()*.6+.25)*devicePixelRatio,f:Math.random()*6})); }
-  tam(); addEventListener('resize',tam);
-  (function anim(t){ cx.clearRect(0,0,cv.width,cv.height); cx.fillStyle='rgba(255,255,255,.8)';
-    for(const p of fl){ p.y+=p.v; p.x+=Math.sin(t/1400+p.f)*.3*devicePixelRatio; if(p.y>cv.height){p.y=-5;p.x=Math.random()*cv.width;} cx.globalAlpha=.35+p.r/(4*devicePixelRatio); cx.beginPath(); cx.arc(p.x,p.y,p.r,0,7); cx.fill(); }
-    requestAnimationFrame(anim); })(0);
-
-  // ====== Revelar ao rolar ======
-  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} }),{threshold:.12});
-  document.querySelectorAll('.rev').forEach(el=>io.observe(el));
-
-  // ====== Barra fixa ======
-  const barra=$('#barra');
-  addEventListener('scroll',()=>{ const fim=document.body.scrollHeight-innerHeight-260; barra.classList.toggle('on', scrollY>520 && scrollY<fim); },{passive:true});
-
-  // ====== Pontos dos carrosséis ======
-  document.querySelectorAll('[data-pontos]').forEach(p=>{
-    const car=document.getElementById(p.dataset.pontos), n=car.children.length;
-    p.innerHTML=Array.from({length:n},(_,i)=>`<i class="${i?'':'on'}"></i>`).join('');
-    car.addEventListener('scroll',()=>{ const w=car.children[0].getBoundingClientRect().width+12; const i=Math.min(n-1,Math.round(car.scrollLeft/w)); p.querySelectorAll('i').forEach((d,k)=>d.classList.toggle('on',k===i)); },{passive:true});
-  });
-
-  // ====== Calculadora ======
-  const SONHOS=[['Viagem neve',12000,12],['Carro',60000,36],['Moto',25000,24],['Casa (entrada)',50000,48],['Celular',6000,6],['Reserva',10000,12]];
-  const chips=$('#chips'), iv=$('#cValor'), im=$('#cMeses');
-  chips.innerHTML=SONHOS.map(([n],i)=>`<button type="button" aria-pressed="${i===0}" data-i="${i}">${n}</button>`).join('');
-  chips.onclick=e=>{ const b=e.target.closest('button'); if(!b) return; const [,v,m]=SONHOS[b.dataset.i];
-    chips.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); iv.value=v.toLocaleString('pt-BR'); im.value=m; calc(); };
-  const valor=()=>+(iv.value.replace(/\D/g,''))||0;
-  function calc(){ const v=valor(), m=+im.value; $('#cMesesTxt').textContent = m+' meses'+(m>=12?` (${(m/12).toLocaleString('pt-BR',{maximumFractionDigits:1})} ${m>=24?'anos':'ano'})`:'');
-    const mes=v/m; $('#cMes').textContent=brl(mes); $('#cDia').innerHTML=`por mês · cerca de <b>${brl(mes/30)}</b> por dia`; }
-  iv.addEventListener('input',()=>{ const v=valor(); iv.value=v?v.toLocaleString('pt-BR'):''; calc(); });
-  im.addEventListener('input',calc); calc();
-
-  // ====== Vídeo ======
-  const vid=$('#video'), vp=$('#videoPlay');
-  vp.onclick=()=>{ vid.controls=true; vid.play(); vp.remove(); };
-  const TOP=[['Cadastro',4.6],['Primeiro cofre',9.8],['Criar conta',25.2],['Marcar o que guardou',30.4],['Wallpaper 4K',36],['Instalar no iPhone',41.2],['Notificações',51.7]];
-  $('#topicos').innerHTML=TOP.map(([n,t])=>`<button type="button" data-t="${t}">${n}</button>`).join('');
-  $('#topicos').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; if(document.body.contains(vp)) vp.click(); vid.currentTime=+b.dataset.t; vid.play(); vid.scrollIntoView({behavior:'smooth',block:'center'}); };
-
-  // ====== Feed de wallpapers ======
-  const FEED=['neve-4','carro-5','casa-4','liberdade-4','moto-6','praia-4','neve-3','negocio-4','casa-6','notebook-4','liberdade-5','neve-1'];
-  $('#feed').innerHTML=FEED.map(f=>`<button type="button" data-f="${f}"><img src="img/${f}.jpg" alt="Wallpaper" loading="lazy"><span class="trava">4K</span></button>`).join('');
-  // ====== Posts do perfil ======
-  const POSTS=Array.from({length:16},(_,i)=>String(i+1).padStart(2,'0'));
-  $('#gradePosts').innerHTML=POSTS.map((n,i)=>`<button type="button" data-i="${i}"><img src="img/posts/${n}-t.jpg" alt="Post do Inspira Diário" loading="lazy"></button>`).join('');
-  // ====== Visualizador (posts e wallpapers) ======
-  const lb=$('#lb'); let lista=[], li=0, tipo='';
-  const ACOES={ post:`<a class="btn btn-vazado" href="https://www.instagram.com/inspiradiariooficial/" target="_blank" rel="noopener">Seguir</a><a class="btn btn-ouro" href="${LINK_APP}">Testar o Cofre</a>`,
-                wall:`<a class="btn btn-ouro" href="${LINK_APP}">Quero esse na minha tela</a>` };
-  function verLb(){ $('#lbImg').src=lista[li]; $('#lbAcoes').innerHTML=ACOES[tipo]; }
-  function abrirLb(l,i,t){ lista=l; li=i; tipo=t; verLb(); lb.classList.add('on'); document.body.style.overflow='hidden'; }
-  function fecharLb(){ lb.classList.remove('on'); document.body.style.overflow=''; }
-  $('#gradePosts').onclick=e=>{ const b=e.target.closest('button'); if(b) abrirLb(POSTS.map(n=>`img/posts/${n}.jpg`), +b.dataset.i, 'post'); };
-  $('#feed').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; const l=FEED.map(f=>`img/${f}.jpg`); abrirLb(l, FEED.indexOf(b.dataset.f), 'wall'); };
-  $('#lbAnt').onclick=()=>{ li=(li-1+lista.length)%lista.length; verLb(); };
-  $('#lbProx').onclick=()=>{ li=(li+1)%lista.length; verLb(); };
-  $('#lbX').onclick=fecharLb; lb.onclick=e=>{ if(e.target===lb) fecharLb(); };
-  let lx=null; lb.addEventListener('touchstart',e=>{ lx=e.touches[0].clientX; },{passive:true});
-  lb.addEventListener('touchend',e=>{ if(lx===null) return; const dx=e.changedTouches[0].clientX-lx; if(Math.abs(dx)>50) (dx<0?$('#lbProx'):$('#lbAnt')).click(); lx=null; },{passive:true});
-
-  // ====== Stories ======
-  const ir = alvo => ({ alvo });
-  const STORIES=[
-    {nome:'Comece', capa:'p-vila', slides:[
-      {img:'p-vila', titulo:['Talvez você','*precisasse','ler isso hoje'], texto:'Não é sobre ganhar mais. É sobre parar de deixar o seu sonho para o mês que vem.'},
-      {img:'p-sacada', titulo:['Todo sonho','*tem um preço'], script:'e um prazo', texto:'Quando você sabe quanto guardar por mês, o impossível vira uma meta.'},
-      {img:'p-oculos', titulo:['Cofre dos','*Sonhos'], texto:'Plano por mês, lembretes no dia certo e a sua meta na tela de bloqueio.', cta:'Testar 7 dias grátis'}]},
-    {nome:'Frases', capa:'posts/13-t', puro:true, slides:['13','15','02','05','06','11'].map(n=>({img:'posts/'+n, puro:true})).concat([{img:'p-vila', titulo:['Todo dia','*uma dose'], texto:'Fé, mentalidade e evolução no @inspiradiariooficial.', cta:'Seguir no Instagram', link:'https://www.instagram.com/inspiradiariooficial/'}])},
-    {nome:'Tutorial', capa:'p-sacada', rotulo:'▶', slides:[
-      {img:'p-sacada', titulo:['Se perdeu','*no Cofre?'], texto:'Em 1 minuto você aprende a usar tudo: cadastro, cofre, wallpaper e notificações.', acao:ir('#tutorial'), cta:'Assistir o tutorial'}]},
-    {nome:'Dívidas', capa:'p-treino', slides:[
-      {img:'p-treino', titulo:['A dívida','*tira o sono?'], texto:'Ela pesa no bolso e na cabeça. O primeiro passo é saber por onde começar.'},
-      {img:'casa-4', titulo:['Qual pagar','*primeiro'], texto:'No Premium, o plano para sair das dívidas mostra a ordem certa: método avalanche ou bola de neve.', cta:'Testar 7 dias grátis'}]},
-    {nome:'Calcular', capa:'carro-5', rotulo:'R$', slides:[
-      {img:'carro-5', titulo:['Quanto custa','*seu sonho','por mês?'], texto:'Faça a conta em 10 segundos.', acao:ir('#calculadora'), cta:'Fazer a conta'}]},
-    {nome:'Wallpaper', capa:'neve-4', slides:[
-      {img:'neve-4', titulo:['Seu sonho','*na tela'], texto:'Wallpapers em 4K com a sua meta e o seu progresso.'},
-      {img:'praia-4', titulo:['Atualiza','*a cada','depósito'], texto:'Toda vez que pegar o celular, você lembra por que está guardando.', acao:ir('#wallpapers'), cta:'Ver wallpapers'}]},
-    {nome:'Sócio 80%', capa:'posts/08-t', rotulo:'80%', slides:[
-      {img:'p-oculos', titulo:['Ganhe','*80%','por venda'], texto:'Divulgue o Cofre com a nossa estrutura pronta e ganhe comissão em cada venda do seu link.', acao:ir('#socio'), cta:'Quero ser sócio'}]},
-    {nome:'Dúvidas', capa:'posts/16-t', rotulo:'?', slides:[
-      {img:'p-treino', titulo:['Ficou','*alguma dúvida?'], texto:'Respondemos as perguntas mais comuns.', acao:ir('#faq'), cta:'Ver respostas'}]},
+(function(){
+  // ===== Wallpapers do pack grátis (para adicionar novos: coloque o .jpg e o -mini.webp em /wall e acrescente aqui; o primeiro aparece primeiro) =====
+  var WALL=[
+    {a:'legado',t:'Legado'},{a:'ore-trabalhe-e-voe',t:'Ore, trabalhe e voe'},{a:'blindado-por-deus',t:'Blindado por Deus'},{a:'foco',t:'Foco'},
+    {a:'silencio-estrategia',t:'Silêncio também é estratégia'},{a:'acima-de-tudo-deus',t:'Acima de tudo, Deus'},{a:'inabalavel',t:'Inabalável'},{a:'ninguem-viu-o-processo',t:'Ninguém viu o processo'},
+    {a:'disciplina',t:'Disciplina'},{a:'visao',t:'Visão'},{a:'sem-plano-b',t:'Sem plano B'},{a:'lidere',t:'Lidere'},
+    {a:'nao-pare',t:'Não pare'},{a:'subindo-em-silencio',t:'Subindo em silêncio'},{a:'sem-pressa',t:'Sem pressa'},{a:'constancia',t:'Constância'}
   ];
-  const vistos=(()=>{ try{ return JSON.parse(localStorage.getItem('insp-vistos')||'[]'); }catch(e){ return []; } })();
-  $('#stories').innerHTML=STORIES.map((s,i)=>`<button class="story ${vistos.includes(i)?'visto':''}" data-s="${i}"><span class="anel"><img src="img/${s.capa}.jpg" alt="">${s.rotulo?`<span>${s.rotulo}</span>`:''}</span><span class="nome">${s.nome}</span></button>`).join('');
+  var NOVOS=0; // quantos do começo da lista levam o selo NOVO
+  var SB='https://rvkziyvihxweyrqnhuuh.supabase.co', CH='sb_publishable_LHIUAPcrjo-5A62OVVAe6w_qfPlIAjv';
+  var pack=document.getElementById('pack'), gal=document.getElementById('galeria');
+  function ler(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function gravar(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  var aberto=ler('insp-pack')==='1';
 
-  const sv=$('#sv'), palco=$('#svPalco'); let si=0, sl=0, timer=null, ini=0, DUR=6000, pausado=false, restante=DUR;
-  function tituloHtml(ls){ return ls.map(l=>l.startsWith('*')?`<span class="ouro">${l.slice(1)}</span>`:l).join('<br>'); }
-  function abrir(i){ si=i; sl=0; sv.classList.add('on'); document.body.style.overflow='hidden'; mostrar(); marcar(i); }
-  function fechar(){ clearTimeout(timer); sv.classList.remove('on'); document.body.style.overflow=''; }
-  function marcar(i){ if(!vistos.includes(i)){ vistos.push(i); try{ localStorage.setItem('insp-vistos',JSON.stringify(vistos)); }catch(e){} } const b=document.querySelector(`.story[data-s="${i}"]`); if(b) b.classList.add('visto'); }
-  function mostrar(){
-    const s=STORIES[si], d=s.slides[sl];
-    palco.classList.toggle('puro', !!d.puro);
-    palco.innerHTML=`<img src="img/${d.img}.jpg" alt="">
-      <div class="sv-barras">${s.slides.map((_,k)=>`<i><b style="width:${k<sl?100:0}%"></b></i>`).join('')}</div>
-      <div class="sv-topo"><img src="img/perfil.jpg" alt=""><span>inspiradiariooficial</span><span class="fraco" style="font-weight:500">${s.nome}</span><button class="x" aria-label="Fechar">×</button></div>
-      <button class="sv-toque esq" aria-label="Anterior"></button><button class="sv-toque dir" aria-label="Próximo"></button>
-      ${d.puro?'':`<div class="sv-texto"><h2 class="titulo">${tituloHtml(d.titulo)}</h2>${d.script?`<span class="script">${d.script}</span>`:''}<p>${d.texto}</p>${d.cta?`<a class="btn btn-ouro" href="${d.link||(d.acao?d.acao.alvo:LINK_APP)}" ${d.link?'target="_blank" rel="noopener"':''} data-cta>${d.cta}</a>`:''}</div>`}`;
-    palco.querySelector('.x').onclick=fechar;
-    palco.querySelector('.esq').onclick=ant; palco.querySelector('.dir').onclick=prox;
-    const cta=palco.querySelector('[data-cta]');
-    if(cta && d.acao){ cta.onclick=e=>{ e.preventDefault(); fechar(); const alvo=document.querySelector(d.acao.alvo); alvo.scrollIntoView({behavior:'smooth'}); }; }
-    const barra=palco.querySelectorAll('.sv-barras b')[sl];
-    restante=DUR; ini=performance.now(); pausado=false; correr(barra);
+  WALL.forEach(function(w,i){
+    var a=document.createElement('a'); a.className='wp sobe'; a.href='wall/'+w.a+'.jpg';
+    a.innerHTML='<img loading="lazy" alt="Wallpaper '+w.t+'" src="wall/'+w.a+'-mini.webp">'+(i<NOVOS?'<span class="novo">NOVO</span>':'')+'<span class="cad"><span></span></span>';
+    a.addEventListener('click',function(e){ if(!aberto){ e.preventDefault(); document.getElementById('pNome').focus({preventScroll:true}); document.getElementById('formPack').scrollIntoView({behavior:'smooth',block:'center'}); } });
+    gal.appendChild(a);
+  });
+  function pintar(){
+    pack.classList.toggle('aberto',aberto);
+    gal.querySelectorAll('.wp').forEach(function(a){ a.querySelector('.cad span').textContent=aberto?'⬇ Baixar':'🔒 Liberar grátis'; if(aberto){a.setAttribute('download','');a.target='_blank';} });
   }
-  function correr(barra){ clearTimeout(timer); const feito=1-restante/DUR;
-    barra.style.transition='none'; barra.style.width=(feito*100)+'%'; void barra.offsetWidth;
-    barra.style.transition=`width ${restante}ms linear`; barra.style.width='100%'; ini=performance.now(); timer=setTimeout(prox,restante); }
-  function pausar(){ if(pausado||!sv.classList.contains('on')) return; pausado=true; clearTimeout(timer); restante-=performance.now()-ini;
-    const b=palco.querySelectorAll('.sv-barras b')[sl]; if(b){ const w=getComputedStyle(b).width; b.style.transition='none'; b.style.width=w; } }
-  function retomar(){ if(!pausado) return; pausado=false; const b=palco.querySelectorAll('.sv-barras b')[sl]; if(b) correr(b); }
-  function prox(){ const s=STORIES[si]; if(sl<s.slides.length-1){ sl++; mostrar(); } else if(si<STORIES.length-1){ si++; sl=0; marcar(si); mostrar(); } else fechar(); }
-  function ant(){ if(sl>0){ sl--; mostrar(); } else if(si>0){ si--; sl=0; mostrar(); } else mostrar(); }
-  $('#stories').onclick=e=>{ const b=e.target.closest('.story'); if(b) abrir(+b.dataset.s); };
-  palco.addEventListener('pointerdown',e=>{ if(!e.target.closest('a,.x')) pausar(); });
-  palco.addEventListener('pointerup',retomar); palco.addEventListener('pointercancel',retomar);
-  let x0=null, y0=null;
-  palco.addEventListener('touchstart',e=>{ x0=e.touches[0].clientX; y0=e.touches[0].clientY; },{passive:true});
-  palco.addEventListener('touchend',e=>{ if(x0===null) return; const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0;
-    if(dy>90 && Math.abs(dx)<60) fechar(); else if(Math.abs(dx)>70){ if(dx<0 && si<STORIES.length-1){ si++; sl=0; marcar(si); mostrar(); } else if(dx>0 && si>0){ si--; sl=0; mostrar(); } } x0=null; },{passive:true});
-  addEventListener('keydown',e=>{ if(!sv.classList.contains('on')) return; if(e.key==='Escape') fechar(); if(e.key==='ArrowRight') prox(); if(e.key==='ArrowLeft') ant(); });
+  pintar();
+
+  function zap(v){ var d=String(v||'').replace(/\D/g,''); if(d.length>=12&&d.slice(0,2)==='55')d=d.slice(2); return (d.length===10||d.length===11)?'55'+d:null; }
+  document.getElementById('pZap').addEventListener('input',function(e){
+    var d=e.target.value.replace(/\D/g,'').slice(0,11), o=d;
+    if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2); if(d.length>7)o='('+d.slice(0,2)+') '+d.slice(2,d.length-4)+'-'+d.slice(-4);
+    e.target.value=o;
+  });
+  function salvarLead(nome,w,origem){
+    return fetch(SB+'/rest/v1/inspira_leads',{method:'POST',headers:{'Content-Type':'application/json',apikey:CH,Authorization:'Bearer '+CH,Prefer:'return=minimal'},body:JSON.stringify({nome:nome,whatsapp:w,origem:origem})})
+      .then(function(r){ if(!r.ok) throw new Error('falhou'); });
+  }
+  document.getElementById('formPack').addEventListener('submit',function(e){
+    e.preventDefault();
+    var nome=document.getElementById('pNome').value.trim(), w=zap(document.getElementById('pZap').value), er=document.getElementById('pErro'), bt=document.getElementById('pEnviar');
+    er.textContent='';
+    if(nome.length<2){er.textContent='Escreva o seu nome.';return;}
+    if(!w){er.textContent='Coloque o WhatsApp com DDD, por exemplo (11) 99999-9999.';return;}
+    bt.disabled=true; bt.textContent='Liberando…';
+    salvarLead(nome.slice(0,60),w,'pack-gratis').catch(function(){}).then(function(){
+      gravar('insp-pack','1'); gravar('insp-lead',JSON.stringify({nome:nome,w:w})); aberto=true; pintar();
+      pack.scrollIntoView({behavior:'smooth'});
+    });
+  });
+  // Premium: entra na lista de aviso
+  document.getElementById('btnAviso').addEventListener('click',function(){
+    var msg=document.getElementById('avisoMsg'), l=null; try{l=JSON.parse(ler('insp-lead')||'null')}catch(e){}
+    if(!l){ msg.style.color='#ffe6aa'; msg.textContent='Primeiro libere o pack grátis aqui em cima: você entra na lista de aviso junto.'; document.getElementById('pack').scrollIntoView({behavior:'smooth'}); return; }
+    if(ler('insp-premium')==='1'){ msg.textContent='✓ Você já está na lista. Vamos te avisar no WhatsApp.'; return; }
+    salvarLead(l.nome,l.w,'premium-aviso').catch(function(){}).then(function(){ gravar('insp-premium','1'); msg.style.color='#c9f0d4'; msg.textContent='✓ Pronto! Você vai ser avisado no WhatsApp quando o Premium abrir.'; });
+  });
+
+  // vídeos dos Reels tocam só quando aparecem na tela
+  var vids=[].slice.call(document.querySelectorAll('.reels video'));
+  if('IntersectionObserver' in window){
+    var vo=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ e.target.play().catch(function(){}); } else e.target.pause(); })},{threshold:.35});
+    vids.forEach(function(v){vo.observe(v)});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}})},{rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.sobe').forEach(function(el){io.observe(el)});
+  } else document.querySelectorAll('.sobe').forEach(function(el){el.classList.add('vis')});
+
+  // barra fixa no celular depois do topo (some quando o pack está na tela)
+  var barra=document.getElementById('barra'), hero=document.querySelector('.hero');
+  function rolar(){ var r=pack.getBoundingClientRect(); var noPack=r.top<innerHeight&&r.bottom>0; barra.classList.toggle('mostrar',scrollY>hero.offsetHeight*.7&&!noPack&&!aberto); }
+  addEventListener('scroll',rolar,{passive:true}); rolar();
+
+  // neve caindo
+  var c=document.getElementById('neve'), x=c.getContext('2d'), F=[], W, H;
+  function tam(){ W=c.width=innerWidth; H=c.height=innerHeight; }
+  tam(); addEventListener('resize',tam);
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    for(var i=0;i<(innerWidth<700?45:90);i++)F.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.8+.4,v:Math.random()*.6+.25,d:Math.random()*Math.PI*2});
+    (function cai(){ x.clearRect(0,0,W,H); x.fillStyle='rgba(255,255,255,.85)';
+      F.forEach(function(f){ f.y+=f.v; f.d+=.01; f.x+=Math.sin(f.d)*.3; if(f.y>H){f.y=-5;f.x=Math.random()*W;} x.beginPath(); x.arc(f.x,f.y,f.r,0,6.283); x.fill(); });
+      requestAnimationFrame(cai); })();
+  }
 })();
 </script>
 </body>

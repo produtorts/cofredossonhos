@@ -258,7 +258,7 @@ setInterval(async()=>{
   if(aba==='clientes' && !$('#dlgMsg').open && $('#lista')){ const ch=$('[data-x="online"]'); if(ch) ch.textContent=`🟢 Online agora (${clientes.filter(c=>c.online).length})`; lista(); }
 },60000);
 /* ---------- estrutura: topo + abas (mesmo formato do painel da Fábrica) ---------- */
-const ABAS=[['geral','Visão geral'],['clientes','Clientes'],['afiliados','Afiliados e saques'],['links','Links de divulgação']];
+const ABAS=[['geral','Visão geral'],['clientes','Clientes'],['leads','Leads do Inspira'],['afiliados','Afiliados e saques'],['links','Links de divulgação']];
 function desenhar(){
   app.innerHTML=`<header class="topo"><div class="marca">Cofre <em>dos Sonhos</em><small>Painel do dono</small></div>
       <button type="button" class="pn-online" id="pnOnline" title="Pessoas com o app ou o site aberto nos últimos 3 minutos. Toque para ver quem está no app.">${textoOnline()}</button>
@@ -267,7 +267,7 @@ function desenhar(){
   app.querySelectorAll('[data-aba]').forEach(b=>b.onclick=()=>{ aba=b.dataset.aba; desenhar(); });
   $('#pnOnline').onclick=()=>irPara('todos','online'); $('#bMsgs').onclick=editarMsgs; $('#bAtual').onclick=iniciar;
   $('#bSair').onclick=()=>{ gravarToken(''); telaLogin('Você saiu do painel.'); };
-  if(aba==='clientes') telaClientes(); else if(aba==='links') telaLinks(); else if(aba==='afiliados') telaAfiliados(); else visaoGeral();
+  if(aba==='clientes') telaClientes(); else if(aba==='links') telaLinks(); else if(aba==='afiliados') telaAfiliados(); else if(aba==='leads') telaLeads(); else visaoGeral();
 }
 function irPara(f,x){ aba='clientes'; filtro=f; extra=x||''; busca=''; desenhar(); window.scrollTo(0,0); }
 
@@ -430,6 +430,28 @@ function telaClientes(){
 /* ---------- links de divulgação ---------- */
 const LUGARES=[['bio','Link da bio do Instagram'],['reels','Reels'],['stories','Stories'],['anuncio','Anúncio pago (Meta)'],['whatsapp','WhatsApp / grupos'],['tiktok','TikTok']];
 let campanhaLink='';
+/* ---------- leads do pack grátis do Inspira (cofredossonhos.com/inspira) ---------- */
+async function telaLeads(){
+  const corpo=$('#corpo'); corpo.innerHTML='<p class="vazio">Carregando…</p>';
+  const r=await chamar({token:lerToken(),acao:'leads'});
+  if(r.status===401) return telaLogin('Sua sessão expirou. Entre de novo.');
+  if(!r.ok||!r.d.leads){ corpo.innerHTML=`<p class="vazio">Não deu para carregar os leads: ${esc(r.d.erro||'a função do painel ainda não foi publicada com a parte de leads.')}</p>`; return; }
+  const L=r.d.leads, hoje=new Date().toDateString();
+  const porZap={}; L.forEach(l=>{ (porZap[l.whatsapp]=porZap[l.whatsapp]||[]).push(l); });
+  const pessoas=Object.values(porZap).map(v=>({nome:v[v.length-1].nome,whatsapp:v[0].whatsapp,primeiro:v[v.length-1].criado_em,origens:[...new Set(v.map(x=>x.origem))]})).sort((a,b)=>b.primeiro.localeCompare(a.primeiro));
+  const premium=pessoas.filter(p=>p.origens.includes('premium-aviso')).length, deHoje=pessoas.filter(p=>new Date(p.primeiro).toDateString()===hoje).length;
+  const card=(rot,val,sub)=>`<div class="pn-card"><span>${rot}</span><strong>${val}</strong>${sub?`<small>${sub}</small>`:''}</div>`;
+  const zap=w=>'https://wa.me/'+String(w).replace(/\D/g,'');
+  const dt=x=>new Date(x).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+  const tel=w=>{const d=String(w).replace(/^55/,''); return '('+d.slice(0,2)+') '+d.slice(2,d.length-4)+'-'+d.slice(-4);};
+  corpo.innerHTML=`<div class="pn-topo"><h1>Leads do <em>Inspira</em></h1></div>
+    <p class="nota" style="margin:0 0 14px">Quem deixou nome e WhatsApp para baixar o pack grátis de wallpapers em cofredossonhos.com/inspira. "Quer o Premium" = pediu aviso dos wallpapers pagos.</p>
+    <div class="pn-kpis">${card('Pessoas',pessoas.length)}${card('Hoje',deHoje)}${card('Quer o Premium',premium,'pediram aviso')}</div>
+    <div class="pn-bloco"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 12px"><h2 style="margin:0">Lista</h2><button class="b" id="ldCsv" type="button">Baixar planilha (CSV)</button></div>
+    ${pessoas.length?`<div class="tabela-caixa"><table><thead><tr><th>Nome</th><th>WhatsApp</th><th>Quando</th><th>Interesse</th></tr></thead><tbody>${pessoas.map(p=>`<tr><td>${esc(p.nome)}</td><td><a href="${zap(p.whatsapp)}" target="_blank" rel="noopener">${esc(tel(p.whatsapp))}</a></td><td>${dt(p.primeiro)}</td><td>${p.origens.includes('premium-aviso')?'<span class="tag t-tri">Quer o Premium</span>':'<span class="tag">Pack grátis</span>'}</td></tr>`).join('')}</tbody></table></div>`:'<p class="nota" style="margin:0">Ninguém ainda. Assim que alguém liberar o pack, aparece aqui.</p>'}</div>`;
+  const bt=$('#ldCsv'); if(bt) bt.onclick=()=>{ const linhas=[['nome','whatsapp','quando','quer_premium'],...pessoas.map(p=>[p.nome,p.whatsapp,p.primeiro,p.origens.includes('premium-aviso')?'sim':'nao'])];
+    const csv=linhas.map(l=>l.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(';')).join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv'})); a.download='leads-inspira.csv'; a.click(); };
+}
 async function telaAfiliados(){
   const corpo=$('#corpo'); corpo.innerHTML='<p class="vazio">Carregando…</p>';
   const r=await chamar({token:lerToken(),acao:'afiliados'});
