@@ -145,12 +145,25 @@ section{padding:96px 0}
 .prod.destaque{border-color:rgba(228,190,120,.45);box-shadow:0 30px 90px rgba(0,0,0,.45),0 0 0 1px rgba(228,190,120,.15),0 0 80px rgba(228,190,120,.10)}
 
 /* PREMIUM (em breve) */
-.premium{position:relative;border-radius:30px;overflow:hidden;min-height:520px;display:flex;align-items:flex-end;border:1px solid rgba(228,190,120,.35)}
-.premium>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
-.premium::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,13,.92) 0%,rgba(5,7,13,.7) 45%,rgba(5,7,13,.1) 100%),linear-gradient(0deg,rgba(5,7,13,.6),transparent 40%)}
+.premium{position:relative;border-radius:30px;overflow:hidden;min-height:440px;display:flex;align-items:flex-end;border:1px solid rgba(228,190,120,.35)}
+.premium>img{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:70% 40%}
+.premium::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(5,7,13,.96) 0%,rgba(5,7,13,.85) 42%,rgba(5,7,13,.25) 75%,rgba(5,7,13,.1) 100%),linear-gradient(0deg,rgba(5,7,13,.75),transparent 45%)}
 .premium-txt{position:relative;z-index:2;padding:48px;max-width:600px}
-.premium .temas{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 4px}
-.premium .temas span{font:700 12px var(--texto);letter-spacing:.06em;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18)}
+.temas{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 4px}
+.temas span{font:700 12px var(--texto);letter-spacing:.06em;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18)}
+
+.formatos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}
+.fmt{position:relative;display:flex;flex-direction:column;padding:28px 24px;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--linha)}
+.fmt:nth-child(n+2){border-color:rgba(228,190,120,.35)}
+.fmt-n{font:400 46px/1 var(--cond);color:var(--ouro);opacity:.9}
+.tag-fmt{position:absolute;top:28px;right:22px;font:800 10.5px var(--texto);letter-spacing:.14em;text-transform:uppercase;padding:7px 11px;border-radius:999px;background:rgba(228,190,120,.12);border:1px solid rgba(228,190,120,.4);color:var(--ouro-cl)}
+.tag-fmt.livre{background:rgba(120,210,150,.1);border-color:rgba(120,210,150,.35);color:#c9f0d4}
+.fmt h3{font:400 30px/1 var(--cond);text-transform:uppercase;margin:14px 0 8px}
+.fmt p{color:var(--nevoa);font-size:14.5px}
+.fmt p b{color:#fff}
+.fmt .temas{margin:16px 0 20px}
+.fmt .btn{margin-top:auto;width:100%}
+.aviso-msg{color:#c9f0d4;font-size:13px}
 
 /* reels */
 .reels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
@@ -180,6 +193,8 @@ footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
   .prod-foto{min-height:300px}
   .prod-txt{padding:30px 24px 34px}
   .premium-txt{padding:30px 24px}
+  .formatos{grid-template-columns:1fr}
+  .premium{min-height:380px}
   .premium::before{background:linear-gradient(0deg,rgba(5,7,13,.95) 0%,rgba(5,7,13,.75) 55%,rgba(5,7,13,.15) 100%)}
   .reels{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
   .reels video{border-radius:14px}
@@ -341,11 +356,33 @@ footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
         <img src="img/n/b1.webp" alt="Personagem do Inspira segurando uma chave dourada" loading="lazy">
         <div class="premium-txt">
           <span class="publi"><i></i>Em breve</span>
-          <h2 class="grande tit" style="margin-top:16px"><span class="ouro">Wallpapers Premium</span><span class="script">sem logo. sem texto. só a imagem.</span></h2>
-          <p class="lead">Packs por tema, na pegada do Inspira, para você usar na sua página dark, nos seus posts e no seu celular.</p>
-          <div class="temas"><span>Neve e luxo</span><span>Carros</span><span>Chalés</span><span>Cofres e ouro</span><span>Viagem</span><span>Fé</span></div>
-          <button class="btn btn-ouro" type="button" id="btnAviso" style="margin-top:22px">Quero ser avisado</button>
-          <div class="erro" id="avisoMsg" role="status" style="color:#c9f0d4"></div>
+          <h2 class="grande tit" style="margin-top:16px"><span class="ouro">Wallpapers Premium</span><span class="script">para a sua página e o seu celular.</span></h2>
+          <p class="lead">Packs pagos por tema, na pegada do Inspira, sem o nome da página. Escolha o formato que serve para você.</p>
+        </div>
+      </div>
+      <div class="formatos">
+        <div class="fmt sobe">
+          <span class="fmt-n">1</span><span class="tag-fmt livre">Grátis · liberado</span>
+          <h3>Pack de divulgação</h3>
+          <p>Com frase e a assinatura <b>INSPIRA DIÁRIO</b>. É o pack que você pega aqui em cima.</p>
+          <div class="temas"><span>Os mesmos temas</span></div>
+          <a class="btn btn-vidro" href="#pack">Pegar o pack grátis</a>
+        </div>
+        <div class="fmt sobe">
+          <span class="fmt-n">2</span><span class="tag-fmt">Pago · em breve</span>
+          <h3>Só imagem</h3>
+          <p><b>Sem nenhum texto.</b> A imagem limpa para você colocar a sua frase, a sua marca ou usar de fundo na sua página dark.</p>
+          <div class="temas"><span>Snow</span><span>Carros</span><span>Mansões</span><span>Cristão</span><span>Minimalista</span><span>Feminino</span></div>
+          <button class="btn btn-ouro" type="button" data-aviso="premium-imagem">Quero ser avisado</button>
+          <div class="erro aviso-msg" role="status"></div>
+        </div>
+        <div class="fmt sobe">
+          <span class="fmt-n">3</span><span class="tag-fmt">Pago · em breve</span>
+          <h3>Editados prontos</h3>
+          <p><b>Com a frase e sem o nome da página.</b> É baixar e postar no seu perfil como se fosse seu.</p>
+          <div class="temas"><span>Snow</span><span>Cristão</span><span>Fé</span><span>Motivacional</span><span>Minimalista</span><span>Feminino</span></div>
+          <button class="btn btn-ouro" type="button" data-aviso="premium-editados">Quero ser avisado</button>
+          <div class="erro aviso-msg" role="status"></div>
         </div>
       </div>
     </div>
@@ -427,12 +464,17 @@ footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
       pack.scrollIntoView({behavior:'smooth'});
     });
   });
-  // Premium: entra na lista de aviso
-  document.getElementById('btnAviso').addEventListener('click',function(){
-    var msg=document.getElementById('avisoMsg'), l=null; try{l=JSON.parse(ler('insp-lead')||'null')}catch(e){}
-    if(!l){ msg.style.color='#ffe6aa'; msg.textContent='Primeiro libere o pack grátis aqui em cima: você entra na lista de aviso junto.'; document.getElementById('pack').scrollIntoView({behavior:'smooth'}); return; }
-    if(ler('insp-premium')==='1'){ msg.textContent='✓ Você já está na lista. Vamos te avisar no WhatsApp.'; return; }
-    salvarLead(l.nome,l.w,'premium-aviso').catch(function(){}).then(function(){ gravar('insp-premium','1'); msg.style.color='#c9f0d4'; msg.textContent='✓ Pronto! Você vai ser avisado no WhatsApp quando o Premium abrir.'; });
+  // Premium: entra na lista de aviso de cada formato
+  document.querySelectorAll('[data-aviso]').forEach(function(bt){
+    var msg=bt.parentNode.querySelector('.aviso-msg'), o=bt.getAttribute('data-aviso');
+    if(ler('insp-'+o)==='1'){ bt.textContent='✓ Você está na lista'; }
+    bt.addEventListener('click',function(){
+      var l=null; try{l=JSON.parse(ler('insp-lead')||'null')}catch(e){}
+      if(!l){ msg.style.color='#ffe6aa'; msg.textContent='Primeiro libere o pack grátis aqui em cima: leva 10 segundos.'; setTimeout(function(){document.getElementById('formPack').scrollIntoView({behavior:'smooth',block:'center'})},700); return; }
+      if(ler('insp-'+o)==='1'){ msg.style.color='#c9f0d4'; msg.textContent='Você já está na lista. Vamos te avisar no WhatsApp.'; return; }
+      bt.disabled=true;
+      salvarLead(l.nome,l.w,o).catch(function(){}).then(function(){ gravar('insp-'+o,'1'); bt.disabled=false; bt.textContent='✓ Você está na lista'; msg.style.color='#c9f0d4'; msg.textContent='Pronto! Você vai ser avisado no WhatsApp quando abrir.'; });
+    });
   });
 
   // vídeos dos Reels tocam só quando aparecem na tela
