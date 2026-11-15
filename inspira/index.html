@@ -205,42 +205,75 @@ footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
   .btn{width:100%}
   .hero-botoes .btn{width:100%}
 }
+
+/* ===== formato imersivo ===== */
+.progresso{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;pointer-events:none}
+.progresso i{display:block;height:100%;background:var(--metal);transform-origin:0 50%;transform:scaleX(0);box-shadow:0 0 14px rgba(228,190,120,.7)}
+.revela{clip-path:inset(0 0 100% 0);transform:translateY(34px);transition:clip-path 1.1s cubic-bezier(.2,.8,.2,1),transform 1.1s cubic-bezier(.2,.8,.2,1),opacity .8s ease}
+.revela.vis{clip-path:inset(-20% -10% -20% -10%);transform:none}
+.selo-gira{position:absolute;z-index:3;right:max(24px,calc((100vw - 1120px)/2));bottom:120px;width:132px;height:132px;border-radius:50%;display:grid;place-items:center;background:rgba(5,7,13,.35);backdrop-filter:blur(8px);border:1px solid rgba(228,190,120,.45);box-shadow:0 0 60px rgba(228,190,120,.18)}
+.selo-gira svg{position:absolute;inset:0;width:100%;height:100%;animation:gira 16s linear infinite}
+.selo-gira text{font:700 9.6px var(--texto);letter-spacing:.24em;fill:var(--ouro-cl)}
+.selo-gira b{font:400 44px/1 var(--cond);background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center}
+.selo-gira b small{display:block;font:700 9px var(--texto);letter-spacing:.2em;-webkit-text-fill-color:var(--ouro)}
+@keyframes gira{to{transform:rotate(360deg)}}
+.faixa{position:relative;z-index:2;background:var(--metal);color:#1b1205;overflow:hidden;transform:rotate(-1.4deg);margin:-6px -10px 0;box-shadow:0 20px 60px -20px rgba(228,190,120,.55)}
+.faixa-trilho{display:flex;width:max-content;animation:corre 38s linear infinite;padding:14px 0}
+.faixa-trilho span{font:400 22px/1 var(--cond);letter-spacing:.06em;white-space:nowrap;display:flex;align-items:center;gap:26px;padding-right:26px;text-transform:uppercase}
+.faixa-trilho i{font-style:normal;font-size:14px}
+@keyframes corre{to{transform:translateX(-50%)}}
+.conta{font-variant-numeric:tabular-nums}
+.inclina{transition:transform .25s ease-out;will-change:transform}
+.cursor-ouro{position:fixed;left:0;top:0;z-index:100;pointer-events:none}
+.cursor-ouro span{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--ouro);box-shadow:0 0 18px var(--ouro);transition:width .25s,height .25s,margin .25s,background .25s}
+.cursor-ouro.link span{width:58px;height:58px;margin:-29px 0 0 -29px;background:rgba(228,190,120,.14);border:1.5px solid var(--ouro)}
+.cursor-on,.cursor-on a,.cursor-on button{cursor:none}
+html{overflow-x:clip}
+@media(min-width:901px){
+  .pilha .prod{background:linear-gradient(160deg,#141a26,#0a0d16);position:sticky;transform-origin:50% 0;transition:transform .3s ease-out,filter .3s}
+  .pilha .prod:nth-of-type(1){top:70px}.pilha .prod:nth-of-type(2){top:88px}.pilha .prod:nth-of-type(3){top:106px}.pilha .prod:nth-of-type(4){top:124px}
+}
+@media(max-width:900px){.selo-gira{width:96px;height:96px;right:16px;top:86px;bottom:auto}.selo-gira b{font-size:32px}.faixa-trilho span{font-size:17px}}
+@media (prefers-reduced-motion:reduce){.revela{clip-path:none;transform:none}.selo-gira svg,.faixa-trilho{animation:none}}
 </style>
 </head>
 <body>
+<div class="progresso" aria-hidden="true"><i></i></div>
 <canvas id="neve" aria-hidden="true"></canvas>
 
 <header class="hero">
-  <div class="hero-fundo"><img src="img/n/b4.webp" alt="" fetchpriority="high"></div>
+  <div class="hero-fundo" data-para="0.35"><img src="img/n/b4.webp" alt="" fetchpriority="high"></div>
   <div class="topo"><div class="caixa">
     <div class="perfil"><img src="img/perfil.jpg" alt="Inspira Diário"><div><b>INSPIRA DIÁRIO</b><span>@inspiradiariooficial</span></div></div>
     <a class="ig" href="https://www.instagram.com/inspiradiariooficial/" target="_blank" rel="noopener">Instagram</a>
   </div></div>
   <div class="caixa hero-txt">
     <span class="kicker">Founder · SaaS Builder com IA</span>
-    <h1 class="grande"><span class="prata">Eu crio IAs</span><span class="script">que trabalham por você.</span></h1>
+    <h1 class="grande revela"><span class="prata">Eu crio IAs</span><span class="script">que trabalham por você.</span></h1>
     <p class="sub">Comecei o Inspira Diário falando de fé, disciplina e silêncio. Depois transformei isso em ferramentas: para organizar o dinheiro e tirar o sonho do papel, para ter uma página que posta todo dia sem aparecer e para criar vídeos que vendem. Tudo pelo celular.</p>
     <div class="hero-botoes">
       <a class="btn btn-ouro" href="#pack" data-ev="hero-pack">Pegar o pack grátis</a>
       <a class="btn btn-vidro" href="#ferramentas" data-ev="hero-ferramentas">Ver as ferramentas</a>
     </div>
   </div>
+  <a class="selo-gira" href="#pack" aria-label="Pack grátis: 16 wallpapers em 4K"><svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="circ" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs><text><textPath href="#circ">PACK GRÁTIS · 16 WALLPAPERS 4K · </textPath></text></svg><b>16<small>GRÁTIS</small></b></a>
   <div class="rolar">ROLE<i></i></div>
 </header>
+<div class="faixa" aria-label="Fé, disciplina, silêncio, visão, constância, legado"><div class="faixa-trilho" aria-hidden="true"><span>Fé que sustenta<i>✦</i></span><span>Disciplina<i>✦</i></span><span>Silêncio<i>✦</i></span><span>Visão<i>✦</i></span><span>Constância<i>✦</i></span><span>Legado<i>✦</i></span><span>Ninguém viu o processo<i>✦</i></span><span>Fé que sustenta<i>✦</i></span><span>Disciplina<i>✦</i></span><span>Silêncio<i>✦</i></span><span>Visão<i>✦</i></span><span>Constância<i>✦</i></span><span>Legado<i>✦</i></span><span>Ninguém viu o processo<i>✦</i></span></div></div>
 
 <main>
   <!-- QUEM SOU -->
   <section>
     <div class="caixa quem">
-      <div class="fone sobe"><video src="img/n/reels_silencio_resultado.mp4" poster="img/n/reels_silencio_resultado.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Reels do Inspira Diário"></video><span class="rotulo">Do perfil · Reels</span></div>
+      <div class="fone sobe inclina"><video src="img/n/reels_silencio_resultado.mp4" poster="img/n/reels_silencio_resultado.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Reels do Inspira Diário"></video><span class="rotulo">Do perfil · Reels</span></div>
       <div>
         <span class="kicker sobe">Quem está por trás</span>
-        <h2 class="grande tit sobe">Construído <span class="script">em silêncio.</span></h2>
+        <h2 class="grande tit sobe revela">Construído <span class="script">em silêncio.</span></h2>
         <p class="lead sobe">O Inspira Diário é o lado de dentro: <b>fé que sustenta, disciplina quando ninguém está olhando e visão antes de existir.</b> As ferramentas são o lado de fora: o que eu mesmo uso para executar, agora nas mãos de quem quer mudar de vida de verdade.</p>
         <div class="pilares">
-          <div class="pilar sobe"><span class="n">01</span><div><b>Para quem tem um sonho e nenhum plano</b><span>O Cofre dos Sonhos diz quanto guardar por mês e coloca a meta na sua tela de bloqueio.</span></div></div>
-          <div class="pilar sobe"><span class="n">02</span><div><b>Para quem quer uma página sem aparecer</b><span>A Fábrica Dark cria os posts da sua página todo dia, no estilo dela.</span></div></div>
-          <div class="pilar sobe"><span class="n">03</span><div><b>Para quem quer vender na internet</b><span>O Frankenstein e o The Vault entregam a estrutura que faltava: ferramenta, método e produto.</span></div></div>
+          <div class="pilar sobe inclina"><span class="n">01</span><div><b>Para quem tem um sonho e nenhum plano</b><span>O Cofre dos Sonhos diz quanto guardar por mês e coloca a meta na sua tela de bloqueio.</span></div></div>
+          <div class="pilar sobe inclina"><span class="n">02</span><div><b>Para quem quer uma página sem aparecer</b><span>A Fábrica Dark cria os posts da sua página todo dia, no estilo dela.</span></div></div>
+          <div class="pilar sobe inclina"><span class="n">03</span><div><b>Para quem quer vender na internet</b><span>O Frankenstein e o The Vault entregam a estrutura que faltava: ferramenta, método e produto.</span></div></div>
         </div>
       </div>
     </div>
@@ -252,7 +285,7 @@ footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
       <span class="publi sobe"><i></i>Grátis · Garanta o seu</span>
       <div class="pack-topo">
         <div>
-          <h2 class="grande tit sobe"><span class="ouro">Pack Inspira Diário</span><span class="script">16 wallpapers em 4K. Grátis.</span></h2>
+          <h2 class="grande tit sobe revela"><span class="ouro">Pack Inspira Diário</span><span class="script"><span class="conta" data-conta="16">16</span> wallpapers em 4K. Grátis.</span></h2>
           <p class="lead sobe">O celular é a primeira coisa que você vê quando acorda e a última antes de dormir. <b>Que ele te lembre, todo dia, de quem você está se tornando.</b></p>
           <ul class="porque sobe">
             <li><b>Frases de fé, foco e disciplina</b> para quem constrói em silêncio e não pede licença.</li>
@@ -288,10 +321,10 @@ footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
 
   <!-- FERRAMENTAS -->
   <section id="ferramentas">
-    <div class="caixa">
+    <div class="caixa pilha">
       <div class="ferr-cab">
         <span class="kicker sobe">As ferramentas</span>
-        <h2 class="grande tit sobe">Escolha <span class="script">por onde começar.</span></h2>
+        <h2 class="grande tit sobe revela">Escolha <span class="script">por onde começar.</span></h2>
         <p class="lead sobe">Cada uma resolve um pedaço do caminho. Toque na que é a sua e veja tudo na página dela.</p>
       </div>
 
@@ -361,14 +394,14 @@ footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
         </div>
       </div>
       <div class="formatos">
-        <div class="fmt sobe">
+        <div class="fmt sobe inclina">
           <span class="fmt-n">1</span><span class="tag-fmt livre">Grátis · liberado</span>
           <h3>Pack de divulgação</h3>
           <p>Com frase e a assinatura <b>INSPIRA DIÁRIO</b>. É o pack que você pega aqui em cima.</p>
           <div class="temas"><span>Os mesmos temas</span></div>
           <a class="btn btn-vidro" href="#pack">Pegar o pack grátis</a>
         </div>
-        <div class="fmt sobe">
+        <div class="fmt sobe inclina">
           <span class="fmt-n">2</span><span class="tag-fmt">Pago · em breve</span>
           <h3>Só imagem</h3>
           <p><b>Sem nenhum texto.</b> A imagem limpa para você colocar a sua frase, a sua marca ou usar de fundo na sua página dark.</p>
@@ -376,7 +409,7 @@ footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
           <button class="btn btn-ouro" type="button" data-aviso="premium-imagem">Quero ser avisado</button>
           <div class="erro aviso-msg" role="status"></div>
         </div>
-        <div class="fmt sobe">
+        <div class="fmt sobe inclina">
           <span class="fmt-n">3</span><span class="tag-fmt">Pago · em breve</span>
           <h3>Editados prontos</h3>
           <p><b>Com a frase e sem o nome da página.</b> É baixar e postar no seu perfil como se fosse seu.</p>
@@ -392,7 +425,7 @@ footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
   <section style="padding-top:40px">
     <div class="caixa" style="text-align:center">
       <span class="kicker sobe">Direto do perfil</span>
-      <h2 class="grande tit sobe">Todo dia, <span class="script">uma dose.</span></h2>
+      <h2 class="grande tit sobe revela">Todo dia, <span class="script">uma dose.</span></h2>
       <div class="reels">
         <video class="sobe" src="img/n/reels_silencio_resultado.mp4" poster="img/n/reels_silencio_resultado.jpg" muted loop playsinline preload="none" aria-label="Reels: eu fiquei em silêncio"></video>
         <video class="sobe" src="img/n/reels_parar_passar.mp4" poster="img/n/reels_parar_passar.jpg" muted loop playsinline preload="none" aria-label="Reels: torceram pra eu parar"></video>
@@ -502,6 +535,41 @@ footer .aviso{font-size:12px;color:#6f7789;margin-top:26px}
       requestAnimationFrame(cai); })();
   }
 })();
+</script>
+<script>
+/* formato imersivo: barra de progresso, parallax, títulos revelando, contador, cartões empilhando, inclinação e cursor dourado */
+(function(){try{
+  var calmo=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rev=[].slice.call(document.querySelectorAll('.revela'));
+  var ior=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');ior.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+  rev.forEach(function(el){ior.observe(el)});
+  // contador do pack
+  document.querySelectorAll('[data-conta]').forEach(function(el){
+    var alvo=+el.dataset.conta; if(calmo)return;
+    var io=new IntersectionObserver(function(es){ if(!es[0].isIntersecting)return; io.disconnect(); var t0=performance.now();
+      (function p(t){var k=Math.min(1,(t-t0)/1300); el.textContent=Math.round(alvo*(1-Math.pow(1-k,4))); if(k<1)requestAnimationFrame(p)})(t0); },{threshold:.6});
+    el.textContent='0'; io.observe(el);
+  });
+  if(calmo)return;
+  var barra=document.querySelector('.progresso i'), para=[].slice.call(document.querySelectorAll('[data-para]')), prods=[].slice.call(document.querySelectorAll('.pilha .prod')), pend=0;
+  function quadro(){ pend=0; var h=innerHeight, max=document.documentElement.scrollHeight-h;
+    if(barra)barra.style.transform='scaleX('+(max>0?scrollY/max:0)+')';
+    para.forEach(function(el){ var y=Math.min(scrollY,h); el.style.transform='translate3d(0,'+(y*+el.dataset.para).toFixed(1)+'px,0)'; });
+    if(innerWidth>900) prods.forEach(function(p,i){ var prox=prods[i+1]; if(!prox){p.style.transform='';p.style.filter='';return;}
+      var a=p.getBoundingClientRect(), b=prox.getBoundingClientRect(); var sobra=Math.max(0,Math.min(1,(a.bottom-b.top)/a.height));
+      p.style.transform='scale('+(1-sobra*.06).toFixed(3)+')'; p.style.filter='brightness('+(1-sobra*.45).toFixed(2)+')'; });
+  }
+  addEventListener('scroll',function(){if(!pend)pend=requestAnimationFrame(quadro)},{passive:true}); addEventListener('resize',quadro); quadro();
+  if(!matchMedia('(hover: hover) and (pointer: fine)').matches)return;
+  document.querySelectorAll('.inclina,.wp,.reels video').forEach(function(el){
+    el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5; el.style.transform='perspective(900px) rotateY('+x*9+'deg) rotateX('+(-y*9)+'deg)';});
+    el.addEventListener('pointerleave',function(){el.style.transform=''});
+  });
+  var cur=document.createElement('div'); cur.className='cursor-ouro'; cur.innerHTML='<span></span>'; document.body.appendChild(cur); document.documentElement.classList.add('cursor-on');
+  var cx=innerWidth/2,cy=innerHeight/2,tx=cx,ty=cy;
+  (function seg(){cx+=(tx-cx)*.2;cy+=(ty-cy)*.2;cur.style.transform='translate3d('+cx+'px,'+cy+'px,0)';requestAnimationFrame(seg)})();
+  addEventListener('pointermove',function(e){tx=e.clientX;ty=e.clientY;cur.classList.toggle('link',!!(e.target.closest&&e.target.closest('a,button,input,.wp')))});
+}catch(e){}})();
 </script>
 </body>
 </html>
