@@ -629,23 +629,23 @@ Fé • Mentalidade • Disciplina
       <div class="centro rev">
         <span class="sobre">Faz a conta com a gente</span>
         <h2 class="titulo">Se fosse comprar<br><span class="ouro">tudo separado</span></h2>
-        <p class="lead" style="margin:14px auto 0">Os preços abaixo são os que cada coisa custa sozinha hoje. As ferramentas entram pelo valor proporcional aos dias que você ganha.</p>
+        <p class="lead" style="margin:14px auto 0">Os cursos pelo valor cheio de cada um. As ferramentas entram pelo valor proporcional aos dias que você ganha.</p>
       </div>
       <div class="papel" id="recibo">
         <div class="cab"><b>THE VAULT</b><small>recibo do cofre · Black Friday 2026</small></div>
         <ul>
-          <li data-v="2699"><span>Curso TikTok Shop do Zero</span><em>R$ 26,99</em></li>
-          <li data-v="2990"><span>Curso Personagens com IA (Plus)</span><em>R$ 29,90</em></li>
-          <li data-v="27400"><span>Curso TikTok Shop na Espanha<small>49 €, câmbio aproximado</small></span><em>R$ 274,00</em></li>
+          <li data-v="29700"><span>Curso Máquina de Afiliados<small>7 módulos e 43 aulas</small></span><em>R$ 297,00</em></li>
+          <li data-v="19700"><span>Curso TikTok Shop do Zero</span><em>R$ 197,00</em></li>
+          <li data-v="9700"><span>Curso Personagens com IA</span><em>R$ 97,00</em></li>
+          <li data-v="0"><span>Curso TikTok Shop na Espanha<small>vendido em euro</small></span><em>49 €</em></li>
           <li data-v="2395"><span>Fábrica Dark · 15 dias<small>assinatura de R$ 47,90 por mês</small></span><em>R$ 23,95</em></li>
           <li data-v="1118"><span>Frankenstein · 7 dias<small>plano Essencial de R$ 47,90 por mês</small></span><em>R$ 11,18</em></li>
           <li data-v="1090"><span>Cofre dos Sonhos Premium · 30 dias</span><em>R$ 10,90</em></li>
-          <li data-v="0"><span>Curso Máquina de Afiliados · 43 aulas<small>não é vendido separado</small></span><em class="gratis">só aqui</em></li>
           <li data-v="0"><span>Afiliação em todo o ecossistema</span><em class="gratis">incluso</em></li>
         </ul>
         <div class="soma"><span>Separado, daria</span><s id="reciboTotal">R$ 0,00</s></div>
         <div class="paga"><span>Você paga</span><b>R$ 39,90</b></div>
-        <div class="carimbo">89% OFF<small>ATÉ 30/11</small></div>
+        <div class="carimbo">94% OFF<small>ATÉ 30/11</small></div>
         <p class="rodape">Pagamento único. Garantia incondicional de 7 dias: entrou e não gostou, devolvemos 100% do valor.</p>
       </div>
       <div class="por-dia">
@@ -672,13 +672,13 @@ Fé • Mentalidade • Disciplina
           <li><span><b>Roteiros prontos</b> de ganchos, legendas e directs para cada produto</span></li>
         </ul>
         <span class="selo-bf">Oferta de Black Friday</span>
-        <div class="de" style="text-decoration:none">Tudo o que vem dentro, comprado separado: <s>R$ 376,92</s></div>
+        <div class="de" style="text-decoration:none">Tudo o que vem dentro, comprado separado: <s>R$ 699,90</s></div>
         <div class="por ouro"><small>R$</small>39,90</div>
         <div class="pagamento">Pagamento único · acesso imediato<br><b style="color:var(--ouro-cl)">Valor promocional válido até 30/11, às 23h59.</b></div>
         <div class="cont-oferta" id="contOferta"><div><b data-d>00</b><small>dias</small></div><div><b data-h>00</b><small>horas</small></div><div><b data-m>00</b><small>min</small></div><div><b data-s>00</b><small>seg</small></div></div>
         <a class="btn btn-ouro pulsa btn-bloco" style="max-width:520px" data-entrar href="#">Garantir minha chave agora</a>
         <div class="garantia"><span class="selo7">7<small>DIAS</small></span><span>Garantia incondicional de 7 dias. Entrou e não gostou, devolvemos 100% do valor.</span></div>
-        <p class="nota-peq">Valores separados: TikTok Shop do Zero R$ 26,99, Personagens com IA (Plus) R$ 29,90, TikTok Shop na Espanha 49 € (cerca de R$ 274, câmbio aproximado), 15 dias de Fábrica Dark (R$ 23,95 de R$ 47,90/mês), 7 dias de Frankenstein (R$ 11,18 do plano de R$ 47,90/mês) e 30 dias de Cofre Premium (R$ 10,90).</p>
+        <p class="nota-peq">Valores cheios separados: Curso Máquina de Afiliados R$ 297, TikTok Shop do Zero R$ 197, Personagens com IA R$ 97, TikTok Shop na Espanha 49 €, 15 dias de Fábrica Dark (R$ 23,95 de R$ 47,90/mês), 7 dias de Frankenstein (R$ 11,18 do plano de R$ 47,90/mês) e 30 dias de Cofre Premium (R$ 10,90). Somando, passa de R$ 699,90.</p>
       </div>
     </section>
 
@@ -812,7 +812,7 @@ Fé • Mentalidade • Disciplina
         li.classList.add('on');
         const de=soma; soma+=Number(li.dataset.v)||0; const ate=soma, t0=performance.now();
         (function passo(t){ const q=Math.min(1,(t-t0)/380); tot.textContent=brl(Math.round(de+(ate-de)*q)); if(q<1) requestAnimationFrame(passo); })(t0);
-        if(i===itens.length-1) setTimeout(()=>rec.classList.add('fim'), 600);
+        if(i===itens.length-1) setTimeout(()=>{ rec.classList.add('fim'); tot.textContent=brl(soma)+' + 49 €'; }, 600);
       }, reduz?0:i*380));
     },{threshold:.15});
     io.observe(rec);

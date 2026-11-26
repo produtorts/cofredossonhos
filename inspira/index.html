@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Inspira Diário · Ferramentas e wallpapers</title>
-<meta name="description" content="Eu crio IAs que trabalham por você. Pegue o pack grátis de wallpapers do Inspira Diário e conheça as ferramentas: The Vault, Cofre dos Sonhos, Fábrica Dark e Frankenstein.">
+<title>Inspira Diário · The Vault e ferramentas</title>
+<meta name="description" content="Do zero ao digital, sem aparecer. Tudo o que me tirou do zero num lugar só: The Vault, cursos, ferramentas com IA e wallpapers grátis do Inspira Diário.">
 <meta name="theme-color" content="#05070d">
-<meta property="og:title" content="Inspira Diário · Pack grátis de wallpapers e ferramentas">
-<meta property="og:description" content="16 wallpapers em 4K grátis e as ferramentas que trabalham por você.">
+<meta property="og:title" content="Inspira Diário · Tudo o que me tirou do zero">
+<meta property="og:description" content="The Vault com preço de Black Friday, cursos, ferramentas com IA e 16 wallpapers grátis.">
 <meta property="og:image" content="https://www.cofredossonhos.com/inspira/wall/legado-mini.webp">
 <link rel="icon" type="image/png" href="../icone-192-v2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -235,6 +235,102 @@ html{overflow-x:clip}
 }
 @media(max-width:900px){.selo-gira{width:96px;height:96px;right:16px;top:86px;bottom:auto}.selo-gira b{font-size:32px}.faixa-trilho span{font-size:17px}}
 @media (prefers-reduced-motion:reduce){.revela{clip-path:none;transform:none}.selo-gira svg,.faixa-trilho{animation:none}}
+
+/* ===== v3: novelinha + The Vault em destaque ===== */
+.hero-fundo video{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.hero h1.novela{font-size:clamp(50px,9.6vw,118px)}
+.hero .assinou{display:flex;align-items:center;gap:10px;margin-top:22px;color:var(--nevoa);font-size:13.5px}
+.hero .assinou i{width:8px;height:8px;border-radius:50%;background:#e8452a;box-shadow:0 0 12px #e8452a;animation:pisca 1.4s infinite}
+
+.historia{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:44px}
+.ato{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:3/4;background:#0d1018;border:1px solid var(--linha)}
+.ato img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.ato:hover img{transform:scale(1.05)}
+.ato::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,13,0) 40%,rgba(5,7,13,.92))}
+.ato div{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}
+.ato b{display:block;font:400 28px/1 var(--cond);text-transform:uppercase}
+.ato span{display:block;color:#cfd5e1;font-size:13.5px;line-height:1.45;margin-top:6px}
+.ato .n{position:absolute;top:14px;left:16px;z-index:2;font:700 11px var(--texto);letter-spacing:.2em;color:var(--ouro-cl)}
+.ato.hoje{border-color:rgba(228,190,120,.5)}
+.ato.hoje b{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.vault-sec{position:relative;background:radial-gradient(1000px 700px at 85% 10%,rgba(228,190,120,.13),transparent 65%),radial-gradient(800px 600px at 0% 90%,rgba(159,193,230,.07),transparent 70%),var(--bg2);border-top:1px solid rgba(228,190,120,.25);border-bottom:1px solid rgba(228,190,120,.25)}
+.vault-grade{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:56px;align-items:start;margin-top:40px}
+.vault-midia{position:sticky;top:30px;border-radius:30px;overflow:hidden;aspect-ratio:4/5;border:1px solid rgba(228,190,120,.35);box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 90px rgba(228,190,120,.12)}
+.vault-midia img{width:100%;height:100%;object-fit:cover}
+.vault-midia::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,7,13,.85))}
+.vault-midia .legenda{position:absolute;left:24px;right:24px;bottom:22px;z-index:2;font:400 clamp(26px,3vw,34px)/1.05 var(--cond);text-transform:uppercase}
+.vault-midia .legenda .script{display:block;font-size:1.05em;text-transform:none}
+.recibo{border-radius:28px;background:linear-gradient(170deg,rgba(255,255,255,.075),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 80px rgba(0,0,0,.45);overflow:hidden}
+.recibo-cab{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 26px;border-bottom:1px dashed rgba(255,255,255,.18)}
+.recibo-cab b{font:400 24px/1 var(--cond);letter-spacing:.04em;text-transform:uppercase}
+.recibo-cab span{font:700 11px var(--texto);letter-spacing:.18em;text-transform:uppercase;color:var(--nevoa)}
+.itens{list-style:none;padding:8px 26px;margin:0}
+.itens li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:14px;align-items:start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.itens li:last-child{border-bottom:0}
+.itens .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(228,190,120,.12);border:1px solid rgba(228,190,120,.35);color:var(--ouro-cl);font-size:16px}
+.itens b{display:block;font-weight:800;font-size:15.5px;line-height:1.35}
+.itens small{display:block;color:var(--nevoa);font-size:13.5px;line-height:1.45;margin-top:3px}
+.itens .v{font:700 14px var(--texto);color:#c9cfdb;white-space:nowrap;text-align:right}
+.itens .v em{display:block;font-style:normal;font-weight:600;font-size:11.5px;color:#7f889b}
+.itens li.bonus .ic{background:rgba(120,210,150,.1);border-color:rgba(120,210,150,.35);color:#c9f0d4}
+.itens li.bonus .v{color:#c9f0d4}
+.soma{padding:18px 26px;background:rgba(0,0,0,.25);border-top:1px dashed rgba(255,255,255,.18);display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--nevoa);font-size:14px}
+.soma s{font:400 24px/1 var(--cond);color:#8b93a5;letter-spacing:.02em}
+.oferta{padding:26px;text-align:center;background:radial-gradient(600px 220px at 50% 0%,rgba(228,190,120,.16),transparent 70%)}
+.oferta .selo{margin:0 auto 14px;align-self:auto;display:inline-block}
+.oferta .por{font:400 clamp(64px,10vw,92px)/.9 var(--cond)}
+.oferta .por small{font-size:.38em;vertical-align:.95em;margin-right:4px}
+.oferta .depois{color:var(--nevoa);font-size:14px;margin-top:10px}
+.oferta .depois b{color:#fff}
+.relogio{display:flex;justify-content:center;gap:10px;margin:20px 0 4px}
+.relogio div{min-width:66px;padding:10px 8px;border-radius:14px;background:rgba(0,0,0,.35);border:1px solid rgba(228,190,120,.3)}
+.relogio b{display:block;font:400 30px/1 var(--cond);font-variant-numeric:tabular-nums}
+.relogio span{font:700 9.5px var(--texto);letter-spacing:.18em;text-transform:uppercase;color:var(--nevoa)}
+.oferta .btn{width:100%;margin-top:18px}
+.oferta .seg{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-top:14px;color:var(--nevoa);font-size:12.5px}
+.oferta .ver{display:inline-block;margin-top:14px;color:var(--ouro-cl);font-weight:700;font-size:14px;border-bottom:1px solid rgba(228,190,120,.4);padding-bottom:2px}
+.aprende{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:56px}
+.aprende .card{padding:24px;border-radius:22px;background:var(--card);border:1px solid var(--linha)}
+.aprende .card b{display:block;font:400 26px/1.02 var(--cond);text-transform:uppercase;margin:10px 0 8px}
+.aprende .card p{color:var(--nevoa);font-size:14.5px}
+.aprende .card .n{font:700 11px var(--texto);letter-spacing:.2em;color:var(--ouro)}
+
+.trancado{position:relative;margin-top:26px;border-radius:26px;overflow:hidden;padding:34px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:26px;align-items:center;background:repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0 12px,transparent 12px 24px),linear-gradient(160deg,#0f131d,#07090f);border:1px solid rgba(255,255,255,.12)}
+.trancado .cadeado{width:84px;height:84px;border-radius:24px;display:grid;place-items:center;background:rgba(228,190,120,.1);border:1px solid rgba(228,190,120,.4);box-shadow:0 0 50px rgba(228,190,120,.15)}
+.trancado .cadeado svg{width:38px;height:38px;stroke:var(--ouro);fill:none;stroke-width:1.6}
+.trancado h3{font:400 clamp(30px,4vw,42px)/1 var(--cond);text-transform:uppercase}
+.trancado p{color:var(--nevoa);font-size:15px;margin-top:8px;max-width:560px}
+.trancado .borrado{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.trancado .borrado span{height:12px;border-radius:6px;background:rgba(255,255,255,.12);filter:blur(1.5px)}
+
+.avulsos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.grupo-tit{display:flex;align-items:center;gap:14px;margin:46px 0 4px;font:400 26px/1 var(--cond);text-transform:uppercase}
+.grupo-tit::after{content:"";flex:1;height:1px;background:var(--linha)}
+.av{position:relative;display:flex;flex-direction:column;padding:26px 24px;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.065),rgba(255,255,255,.02));border:1px solid var(--linha);transition:border-color .2s,transform .2s}
+.av:hover{border-color:rgba(228,190,120,.45)}
+.av .tipo{font:700 11px var(--texto);letter-spacing:.18em;text-transform:uppercase;color:var(--ouro)}
+.av h3{font:400 30px/1 var(--cond);text-transform:uppercase;margin:12px 0 8px}
+.av p{color:var(--nevoa);font-size:14.5px}
+.av .pr{margin:18px 0 16px;color:var(--nevoa);font-size:13.5px}
+.av .pr b{font:400 28px/1 var(--cond);color:#fff;margin-right:6px}
+.av .pr s{margin-right:6px}
+.av .btn{margin-top:auto;width:100%;min-height:50px;font-size:13.5px}
+.av .flag{position:absolute;top:22px;right:20px;font-size:20px}
+.dentro-vault{font-size:12.5px;color:#c9f0d4;margin-top:6px}
+
+@media(max-width:900px){
+  .historia{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .ato b{font-size:22px}.ato span{font-size:12.5px}
+  .vault-grade{grid-template-columns:1fr;gap:26px}
+  .vault-midia{position:relative;top:0;aspect-ratio:16/11}
+  .aprende,.avulsos{grid-template-columns:1fr}
+  .itens{padding:4px 18px}.recibo-cab,.soma{padding:16px 18px}.oferta{padding:22px 18px}
+  .itens li{grid-template-columns:30px minmax(0,1fr) auto;gap:10px}
+  .trancado{grid-template-columns:1fr;padding:26px 22px}
+  .relogio div{min-width:58px}
+  .soma{flex-direction:column;align-items:flex-start;gap:4px}.soma s{font-size:22px}
+}
 </style>
 </head>
 <body>
@@ -242,39 +338,111 @@ html{overflow-x:clip}
 <canvas id="neve" aria-hidden="true"></canvas>
 
 <header class="hero">
-  <div class="hero-fundo" data-para="0.35"><img src="img/n/b4.webp" alt="" fetchpriority="high"></div>
+  <div class="hero-fundo" data-para="0.35"><video src="img/h/mascarado.mp4" poster="img/h/mascarado.webp" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video></div>
   <div class="topo"><div class="caixa">
     <div class="perfil"><img src="img/perfil.jpg" alt="Inspira Diário"><div><b>INSPIRA DIÁRIO</b><span>@inspiradiariooficial</span></div></div>
     <a class="ig" href="https://www.instagram.com/inspiradiariooficial/" target="_blank" rel="noopener">Instagram</a>
   </div></div>
   <div class="caixa hero-txt">
-    <span class="kicker">Founder · SaaS Builder com IA</span>
-    <h1 class="grande revela"><span class="prata">Eu crio IAs</span><span class="script">que trabalham por você.</span></h1>
-    <p class="sub">Comecei o Inspira Diário falando de fé, disciplina e silêncio. Depois transformei isso em ferramentas: para organizar o dinheiro e tirar o sonho do papel, para ter uma página que posta todo dia sem aparecer e para criar vídeos que vendem. Tudo pelo celular.</p>
+    <span class="kicker">Você viu a história</span>
+    <h1 class="grande novela revela"><span class="prata">Sempre fui eu.</span><span class="script">E agora é a sua vez.</span></h1>
+    <p class="sub">Perdi tudo, morei de favor, passei fome e recomecei do zero no digital. Hoje vivo das minhas próprias ferramentas de IA, trabalhando de casa e sem nunca aparecer. Eu juntei tudo o que me tirou do zero num lugar só.</p>
     <div class="hero-botoes">
-      <a class="btn btn-ouro" href="#pack" data-ev="hero-pack">Pegar o pack grátis</a>
-      <a class="btn btn-vidro" href="#ferramentas" data-ev="hero-ferramentas">Ver as ferramentas</a>
+      <a class="btn btn-ouro" href="#vault" data-ev="hero-vault">Abrir o The Vault</a>
+      <a class="btn btn-vidro" href="#pack" data-ev="hero-pack">Pegar o pack grátis</a>
     </div>
+    <div class="assinou"><i></i><span>Black Friday: R$ 39,90 só até 30/11</span></div>
   </div>
-  <a class="selo-gira" href="#pack" aria-label="Pack grátis: 16 wallpapers em 4K"><svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="circ" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs><text><textPath href="#circ">PACK GRÁTIS · 16 WALLPAPERS 4K · </textPath></text></svg><b>16<small>GRÁTIS</small></b></a>
   <div class="rolar">ROLE<i></i></div>
 </header>
-<div class="faixa" aria-label="Fé, disciplina, silêncio, visão, constância, legado"><div class="faixa-trilho" aria-hidden="true"><span>Fé que sustenta<i>✦</i></span><span>Disciplina<i>✦</i></span><span>Silêncio<i>✦</i></span><span>Visão<i>✦</i></span><span>Constância<i>✦</i></span><span>Legado<i>✦</i></span><span>Ninguém viu o processo<i>✦</i></span><span>Fé que sustenta<i>✦</i></span><span>Disciplina<i>✦</i></span><span>Silêncio<i>✦</i></span><span>Visão<i>✦</i></span><span>Constância<i>✦</i></span><span>Legado<i>✦</i></span><span>Ninguém viu o processo<i>✦</i></span></div></div>
+<div class="faixa" aria-label="Fé, disciplina, silêncio, visão, constância, legado"><div class="faixa-trilho" aria-hidden="true"><span>Perdi tudo<i>✦</i></span><span>Recomecei do zero<i>✦</i></span><span>Ninguém viu o processo<i>✦</i></span><span>Fé que sustenta<i>✦</i></span><span>Hoje vivo do digital<i>✦</i></span><span>Sem aparecer<i>✦</i></span><span>Disciplina<i>✦</i></span><span>Perdi tudo<i>✦</i></span><span>Recomecei do zero<i>✦</i></span><span>Ninguém viu o processo<i>✦</i></span><span>Fé que sustenta<i>✦</i></span><span>Hoje vivo do digital<i>✦</i></span><span>Sem aparecer<i>✦</i></span><span>Disciplina<i>✦</i></span></div></div>
 
 <main>
-  <!-- QUEM SOU -->
+  <!-- A HISTÓRIA -->
   <section>
-    <div class="caixa quem">
-      <div class="fone sobe inclina"><video src="img/n/reels_silencio_resultado.mp4" poster="img/n/reels_silencio_resultado.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Reels do Inspira Diário"></video><span class="rotulo">Do perfil · Reels</span></div>
-      <div>
-        <span class="kicker sobe">Quem está por trás</span>
-        <h2 class="grande tit sobe revela">Construído <span class="script">em silêncio.</span></h2>
-        <p class="lead sobe">O Inspira Diário é o lado de dentro: <b>fé que sustenta, disciplina quando ninguém está olhando e visão antes de existir.</b> As ferramentas são o lado de fora: o que eu mesmo uso para executar, agora nas mãos de quem quer mudar de vida de verdade.</p>
-        <div class="pilares">
-          <div class="pilar sobe inclina"><span class="n">01</span><div><b>Para quem tem um sonho e nenhum plano</b><span>O Cofre dos Sonhos diz quanto guardar por mês e coloca a meta na sua tela de bloqueio.</span></div></div>
-          <div class="pilar sobe inclina"><span class="n">02</span><div><b>Para quem quer uma página sem aparecer</b><span>A Fábrica Dark cria os posts da sua página todo dia, no estilo dela.</span></div></div>
-          <div class="pilar sobe inclina"><span class="n">03</span><div><b>Para quem quer vender na internet</b><span>O Frankenstein e o The Vault entregam a estrutura que faltava: ferramenta, método e produto.</span></div></div>
+    <div class="caixa">
+      <span class="kicker sobe">A história real, em 4 cenas</span>
+      <h2 class="grande tit sobe revela">Ninguém viu <span class="script">o processo.</span></h2>
+      <p class="lead sobe">Tudo o que você viu na novelinha aconteceu. <b>O que mudou o jogo não foi sorte: foi estudar todo dia e construir uma estrutura</b> que vende sem eu precisar aparecer.</p>
+      <div class="historia">
+        <div class="ato sobe inclina"><img src="img/h/festa.webp" alt="Festa com amigos na cobertura" loading="lazy"><span class="n">01 · ANTES</span><div><b>Eu tinha tudo</b><span>Festa toda semana e amigos que juravam ser pra vida toda.</span></div></div>
+        <div class="ato sobe inclina"><img src="img/h/chao.webp" alt="Sentado no chão do apartamento vazio" loading="lazy"><span class="n">02 · A QUEDA</span><div><b>Perdi tudo</b><span>O sócio levou o dinheiro. O telefone parou de tocar.</span></div></div>
+        <div class="ato sobe inclina"><img src="img/h/estudo.webp" alt="Estudando de madrugada no notebook" loading="lazy"><span class="n">03 · O RECOMEÇO</span><div><b>Estudei todo dia</b><span>Recusei a carteira assinada. Eu acreditava no digital.</span></div></div>
+        <div class="ato hoje sobe inclina"><img src="img/h/hoje.webp" alt="Em casa com a esposa e a cachorrinha" loading="lazy"><span class="n">04 · HOJE</span><div><b>Vivo do digital</b><span>Ferramentas de IA próprias, de casa, sem aparecer.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE VAULT -->
+  <section class="vault-sec" id="vault">
+    <div class="caixa">
+      <span class="publi bf sobe"><i></i>Black Friday · só até 30/11</span>
+      <h2 class="grande tit sobe revela" style="margin-top:18px"><span class="ouro">The Vault</span><span class="script">tudo o que me tirou do zero.</span></h2>
+      <p class="lead sobe">Os 3 cursos, as ferramentas de IA que eu uso todo dia e o caminho para você ganhar <b>70% de comissão</b> indicando. Num pagamento só, com garantia de 7 dias.</p>
+      <div class="vault-grade">
+        <div class="vault-midia sobe"><img src="img/n/b7.webp" alt="Personagem do Inspira diante de um cofre dourado aberto" loading="lazy"><div class="legenda">Uma chave.<span class="script ouro">o ecossistema inteiro.</span></div></div>
+        <div class="recibo sobe">
+          <div class="recibo-cab"><b>O que tem no cofre</b><span>Valor cheio</span></div>
+          <ul class="itens">
+            <li><span class="ic">◆</span><div><b>Curso Máquina de Afiliados</b><small>7 módulos e 43 aulas: as oportunidades, cada ferramenta na prática, onde vender, roteiros prontos e a rotina de 40 minutos por dia.</small></div><span class="v" data-v="297">R$ 297</span></li>
+            <li><span class="ic">◆</span><div><b>Curso TikTok Shop do Zero</b><small>Vender produtos de outras lojas pelos seus vídeos, sem estoque e sem entregar nada.</small></div><span class="v" data-v="197">R$ 197</span></li>
+            <li><span class="ic">◆</span><div><b>Curso Personagens com IA</b><small>Criar um influenciador virtual que faz o conteúdo no seu lugar.</small></div><span class="v" data-v="97">R$ 97</span></li>
+            <li><span class="ic">◆</span><div><b>Método TikTok Shop España</b><small>O curso completo em espanhol para vender na Espanha e ganhar em euro.</small></div><span class="v">49 €</span></li>
+            <li class="bonus"><span class="ic">✦</span><div><b>15 dias de Fábrica Dark</b><small>Sua página sem rosto com posts, carrosséis e Reels prontos.</small></div><span class="v">bônus<em>plano R$ 47,90/mês</em></span></li>
+            <li class="bonus"><span class="ic">✦</span><div><b>7 dias de Frankenstein</b><small>O radar do que vende e até 125 vídeos com 15 gravações.</small></div><span class="v">bônus<em>plano R$ 47,90/mês</em></span></li>
+            <li class="bonus"><span class="ic">✦</span><div><b>30 dias de Cofre dos Sonhos Premium</b><small>O app que coloca a sua meta na tela do celular.</small></div><span class="v">bônus<em>plano R$ 12,90/mês</em></span></li>
+            <li class="bonus"><span class="ic">✦</span><div><b>Seu link de afiliado com 70%</b><small>Indique o The Vault e fique com 70% de cada venda.</small></div><span class="v">incluso</span></li>
+          </ul>
+          <div class="soma"><span>Só os cursos, separados</span><s>R$ 591 + 49 €</s></div>
+          <div class="oferta">
+            <span class="selo quente" id="vSelo">Black Friday · acaba em</span>
+            <div class="relogio" id="relogio" aria-label="Tempo até o fim da Black Friday"><div><b id="rD">0</b><span>dias</span></div><div><b id="rH">00</b><span>horas</span></div><div><b id="rM">00</b><span>min</span></div><div><b id="rS">00</b><span>seg</span></div></div>
+            <div class="por" id="vPreco"><small>R$</small>39,90</div>
+            <p class="depois" id="vDepois">pagamento único · <b>depois de 30/11 volta para R$ 67,90</b></p>
+            <a class="btn btn-ouro" href="https://pay.kiwify.com.br/6U9KuEC" data-ev="vault-checkout">Quero entrar no The Vault</a>
+            <div class="seg"><span>✓ Acesso na hora</span><span>✓ Garantia de 7 dias</span><span>✓ Pix ou cartão</span></div>
+            <a class="ver" href="https://www.cofredossonhos.com/vault/" data-ev="vault-pagina">Ver tudo o que tem dentro →</a>
+          </div>
         </div>
+      </div>
+
+      <div class="aprende">
+        <div class="card sobe inclina"><span class="n">VOCÊ APRENDE</span><b>Onde está o dinheiro na internet hoje</b><p>Os caminhos que funcionam sem aparecer: TikTok Shop, páginas sem rosto, personagens com IA e afiliação.</p></div>
+        <div class="card sobe inclina"><span class="n">VOCÊ USA</span><b>As mesmas ferramentas que eu uso</b><p>Página que posta todo dia, vídeos em escala e o app financeiro, liberados assim que você entra.</p></div>
+        <div class="card sobe inclina"><span class="n">VOCÊ INDICA</span><b>E fica com 70% de cada venda</b><p>O seu uso vira prova. O curso mostra como divulgar o seu link em cada canal, com roteiros prontos.</p></div>
+      </div>
+
+      <div class="trancado sobe">
+        <div class="cadeado"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.3"/></svg></div>
+        <div>
+          <span class="kicker">Cofre trancado · em breve</span>
+          <h3 style="margin-top:12px">Tem mais coisa sendo construída.</h3>
+          <p>Ferramentas novas estão a caminho. Quem estiver dentro do The Vault fica sabendo primeiro, antes de todo mundo.</p>
+          <div class="borrado" aria-hidden="true"><span style="width:120px"></span><span style="width:70px"></span><span style="width:150px"></span><span style="width:90px"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVULSOS -->
+  <section id="ferramentas">
+    <div class="caixa">
+      <div class="ferr-cab">
+        <span class="kicker sobe">Prefere começar por uma parte?</span>
+        <h2 class="grande tit sobe revela">Escolha <span class="script">o seu caminho.</span></h2>
+        <p class="lead sobe">Cada curso e cada ferramenta também existe sozinho. Tudo isso já vem junto no The Vault.</p>
+      </div>
+      <div class="grupo-tit sobe">Cursos</div>
+      <div class="avulsos">
+        <div class="av sobe inclina"><span class="tipo">Curso · Brasil</span><h3>TikTok Shop do Zero</h3><p>Do perfil ao primeiro vídeo à venda: nicho, amostras grátis, gancho, corpo e CTA, com aulas em vídeo.</p><div class="pr"><b>R$ 47</b>pagamento único</div><a class="btn btn-vidro" href="https://thebestia.com.br/tiktok-shop" data-ev="av-tts">Ver o curso</a></div>
+        <div class="av sobe inclina"><span class="tipo">Curso · IA</span><h3>Personagens com IA</h3><p>Do zero ao vídeo viral com um personagem feito por IA, que posta no seu lugar.</p><div class="pr">a partir de <b>R$ 9,90</b></div><a class="btn btn-vidro" href="https://thebestia.com.br/" data-ev="av-ia">Ver o curso</a></div>
+        <div class="av sobe inclina"><span class="flag" aria-hidden="true">🇪🇸</span><span class="tipo">Curso · Espanha</span><h3>TikTok Shop España</h3><p>O método completo em espanhol para vender na Espanha e ganhar em euro.</p><div class="pr" id="prEs"><s>49 €</s><b>19,90 €</b>até 30/11</div><a class="btn btn-vidro" href="https://thebestia.com.br/es" data-ev="av-es">Ver o curso</a></div>
+      </div>
+      <div class="grupo-tit sobe">Ferramentas</div>
+      <div class="avulsos">
+        <div class="av sobe inclina"><span class="tipo">Para páginas e empresas</span><h3>Fábrica Dark</h3><p>A IA cria o post, a imagem e a legenda da sua página todo dia, na identidade dela. É a que o Inspira usa.</p><div class="pr"><b>3 dias grátis</b>depois R$ 47,90/mês</div><a class="btn btn-vidro" href="https://fabricadark.cofredossonhos.com/conheca/" data-ev="av-fabrica">Testar grátis</a></div>
+        <div class="av sobe inclina"><span class="tipo">Para quem vende no TikTok Shop</span><h3>Frankenstein</h3><p>Veja o que vende hoje, deixe a IA modelar os vídeos campeões e receba até 125 vídeos com 15 gravações.</p><div class="pr"><b>3 dias grátis</b>depois a partir de R$ 47,90/mês</div><a class="btn btn-vidro" href="https://frankenstein.thebestia.com.br/conheca" data-ev="av-frankenstein">Testar grátis</a></div>
+        <div class="av sobe inclina"><span class="tipo">App por Inspira Diário</span><h3>Cofre dos Sonhos</h3><p>Escolha a conquista, descubra quanto guardar por mês e veja a meta na tela de bloqueio.</p><div class="pr"><s>R$ 12,90</s><b>R$ 10,90</b>/mês</div><a class="btn btn-vidro" href="https://www.cofredossonhos.com/conheca/" data-ev="av-cofre">Quero o meu Cofre</a></div>
       </div>
     </div>
   </section>
@@ -316,69 +484,6 @@ html{overflow-x:clip}
         </div>
       </div>
       <div class="galeria" id="galeria"></div>
-    </div>
-  </section>
-
-  <!-- FERRAMENTAS -->
-  <section id="ferramentas">
-    <div class="caixa pilha">
-      <div class="ferr-cab">
-        <span class="kicker sobe">As ferramentas</span>
-        <h2 class="grande tit sobe revela">Escolha <span class="script">por onde começar.</span></h2>
-        <p class="lead sobe">Cada uma resolve um pedaço do caminho. Toque na que é a sua e veja tudo na página dela.</p>
-      </div>
-
-      <article class="prod destaque sobe">
-        <div class="prod-foto"><img src="img/n/b7.webp" alt="Personagem do Inspira diante de um cofre dourado aberto" loading="lazy"><span class="num">01</span></div>
-        <div class="prod-txt">
-          <span class="selo quente">Black Friday · só até 30/11</span>
-          <h3>The Vault<small>a estrutura inteira.</small></h3>
-          <p class="frase">Criou perfil atrás de perfil e não vendeu nada? O problema nunca foi você. Faltava estrutura.</p>
-          <p>O The Vault abre o ecossistema inteiro para você vender na internet sem aparecer e sem começar do zero.</p>
-          <ul><li>3 cursos completos, com aulas práticas</li><li>As ferramentas liberadas para você usar e mostrar</li><li>Vire afiliado e ganhe 70% de comissão no curso</li><li>Pagamento único e garantia de 7 dias</li></ul>
-          <div class="preco"><b>R$ 39,90</b> pagamento único · preço de Black Friday</div>
-          <a class="btn btn-ouro" href="https://www.cofredossonhos.com/vault/" data-ev="vault">Quero entrar no The Vault</a>
-        </div>
-      </article>
-
-      <article class="prod sobe">
-        <div class="prod-foto"><img src="img/n/b3.webp" alt="Personagem do Inspira planejando no celular à luz de lamparina" loading="lazy"><span class="num">02</span></div>
-        <div class="prod-txt">
-          <span class="selo">App · por Inspira Diário</span>
-          <h3>Cofre dos Sonhos<small>o plano no seu bolso.</small></h3>
-          <p class="frase">O sonho não é caro. Caro é não ter plano.</p>
-          <p>Escolha a conquista (carro, casa, viagem, moto), descubra quanto guardar por mês e veja o progresso toda vez que pegar o celular. O dinheiro fica no seu banco; o Cofre te mantém no ritmo.</p>
-          <ul><li>Sua meta no wallpaper da tela de bloqueio</li><li>Lembrete no dia de guardar</li><li>Plano para sair das dívidas</li></ul>
-          <div class="preco"><s>R$ 12,90</s><b>R$ 10,90</b>/mês · Pix · sem fidelidade</div>
-          <a class="btn btn-ouro" href="https://www.cofredossonhos.com/conheca/" data-ev="cofre">Quero o meu Cofre</a>
-        </div>
-      </article>
-
-      <article class="prod sobe">
-        <div class="prod-foto"><img src="img/n/b6.webp" alt="Personagem do Inspira no notebook ao lado da lareira" loading="lazy"><span class="num">03</span></div>
-        <div class="prod-txt">
-          <span class="selo">Para páginas e empresas</span>
-          <h3>Fábrica Dark<small>sua página postando todo dia.</small></h3>
-          <p class="frase">O Inspira Diário usa a Fábrica. A sua página pode ser a próxima.</p>
-          <p>Você diz o tema (ou deixa ela escolher) e a IA cria na hora o post, a imagem e a legenda, na identidade da sua página. Sem saber design e sem aparecer.</p>
-          <ul><li>Post, carrossel, Reels e stories</li><li>Dark, frases, quadrinhos, notícias e memes</li><li>Modo Business: posts com a marca da sua empresa</li></ul>
-          <div class="preco"><b>3 dias grátis</b> · sem cartão</div>
-          <a class="btn btn-ouro" href="https://fabricadark.cofredossonhos.com/conheca/" data-ev="fabrica">Testar a Fábrica grátis</a>
-        </div>
-      </article>
-
-      <article class="prod sobe">
-        <div class="prod-foto"><img src="img/n/b8.webp" alt="Personagem do Inspira caminhando numa vila de neve à noite" loading="lazy"><span class="num">04</span></div>
-        <div class="prod-txt">
-          <span class="selo">Para quem vende no TikTok Shop</span>
-          <h3>Frankenstein<small>a IA que dá vida aos seus vídeos.</small></h3>
-          <p class="frase">Pare de postar no chute. Veja o que já vende e grave em cima disso.</p>
-          <p>Veja o que vende hoje no Brasil e nos Estados Unidos, deixe a IA modelar os vídeos campeões, grave no teleprompter e receba até 125 vídeos prontos com só 15 gravações.</p>
-          <ul><li>Radar do que mais vende, por nicho</li><li>Roteiros feitos pela IA para o seu produto</li><li>Montagem de vídeos sem repetir combinação</li></ul>
-          <div class="preco"><b>3 dias grátis</b> · sem cartão para testar</div>
-          <a class="btn btn-ouro" href="https://frankenstein.thebestia.com.br/conheca" data-ev="frankenstein">Testar o Frankenstein grátis</a>
-        </div>
-      </article>
     </div>
   </section>
 
@@ -445,7 +550,7 @@ html{overflow-x:clip}
   </div>
 </footer>
 
-<div class="barra" id="barra"><a class="btn btn-ouro" href="#pack" data-ev="barra-pack">Pegar o pack grátis</a></div>
+<div class="barra" id="barra"><a class="btn btn-ouro" href="#vault" data-ev="barra-vault" id="barraTxt">The Vault · R$ 39,90 até 30/11</a></div>
 
 <script>
 (function(){
@@ -521,7 +626,7 @@ html{overflow-x:clip}
 
   // barra fixa no celular depois do topo (some quando o pack está na tela)
   var barra=document.getElementById('barra'), hero=document.querySelector('.hero');
-  function rolar(){ var r=pack.getBoundingClientRect(); var noPack=r.top<innerHeight&&r.bottom>0; barra.classList.toggle('mostrar',scrollY>hero.offsetHeight*.7&&!noPack&&!aberto); }
+  function rolar(){ var r=pack.getBoundingClientRect(); var noPack=r.top<innerHeight&&r.bottom>0; var vr=document.getElementById('vault').getBoundingClientRect(); var noVault=vr.top<innerHeight&&vr.bottom>0; barra.classList.toggle('mostrar',scrollY>hero.offsetHeight*.7&&!noPack&&!noVault); }
   addEventListener('scroll',rolar,{passive:true}); rolar();
 
   // neve caindo
@@ -537,6 +642,23 @@ html{overflow-x:clip}
 })();
 </script>
 <script>
+/* contagem da Black Friday (até 30/11 23:59 de Brasília); depois mostra o preço normal */
+(function(){
+  var FIM=Date.parse('2026-11-30T23:59:59-03:00');
+  function z(n){return (n<10?'0':'')+n}
+  function tic(){
+    var r=FIM-Date.now();
+    if(r<=0){ var rl=document.getElementById('relogio'); if(rl)rl.style.display='none';
+      document.getElementById('vSelo').textContent='The Vault'; document.getElementById('vPreco').innerHTML='<small>R$</small>67,90';
+      document.getElementById('vDepois').innerHTML='pagamento único · <b>garantia de 7 dias</b>';
+      var b=document.getElementById('barraTxt'); if(b)b.textContent='The Vault · R$ 67,90';
+      document.querySelectorAll('.assinou,.publi.bf').forEach(function(e){e.style.display='none'}); var es=document.getElementById('prEs'); if(es)es.innerHTML='<b>49 €</b>pagamento único'; return; }
+    var d=Math.floor(r/864e5), h=Math.floor(r%864e5/36e5), m=Math.floor(r%36e5/6e4), s=Math.floor(r%6e4/1e3);
+    document.getElementById('rD').textContent=d; document.getElementById('rH').textContent=z(h); document.getElementById('rM').textContent=z(m); document.getElementById('rS').textContent=z(s);
+    setTimeout(tic,1000);
+  }
+  tic();
+})();
 /* formato imersivo: barra de progresso, parallax, títulos revelando, contador, cartões empilhando, inclinação e cursor dourado */
 (function(){try{
   var calmo=matchMedia('(prefers-reduced-motion: reduce)').matches;
