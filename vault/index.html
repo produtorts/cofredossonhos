@@ -21,7 +21,7 @@
   --cond:'Anton',Impact,'Arial Narrow',sans-serif; --lux:'Cinzel',Georgia,serif; --script:'Great Vibes',cursive; --texto:'Montserrat',system-ui,sans-serif;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:clip}
 body{margin:0;background:var(--bg);color:var(--branco);font-family:var(--texto);font-size:16px;line-height:1.6;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 img,video{max-width:100%;display:block}
@@ -264,7 +264,7 @@ section{padding:84px 0 10px}
 .rev.on{opacity:1;transform:none}
 #aviso{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top));transform:translate(-50%,-160%);z-index:60;background:#14110a;border:1px solid var(--ouro);color:var(--ouro-cl);font-weight:700;font-size:14px;padding:12px 18px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.5);transition:transform .3s;max-width:92vw;text-align:center}
 #aviso.on{transform:translate(-50%,0)}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#neve{display:none}.rev{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*:not(.faixa-trilho){animation:none!important;transition:none!important}#neve{display:none}.rev{opacity:1;transform:none}}
 /* 03/11 · topo enxuto: o vídeo aparece inteiro na primeira tela do celular e já começa a tocar sem som */
 .bf{padding:6px 10px;font-size:11.5px}
 .bf .relogio{font-size:13px;margin-left:6px}
@@ -296,7 +296,40 @@ section{padding:84px 0 10px}
 .flutua.f1{left:-4%;top:12%}.flutua.f2{right:-4%;top:22%;animation-delay:-1.5s}
 .flutua.f3{left:-1%;bottom:22%;animation-delay:-3s}.flutua.f4{right:-1%;bottom:12%;animation-delay:-4.5s}
 @keyframes boia{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-10px) rotate(.6deg)}}
-@media(max-width:899px){.flutua{display:none}}
+@media(max-width:899px){
+  .vsl-palco{padding:0 4px}
+  .flutua{padding:7px 10px 7px 7px;border-radius:12px;gap:7px}
+  .flutua i{width:26px;height:26px;font-size:13px;border-radius:8px}
+  .flutua b{font-size:12px}.flutua small{font-size:9.5px}
+  .tocando .flutua{opacity:0;pointer-events:none;transition:opacity .4s}
+  .flutua.f1{left:0;top:15%}.flutua.f2{right:0;top:31%}.flutua.f3{left:0;bottom:31%}.flutua.f4{right:0;bottom:15%}
+}
+/* faixa que corre */
+.faixa{position:relative;z-index:2;background:var(--metal);color:#1b1205;overflow:hidden;transform:rotate(-1.4deg);margin:26px -10px 0;box-shadow:0 20px 60px -20px rgba(228,190,120,.55)}
+.faixa-trilho{display:flex;width:max-content;animation:corre 34s linear infinite;padding:13px 0}
+.faixa-trilho span{font:400 21px/1 var(--cond);letter-spacing:.06em;white-space:nowrap;display:flex;align-items:center;gap:24px;padding-right:24px;text-transform:uppercase}
+.faixa-trilho i{font-style:normal;font-size:13px}
+@keyframes corre{to{transform:translateX(-50%)}}
+/* história */
+.historia{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:34px}
+.ato{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:3/4;background:#0d0d0d;border:1px solid var(--linha)}
+.ato img{width:100%;height:100%;object-fit:cover}
+.ato::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(5,5,5,.94))}
+.ato div{position:absolute;left:14px;right:14px;bottom:14px;z-index:2}
+.ato b{display:block;font:400 25px/1 var(--cond);text-transform:uppercase}
+.ato span{display:block;color:#d9d4c8;font-size:13px;line-height:1.45;margin-top:6px}
+.ato .n{position:absolute;top:12px;left:14px;z-index:2;font:700 10.5px var(--texto);letter-spacing:.2em;color:var(--ouro-cl)}
+.ato.hoje{border-color:rgba(228,190,120,.55)}
+@media(max-width:760px){.historia{grid-template-columns:1fr 1fr}.ato b{font-size:21px}.ato span{font-size:12px}}
+/* cofre trancado */
+.trancado{margin-top:30px;border-radius:26px;padding:32px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center;background:repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0 12px,transparent 12px 24px),linear-gradient(160deg,#121009,#070605);border:1px solid rgba(228,190,120,.25)}
+.trancado .cadeado{width:80px;height:80px;border-radius:22px;display:grid;place-items:center;background:rgba(228,190,120,.1);border:1px solid rgba(228,190,120,.4);box-shadow:0 0 50px rgba(228,190,120,.15)}
+.trancado .cadeado svg{width:36px;height:36px;stroke:var(--ouro);fill:none;stroke-width:1.6}
+.trancado h3{font:400 clamp(28px,4vw,40px)/1 var(--cond);text-transform:uppercase;margin:10px 0 0}
+.trancado p{color:var(--nevoa);font-size:15px;margin:8px 0 0}
+.trancado .borrado{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.trancado .borrado span{height:12px;border-radius:6px;background:rgba(255,255,255,.12);filter:blur(1.5px)}
+@media(max-width:700px){.trancado{grid-template-columns:1fr;padding:26px 22px}}
 
 .portas-topo .conta-porta{display:inline-flex;gap:10px;align-items:center;margin-top:18px;padding:10px 16px;border-radius:999px;border:1px solid rgba(228,190,120,.35);background:rgba(228,190,120,.06);font-weight:700;font-size:14px}
 .portas-topo .conta-porta b{font-family:var(--cond);font-weight:400;font-size:22px;color:var(--ouro-cl);letter-spacing:.5px}
@@ -374,7 +407,7 @@ section{padding:84px 0 10px}
 
       <div class="vsl-palco">
       <div class="vsl" id="vsl">
-        <img src="vid/vsl-capa3.jpg" alt="Capa do vídeo do The Vault" id="vslCapa" fetchpriority="high">
+        <img src="vid/vsl-capa4.jpg" alt="Capa do vídeo do The Vault" id="vslCapa" fetchpriority="high">
         <div class="capa" id="vslPlay"><span class="play"><svg viewBox="0 0 24 24"><path fill="#140d03" d="M6 4l15 8-15 8z"/></svg></span><b>Assista com o som ligado</b></div>
       </div>
         <div class="flutua f1" aria-hidden="true"><i>🎬</i><span><b>Até 125 vídeos</b><small>com 15 gravações</small></span></div>
@@ -397,6 +430,7 @@ section{padding:84px 0 10px}
       </div>
     </div>
   </div>
+  <div class="faixa" aria-label="Sem aparecer, sem começar do zero, estrutura pronta"><div class="faixa-trilho" aria-hidden="true"><span>Sem aparecer<i>✦</i></span><span>3 cursos completos<i>✦</i></span><span>Ferramentas de IA<i>✦</i></span><span>70% de comissão<i>✦</i></span><span>Estrutura pronta<i>✦</i></span><span>Garantia de 7 dias<i>✦</i></span><span>Sem aparecer<i>✦</i></span><span>3 cursos completos<i>✦</i></span><span>Ferramentas de IA<i>✦</i></span><span>70% de comissão<i>✦</i></span><span>Estrutura pronta<i>✦</i></span><span>Garantia de 7 dias<i>✦</i></span></div></div>
 
   <div class="wrap">
     <!-- DOR -->
@@ -432,6 +466,21 @@ section{padding:84px 0 10px}
       </div>
     </section>
 
+
+    <!-- QUEM CRIOU -->
+    <section data-sec="historia">
+      <div class="centro rev">
+        <span class="sobre">Quem criou o The Vault</span>
+        <h2 class="titulo">Eu também comecei<br><span class="ouro">do zero.</span></h2>
+        <p class="lead" style="margin:14px auto 0">Tive um negócio que dava certo, perdi tudo, morei de favor e recomecei estudando todo dia. O que me tirou do zero não foi sorte: foi montar uma estrutura que vende sem eu precisar aparecer. <b style="color:var(--ouro-cl)">O The Vault é essa estrutura, aberta para você.</b></p>
+      </div>
+      <div class="historia">
+        <div class="ato rev"><img src="../inspira/img/h/festa.webp" alt="Festa com amigos na cobertura" loading="lazy"><span class="n">01 · ANTES</span><div><b>Eu tinha tudo</b><span>Festa toda semana e amigos que juravam ser pra vida toda.</span></div></div>
+        <div class="ato rev"><img src="../inspira/img/h/chao.webp" alt="Sentado no chão do apartamento vazio" loading="lazy"><span class="n">02 · A QUEDA</span><div><b>Perdi tudo</b><span>O sócio levou o dinheiro. O telefone parou de tocar.</span></div></div>
+        <div class="ato rev"><img src="../inspira/img/h/estudo.webp" alt="Estudando de madrugada no notebook" loading="lazy"><span class="n">03 · O RECOMEÇO</span><div><b>Estudei todo dia</b><span>Recusei a carteira assinada. Eu acreditava no digital.</span></div></div>
+        <div class="ato hoje rev"><img src="../inspira/img/h/hoje.webp" alt="Em casa com a esposa e a cachorrinha" loading="lazy"><span class="n">04 · HOJE</span><div><b class="ouro">Vivo do digital</b><span>Ferramentas de IA próprias, de casa, sem aparecer.</span></div></div>
+      </div>
+    </section>
 
     <!-- A PÁGINA QUE VOCÊ VAI QUERER TER -->
     <section id="pagina-dark" data-sec="pagina-dark">
@@ -682,6 +731,18 @@ Fé • Mentalidade • Disciplina
       </div>
     </section>
 
+    <section data-sec="em-breve" style="padding-top:40px">
+      <div class="trancado rev">
+        <div class="cadeado"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.3"/></svg></div>
+        <div>
+          <span class="sobre">Cofre trancado · em breve</span>
+          <h3>Tem mais coisa sendo construída.</h3>
+          <p>Ferramentas novas estão a caminho. Quem estiver dentro do The Vault fica sabendo primeiro, antes de todo mundo.</p>
+          <div class="borrado" aria-hidden="true"><span style="width:120px"></span><span style="width:70px"></span><span style="width:150px"></span><span style="width:90px"></span></div>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ -->
     <section data-sec="faq">
       <div class="centro rev">
@@ -721,7 +782,7 @@ Fé • Mentalidade • Disciplina
 (()=>{
   // ====== Configuração (troque quando tiver) ======
   const LINK_CHECKOUT = 'https://pay.kiwify.com.br/6U9KuEC';          // link do checkout (Kiwify) do The Vault
-  const VSL_SRC = 'vid/vsl-v3.mp4';
+  const VSL_SRC = 'vid/vsl-v4.mp4';
   const VSL_VERTICAL = true;
   const LINK_DIRECT = 'https://ig.me/m/inspiradiariooficial';
   const MSG = 'Olá! Vim pela página do The Vault e quero garantir a minha chave de acesso ao ecossistema. Como faço?';
@@ -757,12 +818,12 @@ Fé • Mentalidade • Disciplina
   if(VSL_SRC){
     // o vídeo já começa a tocar sem som (prende a atenção de quem chega do anúncio); o toque liga o som e volta do começo.
     // "data-previa" faz o painel só contar o play quando a pessoa liga o som.
-    const v=document.createElement('video'); v.src=VSL_SRC; v.poster='vid/vsl-capa3.jpg'; v.muted=true; v.defaultMuted=true; v.setAttribute('muted',''); v.playsInline=true; v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline',''); v.loop=true; v.autoplay=true; v.preload='metadata'; v.setAttribute('data-previa','');
+    const v=document.createElement('video'); v.src=VSL_SRC; v.poster='vid/vsl-capa4.jpg'; v.muted=true; v.defaultMuted=true; v.setAttribute('muted',''); v.playsInline=true; v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline',''); v.loop=true; v.autoplay=true; v.preload='metadata'; v.setAttribute('data-previa','');
     vsl.innerHTML=''; vsl.append(v);
     const ouvir=document.createElement('button'); ouvir.type='button'; ouvir.className='ouvir';
     ouvir.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>Toque para ouvir';
     vsl.append(ouvir);
-    const ligar=()=>{ if(!v.hasAttribute('data-previa')) return; v.removeAttribute('data-previa'); ouvir.remove(); v.pause(); v.loop=false; v.muted=false; v.currentTime=0; v.controls=true; v.play().catch(()=>{}); };
+    const ligar=()=>{ if(!v.hasAttribute('data-previa')) return; v.removeAttribute('data-previa'); ouvir.remove(); document.querySelector('.vsl-palco')?.classList.add('tocando'); v.pause(); v.loop=false; v.muted=false; v.currentTime=0; v.controls=true; v.play().catch(()=>{}); };
     ouvir.addEventListener('click',ligar); v.addEventListener('click',ligar);
     const p=v.play(); if(p&&p.catch) p.catch(()=>ouvir.classList.add('grande')); // se o celular bloquear o autoplay (modo economia), o botão fica no meio
   } else {
