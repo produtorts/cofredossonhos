@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B0A09">
+<link rel="canonical" href="https://acheikit.com/empreenda">
+<meta property="og:title" content="Empreenda Sem Medo · Aracaju">
+<meta property="og:description" content="Palestra presencial com Geyvson Correia, autor de Empreenda Sem Medo. 23 de janeiro, Aracaju (SE).">
+<meta property="og:image" content="https://acheikit.com/empreenda/img/r-olhar.webp">
+<title>Empreenda Sem Medo · Aracaju</title>
+<meta name="description" content="Palestra presencial com Geyvson Correia, autor de Empreenda Sem Medo. 23 de janeiro, Aracaju (SE).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Manrope:wght@400;500;600;700&family=Caveat:wght@600&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --noite:#0B0A09; --carvao:#151311; --linha:#2A2622; --papel:#EDE6DA; --papel-2:#BDB4A6; --cobre:#C97A4A; --brasa:#E9A15F;
+  --titulo:"Archivo","Arial Narrow",Impact,sans-serif; --texto:"Manrope","Segoe UI",system-ui,sans-serif; --mao:"Caveat","Bradley Hand",cursive;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+main,footer,.topo{overflow-x:clip}
+body{background:var(--noite);color:var(--papel);font-family:var(--texto);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.faixa{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.miolo{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--titulo);font-stretch:112%;font-weight:900;line-height:.95;letter-spacing:-.01em;text-wrap:balance;margin:0}
+p{margin:0}
+.mao{font-family:var(--mao);color:var(--cobre);font-size:1.35em;line-height:1.1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 28px;border-radius:999px;background:var(--brasa);color:#1A0E05;font-family:var(--titulo);font-stretch:105%;font-weight:800;font-size:17px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:hover{background:#F3B47A;transform:translateY(-1px)}
+.btn:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--brasa);outline-offset:3px}
+.btn small{font-family:var(--texto);font-weight:700;font-size:14px;opacity:.75}
+
+/* topo */
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(11,10,9,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--linha)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--noite)}
+.topo .miolo{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px}
+.marca{font-family:var(--titulo);font-weight:900;font-stretch:120%;font-size:15px;letter-spacing:.06em}
+.topo .btn{min-height:42px;padding:0 18px;font-size:14px;white-space:nowrap}
+.so-pequeno{display:none}
+
+/* abertura: composição em camadas */
+.abre{position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(60% 70% at 72% 42%,rgba(201,122,74,.34),transparent 70%),radial-gradient(40% 50% at 90% 10%,rgba(233,161,95,.14),transparent 70%),var(--noite)}
+.abre::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+.abre .miolo{position:relative;min-height:min(92svh,820px);display:grid;grid-template-columns:1fr 1fr;align-items:center}
+.abre .palco{position:absolute;inset:0;z-index:1}
+.gigante{position:absolute;z-index:0;right:-2%;top:6%;margin:0;font-family:var(--titulo);font-weight:900;font-stretch:125%;font-size:clamp(120px,17vw,250px);line-height:.8;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:2px rgba(233,161,95,.55);text-align:right;user-select:none}
+.gigante span{display:block;color:rgba(233,161,95,.12);-webkit-text-stroke:0}
+.recorte{position:absolute;z-index:2;right:-7%;bottom:0;height:100%;width:auto;max-width:none;-webkit-mask-image:linear-gradient(0deg,transparent 0,#000 30%),linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(0deg,transparent 0,#000 30%),linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%);mask-composite:intersect;filter:drop-shadow(-18px 0 40px rgba(233,161,95,.28)) drop-shadow(0 30px 60px rgba(0,0,0,.6)) contrast(1.06)}
+.abre .chao{position:absolute;inset:auto 0 0;height:30%;z-index:3;background:linear-gradient(0deg,var(--noite) 8%,transparent)}
+.abre-txt{position:relative;z-index:4;padding-block:72px;grid-column:1;grid-row:1}
+.quando{display:inline-flex;gap:10px;align-items:center;font-weight:700;font-size:14px;color:var(--papel-2);margin-bottom:22px}
+.quando i{width:8px;height:8px;border-radius:50%;background:var(--brasa);box-shadow:0 0 0 6px rgba(233,161,95,.15)}
+.abre h1{font-size:clamp(58px,8.4vw,118px);font-stretch:125%;text-shadow:0 6px 40px rgba(0,0,0,.6)}
+.abre h1 span{display:block;color:var(--brasa)}
+.abre .lead{font-size:clamp(20px,2.1vw,24px);line-height:1.35;max-width:28ch;margin:26px 0 30px}
+.abre .lead b{color:var(--brasa);font-weight:700}
+.abre .acoes{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center}
+.abre .nota{font-size:14px;color:var(--papel-2)}
+.rabisco{position:absolute;z-index:4;right:2%;bottom:20%;display:flex;align-items:flex-end;gap:6px;font-family:var(--mao);font-size:30px;line-height:1;color:var(--papel);transform:rotate(-6deg)}
+.rabisco svg{width:64px;height:48px;flex:none}
+.rabisco b{display:block;font-family:var(--titulo);font-size:14px;letter-spacing:.08em;color:var(--brasa);font-weight:800}
+
+/* bilhete */
+.bilhete-faixa{margin-top:-1px;background:var(--carvao);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+.bilhete{display:grid;grid-template-columns:repeat(4,1fr) auto;align-items:stretch}
+.bilhete div{padding:22px 18px;border-right:1px dashed #3a342e}
+.bilhete small{display:block;color:var(--papel-2);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.bilhete b{font-family:var(--titulo);font-stretch:110%;font-size:22px;font-weight:800}
+.bilhete .falta{border-right:0;display:flex;flex-direction:column;justify-content:center}
+.bilhete .falta b{color:var(--brasa)}
+
+section{padding-block:96px}
+.olho{font-family:var(--mao);color:var(--cobre);font-size:26px;margin-bottom:12px;display:block}
+.sec-tit{font-size:clamp(36px,5.4vw,68px);max-width:16ch}
+.sec-sub{max-width:62ch;color:var(--papel-2);font-size:18px;margin-top:18px}
+
+/* imagine */
+.imagine{background:linear-gradient(180deg,var(--noite),#120f0c)}
+.cena{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:48px;border:1px solid var(--linha);border-radius:22px;overflow:hidden}
+.cena article{padding:36px 32px;min-width:0}
+.cena article+article{border-left:1px solid var(--linha);background:rgba(233,161,95,.06)}
+.cena h3{font-size:24px;font-stretch:108%;margin-bottom:14px}
+.cena article:first-child h3{color:var(--papel-2)}
+.cena article+article h3{color:var(--brasa)}
+.cena ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.cena li{padding-left:26px;position:relative}
+.cena li::before{content:"";position:absolute;left:0;top:.62em;width:12px;height:2px;background:currentColor;opacity:.5}
+.cena article+article li::before{background:var(--brasa);opacity:1}
+.frase-grande{font-family:var(--titulo);font-stretch:118%;font-weight:900;font-size:clamp(28px,3.8vw,46px);line-height:1.05;max-width:22ch;margin-top:56px;text-wrap:balance}
+.frase-grande em{font-style:normal;color:var(--brasa)}
+
+/* medos */
+.medos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
+.medo{background:var(--carvao);border:1px solid var(--linha);border-radius:18px;padding:24px;min-width:0}
+.medo q{display:block;font-family:var(--titulo);font-stretch:105%;font-weight:800;font-size:20px;line-height:1.15;quotes:"“" "”";margin-bottom:12px}
+.medo p{color:var(--papel-2);font-size:15px}
+
+/* caminho */
+.caminho{display:grid;gap:0;margin-top:52px;counter-reset:passo}
+.passo{display:grid;grid-template-columns:120px 1fr 1fr;gap:28px;padding:34px 0;border-top:1px solid var(--linha);align-items:start}
+.passo:last-child{border-bottom:1px solid var(--linha)}
+.passo .n{font-family:var(--titulo);font-stretch:125%;font-weight:900;font-size:64px;line-height:.8;color:transparent;-webkit-text-stroke:1.5px var(--cobre)}
+.passo h3{font-size:clamp(24px,2.6vw,32px);font-stretch:108%}
+.passo p{color:var(--papel-2)}
+.lojas{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.lojas span{border:1px solid var(--linha);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:700;color:var(--papel)}
+
+/* quem: recorte sobre bloco de cor */
+.quem{background:var(--papel);color:#16120E;overflow:hidden}
+.quem .miolo{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.quem .olho{color:#9A5226}
+.quem-foto{position:relative;aspect-ratio:4/5;max-width:100%;isolation:isolate}
+.quem-foto .bloco{position:absolute;inset:16% 3% 0 3%;background:var(--cobre);border-radius:10px;z-index:0;overflow:hidden}
+.quem-foto .bloco::before{content:"AUTOR\A GESTOR\A PROFESSOR";white-space:pre;position:absolute;left:-4%;top:4%;font-family:var(--titulo);font-weight:900;font-stretch:125%;font-size:clamp(44px,6vw,84px);line-height:.86;color:transparent;-webkit-text-stroke:1.5px rgba(22,18,14,.35)}
+.quem-foto .pessoa{position:absolute;z-index:1;left:50%;bottom:0;height:94%;width:auto;max-width:none;transform:translateX(-50%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);filter:drop-shadow(0 24px 40px rgba(22,18,14,.35))}
+.quem-foto .livro{position:absolute;z-index:2;right:-4%;bottom:-6%;width:36%;height:auto;border-radius:3px;box-shadow:0 30px 60px rgba(0,0,0,.45),0 0 0 1px rgba(0,0,0,.2);transform:perspective(900px) rotateY(-16deg) rotate(3deg)}
+.quem-foto .selo{position:absolute;z-index:3;left:2%;top:8%;background:#16120E;color:var(--papel);border-radius:999px;padding:10px 16px;font-weight:800;font-size:13px;letter-spacing:.06em;transform:rotate(-5deg)}
+.quem h2{font-size:clamp(40px,5.6vw,72px);font-stretch:118%}
+.quem .cargo{font-weight:700;margin-top:10px;color:#5A4E42}
+.quem p.txt{margin-top:22px;font-size:18px;max-width:56ch}
+.creds{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+.creds li{border-top:2px solid #16120E;padding-top:10px;font-weight:600;font-size:15px}
+.creds b{display:block;font-family:var(--titulo);font-stretch:110%;font-size:18px;font-weight:800}
+
+/* pra quem */
+.lados{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:44px}
+.lado{border-radius:20px;padding:32px;border:1px solid var(--linha);min-width:0}
+.lado.sim{background:var(--carvao)}
+.lado h3{font-size:24px;font-stretch:108%;margin-bottom:16px}
+.lado.sim h3{color:var(--brasa)}
+.lado ul{margin:0;padding:0 0 0 20px;display:grid;gap:10px}
+.lado.nao{color:var(--papel-2)}
+
+/* ingresso */
+.ingresso{overflow:hidden;background:radial-gradient(120% 80% at 80% 0%,rgba(201,122,74,.22),transparent 60%),var(--noite)}
+.ingresso .miolo{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.cartao{background:var(--papel);color:#16120E;border-radius:26px;padding:34px;position:relative;min-width:0}
+.cartao::before,.cartao::after{content:"";position:absolute;top:50%;width:28px;height:28px;border-radius:50%;background:var(--noite);transform:translateY(-50%)}
+.cartao::before{left:-14px}.cartao::after{right:-14px}
+.cartao .topo-c{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:2px dashed #CDBFAC;padding-bottom:18px;margin-bottom:18px}
+.cartao .preco{font-family:var(--titulo);font-stretch:118%;font-weight:900;font-size:64px;line-height:.9}
+.cartao .preco small{font-size:22px;vertical-align:top;margin-right:4px}
+.cartao ul{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:10px}
+.cartao li{padding-left:28px;position:relative;font-weight:600}
+.cartao li::before{content:"";position:absolute;left:2px;top:.45em;width:14px;height:8px;border-left:3px solid #9A5226;border-bottom:3px solid #9A5226;transform:rotate(-45deg)}
+form{display:grid;gap:12px}
+label{font-size:13px;font-weight:700;color:#5A4E42}
+input{width:100%;min-height:54px;border-radius:14px;border:1.5px solid #CDBFAC;background:#fff;color:#16120E;font:500 17px var(--texto);padding:0 16px}
+.cartao .btn{width:100%;margin-top:6px}
+.erro{color:#A3271B;font-weight:700;font-size:14px}
+.ok{background:#16120E;color:var(--papel);border-radius:14px;padding:16px;font-weight:600}
+.garantias{display:grid;gap:18px;color:var(--papel-2)}
+.garantias b{color:var(--papel);display:block;font-family:var(--titulo);font-stretch:108%;font-size:20px}
+
+/* dúvidas */
+details{border-top:1px solid var(--linha);padding:20px 0}
+details:last-of-type{border-bottom:1px solid var(--linha)}
+summary{cursor:pointer;font-family:var(--titulo);font-stretch:106%;font-weight:800;font-size:20px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";color:var(--brasa)}
+details[open] summary::after{content:"–"}
+details p{color:var(--papel-2);margin-top:10px;max-width:70ch}
+
+/* fecho */
+.fecho{position:relative;overflow:hidden;isolation:isolate;padding-block:110px 0;background:radial-gradient(50% 60% at 50% 100%,rgba(201,122,74,.3),transparent 70%),var(--noite)}
+.fecho .miolo{text-align:center;position:relative;z-index:2}
+.fecho .pessoa-fim{display:block;margin:40px auto 0;height:clamp(320px,46vw,560px);width:auto;max-width:none;-webkit-mask-image:linear-gradient(0deg,transparent 0,#000 28%),linear-gradient(90deg,transparent 0,#000 18%,#000 82%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(0deg,transparent 0,#000 28%),linear-gradient(90deg,transparent 0,#000 18%,#000 82%,transparent 100%);mask-composite:intersect}
+.fecho h2{font-size:clamp(40px,7vw,96px);font-stretch:122%;max-width:14ch;margin:0 auto}
+.fecho h2 span{color:var(--brasa)}
+.fecho p{color:var(--papel-2);max-width:52ch;margin:24px auto 34px;font-size:18px}
+footer{border-top:1px solid var(--linha);padding-block:28px;color:var(--papel-2);font-size:13px}
+footer .miolo{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* entrada da página: um momento só */
+@media (prefers-reduced-motion:no-preference){
+  .abre h1,.abre .lead,.abre .acoes,.quando{animation:sobe .8s cubic-bezier(.2,.7,.2,1) both}
+  .abre .lead{animation-delay:.12s}.abre .acoes{animation-delay:.22s}
+  .recorte{animation:luz 1.4s ease-out both}
+  .gigante{animation:entra 1.6s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes entra{from{opacity:0;transform:translateX(40px)}}
+  @keyframes sobe{from{opacity:0;transform:translateY(18px)}}
+  @keyframes luz{from{opacity:0;filter:brightness(.4)}}
+}
+
+@media (max-width:900px){
+  .abre{background:radial-gradient(90% 45% at 50% 22%,rgba(201,122,74,.38),transparent 70%),var(--noite)}
+  .abre .miolo{grid-template-columns:1fr;min-height:0;align-items:end}
+  .abre .palco{position:relative;height:clamp(400px,112vw,560px);margin-inline:-20px}
+  .gigante{right:auto;left:50%;top:4%;transform:translateX(-50%);text-align:center;font-size:clamp(92px,27vw,170px);white-space:nowrap}
+  .recorte{right:auto;left:50%;transform:translateX(-50%);height:100%}
+  .abre .chao{height:34%}
+  .abre-txt{padding-block:0 56px;margin-top:-90px;grid-row:auto}
+  .rabisco{right:4%;bottom:auto;top:58%;font-size:24px}
+  .rabisco svg{display:none}
+  .quem-foto{max-width:460px;margin-inline:auto;width:100%}
+  .bilhete{grid-template-columns:1fr 1fr}
+  .bilhete div{border-right:0;border-bottom:1px dashed #3a342e}
+  .bilhete .falta{grid-column:1/-1;border-bottom:0}
+  .cena{grid-template-columns:1fr}.cena article+article{border-left:0;border-top:1px solid var(--linha)}
+  .medos{grid-template-columns:1fr 1fr}
+  .passo{grid-template-columns:1fr;gap:10px}
+  .quem .miolo{grid-template-columns:1fr;gap:56px}
+  .quem-foto .livro{right:0}
+  .lados,.ingresso .miolo{grid-template-columns:1fr}
+  section{padding-block:72px}
+}
+@media (max-width:520px){
+  .medos{grid-template-columns:1fr}
+  .creds{grid-template-columns:1fr}
+  .so-grande{display:none}.so-pequeno{display:inline}
+  .marca{font-size:12px;letter-spacing:.04em}
+  .cartao{padding:26px 22px}
+}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+
+
+<header class="topo faixa">
+  <div class="miolo">
+    <span class="marca">EMPREENDA SEM MEDO</span>
+    <a class="btn" href="#ingresso"><span class="so-grande">Quero minha vaga</span><span class="so-pequeno">Minha vaga</span> <small>R$ 97</small></a>
+  </div>
+</header>
+
+<main>
+  <div class="abre faixa">
+    <div class="miolo">
+      <div class="palco" aria-hidden="false">
+        <p class="gigante" aria-hidden="true">SEM<span>MEDO</span></p>
+        <img class="recorte" src="/empreenda/img/r-olhar.webp" alt="Geyvson Correia, autor de Empreenda Sem Medo, olhando para o alto" fetchpriority="high">
+        <p class="rabisco"><svg viewBox="0 0 64 48" aria-hidden="true"><path d="M4 40 C 20 44, 44 34, 56 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M46 12 L57 8 L58 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>GEYVSON CORREIA</b>o autor do livro</span></p>
+        <div class="chao"></div>
+      </div>
+      <div class="abre-txt">
+        <p class="quando"><i aria-hidden="true"></i>23 de janeiro · Aracaju (SE) · presencial</p>
+        <h1>Empreenda <span>sem medo.</span></h1>
+        <p class="lead">Uma noite para você sair com o plano que faltava para <b>tirar seu negócio do papel e vender na internet</b>, guiado por quem já fez.</p>
+        <div class="acoes">
+          <a class="btn" href="#ingresso">Garantir minha vaga · R$ 97</a>
+          <span class="nota">Lugares limitados ao espaço do evento</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bilhete-faixa faixa" aria-label="Dados do evento">
+    <div class="miolo bilhete">
+      <div><small>Data</small><b>23 de janeiro</b></div>
+      <div><small>Cidade</small><b>Aracaju · SE</b></div>
+      <div><small>Formato</small><b>Presencial</b></div>
+      <div><small>Ingresso</small><b>R$ 97</b></div>
+      <div class="falta"><small>Faltam</small><b data-falta>— dias</b></div>
+    </div>
+  </div>
+
+  <section class="imagine faixa">
+    <div class="miolo">
+      <span class="olho">imagine o dia 24 de janeiro…</span>
+      <h2 class="sec-tit">Duas pessoas acordam em Aracaju.</h2>
+      <p class="sec-sub">As duas têm a mesma vontade de ter o próprio negócio. A diferença entre elas foi uma noite.</p>
+      <div class="cena">
+        <article>
+          <h3>A que ficou em casa</h3>
+          <ul>
+            <li>Continua com a ideia guardada, esperando “o momento certo”.</li>
+            <li>Ainda não sabe se precisa de CNPJ, nota fiscal ou contador.</li>
+            <li>Olha a Shopee e o Mercado Livre e acha que é coisa para quem já é grande.</li>
+            <li>Termina o ano exatamente onde começou.</li>
+          </ul>
+        </article>
+        <article>
+          <h3>A que estava na plateia</h3>
+          <ul>
+            <li>Sabe qual é o primeiro passo e o que fazer na segunda-feira.</li>
+            <li>Entendeu a parte de impostos, CNPJ e nota fiscal com quem é da área.</li>
+            <li>Sabe como montar a loja nos marketplaces na ordem certa.</li>
+            <li>Conheceu gente que já vende na internet e trocou contato.</li>
+          </ul>
+        </article>
+      </div>
+      <p class="frase-grande">O medo de começar custa mais caro do que <em>qualquer ingresso.</em></p>
+    </div>
+  </section>
+
+  <section class="faixa" aria-labelledby="t-medos">
+    <div class="miolo">
+      <span class="olho">se você já pensou isso, essa noite é para você</span>
+      <h2 class="sec-tit" id="t-medos">Os medos que seguram quem quer empreender.</h2>
+      <div class="medos">
+        <div class="medo"><q>Não tenho dinheiro para começar.</q><p>Você vai ver por onde começar com pouco, do jeito que está no livro.</p></div>
+        <div class="medo"><q>Tenho medo de me enrolar com imposto.</q><p>MEI, CNPJ e nota fiscal explicados por quem trabalha com isso.</p></div>
+        <div class="medo"><q>Nunca vendi nada na internet.</q><p>O passo a passo parte do zero, sem precisar saber nada antes.</p></div>
+        <div class="medo"><q>E se eu tentar e não der certo?</q><p>Errar menos é saber a ordem certa. É isso que você leva para casa.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa" aria-labelledby="t-caminho">
+    <div class="miolo">
+      <span class="olho">o que vai acontecer na palestra</span>
+      <h2 class="sec-tit" id="t-caminho">Do primeiro passo à primeira venda, na ordem certa.</h2>
+      <div class="caminho">
+        <div class="passo"><span class="n">01</span><h3>Perder o medo e começar do zero</h3><p>Como tirar a ideia do papel sem precisar de muito dinheiro, e por onde começar quando você nunca empreendeu.</p></div>
+        <div class="passo"><span class="n">02</span><h3>Estrutura contábil e jurídica</h3><p>MEI, CNPJ, nota fiscal e o que precisa estar em ordem, com orientação de especialistas da área.</p></div>
+        <div class="passo"><span class="n">03</span><h3>Sua loja nos marketplaces</h3><div><p>Como montar e vender no seu próprio e-commerce dentro das maiores plataformas do Brasil.</p><div class="lojas"><span>Shopee</span><span>Mercado Livre</span><span>TikTok Shop</span></div></div></div>
+        <div class="passo"><span class="n">04</span><h3>Marketing, comunicação e ferramentas</h3><p>Como atrair clientes, e as ferramentas e os treinamentos que aceleram quem vende na internet.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quem faixa" aria-labelledby="t-quem">
+    <div class="miolo">
+      <div class="quem-foto">
+        <div class="bloco" aria-hidden="true"></div>
+        <img class="pessoa" src="/empreenda/img/r-sentado.webp" alt="Geyvson Correia sentado, de braços cruzados" loading="lazy">
+        <img class="livro" src="/empreenda/img/livro-capa.webp" alt="Capa do livro Empreenda Sem Medo, de Geyvson Correia, editora Doxa" loading="lazy">
+        <span class="selo">AUTOR · EDITORA DOXA</span>
+      </div>
+      <div>
+        <span class="olho">quem vai estar no palco</span>
+        <h2 id="t-quem">Geyvson Correia</h2>
+        <p class="cargo">Gestor de negócios, marketing e desenvolvimento · autor de “Empreenda Sem Medo” (Doxa)</p>
+        <p class="txt">Sertanejo de Sergipe, foi secretário municipal, diretor, consultor, professor e empreendedor. Passou por órgãos públicos, empresas privadas e cooperativismo de crédito, sempre estruturando negócios e projetos de empreendedorismo. No livro, mostra como construir uma startup com cinquenta reais. Na palestra, transforma esse método num passo a passo para quem quer vender na internet.</p>
+        <ul class="creds">
+          <li><b>Comunicação Social</b>graduação, com formação também em Direito</li>
+          <li><b>Gestão Pública</b>pós-graduação</li>
+          <li><b>2 MBAs</b>Gestão Estratégica de Negócios e Gestão da Criatividade e Inovação</li>
+          <li><b>Gestão e liderança</b>secretário municipal, diretor e consultor</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa" aria-labelledby="t-pra">
+    <div class="miolo">
+      <span class="olho">seja honesto com você</span>
+      <h2 class="sec-tit" id="t-pra">Essa noite é para você?</h2>
+      <div class="lados">
+        <div class="lado sim"><h3>É para você se…</h3><ul>
+          <li>quer ter um negócio próprio e não sabe por onde começar</li>
+          <li>já vende um pouco e quer levar seu produto para a internet</li>
+          <li>tem medo de errar na parte de impostos, CNPJ e nota fiscal</li>
+          <li>quer vender na Shopee, no Mercado Livre ou no TikTok Shop</li>
+        </ul></div>
+        <div class="lado nao"><h3>Não é para você se…</h3><ul>
+          <li>procura dinheiro fácil sem trabalho</li>
+          <li>não quer aprender nem colocar a mão na massa</li>
+          <li>acha que a internet é só para quem já é grande</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ingresso faixa" id="ingresso" aria-labelledby="t-ing">
+    <div class="miolo">
+      <div>
+        <span class="olho">sua vaga</span>
+        <h2 class="sec-tit" id="t-ing">Uma noite. Um plano. O seu negócio andando.</h2>
+        <div class="garantias" style="margin-top:32px">
+          <p><b>Vagas limitadas ao espaço</b>O evento é presencial e o número de lugares é o do local. Quando encher, fecha.</p>
+          <p><b>Confirmação no seu WhatsApp</b>Você recebe a confirmação e o endereço exato do evento pelo WhatsApp.</p>
+          <p><b>Leve suas dúvidas</b>Especialistas em contabilidade, jurídico e marketing estarão lá para responder.</p>
+        </div>
+      </div>
+      <div class="cartao">
+        <div class="topo-c"><div><small style="font-weight:700;color:#5A4E42">Ingresso · Empreenda Sem Medo</small><div class="preco"><small>R$</small>97</div></div><span class="mao" style="color:#9A5226">23 · jan</span></div>
+        <ul>
+          <li>Palestra presencial com Geyvson Correia</li>
+          <li>O método Empreenda Sem Medo do zero</li>
+          <li>Estrutura contábil, jurídica e de marketing</li>
+          <li>Como abrir sua loja nos marketplaces</li>
+          <li>Contato com quem já vende na internet</li>
+        </ul>
+        <form id="form" novalidate>
+          <div><label for="f-nome">Nome completo</label><input id="f-nome" autocomplete="name" required></div>
+          <div><label for="f-zap">WhatsApp com DDD</label><input id="f-zap" inputmode="tel" autocomplete="tel" placeholder="(79) 99999-9999" required></div>
+          <div><label for="f-email">E-mail</label><input id="f-email" type="email" autocomplete="email" required></div>
+          <p class="erro" id="f-erro" hidden></p>
+          <button class="btn" type="submit">Garantir minha vaga · R$ 97</button>
+          <p class="ok" id="f-ok" hidden>Vaga pré-reservada! Você vai receber o link de pagamento e a confirmação no seu WhatsApp.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa" aria-labelledby="t-duv">
+    <div class="miolo" style="max-width:860px">
+      <span class="olho">dúvidas</span>
+      <h2 class="sec-tit" id="t-duv" style="margin-bottom:30px">Perguntas frequentes</h2>
+      <details><summary>Onde vai ser a palestra?</summary><p>Em Aracaju (SE), no dia 23 de janeiro. O endereço exato vai para o seu WhatsApp junto com a confirmação da vaga.</p></details>
+      <details><summary>Preciso já ter uma empresa ou CNPJ?</summary><p>Não. A palestra começa do zero e mostra o que você precisa ter em ordem e em que momento.</p></details>
+      <details><summary>Nunca vendi na internet. Vou entender?</summary><p>Vai. O passo a passo foi pensado para quem nunca vendeu, do primeiro passo à primeira venda.</p></details>
+      <details><summary>Como recebo meu ingresso?</summary><p>Depois do pagamento, a confirmação chega no WhatsApp que você informar no cadastro.</p></details>
+    </div>
+  </section>
+
+  <section class="fecho faixa">
+    <div class="miolo">
+      <h2>Daqui a um ano, você vai desejar ter <span>começado hoje.</span></h2>
+      <p>O próximo passo do seu negócio cabe numa noite em Aracaju. Garanta sua vaga enquanto ainda tem lugar.</p>
+      <a class="btn" href="#ingresso">Quero minha vaga · R$ 97</a>
+    </div>
+    <img class="pessoa-fim" src="/empreenda/img/r-maos.webp" alt="Geyvson Correia com as mãos unidas" loading="lazy">
+  </section>
+</main>
+
+<footer class="faixa"><div class="miolo"><span>Empreenda Sem Medo · Palestra com Geyvson Correia</span><span>23 de janeiro · Aracaju (SE)</span></div></footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  // contagem até o evento (23/01/2027, horário de Brasília)
+  var alvo=new Date('2027-01-23T19:00:00-03:00'), el=document.querySelector('[data-falta]');
+  function conta(){var d=Math.ceil((alvo-new Date())/864e5); el.textContent=d>1?d+' dias':d===1?'1 dia':'é hoje';}
+  conta();
+  var zap=$('f-zap');
+  zap.addEventListener('input',function(){var d=zap.value.replace(/\D/g,'').slice(0,11);zap.value=d.length<3?(d?'('+d:''):d.length<8?'('+d.slice(0,2)+') '+d.slice(2):'('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7)});
+  $('form').addEventListener('submit',function(e){
+    e.preventDefault(); var er=$('f-erro'); er.hidden=true;
+    if($('f-nome').value.trim().length<3){er.textContent='Escreva seu nome completo.';er.hidden=false;return}
+    if(zap.value.replace(/\D/g,'').length<10){er.textContent='Coloque seu WhatsApp com DDD, tipo (79) 99999-9999.';er.hidden=false;return}
+    if(!/^\S+@\S+\.\S+$/.test($('f-email').value.trim())){er.textContent='Confira seu e-mail.';er.hidden=false;return}
+    // pagamento: ligar aqui quando o domínio e o checkout estiverem prontos
+    $('f-ok').hidden=false;
+  });
+})();
+</script>
+
+</body>
+</html>
